@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7F0933CF24574FCB00FB5579 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0933CE24574FCB00FB5579 /* SignInViewModel.swift */; };
+		7F16188A286C473C0004D0B6 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 7F161889286C473C0004D0B6 /* .swiftlint.yml */; };
 		7F1E96BB2546B8BF00638965 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E96AE2546B8BF00638965 /* Alert.swift */; };
 		7F1E96BC2546B8BF00638965 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E96AF2546B8BF00638965 /* Date+Ext.swift */; };
 		7F1E96BD2546B8BF00638965 /* StatusBarShowingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E96B02546B8BF00638965 /* StatusBarShowingViewController.swift */; };
@@ -106,6 +107,7 @@
 /* Begin PBXFileReference section */
 		65A4996DDBF267DFE82ED9D5 /* Pods-LiveEvents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveEvents.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiveEvents/Pods-LiveEvents.release.xcconfig"; sourceTree = "<group>"; };
 		7F0933CE24574FCB00FB5579 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		7F161889286C473C0004D0B6 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
 		7F1E96AE2546B8BF00638965 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		7F1E96AF2546B8BF00638965 /* Date+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		7F1E96B02546B8BF00638965 /* StatusBarShowingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarShowingViewController.swift; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 				7F68E8DE285F240A000022F5 /* Info.plist */,
 				7F53B1B62030B4B400E09CFA /* LiveEvents-Bridging-Header.h */,
 				7F563B5C286C1DB100F0901D /* README.md */,
+				7F161889286C473C0004D0B6 /* .swiftlint.yml */,
 				7F563B5E286C217700F0901D /* .gitignore */,
 				7F4E3D382858D541009DA9F8 /* GoogleSignIn.bundle */,
 			);
@@ -757,6 +760,7 @@
 				7F53B1AB2030724200E09CFA /* Main.storyboard in Resources */,
 				7F9274B31DBDCAD00051DE6B /* Assets.xcassets in Resources */,
 				7FAF9E92246187B900C8B81B /* Config.plist in Resources */,
+				7F16188A286C473C0004D0B6 /* .swiftlint.yml in Resources */,
 				7F53B1AA2030724200E09CFA /* LaunchScreen.storyboard in Resources */,
 				7F4E3D392858D549009DA9F8 /* GoogleSignIn.bundle in Resources */,
 				7FE331DE2647A42700D412AE /* LiveBroadcastListModel.json in Resources */,
