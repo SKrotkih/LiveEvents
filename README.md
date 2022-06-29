@@ -14,8 +14,6 @@ and can be supposed as an example of using the package and the framework.
 
 - First of all follow instructions for [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) Framework to create and set up Google app for using YouTube Data API v3.
 
-<img src="https://user-images.githubusercontent.com/2775621/80704225-e826e700-8aec-11ea-875a-7971b76e40da.png" alt="Live Events Logo" style="width: 690px;" />
-
 - Download or clone the repository.
 
 - Select Sample folder
