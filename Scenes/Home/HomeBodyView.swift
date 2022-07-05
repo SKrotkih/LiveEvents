@@ -11,18 +11,18 @@ import SwiftGoogleSignIn
 
 /// SwiftUI content view for the Home screen
 struct HomeBodyView: View {
-    @EnvironmentObject var viewModel: GoogleSignInViewModel
+    @EnvironmentObject var signInViewModel: GoogleSignInViewModel
 
     var body: some View {
-        let user = viewModel.user
+        let currentUser = signInViewModel.user
         VStack {
             HStack(alignment: .top, spacing: 15.0) {
-                Text(user?.fullName ?? "???") // "Serhii Krotkih"
+                Text(currentUser?.fullName ?? "???")
                     .foregroundColor(.secondary)
                     .lineLimit(0)
                     .padding(.leading, 30.0)
                 Spacer()
-                AvatarImageView(user: user)
+                AvatarImageView(user: currentUser)
             }
             .frame(height: 30.0)
             Spacer()

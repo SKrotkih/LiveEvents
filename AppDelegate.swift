@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftGoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,18 +13,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var window: UIWindow? = UIWindow()
     lazy var appRouter = AppRouter()
 
-    // There are needed sensitive scopes to have ability to work properly
-    // Make sure they are presented in your app. Then send request on an verification
-    private let googleAPIscopePermissions = [
-        "https://www.googleapis.com/auth/youtube",
-        "https://www.googleapis.com/auth/youtube.readonly",
-        "https://www.googleapis.com/auth/youtube.force-ssl"
-    ]
-
     lazy private var observers: [UIApplicationDelegate]? = [
         WindowCustomizer(),
-        // The SwiftGoogleSignIn package delegate has to be launched too
-        SignInAppDelegate(googleAPIscopePermissions),
+        SignInAppDelegate(),
         // Should be last on the list
         AppRouter()
     ]
