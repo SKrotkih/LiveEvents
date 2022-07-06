@@ -7,22 +7,20 @@
 
 import SwiftUI
 import Combine
-import SwiftGoogleSignIn
 
 /// SwiftUI content view for the Home screen
 struct HomeBodyView: View {
     @EnvironmentObject var signInViewModel: GoogleSignInViewModel
 
     var body: some View {
-        let currentUser = signInViewModel.user
         VStack {
             HStack(alignment: .top, spacing: 15.0) {
-                Text(currentUser?.fullName ?? "???")
+                Text(LogInSession.userFullName ?? "???")
                     .foregroundColor(.secondary)
                     .lineLimit(0)
                     .padding(.leading, 30.0)
                 Spacer()
-                AvatarImageView(user: currentUser)
+                AvatarImageView()
             }
             .frame(height: 30.0)
             Spacer()
@@ -55,10 +53,8 @@ struct HomeBodyView: View {
 }
 
 struct AvatarImageView: View {
-    var user: GoogleUser?
-
     var body: some View {
-        if let url = user?.profilePicUrl {
+        if let url = LogInSession.userProfilePictureUrl {
             ProfileImageView(withURL: url.absoluteString)
         } else {
             PlaceholderView()

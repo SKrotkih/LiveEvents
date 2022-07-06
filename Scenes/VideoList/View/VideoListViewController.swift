@@ -11,7 +11,6 @@ import RxCocoa
 import RxDataSources
 import RxSwift
 import Combine
-import SwiftGoogleSignIn
 
 struct Stream {
     var time: String
@@ -24,7 +23,6 @@ class VideoListViewController: BaseViewController {
 
     @Lateinit var output: VideoListViewModelOutput
     @Lateinit var input: VideoListViewModelInput
-    @Lateinit var signInModel: SwiftGoogleSignIn.SignInModel
 
     enum CellIdentifier: String {
         case videoListCell
@@ -182,7 +180,7 @@ extension VideoListViewController {
 
     private func configureRightBarButtonItem() {
         let userNameLabel = UILabel(frame: CGRect.zero)
-        userNameLabel.text = signInModel.user?.fullName ?? ""
+        userNameLabel.text = LogInSession.userFullName ?? ""
         userNameLabel.textColor = .white
         let rightBarButton = UIBarButtonItem(customView: userNameLabel)
         self.navigationItem.rightBarButtonItem = rightBarButton

@@ -8,13 +8,11 @@
 
 import Foundation
 import YTLiveStreaming
-import SwiftGoogleSignIn
 
 struct YTApiProvider {
 
     func getApi() -> YTLiveStreaming {
-        let signInModel = SignInModel()
-        GoogleOAuth2.sharedInstance.accessToken = signInModel.user?.accessToken
+        GoogleOAuth2.sharedInstance.accessToken = LogInSession.oauthAccessToken
         return YTLiveStreaming()
     }
 }

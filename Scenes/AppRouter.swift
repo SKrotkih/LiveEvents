@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftGoogleSignIn
 
 let Router = AppDelegate.shared.appRouter
 
@@ -99,7 +98,6 @@ extension AppRouter {
         // Inbound Broadcast
         viewController.output = viewModel
         viewController.input = viewModel
-        viewController.signInModel = SignInModel()
     }
 
     ///
