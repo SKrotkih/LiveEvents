@@ -10,6 +10,8 @@ import SwiftGoogleSignIn
 
 class SignInAppDelegate: NSObject, UIApplicationDelegate {
 
+    let isScopesApproved = false
+
     // There are needed sensitive scopes to have ability to work properly
     // Make sure they are presented in your app. Then send request on an verification
     private let googleAPIscopes = [
@@ -20,7 +22,7 @@ class SignInAppDelegate: NSObject, UIApplicationDelegate {
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        SwiftGoogleSignIn.session.initialize(googleAPIscopes)
+        SwiftGoogleSignIn.session.initialize(isScopesApproved ? googleAPIscopes : nil)
         return true
     }
 
