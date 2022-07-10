@@ -55,6 +55,7 @@
 		7F83E35B1DBDD58C00DE4102 /* YouTubePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F83E35A1DBDD58C00DE4102 /* YouTubePlayer.swift */; };
 		7F83E35D1DBDD5DB00DE4102 /* XCDYouTubeVideoPlayer8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F83E35C1DBDD5DB00DE4102 /* XCDYouTubeVideoPlayer8.swift */; };
 		7F853734265796BF00C21921 /* TextViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F853733265796BF00C21921 /* TextViewRepresentable.swift */; };
+		7F91D0F6287A80C3007E7A29 /* YTLiveStreaming in Frameworks */ = {isa = PBXBuildFile; productRef = 7F91D0F5287A80C3007E7A29 /* YTLiveStreaming */; };
 		7F9274AE1DBDCAD00051DE6B /* VideoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9274AD1DBDCAD00051DE6B /* VideoListViewController.swift */; };
 		7F9274B31DBDCAD00051DE6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F9274B21DBDCAD00051DE6B /* Assets.xcassets */; };
 		7F9A91D42609AAB90036CA0B /* YouTubeHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A91D32609AAB90036CA0B /* YouTubeHelpers.swift */; };
@@ -209,6 +210,7 @@
 			files = (
 				C730E8A1F1E53DDE85561021 /* Pods_LiveEvents.framework in Frameworks */,
 				7F4C22B32869CEE500F29118 /* SwiftGoogleSignIn in Frameworks */,
+				7F91D0F6287A80C3007E7A29 /* YTLiveStreaming in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -695,6 +697,7 @@
 			name = LiveEvents;
 			packageProductDependencies = (
 				7F4C22B22869CEE500F29118 /* SwiftGoogleSignIn */,
+				7F91D0F5287A80C3007E7A29 /* YTLiveStreaming */,
 			);
 			productName = YouTubeLiveVideo;
 			productReference = 7F9274A81DBDCAD00051DE6B /* LiveEvents.app */;
@@ -735,7 +738,8 @@
 			);
 			mainGroup = 7F92749F1DBDCAD00051DE6B;
 			packageReferences = (
-				7F4C22B12869CEE500F29118 /* XCRemoteSwiftPackageReference "SwiftGoogleSignIn.git" */,
+				7F4C22B12869CEE500F29118 /* XCRemoteSwiftPackageReference "SwiftGoogleSignIn" */,
+				7F91D0F4287A80C3007E7A29 /* XCRemoteSwiftPackageReference "YTLiveStreaming" */,
 			);
 			productRefGroup = 7F9274A91DBDCAD00051DE6B /* Products */;
 			projectDirPath = "";
@@ -802,38 +806,28 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-LiveEvents-LiveEventsTests/Pods-LiveEvents-LiveEventsTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
-				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 				"${BUILT_PRODUCTS_DIR}/LFLiveKit/LFLiveKit.framework",
-				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
 				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/XCDYouTubeKit/XCDYouTubeKit.framework",
-				"${BUILT_PRODUCTS_DIR}/YTLiveStreaming/YTLiveStreaming.framework",
 				"${BUILT_PRODUCTS_DIR}/youtube-ios-player-helper/youtube_ios_player_helper.framework",
 				"${BUILT_PRODUCTS_DIR}/RxBlocking/RxBlocking.framework",
 				"${BUILT_PRODUCTS_DIR}/RxTest/RxTest.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LFLiveKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XCDYouTubeKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YTLiveStreaming.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/youtube_ios_player_helper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxBlocking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxTest.framework",
@@ -868,36 +862,26 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-LiveEvents/Pods-LiveEvents-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
-				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 				"${BUILT_PRODUCTS_DIR}/LFLiveKit/LFLiveKit.framework",
-				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
 				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/XCDYouTubeKit/XCDYouTubeKit.framework",
-				"${BUILT_PRODUCTS_DIR}/YTLiveStreaming/YTLiveStreaming.framework",
 				"${BUILT_PRODUCTS_DIR}/youtube-ios-player-helper/youtube_ios_player_helper.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LFLiveKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XCDYouTubeKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YTLiveStreaming.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/youtube_ios_player_helper.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1328,7 +1312,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		7F4C22B12869CEE500F29118 /* XCRemoteSwiftPackageReference "SwiftGoogleSignIn.git" */ = {
+		7F4C22B12869CEE500F29118 /* XCRemoteSwiftPackageReference "SwiftGoogleSignIn" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SKrotkih/SwiftGoogleSignIn.git";
 			requirement = {
@@ -1336,13 +1320,26 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		7F91D0F4287A80C3007E7A29 /* XCRemoteSwiftPackageReference "YTLiveStreaming" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SKrotkih/YTLiveStreaming.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		7F4C22B22869CEE500F29118 /* SwiftGoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 7F4C22B12869CEE500F29118 /* XCRemoteSwiftPackageReference "SwiftGoogleSignIn.git" */;
+			package = 7F4C22B12869CEE500F29118 /* XCRemoteSwiftPackageReference "SwiftGoogleSignIn" */;
 			productName = SwiftGoogleSignIn;
+		};
+		7F91D0F5287A80C3007E7A29 /* YTLiveStreaming */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7F91D0F4287A80C3007E7A29 /* XCRemoteSwiftPackageReference "YTLiveStreaming" */;
+			productName = YTLiveStreaming;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

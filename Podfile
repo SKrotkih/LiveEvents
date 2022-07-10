@@ -5,7 +5,8 @@ target 'LiveEvents' do
     platform :ios, '13.0'
     use_frameworks!
     
-    pod 'YTLiveStreaming'
+    # clean comment if you want to use framework instead of package
+    # pod 'YTLiveStreaming'
     # pod 'YTLiveStreaming', :path => '../.'
 
     pod "XCDYouTubeKit", "~> 2.15"
