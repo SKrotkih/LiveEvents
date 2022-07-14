@@ -30,8 +30,9 @@ LiveEvents is an example of using [YTLiveStreaming](https://github.com/SKrotkih/
 
 ## Libraries Used
 
-- [SwiftGoogleSignIn](https://github.com/SKrotkih/SwiftGoogleSignIn.git) package. It used 
-[Goggle Sign-In for iOS](https://developers.google.com/identity/sign-in/ios/start-integrating).  
+- [SwiftGoogleSignIn](https://github.com/SKrotkih/SwiftGoogleSignIn.git) package. It uses
+[Goggle Sign-In for iOS](https://developers.google.com/identity/sign-in/ios/start-integrating).
+- [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) It can be used as package (SPM) and Pods Framework  
 
 Author
 Serhii Krotkykh
