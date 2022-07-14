@@ -1,45 +1,37 @@
 # LiveEvents
 
-LiveEvents is an iOS app developed on Swift with using
-[YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) framework and
-[SwiftGoogleSignIn](https://github.com/SKrotkih/SwiftGoogleSignIn.git) package
-and can be supposed as an example of using the package and the framework.
+LiveEvents is an example of using [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) framework and
+[SwiftGoogleSignIn](https://github.com/SKrotkih/SwiftGoogleSignIn.git) package.
 
 ## Requirements
 
 - Xcode 13+
-- Swift 5.5
+- Swift 5.*
 
 ## Introduction
 
-- First of all follow instructions for [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) Framework to create and set up Google app for using YouTube Data API v3.
+- First of all follow instructions for the [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) Framework to create and set up Google application which uses the YouTube Data API v3.
 
-- Download or clone the repository.
+- Download or clone the repository
 
-- Select Sample folder
+- Launch  `pod install` in teh rood directory   
 
-- Launch  `pod install`   
+- Open LiveEvents.xcworkspace
 
-- Open LiveEvents.xcworkspace.
+- Change current bundle id on yours
 
-- Change current bundle id on your
-
-- Create Config.plist. Copy content Config.plist.example.plist into new Config.plist. Change current values of the client ID and API key on yours.  
-
-- Put [CLIENT_ID](https://developers.google.com/identity/sign-in/ios/start-integrating#get_an_oauth_client_id) and API_KEY into the plist.info:
+- Create Config.plist and copy content of the Config.plist.example.plist file there. Change client ID and API key on yours  
 
 <img src="https://user-images.githubusercontent.com/2775621/173193901-cbdc8653-76c8-4aea-b0d9-0f9d4391fba3.png" alt="Config.plist" style="width: 690px;" />
 
-- In Sample/Info.plist edit the CFBundleURLSchemes. Change the value that starts with "com.googleusercontent.apps." based on your API key. It should be set to the reversed API key. The API key has the format XXXXXXXX.apps.googleusercontent.com and the allowed URL should be com.googleusercontent.apps.XXXXXXXX :
+- Open Info.plist and edit CFBundleURLSchemes key value. Change the value that starts with "com.googleusercontent.apps." based on your API key. It should be set to the reversed API key. The API key has the format XXXXXXXX.apps.googleusercontent.com and the allowed URL should be com.googleusercontent.apps.XXXXXXXX :
 
 <img src="https://user-images.githubusercontent.com/2775621/173220142-003b05e9-3903-4959-b88a-7f1181c1c010.png" alt="Info.plist Example" style="width: 690px;" />
 
 ## Libraries Used
 
-- [SwiftGoogleSignIn](https://github.com/SKrotkih/SwiftGoogleSignIn.git) package
-
-Note. Here were  used the following things:
-- Goggle Sign-In for iOS ( https://developers.google.com/identity/sign-in/ios/start-integrating ) 
+- [SwiftGoogleSignIn](https://github.com/SKrotkih/SwiftGoogleSignIn.git) package. It used 
+[Goggle Sign-In for iOS](https://developers.google.com/identity/sign-in/ios/start-integrating).  
 
 Author
 Serhii Krotkykh

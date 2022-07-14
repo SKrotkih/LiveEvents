@@ -19,13 +19,13 @@ protocol SignInInOutput {
 }
 
 protocol UserObserver {
-    var user: GoogleUser? { get }
+    var user: UserProfile? { get }
 }
 
 class GoogleSignInViewModel: SignInViewModel, ObservableObject {
     private var cancellableBag = Set<AnyCancellable>()
 
-    @Published var user: GoogleUser?
+    @Published var user: UserProfile?
 
     func configure() {
         suscribeOnUser()
@@ -33,7 +33,7 @@ class GoogleSignInViewModel: SignInViewModel, ObservableObject {
     }
 
     private func suscribeOnUser() {
-        LogInSession.user?
+        LogInSession.userProfile?
             .receive(on: RunLoop.main)
             .sink { [unowned self] in
                 self.user = $0
