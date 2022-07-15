@@ -1,3 +1,5 @@
+[![ci](https://github.com/SKrotkih/LiveEvents/actions/workflows/ci.yml/badge.svg)]
+
 # LiveEvents
 
 LiveEvents is an example of using [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) framework and

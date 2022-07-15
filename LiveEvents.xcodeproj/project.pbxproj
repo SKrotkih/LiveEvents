@@ -29,7 +29,6 @@
 		7F39A88D2456FD0400C18130 /* GoogleSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F39A88C2456FD0400C18130 /* GoogleSessionManager.swift */; };
 		7F49B89F28747733008696D7 /* SignInAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F49B89E28747733008696D7 /* SignInAppDelegate.swift */; };
 		7F4C22B32869CEE500F29118 /* SwiftGoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 7F4C22B22869CEE500F29118 /* SwiftGoogleSignIn */; };
-		7F4E3D392858D549009DA9F8 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7F4E3D382858D541009DA9F8 /* GoogleSignIn.bundle */; };
 		7F5296332857649800548281 /* LateInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5296322857649800548281 /* LateInit.swift */; };
 		7F5296382858A17F00548281 /* SignInBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5296372858A17F00548281 /* SignInBodyView.swift */; };
 		7F52963C2858AF6D00548281 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F52963B2858AF6C00548281 /* MainViewController.swift */; };
@@ -132,7 +131,6 @@
 		7F384BED24587498004C07EE /* Appearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
 		7F39A88C2456FD0400C18130 /* GoogleSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSessionManager.swift; sourceTree = "<group>"; };
 		7F49B89E28747733008696D7 /* SignInAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInAppDelegate.swift; sourceTree = "<group>"; };
-		7F4E3D382858D541009DA9F8 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleSignIn.bundle; sourceTree = "<group>"; };
 		7F5296322857649800548281 /* LateInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LateInit.swift; sourceTree = "<group>"; };
 		7F5296372858A17F00548281 /* SignInBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInBodyView.swift; sourceTree = "<group>"; };
 		7F52963B2858AF6C00548281 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -171,6 +169,7 @@
 		7F9A91D32609AAB90036CA0B /* YouTubeHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeHelpers.swift; sourceTree = "<group>"; };
 		7F9A91D72609AC170036CA0B /* YouTubeVideoPlayed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeVideoPlayed.swift; sourceTree = "<group>"; };
 		7F9A92342609BE180036CA0B /* XCDYouTubeVideoPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCDYouTubeVideoPlayer.swift; sourceTree = "<group>"; };
+		7FA6450B28815F8B009E76F5 /* ci.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; name = ci.yml; path = .github/workflows/ci.yml; sourceTree = SOURCE_ROOT; };
 		7FA74D59260B3BD70069DA8A /* NewStreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStreamViewController.swift; sourceTree = "<group>"; };
 		7FA74D5C260B3BF50069DA8A /* NewStreamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStreamViewModel.swift; sourceTree = "<group>"; };
 		7FA74D5F260B3C0E0069DA8A /* NewStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStream.swift; sourceTree = "<group>"; };
@@ -365,9 +364,9 @@
 				7F68E8DE285F240A000022F5 /* Info.plist */,
 				7F53B1B62030B4B400E09CFA /* LiveEvents-Bridging-Header.h */,
 				7F563B5C286C1DB100F0901D /* README.md */,
+				7FA6450B28815F8B009E76F5 /* ci.yml */,
 				7F161889286C473C0004D0B6 /* .swiftlint.yml */,
 				7F563B5E286C217700F0901D /* .gitignore */,
-				7F4E3D382858D541009DA9F8 /* GoogleSignIn.bundle */,
 			);
 			name = "Supporting Files";
 			path = Resources;
@@ -773,7 +772,6 @@
 				7FAF9E92246187B900C8B81B /* Config.plist in Resources */,
 				7F16188A286C473C0004D0B6 /* .swiftlint.yml in Resources */,
 				7F53B1AA2030724200E09CFA /* LaunchScreen.storyboard in Resources */,
-				7F4E3D392858D549009DA9F8 /* GoogleSignIn.bundle in Resources */,
 				7FE331DE2647A42700D412AE /* LiveBroadcastListModel.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,0 +1,17 @@
+name: ci
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run LiveEvents unit tests
+      run: xcodebuild -scheme LiveEvents test -destination "platform=iOS Simulator,name=iPhone 12 Pro Max"
