@@ -32,7 +32,7 @@ extension LiveStreamingViewModel {
 
         print("Watch the live video here: https://www.youtube.com/watch?v=\(liveBroadcast.id)")
 
-        Router.showLiveVideoScreen()
+        Router.openLiveVideoScreen()
     }
 }
 

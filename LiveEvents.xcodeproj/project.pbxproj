@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7F0933CF24574FCB00FB5579 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0933CE24574FCB00FB5579 /* SignInViewModel.swift */; };
+		7F0933CF24574FCB00FB5579 /* SignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0933CE24574FCB00FB5579 /* SignInService.swift */; };
 		7F16188A286C473C0004D0B6 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 7F161889286C473C0004D0B6 /* .swiftlint.yml */; };
 		7F1E96BB2546B8BF00638965 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E96AE2546B8BF00638965 /* Alert.swift */; };
 		7F1E96BC2546B8BF00638965 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E96AF2546B8BF00638965 /* Date+Ext.swift */; };
@@ -26,8 +26,6 @@
 		7F384BEB245873A6004C07EE /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BE9245873A5004C07EE /* BaseViewController.swift */; };
 		7F384BEC245873A6004C07EE /* MainNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BEA245873A5004C07EE /* MainNavController.swift */; };
 		7F384BEE24587498004C07EE /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BED24587498004C07EE /* Appearance.swift */; };
-		7F39A88D2456FD0400C18130 /* GoogleSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F39A88C2456FD0400C18130 /* GoogleSessionManager.swift */; };
-		7F49B89F28747733008696D7 /* SignInAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F49B89E28747733008696D7 /* SignInAppDelegate.swift */; };
 		7F4C22B32869CEE500F29118 /* SwiftGoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 7F4C22B22869CEE500F29118 /* SwiftGoogleSignIn */; };
 		7F5296332857649800548281 /* LateInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5296322857649800548281 /* LateInit.swift */; };
 		7F5296382858A17F00548281 /* SignInBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5296372858A17F00548281 /* SignInBodyView.swift */; };
@@ -42,7 +40,6 @@
 		7F79C8A22547F2910044CF81 /* BroadcastsApiProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F79C8A12547F2910044CF81 /* BroadcastsApiProtocol.swift */; };
 		7F79C8A4254802910044CF81 /* VideoListViewModelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F79C8A3254802910044CF81 /* VideoListViewModelProtocols.swift */; };
 		7F79C8A6254802FB0044CF81 /* BroadcastsDataFetcherProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F79C8A5254802FB0044CF81 /* BroadcastsDataFetcherProtocol.swift */; };
-		7F79C8A8254804320044CF81 /* SessionViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F79C8A7254804320044CF81 /* SessionViewModelProtocol.swift */; };
 		7F79C8AB254806DF0044CF81 /* YouTubeLiveVideoPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F79C8AA254806DF0044CF81 /* YouTubeLiveVideoPublisher.swift */; };
 		7F79FE42265E6BB1002FA510 /* loadMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F79FE41265E6BB1002FA510 /* loadMockData.swift */; };
 		7F7D436B2573A3AE00CC7642 /* LiveEventsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7D436A2573A3AE00CC7642 /* LiveEventsTests.swift */; };
@@ -64,6 +61,10 @@
 		7FA74D5A260B3BD70069DA8A /* NewStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA74D59260B3BD70069DA8A /* NewStreamViewController.swift */; };
 		7FA74D5D260B3BF50069DA8A /* NewStreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA74D5C260B3BF50069DA8A /* NewStreamViewModel.swift */; };
 		7FA74D60260B3C0E0069DA8A /* NewStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA74D5F260B3C0E0069DA8A /* NewStream.swift */; };
+		7FAEE3482887AADF00770924 /* AuthState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE3472887AADF00770924 /* AuthState.swift */; };
+		7FAEE35028883EA300770924 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE34D28883EA100770924 /* Store.swift */; };
+		7FAEE35128883EA300770924 /* AuthAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE34E28883EA200770924 /* AuthAction.swift */; };
+		7FAEE35228883EA300770924 /* AuthReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE34F28883EA300770924 /* AuthReducer.swift */; };
 		7FAF9E92246187B900C8B81B /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF9E91246187B900C8B81B /* Config.plist */; };
 		7FB8A42B1DD23C3100955C2D /* LFLivePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB8A42A1DD23C3100955C2D /* LFLivePreview.m */; };
 		7FB8A42D1DD23F8400955C2D /* LFLiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB8A42C1DD23F8400955C2D /* LFLiveViewController.swift */; };
@@ -108,7 +109,7 @@
 
 /* Begin PBXFileReference section */
 		65A4996DDBF267DFE82ED9D5 /* Pods-LiveEvents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveEvents.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiveEvents/Pods-LiveEvents.release.xcconfig"; sourceTree = "<group>"; };
-		7F0933CE24574FCB00FB5579 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		7F0933CE24574FCB00FB5579 /* SignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInService.swift; sourceTree = "<group>"; };
 		7F161889286C473C0004D0B6 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
 		7F1E96AE2546B8BF00638965 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		7F1E96AF2546B8BF00638965 /* Date+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
@@ -129,8 +130,6 @@
 		7F384BE9245873A5004C07EE /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		7F384BEA245873A5004C07EE /* MainNavController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavController.swift; sourceTree = "<group>"; };
 		7F384BED24587498004C07EE /* Appearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
-		7F39A88C2456FD0400C18130 /* GoogleSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSessionManager.swift; sourceTree = "<group>"; };
-		7F49B89E28747733008696D7 /* SignInAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInAppDelegate.swift; sourceTree = "<group>"; };
 		7F5296322857649800548281 /* LateInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LateInit.swift; sourceTree = "<group>"; };
 		7F5296372858A17F00548281 /* SignInBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInBodyView.swift; sourceTree = "<group>"; };
 		7F52963B2858AF6C00548281 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -148,7 +147,6 @@
 		7F79C8A12547F2910044CF81 /* BroadcastsApiProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastsApiProtocol.swift; sourceTree = "<group>"; };
 		7F79C8A3254802910044CF81 /* VideoListViewModelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListViewModelProtocols.swift; sourceTree = "<group>"; };
 		7F79C8A5254802FB0044CF81 /* BroadcastsDataFetcherProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastsDataFetcherProtocol.swift; sourceTree = "<group>"; };
-		7F79C8A7254804320044CF81 /* SessionViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionViewModelProtocol.swift; sourceTree = "<group>"; };
 		7F79C8AA254806DF0044CF81 /* YouTubeLiveVideoPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeLiveVideoPublisher.swift; sourceTree = "<group>"; };
 		7F79FE41265E6BB1002FA510 /* loadMockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loadMockData.swift; sourceTree = "<group>"; };
 		7F7D43682573A3AE00CC7642 /* LiveEventsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiveEventsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -169,10 +167,14 @@
 		7F9A91D32609AAB90036CA0B /* YouTubeHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeHelpers.swift; sourceTree = "<group>"; };
 		7F9A91D72609AC170036CA0B /* YouTubeVideoPlayed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeVideoPlayed.swift; sourceTree = "<group>"; };
 		7F9A92342609BE180036CA0B /* XCDYouTubeVideoPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCDYouTubeVideoPlayer.swift; sourceTree = "<group>"; };
-		7FA6450B28815F8B009E76F5 /* ci.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; name = ci.yml; path = .github/workflows/ci.yml; sourceTree = SOURCE_ROOT; };
+		7FA6450C28817702009E76F5 /* main.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; name = main.yml; path = .github/workflows/main.yml; sourceTree = SOURCE_ROOT; };
 		7FA74D59260B3BD70069DA8A /* NewStreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStreamViewController.swift; sourceTree = "<group>"; };
 		7FA74D5C260B3BF50069DA8A /* NewStreamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStreamViewModel.swift; sourceTree = "<group>"; };
 		7FA74D5F260B3C0E0069DA8A /* NewStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStream.swift; sourceTree = "<group>"; };
+		7FAEE3472887AADF00770924 /* AuthState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthState.swift; sourceTree = "<group>"; };
+		7FAEE34D28883EA100770924 /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		7FAEE34E28883EA200770924 /* AuthAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthAction.swift; sourceTree = "<group>"; };
+		7FAEE34F28883EA300770924 /* AuthReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthReducer.swift; sourceTree = "<group>"; };
 		7FAF9E91246187B900C8B81B /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Config.plist; sourceTree = SOURCE_ROOT; };
 		7FB8A4291DD23C3100955C2D /* LFLivePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFLivePreview.h; sourceTree = "<group>"; };
 		7FB8A42A1DD23C3100955C2D /* LFLivePreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFLivePreview.m; sourceTree = "<group>"; };
@@ -226,12 +228,12 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		7F1E96A82546B46A00638965 /* ViewModel */ = {
+		7F1E96A82546B46A00638965 /* SignInService */ = {
 			isa = PBXGroup;
 			children = (
-				7F0933CE24574FCB00FB5579 /* SignInViewModel.swift */,
+				7F0933CE24574FCB00FB5579 /* SignInService.swift */,
 			);
-			path = ViewModel;
+			path = SignInService;
 			sourceTree = "<group>";
 		};
 		7F1E96A92546B4EB00638965 /* View */ = {
@@ -358,14 +360,13 @@
 			isa = PBXGroup;
 			children = (
 				7F53B1B32030B4B300E09CFA /* AppDelegate.swift */,
-				7F49B89E28747733008696D7 /* SignInAppDelegate.swift */,
 				7F1E96C62546B95A00638965 /* Constants.swift */,
 				7FAF9E91246187B900C8B81B /* Config.plist */,
 				7F68E8DE285F240A000022F5 /* Info.plist */,
 				7F53B1B62030B4B400E09CFA /* LiveEvents-Bridging-Header.h */,
 				7F563B5C286C1DB100F0901D /* README.md */,
-				7FA6450B28815F8B009E76F5 /* ci.yml */,
 				7F161889286C473C0004D0B6 /* .swiftlint.yml */,
+				7FA6450C28817702009E76F5 /* main.yml */,
 				7F563B5E286C217700F0901D /* .gitignore */,
 			);
 			name = "Supporting Files";
@@ -395,20 +396,11 @@
 		7F7D7DA22608EAF0005FAC3B /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				7F79C8A7254804320044CF81 /* SessionViewModelProtocol.swift */,
 				7F79C8A3254802910044CF81 /* VideoListViewModelProtocols.swift */,
 				7F79C8A5254802FB0044CF81 /* BroadcastsDataFetcherProtocol.swift */,
 				7F79C8A12547F2910044CF81 /* BroadcastsApiProtocol.swift */,
 			);
 			path = Protocols;
-			sourceTree = "<group>";
-		};
-		7F7D7DA62608EE4D005FAC3B /* SessionManager */ = {
-			isa = PBXGroup;
-			children = (
-				7F39A88C2456FD0400C18130 /* GoogleSessionManager.swift */,
-			);
-			path = SessionManager;
 			sourceTree = "<group>";
 		};
 		7F7D7DA82608EEC5005FAC3B /* Interactor */ = {
@@ -571,12 +563,38 @@
 			isa = PBXGroup;
 			children = (
 				7F1E96A72546B45900638965 /* View */,
-				7F1E96A82546B46A00638965 /* ViewModel */,
-				7F7D7DA62608EE4D005FAC3B /* SessionManager */,
 			);
 			name = SignIn;
 			path = Scenes/SignIn;
 			sourceTree = SOURCE_ROOT;
+		};
+		7FAEE2FC28862A0500770924 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7F52963B2858AF6C00548281 /* MainViewController.swift */,
+				7FFA59862861DDDE00D2F4FE /* MainBodyView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7FAEE2FD28862A1B00770924 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7FFA59852861DDDE00D2F4FE /* HomeBodyView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7FAEE34C288828C000770924 /* Redux */ = {
+			isa = PBXGroup;
+			children = (
+				7FAEE3472887AADF00770924 /* AuthState.swift */,
+				7FAEE34E28883EA200770924 /* AuthAction.swift */,
+				7FAEE34F28883EA300770924 /* AuthReducer.swift */,
+				7FAEE34D28883EA100770924 /* Store.swift */,
+			);
+			path = Redux;
+			sourceTree = "<group>";
 		};
 		7FC7367C2605D9ED00F426A9 /* YYAdd */ = {
 			isa = PBXGroup;
@@ -596,6 +614,8 @@
 				7F1E96B12546B8BF00638965 /* Extensions */,
 				7F1E96AD2546B8BF00638965 /* Helpers */,
 				7F39A88B24569F3800C18130 /* Model */,
+				7F1E96A82546B46A00638965 /* SignInService */,
+				7FAEE34C288828C000770924 /* Redux */,
 				7F53B1AD203072EA00E09CFA /* Scenes */,
 				7F53B1A5203071F000E09CFA /* Resources */,
 				7F53B1B22030B43000E09CFA /* Supporting Files */,
@@ -614,8 +634,7 @@
 		7FCFD64D28658A8F00F61B48 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				7F52963B2858AF6C00548281 /* MainViewController.swift */,
-				7FFA59862861DDDE00D2F4FE /* MainBodyView.swift */,
+				7FAEE2FC28862A0500770924 /* View */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -623,7 +642,7 @@
 		7FCFD64E28658AC600F61B48 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				7FFA59852861DDDE00D2F4FE /* HomeBodyView.swift */,
+				7FAEE2FD28862A1B00770924 /* View */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -925,15 +944,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F79B475265A342900D69012 /* SwiftUIVideoPlayerConfigurator.swift in Sources */,
+				7FAEE35128883EA300770924 /* AuthAction.swift in Sources */,
 				7FFA59872861DDDF00D2F4FE /* HomeBodyView.swift in Sources */,
 				7FB8A42B1DD23C3100955C2D /* LFLivePreview.m in Sources */,
 				7F79FE42265E6BB1002FA510 /* loadMockData.swift in Sources */,
 				7F1E96BC2546B8BF00638965 /* Date+Ext.swift in Sources */,
 				7FF255152856DA63008A7390 /* WindowCustomizer.swift in Sources */,
 				7F9A91D82609AC170036CA0B /* YouTubeVideoPlayed.swift in Sources */,
+				7FAEE35228883EA300770924 /* AuthReducer.swift in Sources */,
 				7F384BEB245873A6004C07EE /* BaseViewController.swift in Sources */,
 				7FA74D5D260B3BF50069DA8A /* NewStreamViewModel.swift in Sources */,
 				7F83E3371DBDD35500DE4102 /* VideoListTableViewCell.swift in Sources */,
+				7FAEE3482887AADF00770924 /* AuthState.swift in Sources */,
 				7F9A92352609BE180036CA0B /* XCDYouTubeVideoPlayer.swift in Sources */,
 				7FFA598A2864AE6600D2F4FE /* ImageLoader.swift in Sources */,
 				7F79C8AB254806DF0044CF81 /* YouTubeLiveVideoPublisher.swift in Sources */,
@@ -950,9 +972,10 @@
 				7F1E96BE2546B8BF00638965 /* UIViewController+Ext.swift in Sources */,
 				7F1E96C12546B8BF00638965 /* Color+Ext.swift in Sources */,
 				7F79C8A4254802910044CF81 /* VideoListViewModelProtocols.swift in Sources */,
+				7FAEE35028883EA300770924 /* Store.swift in Sources */,
 				7FFA59882861DDDF00D2F4FE /* MainBodyView.swift in Sources */,
 				7F83E34D1DBDD49100DE4102 /* LiveStreamingViewModel.swift in Sources */,
-				7F0933CF24574FCB00FB5579 /* SignInViewModel.swift in Sources */,
+				7F0933CF24574FCB00FB5579 /* SignInService.swift in Sources */,
 				7F83E35D1DBDD5DB00DE4102 /* XCDYouTubeVideoPlayer8.swift in Sources */,
 				7FA74D5A260B3BD70069DA8A /* NewStreamViewController.swift in Sources */,
 				7F9A91D42609AAB90036CA0B /* YouTubeHelpers.swift in Sources */,
@@ -960,7 +983,6 @@
 				7FDCF9862546BF1400D5B492 /* Error.swift in Sources */,
 				7F53B1B72030B4B400E09CFA /* AppDelegate.swift in Sources */,
 				7F853734265796BF00C21921 /* TextViewRepresentable.swift in Sources */,
-				7F79C8A8254804320044CF81 /* SessionViewModelProtocol.swift in Sources */,
 				7F1E96C02546B8BF00638965 /* UIView+YYAdd.m in Sources */,
 				7F1E96C32546B8BF00638965 /* UIControl+YYAdd.m in Sources */,
 				7FCFD6642868011600F61B48 /* YTApiProvider.swift in Sources */,
@@ -969,8 +991,6 @@
 				7F53B1B12030B38100E09CFA /* VideoListDataSource.swift in Sources */,
 				7F286C762657FA2100419B9C /* VideoPlayerViewController.swift in Sources */,
 				7F7E9FBC26563A0000D82B60 /* PlayerViewRepresentable.swift in Sources */,
-				7F39A88D2456FD0400C18130 /* GoogleSessionManager.swift in Sources */,
-				7F49B89F28747733008696D7 /* SignInAppDelegate.swift in Sources */,
 				7F79B472265A340800D69012 /* VideoPlayerConfigurator.swift in Sources */,
 				7FB8A42D1DD23F8400955C2D /* LFLiveViewController.swift in Sources */,
 				7F8221C7265646AD005A6015 /* VideoPlayer.mm in Sources */,

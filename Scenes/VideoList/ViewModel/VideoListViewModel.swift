@@ -20,8 +20,8 @@ class VideoListViewModel: VideoListViewModelOutput {
     // Default value of the used video player
     private static let playerType: VideoPlayerType = .VideoPlayerViewController
 
+    @Lateinit var store: AuthStore
     @Lateinit var dataSource: BroadcastsDataFetcher
-    @Lateinit var sessionManager: SessionManager
 
     var errorPublisher = PassthroughSubject<String, Never>()
     private let disposeBag = DisposeBag()
@@ -45,7 +45,7 @@ class VideoListViewModel: VideoListViewModelOutput {
     }
 
     func didUserLogOutAction() {
-        sessionManager.logOut()
+        store.stateDispatch(action: .logOut)
     }
 
     func didCloseViewAction() {
@@ -92,10 +92,6 @@ class VideoListViewModel: VideoListViewModelOutput {
 // MARK: - VideoListViewModelInput protocol implementation
 
 extension VideoListViewModel: VideoListViewModelInput {
-    var logoutResult: PassthroughSubject<Bool, Never>? {
-        return sessionManager.logoutResult
-    }
-
     var rxData: PublishSubject<[SectionModel]> {
         return dataSource.rxData
     }

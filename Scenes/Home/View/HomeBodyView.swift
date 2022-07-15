@@ -10,12 +10,11 @@ import Combine
 
 /// SwiftUI content view for the Home screen
 struct HomeBodyView: View {
-    @EnvironmentObject var signInViewModel: GoogleSignInViewModel
-
+    @EnvironmentObject var store: AuthStore
     var body: some View {
         VStack {
             HStack(alignment: .top, spacing: 15.0) {
-                Text(LogInSession.userFullName ?? "???")
+                Text(store.state.userSession?.profile.fullName ?? "")
                     .foregroundColor(.secondary)
                     .lineLimit(0)
                     .padding(.leading, 30.0)
@@ -29,7 +28,7 @@ struct HomeBodyView: View {
                 .scaledToFit()
             Spacer()
             Button(action: {
-                Router.showVideoListScreen()
+                openVideoListScreen()
             }, label: {
                 Text("Video List")
                     .padding()
@@ -38,7 +37,7 @@ struct HomeBodyView: View {
             })
             Spacer()
             Button(action: {
-                LogInSession.logOut()
+                logOut()
             }, label: {
                 Text("Log Out")
                     .padding()
@@ -50,11 +49,20 @@ struct HomeBodyView: View {
         .padding(.top, 80.0)
         .padding(.bottom, 80.0)
     }
+    
+    private func openVideoListScreen() {
+        Router.openVideoListScreen()
+    }
+    
+    private func logOut() {
+        store.stateDispatch(action: .logOut)
+    }
 }
 
 struct AvatarImageView: View {
+    @EnvironmentObject var store: AuthStore
     var body: some View {
-        if let url = LogInSession.userProfilePictureUrl {
+        if let url = store.state.userSession?.profile.profilePicUrl {
             ProfileImageView(withURL: url.absoluteString)
         } else {
             PlaceholderView()

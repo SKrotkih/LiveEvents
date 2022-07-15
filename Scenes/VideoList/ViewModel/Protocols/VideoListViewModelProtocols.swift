@@ -19,17 +19,6 @@ protocol VideoListViewModelOutput {
 }
 
 protocol VideoListViewModelInput {
-    var logoutResult: PassthroughSubject<Bool, Never>? { get }
     var errorPublisher: PassthroughSubject<String, Never> { get }
     var rxData: PublishSubject<[SectionModel]> { get }
 }
-
-protocol LogOutExecutable {
-    // Input
-    var logoutResult: PassthroughSubject<Bool, Never> { get }
-    // Output
-    func logOut()
-}
-
-//extension GoogleSignInInteractor: LogOutExecutable {
-//}

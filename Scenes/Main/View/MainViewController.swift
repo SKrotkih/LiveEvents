@@ -11,8 +11,8 @@ import UIKit
 class MainViewController: BaseViewController {
     // [END viewcontroller_interfaces]
 
-    @Lateinit var signInViewModel: GoogleSignInViewModel
-
+    @Lateinit var store: AuthStore
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,7 +21,7 @@ class MainViewController: BaseViewController {
     }
 
     private func addBodyView() {
-        let bodyView = MainBodyView().environmentObject(signInViewModel)
+        let bodyView = MainBodyView().environmentObject(store)
         addSwiftUIbodyView(bodyView, to: view)
     }
 }

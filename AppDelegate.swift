@@ -11,13 +11,11 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     lazy var window: UIWindow? = UIWindow()
-    lazy var appRouter = AppRouter()
 
     lazy private var observers: [UIApplicationDelegate]? = [
         WindowCustomizer(),
-        SignInAppDelegate(),
         // Should be last on the list
-        AppRouter()
+        Router
     ]
 
     static var shared: AppDelegate {

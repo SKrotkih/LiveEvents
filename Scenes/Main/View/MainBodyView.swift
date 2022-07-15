@@ -9,11 +9,11 @@ import SwiftUI
 
 /// Show sign in view or home view depends on the user  has logged in already
 struct MainBodyView: View {
-    @EnvironmentObject var viewModel: GoogleSignInViewModel
+    @EnvironmentObject var store: AuthStore
 
     var body: some View {
         VStack {
-            if viewModel.user == nil {
+            if store.state.notSignedIn {
                 SignInBodyView()
             } else {
                 HomeBodyView()
@@ -24,8 +24,9 @@ struct MainBodyView: View {
 
 struct MainBodyView_Previews: PreviewProvider {
     static var previews: some View {
+        let device = "iPhone 12 Pro"
         MainBodyView()
-            .previewDevice(PreviewDevice(rawValue: "iPhone 12 Pro"))
-            .previewDisplayName("iPhone 12 Pro")
+            .previewDevice(PreviewDevice(rawValue: device))
+            .previewDisplayName(device)
     }
 }

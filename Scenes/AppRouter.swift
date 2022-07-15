@@ -7,9 +7,21 @@
 
 import Foundation
 
-let Router = AppDelegate.shared.appRouter
+let Router = AppRouter.shared
 
 class AppRouter: NSObject {
+
+    static let shared = AppRouter()
+
+    private let store: AuthStore
+    private let signInService: SignInService
+
+    private override init() {
+        signInService = SignInService()
+        store = Store(initialState: .init(userSession: nil), reducer: authReducer, environment: signInService)
+        signInService.store = store
+        signInService.configure()
+    }
 
     enum StroyboadType: String, Iteratable {
         case main = "Main"
@@ -18,7 +30,9 @@ class AppRouter: NSObject {
         }
     }
 
-    let apiProvider = YTApiProvider()
+    lazy var apiProvider: YTApiProvider = {
+        YTApiProvider(store: store)
+    }()
 
     // Home screen
     func openMainScreen() {
@@ -28,21 +42,21 @@ class AppRouter: NSObject {
     }
 
     // Video List Screen
-    func showVideoListScreen() {
+    func openVideoListScreen() {
         DispatchQueue.performUIUpdate {
             UIStoryboard.main.sequePushViewController(self.videoListScreenDependencies)
         }
     }
 
     // Start Live Video
-    func showLiveVideoScreen() {
+    func openLiveVideoScreen() {
         DispatchQueue.performUIUpdate {
             UIStoryboard.main.segueToModalViewController(self.liveVideoDependencies, optional: nil)
         }
     }
 
     // Start Live Video
-    func showYouTubeVideoPlayer(videoId: String) {
+    func openYouTubeVideoPlayer(videoId: String) {
         DispatchQueue.performUIUpdate {
             if #available(iOS 13.0, *) {
                 // Use the Video player UI designed with using SwiftUI
@@ -73,27 +87,20 @@ extension AppRouter {
     /// Inject dependecncies in the MainViewController
     ///
     private func mainScreenDependencies(_ viewController: MainViewController) {
-        viewController.signInViewModel = signInSetUpViewModelDependencies(viewController)
-        LogInSession.addDependency(on: viewController)
-    }
-
-    private func signInSetUpViewModelDependencies(_ viewController: UIViewController) -> GoogleSignInViewModel {
-        let viewModel = GoogleSignInViewModel()
-        viewModel.configure()
-        return viewModel
+        viewController.store = store
+        signInService.presentingViewController = viewController
     }
 
     ///
     /// Inject dependecncies in the VideoListViewController
     ///
     private func videoListScreenDependencies(_ viewController: VideoListViewController) {
-        let signInSession = GoogleSessionManager()
+        viewController.store = store
 
         let viewModel = VideoListViewModel()
         let dataSource = VideoListDataSource()
         dataSource.broadcastsAPI = apiProvider.getApi()
         viewModel.dataSource = dataSource
-        viewModel.sessionManager = signInSession
 
         // Inbound Broadcast
         viewController.output = viewModel
@@ -143,5 +150,11 @@ extension AppRouter: UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         openMainScreen()
         return true
+    }
+
+    func application(_ application: UIApplication,
+                     open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        return signInService.openURL(url)
     }
 }

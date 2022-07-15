@@ -10,9 +10,7 @@ import SwiftGoogleSignIn
 
 /// SwiftUI content view for the Google Sign In
 struct SignInBodyView: View {
-
-    @EnvironmentObject var viewModel: GoogleSignInViewModel
-
+    @EnvironmentObject var store: AuthStore
     var body: some View {
         VStack {
             Spacer()
@@ -20,9 +18,14 @@ struct SignInBodyView: View {
                 .resizable()
                 .scaledToFit()
             Spacer()
+            Text(store.state.logInErrorMessage ?? "")
+                .multilineTextAlignment(.center)
+                .padding(25.0)
+                .foregroundColor(.red)
             SignInButton()
-            .padding()
-            .frame(width: 100.0)
+                .padding()
+                .frame(width: 100.0)
+
             Spacer()
         }
         .padding(.top, 80.0)

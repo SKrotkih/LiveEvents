@@ -21,6 +21,8 @@ struct Stream {
 // He can select list item to watch past and current and create a new video
 class VideoListViewController: BaseViewController {
 
+    @Lateinit var store: AuthStore
+
     @Lateinit var output: VideoListViewModelOutput
     @Lateinit var input: VideoListViewModelInput
 
@@ -39,7 +41,7 @@ class VideoListViewController: BaseViewController {
     var dataSource: Any?
 
     private let disposeBag = DisposeBag()
-    private var cancellableBag = Set<AnyCancellable>()
+    private var disposables = Set<AnyCancellable>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +71,7 @@ class VideoListViewController: BaseViewController {
     private func didUserLogOut() {
         stopActivity()
         closeView()
+        Router.openMainScreen()
     }
 
     @objc private func backButtonPressed() {
@@ -116,20 +119,23 @@ extension VideoListViewController {
                     self?.refreshControl.endRefreshing()
                 }
             }).disposed(by: disposeBag)
-        // Combaine way
+        // Combine way
         input
             .errorPublisher
             .sink(receiveValue: { [weak self] message in
                 self?.showError(message: message)
             })
-            .store(in: &cancellableBag)
-        input.logoutResult?
-            .sink(receiveValue: { [weak self] theUserIsLoggedOut in
-                if theUserIsLoggedOut {
+            .store(in: &disposables)
+
+        // listening to result of log out
+        store
+            .$state
+            .sink { [weak self] state in
+                if state.notSignedIn {
                     self?.didUserLogOut()
                 }
-            })
-            .store(in: &cancellableBag)
+            }
+            .store(in: &disposables)
     }
 
     private func bindUserActivity() {
@@ -180,7 +186,7 @@ extension VideoListViewController {
 
     private func configureRightBarButtonItem() {
         let userNameLabel = UILabel(frame: CGRect.zero)
-        userNameLabel.text = LogInSession.userFullName ?? ""
+        userNameLabel.text = store.state.userSession?.profile.fullName ?? ""
         userNameLabel.textColor = .white
         let rightBarButton = UIBarButtonItem(customView: userNameLabel)
         self.navigationItem.rightBarButtonItem = rightBarButton
