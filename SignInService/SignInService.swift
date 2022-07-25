@@ -60,7 +60,7 @@ class SignInService: SignInObserver, ObservableObject {
         logInSession.userSessionObservanle?
             .receive(on: RunLoop.main)
             .sink { [weak self] in
-                self?.store.stateDispatch(action: .signIn(userSession: $0))
+                self?.store.stateDispatch(action: .signedIn(userSession: $0))
             }
             .store(in: &self.disposables)
 
@@ -93,16 +93,16 @@ class SignInService: SignInObserver, ObservableObject {
         case .systemMessage(let code, let message):
             switch code {
             case 401:
-                store.stateDispatch(action: .logInError(text: message))
+                store.stateDispatch(action: .loggedInWithError(message: message))
             case 501:
                 Alert.showOkCancel(message, message: "Would you like to send request?", onComplete: {
                     self.logInSession.requestPermissions()
                 })
             default:
-                store.stateDispatch(action: .logInError(text: message))
+                store.stateDispatch(action: .loggedInWithError(message: message))
             }
-        case .message(let message):
-            store.stateDispatch(action: .logInError(text: message))
+        case .message(let text):
+            store.stateDispatch(action: .loggedInWithError(message: text))
         }
     }
 }

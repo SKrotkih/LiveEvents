@@ -19,6 +19,7 @@ struct SignInBodyView: View {
                 .scaledToFit()
             Spacer()
             Text(store.state.logInErrorMessage ?? "")
+                .lineLimit(nil)
                 .multilineTextAlignment(.center)
                 .padding(25.0)
                 .foregroundColor(.red)

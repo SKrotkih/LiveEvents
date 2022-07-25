@@ -49,11 +49,11 @@ struct HomeBodyView: View {
         .padding(.top, 80.0)
         .padding(.bottom, 80.0)
     }
-    
+
     private func openVideoListScreen() {
         Router.openVideoListScreen()
     }
-    
+
     private func logOut() {
         store.stateDispatch(action: .logOut)
     }

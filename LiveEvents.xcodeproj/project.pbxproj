@@ -65,6 +65,7 @@
 		7FAEE35028883EA300770924 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE34D28883EA100770924 /* Store.swift */; };
 		7FAEE35128883EA300770924 /* AuthAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE34E28883EA200770924 /* AuthAction.swift */; };
 		7FAEE35228883EA300770924 /* AuthReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE34F28883EA300770924 /* AuthReducer.swift */; };
+		7FAEE354288CC1E000770924 /* UserDefaultsValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE353288CC1DF00770924 /* UserDefaultsValue.swift */; };
 		7FAF9E92246187B900C8B81B /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF9E91246187B900C8B81B /* Config.plist */; };
 		7FB8A42B1DD23C3100955C2D /* LFLivePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB8A42A1DD23C3100955C2D /* LFLivePreview.m */; };
 		7FB8A42D1DD23F8400955C2D /* LFLiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB8A42C1DD23F8400955C2D /* LFLiveViewController.swift */; };
@@ -175,6 +176,7 @@
 		7FAEE34D28883EA100770924 /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		7FAEE34E28883EA200770924 /* AuthAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthAction.swift; sourceTree = "<group>"; };
 		7FAEE34F28883EA300770924 /* AuthReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthReducer.swift; sourceTree = "<group>"; };
+		7FAEE353288CC1DF00770924 /* UserDefaultsValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsValue.swift; sourceTree = "<group>"; };
 		7FAF9E91246187B900C8B81B /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Config.plist; sourceTree = SOURCE_ROOT; };
 		7FB8A4291DD23C3100955C2D /* LFLivePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFLivePreview.h; sourceTree = "<group>"; };
 		7FB8A42A1DD23C3100955C2D /* LFLivePreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFLivePreview.m; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 				7F1E96B72546B8BF00638965 /* DispatchQueue+Ext.swift */,
 				7F5296322857649800548281 /* LateInit.swift */,
 				7F1E96B92546B8BF00638965 /* EnumIteration.swift */,
+				7FAEE353288CC1DF00770924 /* UserDefaultsValue.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1003,6 +1006,7 @@
 				7F2C3C3C2544187100CA9912 /* AppRouter.swift in Sources */,
 				7FA74D60260B3C0E0069DA8A /* NewStream.swift in Sources */,
 				7F1E96BB2546B8BF00638965 /* Alert.swift in Sources */,
+				7FAEE354288CC1E000770924 /* UserDefaultsValue.swift in Sources */,
 				7F1E96C42546B8BF00638965 /* EnumIteration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

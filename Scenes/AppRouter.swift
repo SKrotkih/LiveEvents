@@ -14,13 +14,13 @@ class AppRouter: NSObject {
     static let shared = AppRouter()
 
     private let store: AuthStore
-    private let signInService: SignInService
+    private let environment: World
 
     private override init() {
-        signInService = SignInService()
-        store = Store(initialState: .init(userSession: nil), reducer: authReducer, environment: signInService)
-        signInService.store = store
-        signInService.configure()
+        environment = World()
+        store = Store(initialState: .init(userSession: nil), reducer: authReducer, environment: environment)
+        environment.service.store = store
+        environment.service.configure()
     }
 
     enum StroyboadType: String, Iteratable {
@@ -88,7 +88,7 @@ extension AppRouter {
     ///
     private func mainScreenDependencies(_ viewController: MainViewController) {
         viewController.store = store
-        signInService.presentingViewController = viewController
+        environment.service.presentingViewController = viewController
     }
 
     ///
@@ -155,6 +155,6 @@ extension AppRouter: UIApplicationDelegate {
     func application(_ application: UIApplication,
                      open url: URL,
                      options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        return signInService.openURL(url)
+        return environment.service.openURL(url)
     }
 }

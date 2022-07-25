@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-typealias AuthStore = Store<AuthState, AuthAction, SignInService>
+typealias AuthStore = Store<AuthState, AuthAction, World>
 typealias Reducer<State, Action, Environment> = (inout State, Action, Environment) -> AnyPublisher<Action, Never>?
 
 //
@@ -21,6 +21,7 @@ typealias Reducer<State, Action, Environment> = (inout State, Action, Environmen
 // Example:
 // private let store: AuthStore = Store(initialState: .init(userSession: nil), reducer: authReducer)
 //
+// Thanks https://github.com/mecid/redux-like-state-container-in-swiftui for idea
 final class Store<State, Action, Environment>: ObservableObject {
     @Published private(set) var state: State
 
