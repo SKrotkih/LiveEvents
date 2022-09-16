@@ -5,7 +5,7 @@
 //  Created by Serhii Krotkykh
 //
 
-import Foundation
+import UIKit
 
 let Router = AppRouter.shared
 
@@ -14,10 +14,10 @@ class AppRouter: NSObject {
     static let shared = AppRouter()
 
     private let store: AuthStore
-    private let environment: World
+    private let environment: NetworkService
 
     private override init() {
-        environment = World()
+        environment = NetworkService()
         store = Store(initialState: .init(userSession: nil), reducer: authReducer, environment: environment)
         environment.service.store = store
         environment.service.configure()
@@ -32,6 +32,10 @@ class AppRouter: NSObject {
 
     lazy var apiProvider: YTApiProvider = {
         YTApiProvider(store: store)
+    }()
+
+    lazy var videoPlayerViewController: SwiftUiVideoPlayerViewController = {
+        SwiftUiVideoPlayerViewController()
     }()
 
     // Home screen
@@ -55,20 +59,9 @@ class AppRouter: NSObject {
         }
     }
 
-    // Start Live Video
-    func openYouTubeVideoPlayer(videoId: String) {
+    func presentModalVideoPlayerView(videoId: String) {
         DispatchQueue.performUIUpdate {
-            if #available(iOS 13.0, *) {
-                // Use the Video player UI designed with using SwiftUI
-                if let window = AppDelegate.shared.window {
-                    let viewController = SwiftUiVideoPlayerViewController()
-                    self.swiftUiVideoPlayerDependencies(viewController, videoId)
-                    window.rootViewController?.present(viewController, animated: false, completion: {})
-                }
-            } else {
-                // Use the Video player UI designed with using UIKit
-                UIStoryboard.main.segueToModalViewController(self.videoPlayerDependencies, optional: videoId)
-            }
+            UIStoryboard.main.segueToModalViewController(self.videoPlayerDependencies, optional: videoId)
         }
     }
 
@@ -76,6 +69,25 @@ class AppRouter: NSObject {
     func showNewStreamScreen() {
         DispatchQueue.performUIUpdate {
             UIStoryboard.main.sequePushViewController(self.newStreamDependencies)
+        }
+    }
+
+    // Start Live Video
+    func playVideo(with videoId: String) {
+        if #available(iOS 13.0, *) {
+            presentModalNewVideoPlayerView(videoId: videoId)
+        } else {
+            presentModalVideoPlayerView(videoId: videoId)
+        }
+    }
+
+    // Play Video
+    func presentModalNewVideoPlayerView(videoId: String) {
+        swiftUiVideoPlayerDependencies(videoPlayerViewController, videoId)
+        DispatchQueue.performUIUpdate {
+            if let rootViewController = AppDelegate.shared.window?.rootViewController {
+                rootViewController.present(self.videoPlayerViewController, animated: false, completion: {})
+            }
         }
     }
 }

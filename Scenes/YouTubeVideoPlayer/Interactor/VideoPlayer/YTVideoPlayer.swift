@@ -6,10 +6,10 @@
 
 class YTVideoPlayer: YouTubeVideoPlayed {
     var completion: ((Result<Void, LVError>) -> Void)?
-    func playVideo(_ youtubeId: String,
+    func playVideo(_ videoId: String,
                    viewController: UIViewController,
                    _ completion: @escaping (Result<Void, LVError>) -> Void) {
         self.completion = completion
-        Router.openYouTubeVideoPlayer(videoId: youtubeId)
+        Router.playVideo(with: videoId)
     }
 }

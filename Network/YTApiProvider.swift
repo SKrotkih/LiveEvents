@@ -3,7 +3,6 @@
 //  LiveEvents
 //
 //  Created by Serhii Krotkykh on 6/26/22.
-//  Copyright © 2022 Serhii Krotkykh. All rights reserved.
 //
 
 import Foundation

@@ -12,7 +12,7 @@ class MainViewController: BaseViewController {
     // [END viewcontroller_interfaces]
 
     @Lateinit var store: AuthStore
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

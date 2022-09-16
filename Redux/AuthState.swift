@@ -16,6 +16,7 @@ struct AuthState: Equatable {
     }
     var userSession: UserSession?
     var logInErrorMessage: String?
+
     init(userSession: UserSession?) {
         self.userSession = userSession
     }

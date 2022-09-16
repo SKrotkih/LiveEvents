@@ -11,6 +11,8 @@ import Combine
 /// SwiftUI content view for the Home screen
 struct HomeBodyView: View {
     @EnvironmentObject var store: AuthStore
+    @EnvironmentObject var viewModel: HomeBodyViewModel
+
     var body: some View {
         VStack {
             HStack(alignment: .top, spacing: 15.0) {
@@ -61,9 +63,11 @@ struct HomeBodyView: View {
 
 struct AvatarImageView: View {
     @EnvironmentObject var store: AuthStore
+    @EnvironmentObject var viewModel: HomeBodyViewModel
+
     var body: some View {
         if let url = store.state.userSession?.profile.profilePicUrl {
-            ProfileImageView(withURL: url.absoluteString)
+            ProfileImageView(withURL: url.absoluteString, viewModel: viewModel)
         } else {
             PlaceholderView()
         }
@@ -73,39 +77,50 @@ struct AvatarImageView: View {
 struct PlaceholderView: View {
     var body: some View {
         Image(systemName: "person")
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 30.0, height: 30.0)
-            .padding(.trailing, 30.0)
-            .cornerRadius(15.0)
+            .avatarStyle()
     }
 }
 
 struct ProfileImageView: View {
-    @ObservedObject var imageLoader: ImageLoader
-    @State var image: UIImage = UIImage()
+    @ObservedObject private var viewModel: HomeBodyViewModel
+    private let imageUrl: String
 
-    init(withURL url: String) {
-        imageLoader = ImageLoader(urlString: url)
+    init(withURL url: String, viewModel: HomeBodyViewModel) {
+        self.imageUrl = url
+        self.viewModel = viewModel
     }
 
     var body: some View {
-        Image(uiImage: image)
+        if let avatarImave = viewModel.avatarImave {
+            Image(uiImage: avatarImave)
+                .avatarStyle()
+        } else {
+            PlaceholderView()
+                .onAppear {
+                    viewModel.downloadImage(url: imageUrl)
+                }
+        }
+    }
+}
+
+extension Image {
+    func avatarStyle() -> some View {
+        self
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: 30.0, height: 30.0)
             .cornerRadius(15.0)
             .padding(.trailing, 30.0)
-            .onReceive(imageLoader.didChange) { data in
-                self.image = UIImage(data: data) ?? UIImage()
-            }
-    }
+   }
 }
 
 struct HomeBodyView_Previews: PreviewProvider {
     static var previews: some View {
+        let environment = NetworkService()
+        let store = Store(initialState: .init(userSession: nil), reducer: authReducer, environment: environment)
         HomeBodyView()
             .previewDevice(PreviewDevice(rawValue: "iPhone 12 Pro"))
             .previewDisplayName("iPhone 12 Pro")
+            .environmentObject(store)
     }
 }

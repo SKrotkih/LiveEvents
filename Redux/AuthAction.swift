@@ -14,7 +14,7 @@ import SwiftGoogleSignIn
 // touch events, network API responses etc,.
 enum AuthAction {
     case signedIn(userSession: UserSession?)
-    case logOut
     case loggedInWithError(message: String)
+    case logOut
     case loggedOut
 }
