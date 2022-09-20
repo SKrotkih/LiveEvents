@@ -3,8 +3,8 @@
 # LiveEvents
 
 With using this app you can manage your Youtube video.  
-LiveEvents is an example of using [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) framework and
-[SwiftGoogleSignIn](https://github.com/SKrotkih/SwiftGoogleSignIn.git) package.
+LiveEvents is an example of using [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) and
+[SwiftGoogleSignIn](https://github.com/SKrotkih/SwiftGoogleSignIn.git) packages.
 
 ## Requirements
 
@@ -21,7 +21,7 @@ LiveEvents is an example of using [YTLiveStreaming](https://github.com/SKrotkih/
 
 - Open LiveEvents.xcworkspace
 
-- Change current bundle id on yours
+- Update current bundle id on yours
 
 - Create Config.plist and copy content of the Config.plist.example.plist file there. Change client ID and API key on yours  
 
