@@ -19,20 +19,23 @@ struct LogInView<ViewModel>: View where ViewModel: LogInViewModelInterface {
             Image("icon-logo")
                 .resizable()
                 .scaledToFit()
+                .frame(height: 100.0)
+                .padding(30)
             Spacer()
             Text(store.state.logInErrorMessage ?? "")
                 .lineLimit(nil)
                 .multilineTextAlignment(.center)
                 .padding(25.0)
                 .foregroundColor(.red)
-            SignInButton()
-                .padding()
-                .frame(width: 100.0)
-
-            Spacer()
+            VStack {
+                SignInButton()
+                    .padding()
+                    .frame(width: 130.0)
+            }
+            .frame(height: 20.0)
         }
-        .padding(.top, 80.0)
-        .padding(.bottom, 80.0)
+        .padding(.top, 30.0)
+        .padding(.bottom, 30.0)
         .onAppear {
             subscribeOnLogInState()
         }

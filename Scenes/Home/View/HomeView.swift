@@ -17,17 +17,20 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelInterface {
         VStack {
             HStack(alignment: .top, spacing: 15.0) {
                 Text(store.state.userSession?.profile.fullName ?? "")
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.gray)
                     .lineLimit(0)
                     .padding(.leading, 30.0)
                 Spacer()
                 AvatarImageView(viewModel: viewModel)
+                    .padding(.trailing, 30.0)
             }
             .frame(height: 30.0)
             Spacer()
             Image("icon-logo")
                 .resizable()
                 .scaledToFit()
+                .frame(height: 100.0)
+                .padding(30)
             Spacer()
             Button(action: {
                 openVideoListScreen()
@@ -35,21 +38,26 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelInterface {
                 Text("Video List")
                     .padding()
                     .frame(width: 130.0)
-                    .foregroundColor(.blue)
+                    .foregroundColor(.red)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(.red, lineWidth: 2)
+                    )
             })
-            Spacer()
+            .shadow(color: .white, radius: 10, y: 5)
+            .frame(height: 20.0)
             Button(action: {
                 logOut()
             }, label: {
                 Text("Log Out")
                     .padding()
                     .frame(width: 130.0)
-                    .foregroundColor(.red)
+                    .foregroundColor(.white)
             })
-            Spacer()
+            .frame(height: 100.0)
         }
-        .padding(.top, 80.0)
-        .padding(.bottom, 80.0)
+        .padding(.top, 30.0)
+        .padding(.bottom, 30.0)
     }
 
     private func openVideoListScreen() {

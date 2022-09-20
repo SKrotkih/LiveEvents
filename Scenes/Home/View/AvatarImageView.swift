@@ -57,6 +57,9 @@ extension Image {
             .aspectRatio(contentMode: .fit)
             .frame(width: 30.0, height: 30.0)
             .cornerRadius(15.0)
-            .padding(.trailing, 30.0)
+            .background(
+                RoundedRectangle(cornerRadius: 15.0)
+                    .stroke(.white, lineWidth: 1)
+            )
    }
 }
