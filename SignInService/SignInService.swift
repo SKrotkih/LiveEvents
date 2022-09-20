@@ -5,7 +5,7 @@
 //  Created by Serhii Krotkykh
 //
 
-import Foundation
+import UIKit
 import Combine
 import SwiftGoogleSignIn
 
@@ -21,7 +21,7 @@ protocol UserSessionObserver {
 }
 
 class SignInService: SignInObserver, ObservableObject {
-    let logInSession = SwiftGoogleSignIn.session
+    let signInPackageAPI = SwiftGoogleSignIn.packageAPI
 
     private let isScopesApproved = false
     @Lateinit var store: AuthStore
@@ -38,33 +38,33 @@ class SignInService: SignInObserver, ObservableObject {
     @Published var userSession: UserSession?
 
     func configure() {
-        logInSession.initialize(isScopesApproved ? googleAPIscopes : nil)
-        listenToUserSession()
+        signInPackageAPI.initialize(isScopesApproved ? googleAPIscopes : nil)
+        startListeningUserConnect()
     }
 
     func openURL(_ url: URL) -> Bool {
-        return logInSession.openUrl(url)
+        return signInPackageAPI.openUrl(url)
     }
 
     func logOut() {
-        logInSession.logOut()
+        signInPackageAPI.logOut()
     }
 
     var presentingViewController: UIViewController? {
         didSet {
-            logInSession.presentingViewController = presentingViewController
+            signInPackageAPI.presentingViewController = presentingViewController
         }
     }
 
-    private func listenToUserSession() {
-        logInSession.userSessionObservanle?
+    private func startListeningUserConnect() {
+        signInPackageAPI.userSessionObservable?
             .receive(on: RunLoop.main)
-            .sink { [weak self] in
-                self?.store.stateDispatch(action: .signedIn(userSession: $0))
+            .sink { [weak self] session in
+                self?.store.stateDispatch(action: .signedIn(userSession: session))
             }
             .store(in: &self.disposables)
 
-        logInSession.loginResult?
+        signInPackageAPI.loginResult?
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .failure(let error):
@@ -76,7 +76,7 @@ class SignInService: SignInObserver, ObservableObject {
             })
             .store(in: &disposables)
 
-        logInSession.logoutResult?
+        signInPackageAPI.logoutResult?
             .receive(on: DispatchQueue.main)
             .sink { result in
                 if result {
@@ -96,7 +96,7 @@ class SignInService: SignInObserver, ObservableObject {
                 store.stateDispatch(action: .loggedInWithError(message: message))
             case 501:
                 Alert.showOkCancel(message, message: "Would you like to send request?", onComplete: {
-                    self.logInSession.requestPermissions()
+                    self.signInPackageAPI.requestPermissions()
                 })
             default:
                 store.stateDispatch(action: .loggedInWithError(message: message))

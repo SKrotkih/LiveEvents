@@ -1,5 +1,5 @@
 //
-//  SignInBodyView.swift
+//  LogInView.swift
 //  LiveEvents
 //
 //  Created by Serhii Krotkykh
@@ -9,8 +9,10 @@ import SwiftUI
 import SwiftGoogleSignIn
 
 /// SwiftUI content view for the Google Sign In
-struct SignInBodyView: View {
+struct LogInView<ViewModel>: View where ViewModel: LogInViewModelInterface {
     @EnvironmentObject var store: AuthStore
+    @ObservedObject var viewModel: ViewModel
+
     var body: some View {
         VStack {
             Spacer()
@@ -31,12 +33,22 @@ struct SignInBodyView: View {
         }
         .padding(.top, 80.0)
         .padding(.bottom, 80.0)
+        .onAppear {
+            subscribeOnLogInState()
+        }
+    }
+
+    private func subscribeOnLogInState() {
+        viewModel.subscribeOnLogInState()
     }
 }
 
-struct SignInBodyView_Previews: PreviewProvider {
+struct LogInView_Previews: PreviewProvider {
     static var previews: some View {
-        SignInBodyView()
+        let store = Store(initialState: .init(userSession: nil),
+                          reducer: authReducer,
+                          environment: NetworkService())
+        LogInView(viewModel: LogInViewModel(store: store))
             .previewDevice(PreviewDevice(rawValue: "iPhone 12 Pro"))
             .previewDisplayName("iPhone 12 Pro")
     }

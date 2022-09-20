@@ -131,7 +131,7 @@ extension VideoListViewController {
         store
             .$state
             .sink { [weak self] state in
-                if state.notSignedIn {
+                if !state.isConnected {
                     self?.didUserLogOut()
                 }
             }
@@ -145,7 +145,7 @@ extension VideoListViewController {
             .debounce(.milliseconds(Constants.UiConstraints.debounce), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] in
                 guard let `self` = self else { return }
-                self.toScheduleBroadcast()
+                self.output.createBroadcast()
             }).disposed(by: disposeBag)
     }
 
@@ -167,9 +167,13 @@ extension VideoListViewController {
             }
         )
     }
+}
 
-    private func toScheduleBroadcast() {
-        self.output.createBroadcast()
+// MARK: UiTableView delegates. didSelectRow
+
+extension VideoListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        output.didLaunchStreamAction(indexPath: indexPath, viewController: self)
     }
 }
 
@@ -218,13 +222,5 @@ extension VideoListViewController {
 
     @objc func refreshData(_ sender: AnyObject) {
         output.didOpenViewAction()
-    }
-}
-
-// MARK: UiTableView delegates
-
-extension VideoListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        output.didLaunchStreamAction(indexPath: indexPath, viewController: self)
     }
 }

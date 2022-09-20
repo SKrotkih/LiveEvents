@@ -56,7 +56,7 @@ class VideoListDataSource: NSObject, BroadcastsDataFetcher {
 
     let dispatchGroup = DispatchGroup()
 
-    var rxData: PublishSubject<[SectionModel]> = PublishSubject<[SectionModel]>()
+    var rxData = PublishSubject<[SectionModel]>()
 
     private var data = [
         SectionModel(model: YTLiveVideoState.upcoming.description(), items: []),

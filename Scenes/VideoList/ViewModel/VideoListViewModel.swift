@@ -5,7 +5,7 @@
 //  Created by Serhii Krotkykh
 //
 
-import Foundation
+import UIKit
 import YTLiveStreaming
 import RxSwift
 import Combine
@@ -55,11 +55,12 @@ class VideoListViewModel: VideoListViewModelOutput {
     private func configure() {
         rxData
             .subscribe(onNext: { data in
-                var message = ""
-                data.forEach { item in
+                let message: String = data.reduce("") { partialResult, item in
+                    var message = ""
                     if let errorMessage = item.error {
                         message += errorMessage + "\n"
                     }
+                    return partialResult + message
                 }
                 if !message.isEmpty {
                     self.errorPublisher.send(message)

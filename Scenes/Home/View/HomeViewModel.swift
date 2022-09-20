@@ -1,5 +1,5 @@
 //
-//  HomeBodyViewModel.swift
+//  HomeViewModel.swift
 //  LiveEvents
 //
 //  Created by Serhii Krotkykh
@@ -9,9 +9,15 @@ import Foundation
 import SwiftUI
 import Combine
 
-class HomeBodyViewModel: ObservableObject {
+protocol HomeViewModelInterface: ObservableObject {
+    var isavatarDownloading: Bool { get set }
+    var avatarImage: UIImage? { get set }
+    func downloadImage(url: String)
+}
+
+class HomeViewModel: HomeViewModelInterface {
     @Published var isavatarDownloading = false
-    @Published var avatarImave: UIImage?
+    @Published var avatarImage: UIImage?
 
     private var disposables = Set<AnyCancellable>()
 
@@ -22,7 +28,7 @@ class HomeBodyViewModel: ObservableObject {
             .sink { _ in
                 self.isavatarDownloading = false
             } receiveValue: { data in
-                self.avatarImave = UIImage(data: data)
+                self.avatarImage = UIImage(data: data)
             }
             .store(in: &disposables)
     }
