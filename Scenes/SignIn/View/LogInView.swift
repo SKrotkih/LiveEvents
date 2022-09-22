@@ -10,7 +10,6 @@ import SwiftGoogleSignIn
 
 /// SwiftUI content view for the Google Sign In
 struct LogInView<ViewModel>: View where ViewModel: LogInViewModelInterface {
-    @EnvironmentObject var store: AuthStore
     @ObservedObject var viewModel: ViewModel
 
     var body: some View {
@@ -22,7 +21,7 @@ struct LogInView<ViewModel>: View where ViewModel: LogInViewModelInterface {
                 .frame(height: 100.0)
                 .padding(30)
             Spacer()
-            Text(store.state.logInErrorMessage ?? "")
+            Text(viewModel.errorMessage)
                 .lineLimit(nil)
                 .multilineTextAlignment(.center)
                 .padding(25.0)
@@ -37,12 +36,8 @@ struct LogInView<ViewModel>: View where ViewModel: LogInViewModelInterface {
         .padding(.top, 30.0)
         .padding(.bottom, 30.0)
         .onAppear {
-            subscribeOnLogInState()
+            viewModel.subscribeOnLogInState()
         }
-    }
-
-    private func subscribeOnLogInState() {
-        viewModel.subscribeOnLogInState()
     }
 }
 

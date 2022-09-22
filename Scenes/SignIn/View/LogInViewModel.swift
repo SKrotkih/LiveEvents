@@ -10,6 +10,7 @@ import SwiftUI
 import Combine
 
 protocol LogInViewModelInterface: ObservableObject {
+    var errorMessage: String { get }
     func subscribeOnLogInState()
 }
 
@@ -20,6 +21,8 @@ class LogInViewModel: LogInViewModelInterface {
     init(store: AuthStore) {
         self.store = store
     }
+
+    var errorMessage: String { store.state.logInErrorMessage ?? "" }
 
     func subscribeOnLogInState() {
         store

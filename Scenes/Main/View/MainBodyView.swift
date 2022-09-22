@@ -14,7 +14,7 @@ struct MainBodyView: View {
     var body: some View {
         VStack {
             if store.state.isConnected {
-                HomeView(viewModel: HomeViewModel())
+                HomeView(viewModel: HomeViewModel(store: store))
             } else {
                 LogInView(viewModel: LogInViewModel(store: store))
             }

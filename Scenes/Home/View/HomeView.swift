@@ -10,13 +10,12 @@ import Combine
 
 /// SwiftUI content view for the Home screen
 struct HomeView<ViewModel>: View where ViewModel: HomeViewModelInterface {
-    @EnvironmentObject var store: AuthStore
     @ObservedObject var viewModel: ViewModel
 
     var body: some View {
         VStack {
             HStack(alignment: .top, spacing: 15.0) {
-                Text(store.state.userSession?.profile.fullName ?? "")
+                Text(viewModel.userName)
                     .foregroundColor(.gray)
                     .lineLimit(0)
                     .padding(.leading, 30.0)
@@ -33,7 +32,7 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelInterface {
                 .padding(30)
             Spacer()
             Button(action: {
-                openVideoListScreen()
+                viewModel.showVideoList()
             }, label: {
                 Text("Video List")
                     .padding()
@@ -47,7 +46,7 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelInterface {
             .shadow(color: .white, radius: 10, y: 5)
             .frame(height: 20.0)
             Button(action: {
-                logOut()
+                viewModel.logOut()
             }, label: {
                 Text("Log Out")
                     .padding()
@@ -59,14 +58,6 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelInterface {
         .padding(.top, 30.0)
         .padding(.bottom, 30.0)
     }
-
-    private func openVideoListScreen() {
-        Router.openVideoListScreen()
-    }
-
-    private func logOut() {
-        store.stateDispatch(action: .logOut)
-    }
 }
 
 struct HomeView_Previews: PreviewProvider {
@@ -74,7 +65,7 @@ struct HomeView_Previews: PreviewProvider {
         let store = Store(initialState: .init(userSession: nil),
                           reducer: authReducer,
                           environment: NetworkService())
-        HomeView(viewModel: HomeViewModel())
+        HomeView(viewModel: HomeViewModel(store: store))
             .previewDevice(PreviewDevice(rawValue: "iPhone 12 Pro"))
             .previewDisplayName("iPhone 12 Pro")
             .environmentObject(store)
