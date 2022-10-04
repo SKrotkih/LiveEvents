@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 let Router = AppRouter.shared
 
@@ -39,40 +40,36 @@ class AppRouter: NSObject {
     }()
 
     // Home screen
+    @MainActor
     func openMainScreen() {
-        DispatchQueue.performUIUpdate {
-            UIStoryboard.main.segueToRootViewController(self.mainScreenDependencies)
-        }
+        UIStoryboard.main.segueToRootViewController(self.mainScreenDependencies)
     }
 
     // Video List Screen
+    @MainActor
     func openVideoListScreen() {
-        DispatchQueue.performUIUpdate {
-            UIStoryboard.main.sequePushViewController(self.videoListScreenDependencies)
-        }
+        UIStoryboard.main.sequePushViewController(self.videoListScreenDependencies)
     }
 
     // Start Live Video
+    @MainActor
     func openLiveVideoScreen() {
-        DispatchQueue.performUIUpdate {
-            UIStoryboard.main.segueToModalViewController(self.liveVideoDependencies, optional: nil)
-        }
+        UIStoryboard.main.segueToModalViewController(self.liveVideoDependencies, optional: nil)
     }
 
+    @MainActor
     func presentModalVideoPlayerView(videoId: String) {
-        DispatchQueue.performUIUpdate {
-            UIStoryboard.main.segueToModalViewController(self.videoPlayerDependencies, optional: videoId)
-        }
+        UIStoryboard.main.segueToModalViewController(self.videoPlayerDependencies, optional: videoId)
     }
 
     // New stream
+    @MainActor
     func showNewStreamScreen() {
-        DispatchQueue.performUIUpdate {
-            UIStoryboard.main.sequePushViewController(self.newStreamDependencies)
-        }
+        UIStoryboard.main.sequePushViewController(self.newStreamDependencies)
     }
 
     // Start Live Video
+    @MainActor
     func playVideo(with videoId: String) {
         if #available(iOS 13.0, *) {
             presentModalNewVideoPlayerView(videoId: videoId)
@@ -82,12 +79,11 @@ class AppRouter: NSObject {
     }
 
     // Play Video
+    @MainActor
     func presentModalNewVideoPlayerView(videoId: String) {
         swiftUiVideoPlayerDependencies(videoPlayerViewController, videoId)
-        DispatchQueue.performUIUpdate {
-            if let rootViewController = AppDelegate.shared.window?.rootViewController {
-                rootViewController.present(self.videoPlayerViewController, animated: false, completion: {})
-            }
+        if let rootViewController = AppDelegate.shared.window?.rootViewController {
+            rootViewController.present(self.videoPlayerViewController, animated: false, completion: {})
         }
     }
 }

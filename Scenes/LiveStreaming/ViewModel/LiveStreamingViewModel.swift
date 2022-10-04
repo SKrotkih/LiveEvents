@@ -27,7 +27,7 @@ class LiveStreamingViewModel: NSObject {
 // MARK: -
 
 extension LiveStreamingViewModel {
-    private func startBroadcast(_ liveBroadcast: LiveBroadcastStreamModel) {
+    @MainActor private func startBroadcast(_ liveBroadcast: LiveBroadcastStreamModel) {
         self.liveBroadcast = liveBroadcast
 
         print("Watch the live video here: https://www.youtube.com/watch?v=\(liveBroadcast.id)")

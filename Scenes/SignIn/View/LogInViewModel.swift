@@ -30,7 +30,9 @@ class LogInViewModel: LogInViewModelInterface {
             .receive(on: DispatchQueue.main)
             .sink { state in
                 if state.isConnected {
-                    Router.openMainScreen()
+                    Task {
+                        await Router.openMainScreen()
+                    }
                 }
             }
             .store(in: &disposables)

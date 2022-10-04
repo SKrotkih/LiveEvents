@@ -48,7 +48,7 @@ class VideoListViewModel: VideoListViewModelOutput {
         store.stateDispatch(action: .logOut)
     }
 
-    func didCloseViewAction() {
+    @MainActor func didCloseViewAction() {
         Router.openMainScreen()
     }
 
@@ -68,7 +68,7 @@ class VideoListViewModel: VideoListViewModelOutput {
             }).disposed(by: disposeBag)
     }
 
-    func createBroadcast() {
+    @MainActor func createBroadcast() {
         Router.showNewStreamScreen()
     }
 

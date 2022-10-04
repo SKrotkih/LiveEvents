@@ -53,16 +53,14 @@ class LFLiveViewController: UIViewController {
         viewModel.didUserCancelPublishingVideo()
     }
 
+    @MainActor
     func showCurrentStatus(currStatus: String) {
-        DispatchQueue.performUIUpdate { [weak self] in
-            self?.currentStatusLabel.text = currStatus
-        }
+        self.currentStatusLabel.text = currStatus
     }
 
+    @MainActor
     func showError(_ message: String) {
-        DispatchQueue.performUIUpdate {
-            Alert.showOk("Warning", message: message)
-        }
+        Alert.showOk("Warning", message: message)
     }
 
     private func handleClickOnPublishingButton() {
@@ -103,10 +101,11 @@ class LFLiveViewController: UIViewController {
     private func startListeningToModelEvents() {
         viewModel
             .rxDidUserFinishWatchVideo
-            .subscribe(onNext: { [weak self] _ in
-                DispatchQueue.performUIUpdate { [weak self] in
-                    self?.dismiss(animated: true, completion: {
-                    })
+            .subscribe(onNext: { _ in
+                Task {
+                    await MainActor.run { [weak self] in
+                        self?.dismiss(animated: true, completion: {})
+                    }
                 }
             }).disposed(by: disposeBag)
         viewModel

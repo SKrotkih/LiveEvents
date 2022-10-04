@@ -10,6 +10,8 @@ class YTVideoPlayer: YouTubeVideoPlayed {
                    viewController: UIViewController,
                    _ completion: @escaping (Result<Void, LVError>) -> Void) {
         self.completion = completion
-        Router.playVideo(with: videoId)
+        Task {
+            await Router.playVideo(with: videoId)
+        }
     }
 }

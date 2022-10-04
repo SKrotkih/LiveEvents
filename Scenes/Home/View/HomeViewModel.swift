@@ -46,8 +46,8 @@ class HomeViewModel: HomeViewModelInterface {
     func logOut() {
         store.stateDispatch(action: .logOut)
     }
-    
-    func showVideoList() {
+
+    @MainActor func showVideoList() {
         Router.openVideoListScreen()
     }
 }

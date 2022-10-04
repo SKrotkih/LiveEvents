@@ -89,16 +89,14 @@ class VideoListViewController: BaseViewController {
 // MARK: - Activity Indicator
 
 extension VideoListViewController {
+    @MainActor
     func startActivity() {
-        DispatchQueue.performUIUpdate { [weak self] in
-            self?.activityIndicator.startAnimating()
-        }
+        self.activityIndicator.startAnimating()
     }
-
+    
+    @MainActor
     func stopActivity() {
-        DispatchQueue.performUIUpdate { [weak self] in
-            self?.activityIndicator.stopAnimating()
-        }
+        self.activityIndicator.stopAnimating()
     }
 }
 
@@ -115,8 +113,8 @@ extension VideoListViewController {
         input
             .rxData
             .subscribe(onNext: { _ in
-                DispatchQueue.performUIUpdate { [weak self] in
-                    self?.refreshControl.endRefreshing()
+                Task {
+                    await MainActor.run { self.refreshControl.endRefreshing() }
                 }
             }).disposed(by: disposeBag)
         // Combine way

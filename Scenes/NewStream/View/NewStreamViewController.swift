@@ -99,15 +99,19 @@ class NewStreamViewController: BaseViewController {
         viewModel
             .rxStartDate
             .subscribe(onNext: { [weak self] value in
-                DispatchQueue.performUIUpdate { [weak self] in
-                    self?.runAtLabel.text = value
+                Task {
+                    await MainActor.run { [weak self] in
+                        self?.runAtLabel.text = value
+                    }
                 }
             }).disposed(by: disposeBag)
         viewModel
             .rxOperationCompleted
             .subscribe(onNext: { [weak self] _ in
-                DispatchQueue.performUIUpdate { [weak self] in
-                    self?.navigationController?.popViewController(animated: true)
+                Task {
+                    await MainActor.run { [weak self] in
+                        self?.navigationController?.popViewController(animated: true)
+                    }
                 }
             }).disposed(by: disposeBag)
     }
