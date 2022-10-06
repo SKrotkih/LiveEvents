@@ -15,10 +15,10 @@ protocol LogInViewModelInterface: ObservableObject {
 }
 
 class LogInViewModel: LogInViewModelInterface {
-    private let store: AuthStore
+    private let store: AuthReduxStore
     private var disposables = Set<AnyCancellable>()
 
-    init(store: AuthStore) {
+    init(store: AuthReduxStore) {
         self.store = store
     }
 

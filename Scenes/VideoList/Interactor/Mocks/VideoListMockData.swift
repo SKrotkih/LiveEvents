@@ -8,24 +8,17 @@
 import Foundation
 import YTLiveStreaming
 
-// MARK: - Get mock data for UI testing
+// MARK: - Get mock data for the app UI testing
 
 class VideoListMockData {
-    private static let useMocks = true
-
-    static func mockDataIfNeeded(state: YTLiveVideoState, errMessage: String) -> (String?, [LiveBroadcastStreamModel]) {
-        if useMocks {
-            switch DecodeData.loadMockData("LiveBroadcastListModel.json", as: LiveBroadcastListModel.self) {
-            case .success(let model):
-                print(model)
-                var broadcastList = [LiveBroadcastStreamModel]()
-                broadcastList = model.items
-                return (nil, broadcastList)
-            case .failure(let error):
-                return (error.message(), [])
-            }
-        } else {
-            return (errMessage, [])
+    static func loadMockData(for state: YTLiveVideoState) async -> Result<[LiveBroadcastStreamModel], LVError> {
+        let data = await DecodeData.loadMockData("LiveBroadcast\(state.rawValue).json", as: LiveBroadcastListModel.self)
+        switch data {
+        case .success(let model):
+            debugPrint(model)
+            return .success(model.items)
+        case .failure(let error):
+            return .failure(LVError.message(error.message()))
         }
     }
 }

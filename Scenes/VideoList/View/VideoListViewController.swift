@@ -21,7 +21,7 @@ struct Stream {
 // He can select list item to watch past and current and create a new video
 class VideoListViewController: BaseViewController {
 
-    @Lateinit var store: AuthStore
+    @Lateinit var store: AuthReduxStore
 
     @Lateinit var output: VideoListViewModelOutput
     @Lateinit var input: VideoListViewModelInput

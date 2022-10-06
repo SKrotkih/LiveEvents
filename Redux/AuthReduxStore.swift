@@ -1,5 +1,5 @@
 //
-//  Store.swift
+//  AuthReduxStore.swift
 //  LiveEvents
 //
 //  Created by Serhii Krotkykh
@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-typealias AuthStore = Store<AuthState, AuthAction, NetworkService>
+typealias AuthReduxStore = Store<AuthState, AuthAction, NetworkService>
 typealias Reducer<State, Action, Environment> = (inout State, Action, Environment) -> AnyPublisher<Action, Never>?
 
 //
@@ -19,7 +19,7 @@ typealias Reducer<State, Action, Environment> = (inout State, Action, Environmen
 // you will use reducer composition i.e using many reducers instead of many stores.
 //
 // Example:
-// private let store: AuthStore = Store(initialState: .init(userSession: nil), reducer: authReducer)
+// private let store: AuthReduxStore = Store(initialState: .init(userSession: nil), reducer: authReducer)
 //
 // Thanks https://github.com/mecid/redux-like-state-container-in-swiftui for idea
 final class Store<State, Action, Environment>: ObservableObject {

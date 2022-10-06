@@ -1,8 +1,6 @@
 //  EnumIteration.swift
 //  LiveEvents
 //
-//  Created by Serhii Krotkykh
-//
 
 protocol Iteratable {}
 typealias Testable = Iteratable

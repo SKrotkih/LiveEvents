@@ -9,7 +9,7 @@ import SwiftUI
 
 /// Show sign in view or home view depends on the user  has logged in already
 struct MainBodyView: View {
-    @EnvironmentObject var store: AuthStore
+    @EnvironmentObject var store: AuthReduxStore
 
     var body: some View {
         VStack {

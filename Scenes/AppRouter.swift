@@ -14,7 +14,7 @@ class AppRouter: NSObject {
 
     static let shared = AppRouter()
 
-    private let store: AuthStore
+    private let store: AuthReduxStore
     private let environment: NetworkService
 
     private override init() {

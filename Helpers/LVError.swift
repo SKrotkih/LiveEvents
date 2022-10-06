@@ -1,4 +1,4 @@
-//  Error.swift
+//  LVError.swift
 //  LiveEvents
 //
 //  Created by Serhii Krotkykh

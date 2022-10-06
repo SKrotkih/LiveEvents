@@ -66,21 +66,21 @@ extension UIViewController {
     }
 
     func topMostViewController() -> UIViewController {
-        if self.presentedViewController == nil {
+        guard let presentedViewController = self.presentedViewController else {
             return self
         }
-        if let navigation = self.presentedViewController as? UINavigationController {
-            if let visibleController = navigation.visibleViewController {
-                return visibleController.topMostViewController()
+        if let navController = presentedViewController as? UINavigationController,
+           let visibleViewController = navController.visibleViewController {
+            return visibleViewController.topMostViewController()
+        } else if let tabBarController = presentedViewController as? UITabBarController {
+            if let selectedViewController = tabBarController.selectedViewController {
+                return selectedViewController.topMostViewController()
+            } else {
+                return tabBarController.topMostViewController()
             }
+        } else {
+            return presentedViewController.topMostViewController()
         }
-        if let tab = self.presentedViewController as? UITabBarController {
-            if let selectedTab = tab.selectedViewController {
-                return selectedTab.topMostViewController()
-            }
-            return tab.topMostViewController()
-        }
-        return self.presentedViewController!.topMostViewController()
     }
 }
 

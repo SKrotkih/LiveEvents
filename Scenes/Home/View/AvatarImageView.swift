@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct AvatarImageView<ViewModel>: View where ViewModel: HomeViewModelInterface {
-    @EnvironmentObject var store: AuthStore
+    @EnvironmentObject var store: AuthReduxStore
     @ObservedObject var viewModel: ViewModel
 
     var body: some View {

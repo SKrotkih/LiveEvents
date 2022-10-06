@@ -24,7 +24,7 @@ class SignInService: SignInObserver, ObservableObject {
     let signInPackageAPI = SwiftGoogleSignIn.packageAPI
 
     private let isScopesApproved = false
-    @Lateinit var store: AuthStore
+    @Lateinit var store: AuthReduxStore
     // There are needed sensitive scopes to have ability to work properly
     // Make sure they are presented in your app. Then send request on an verification
     private let googleAPIscopes = [

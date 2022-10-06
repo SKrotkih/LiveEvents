@@ -23,9 +23,9 @@ class HomeViewModel: HomeViewModelInterface {
     @Published var avatarImage: UIImage?
 
     private var disposables = Set<AnyCancellable>()
-    private let store: AuthStore
+    private let store: AuthReduxStore
 
-    init(store: AuthStore) {
+    init(store: AuthReduxStore) {
         self.store = store
     }
 
@@ -33,7 +33,8 @@ class HomeViewModel: HomeViewModelInterface {
 
     func downloadImage(url: String) {
         self.isAvatarDownloading = true
-        ImageLoader.fetchData(urlString: url)
+        RemoteStorageData.fetch(urlData: url)
+            .subscribe(on: DispatchQueue.global())
             .receive(on: DispatchQueue.main)
             .sink { _ in
                 self.isAvatarDownloading = false

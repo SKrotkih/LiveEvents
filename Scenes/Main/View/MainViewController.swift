@@ -11,7 +11,7 @@ import UIKit
 class MainViewController: BaseViewController {
     // [END viewcontroller_interfaces]
 
-    @Lateinit var store: AuthStore
+    @Lateinit var store: AuthReduxStore
 
     override func viewDidLoad() {
         super.viewDidLoad()

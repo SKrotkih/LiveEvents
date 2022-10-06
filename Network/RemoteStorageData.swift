@@ -1,14 +1,14 @@
 //
-//  ImageLoader.swift
+//  RemoteStorageData.swift
 //  LiveEvents
 //
 
 import Foundation
 import Combine
 
-struct ImageLoader {
-    static func fetchData(urlString: String) -> AnyPublisher<Data, LVError> {
-        guard let url = URL(string: urlString) else {
+struct RemoteStorageData {
+    static func fetch(urlData: String) -> AnyPublisher<Data, LVError> {
+        guard let url = URL(string: urlData) else {
             return Fail(error: LVError.message("Invalid URL")).eraseToAnyPublisher()
         }
         let request = URLRequest(url: url)

@@ -57,6 +57,7 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelInterface {
         }
         .padding(.top, 30.0)
         .padding(.bottom, 30.0)
+        .loadingIndicator(viewModel.isAvatarDownloading)
     }
 }
 

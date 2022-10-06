@@ -9,7 +9,7 @@ import Foundation
 import YTLiveStreaming
 
 struct YTApiProvider {
-    let store: AuthStore
+    let store: AuthReduxStore
 
     func getApi() -> YTLiveStreaming {
         GoogleOAuth2.sharedInstance.accessToken = store.state.userSession?.remoteSession.accessToken

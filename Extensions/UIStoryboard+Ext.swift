@@ -29,7 +29,7 @@ extension UIStoryboard {
             configure(viewController)
             setUpRootViewController(viewController)
         } else {
-            assertionFailure("Failed to open \(id) screen")
+            assertionFailure("Failed to open \(id) viewcontroller")
         }
     }
 

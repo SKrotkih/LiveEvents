@@ -22,7 +22,7 @@ protocol BroadcastsDataFetcher {
     /// - Parameters:
     ///
     /// - Returns:
-    func loadData()
+    func loadData() async
     /// Get Current Broadcast
     ///
     /// - Parameters:

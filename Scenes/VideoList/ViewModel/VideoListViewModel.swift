@@ -20,7 +20,7 @@ class VideoListViewModel: VideoListViewModelOutput {
     // Default value of the used video player
     private static let playerType: VideoPlayerType = .VideoPlayerViewController
 
-    @Lateinit var store: AuthStore
+    @Lateinit var store: AuthReduxStore
     @Lateinit var dataSource: BroadcastsDataFetcher
 
     var errorPublisher = PassthroughSubject<String, Never>()
@@ -41,7 +41,9 @@ class VideoListViewModel: VideoListViewModelOutput {
 
     func didOpenViewAction() {
         configure()
-        dataSource.loadData()
+        Task {
+            await dataSource.loadData()
+        }
     }
 
     func didUserLogOutAction() {
@@ -53,6 +55,7 @@ class VideoListViewModel: VideoListViewModelOutput {
     }
 
     private func configure() {
+        // parse and send error message
         rxData
             .subscribe(onNext: { data in
                 let message: String = data.reduce("") { partialResult, item in
