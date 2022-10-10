@@ -1,5 +1,5 @@
 //
-//  VideoListDataSource.swift
+//  VideoListFetcher.swift
 //  LiveEvents
 //
 //  Created by Serhii Krotkykh
@@ -7,8 +7,6 @@
 
 import Foundation
 import YTLiveStreaming
-import RxDataSources
-import RxSwift
 
 enum DSSettings {
     static let USE_MOCK_DATA = true
@@ -20,7 +18,7 @@ struct SectionModel {
     var error: String?
 }
 
-extension SectionModel: SectionModelType {
+extension SectionModel {
     init(original: SectionModel, items: [LiveBroadcastStreamModel]) {
         self = original
         self.items = items
@@ -54,13 +52,11 @@ extension YTLiveVideoState {
     }
 }
 
-class VideoListDataSource: NSObject, BroadcastsDataFetcher {
-    var broadcastsAPI: BroadcastsAPI!
-
-    let dispatchGroup = DispatchGroup()
-
-    var rxData = PublishSubject<[SectionModel]>()
-
+class VideoListFetcher: BroadcastsDataFetcher {
+    private var broadcastsAPI: BroadcastsAPI
+    required init(broadcastsAPI: BroadcastsAPI) {
+        self.broadcastsAPI = broadcastsAPI
+    }
     private var data = [
         SectionModel(model: YTLiveVideoState.upcoming.description(), items: []),
         SectionModel(model: YTLiveVideoState.active.description(), items: []),
@@ -68,25 +64,27 @@ class VideoListDataSource: NSObject, BroadcastsDataFetcher {
     ]
 
     func getUpcoming(for index: Int) -> LiveBroadcastStreamModel {
-        assert(index < data[YTLiveVideoState.upcoming.index].items.count, "Upcoming list index is wrong")
-        return self.data[YTLiveVideoState.upcoming.index].items[index]
+        return getData(index: index, for: .upcoming)
     }
 
     func getCurrent(for index: Int) -> LiveBroadcastStreamModel {
-        assert(index < data[YTLiveVideoState.active.index].items.count, "Current  list index is wrong")
-        return self.data[YTLiveVideoState.active.index].items[index]
+        return getData(index: index, for: .active)
     }
 
     func getPast(for index: Int) -> LiveBroadcastStreamModel {
-        assert(index < data[YTLiveVideoState.completed.index].items.count, "Past video list index is wrong")
-        return self.data[YTLiveVideoState.completed.index].items[index]
+        return getData(index: index, for: .completed)
     }
 
-    func loadData() async {
+    private func getData(index: Int, for state: YTLiveVideoState) -> LiveBroadcastStreamModel {
+        let items = data[state.index].items
+        assert(index < items.count, "Video list index (\(index) from \(items.count)) is wrong")
+        return items[index]
+    }
+
+    func loadData() async -> [SectionModel] {
         for i in 0..<data.count {
             data[i].items.removeAll()
         }
-        await updateUI()
         await withTaskGroup(of: Void.self) { group in
             group.addTask {
                 await self.getUpcomingBroadcasts()
@@ -98,12 +96,7 @@ class VideoListDataSource: NSObject, BroadcastsDataFetcher {
                 await self.getCompletedBroadcasts()
             }
         }
-        await updateUI()
-    }
-
-    @MainActor
-    private func updateUI() {
-        self.rxData.onNext(self.data)
+        return self.data
     }
 
     private func getUpcomingBroadcasts() async {

@@ -7,7 +7,7 @@
 
 import UIKit
 import YTLiveStreaming
-import RxSwift
+import SwiftUI
 import Combine
 
 enum VideoPlayerType {
@@ -16,15 +16,39 @@ enum VideoPlayerType {
     case VideoPlayerViewController
 }
 
-class VideoListViewModel: VideoListViewModelOutput {
+struct VideoListSection: Codable, Identifiable, Hashable {
+    var id: UUID
+    var sectionName: String
+    var rows: [VideoListRow]
+
+    init(sectionName: String, rows: [VideoListRow]) {
+        self.id = .init()
+        self.sectionName = sectionName
+        self.rows = rows
+    }
+}
+
+struct VideoListRow: Codable, Identifiable, Hashable {
+    var id: UUID
+    var title: String
+    var publishedAt: String
+
+    init(title: String, publishedAt: String) {
+        self.id = .init()
+        self.title = title
+        self.publishedAt = publishedAt
+    }
+}
+
+class VideoListViewModel: VideoListViewModelInterface {
+    @Published var sections = [VideoListSection]()
+    @Published var errorMessage = ""
+
     // Default value of the used video player
     private static let playerType: VideoPlayerType = .VideoPlayerViewController
 
+    @Lateinit var dataSource: any BroadcastsDataFetcher
     @Lateinit var store: AuthReduxStore
-    @Lateinit var dataSource: BroadcastsDataFetcher
-
-    var errorPublisher = PassthroughSubject<String, Never>()
-    private let disposeBag = DisposeBag()
 
     lazy private var videoPlayer = YouTubePlayer()
 
@@ -39,10 +63,39 @@ class VideoListViewModel: VideoListViewModelOutput {
         }
     }
 
-    func didOpenViewAction() {
-        configure()
+    func loadData() {
         Task {
-            await dataSource.loadData()
+            let data = await dataSource.loadData()
+            await parseResult(data: data)
+            await parseError(data: data)
+        }
+    }
+
+    // Presenter
+    @MainActor
+    private func parseResult(data: [SectionModel]) async {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm, d MMM y"
+        sections = data.map({ sectionModel in
+            VideoListSection(sectionName: sectionModel.model,
+                             rows: sectionModel.items.map({ streamModel in
+                VideoListRow(title: streamModel.snippet.title,
+                             publishedAt: formatter.string(from: streamModel.snippet.publishedAt))
+            }))
+        })
+    }
+
+    @MainActor
+    private func parseError(data: [SectionModel]) async {
+        let message: String = data.reduce("") { partialResult, item in
+            var message = ""
+            if let errorMessage = item.error {
+                message += errorMessage + "\n"
+            }
+            return partialResult + message
+        }
+        if !message.isEmpty {
+            errorMessage = message
         }
     }
 
@@ -50,25 +103,9 @@ class VideoListViewModel: VideoListViewModelOutput {
         store.stateDispatch(action: .logOut)
     }
 
-    @MainActor func didCloseViewAction() {
+    @MainActor
+    func didCloseViewAction() {
         Router.openMainScreen()
-    }
-
-    private func configure() {
-        // parse and send error message
-        rxData
-            .subscribe(onNext: { data in
-                let message: String = data.reduce("") { partialResult, item in
-                    var message = ""
-                    if let errorMessage = item.error {
-                        message += errorMessage + "\n"
-                    }
-                    return partialResult + message
-                }
-                if !message.isEmpty {
-                    self.errorPublisher.send(message)
-                }
-            }).disposed(by: disposeBag)
     }
 
     @MainActor func createBroadcast() {
@@ -90,13 +127,5 @@ class VideoListViewModel: VideoListViewModelOutput {
         default:
             assert(false, "Incorrect section number")
         }
-    }
-}
-
-// MARK: - VideoListViewModelInput protocol implementation
-
-extension VideoListViewModel: VideoListViewModelInput {
-    var rxData: PublishSubject<[SectionModel]> {
-        return dataSource.rxData
     }
 }

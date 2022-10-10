@@ -104,15 +104,7 @@ extension AppRouter {
     ///
     private func videoListScreenDependencies(_ viewController: VideoListViewController) {
         viewController.store = store
-
-        let viewModel = VideoListViewModel()
-        let dataSource = VideoListDataSource()
-        dataSource.broadcastsAPI = apiProvider.getApi()
-        viewModel.dataSource = dataSource
-
-        // Inbound Broadcast
-        viewController.output = viewModel
-        viewController.input = viewModel
+        viewController.broadcastsAPI = apiProvider.getApi()
     }
 
     ///

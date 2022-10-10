@@ -8,21 +8,15 @@
 
 import Foundation
 import YTLiveStreaming
-import RxSwift
+import Combine
 
-protocol BroadcastsDataFetcher {
-    /// Observable data source for Broadcasts List
-    ///
-    /// - Parameters:
-    ///
-    /// - Returns:
-    var rxData: PublishSubject<[SectionModel]> { get }
+protocol BroadcastsDataFetcher: ObservableObject {
     /// send request to load source data for Broadcasts List
     ///
     /// - Parameters:
     ///
     /// - Returns:
-    func loadData() async
+    func loadData() async -> [SectionModel]
     /// Get Current Broadcast
     ///
     /// - Parameters:

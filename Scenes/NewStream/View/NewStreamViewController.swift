@@ -40,43 +40,46 @@ class NewStreamViewController: BaseViewController {
     }
 
     private func configureOutput() {
-        titleTextFiled
-            .rx
-            .text
-            .subscribe { [weak self] in
-            self?.viewModel.title = $0 ?? ""
-        }.disposed(by: disposeBag)
-        descriptionTextField
-            .rx
-            .text
-            .subscribe { [weak self] in
-            self?.viewModel.description = $0 ?? ""
-        }.disposed(by: disposeBag)
-        afterHoursTextField
-            .rx
-            .text
-            .subscribe { [weak self] in
-            self?.viewModel.hours = $0 ?? ""
-        }.disposed(by: disposeBag)
-        afterMinutesTextField
-            .rx
-            .text
-            .subscribe { [weak self] in
-            self?.viewModel.minutes = $0 ?? ""
-        }.disposed(by: disposeBag)
-        afterSecondsTextField
-            .rx
-            .text
-            .subscribe { [weak self] in
-            self?.viewModel.secunds = $0 ?? ""
-        }.disposed(by: disposeBag)
-        datePicker
-            .rx
-            .date
-            .asObservable()
-            .subscribe { [weak self] in
-                self?.viewModel.date = $0
-            }.disposed(by: disposeBag)
+
+//        titleTextFiled
+//            .rx
+//            .text
+//            .subscribe { [weak self] in
+//            self?.viewModel.title = $0 ?? ""
+//        }.disposed(by: disposeBag)
+//        descriptionTextField
+//            .rx
+//            .text
+//            .subscribe { [weak self] in
+//            self?.viewModel.description = $0 ?? ""
+//        }.disposed(by: disposeBag)
+//        afterHoursTextField
+//            .rx
+//            .text
+//            .subscribe { [weak self] in
+//            self?.viewModel.hours = $0 ?? ""
+//        }.disposed(by: disposeBag)
+//        afterMinutesTextField
+//            .rx
+//            .text
+//            .subscribe { [weak self] in
+//            self?.viewModel.minutes = $0 ?? ""
+//        }.disposed(by: disposeBag)
+//        afterSecondsTextField
+//            .rx
+//            .text
+//            .subscribe { [weak self] in
+//            self?.viewModel.secunds = $0 ?? ""
+//        }.disposed(by: disposeBag)
+//        datePicker
+//            .rx
+//            .date
+//            .asObservable()
+//            .subscribe { [weak self] in
+//                self?.viewModel.date = $0
+//            }.disposed(by: disposeBag)
+
+
     }
 
     @objc
