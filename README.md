@@ -6,6 +6,8 @@ With using this app you can manage your Youtube video.
 LiveEvents is an example of using [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) and
 [SwiftGoogleSignIn](https://github.com/SKrotkih/SwiftGoogleSignIn.git) packages.
 
+[SwiftUI](https://developer.apple.com/documentation/SwiftUI), [Combine](https://developer.apple.com/documentation/Combine), [Concurrency (await/async)](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html), [Redux](https://en.wikipedia.org/wiki/Redux_%28JavaScript_library%29) for Swift used.
+
 ## Requirements
 
 - Xcode 13+
