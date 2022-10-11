@@ -23,7 +23,6 @@ protocol VideoListViewModelInterface: ObservableObject {
 struct VideoListView<ViewModel>: View where ViewModel: VideoListViewModelInterface {
     @EnvironmentObject var store: AuthReduxStore
     @ObservedObject var viewModel: ViewModel
-    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         NavigationView {
@@ -43,7 +42,6 @@ struct VideoListView<ViewModel>: View where ViewModel: VideoListViewModelInterfa
 struct VideoList<ViewModel>: View where ViewModel: VideoListViewModelInterface {
     @EnvironmentObject var store: AuthReduxStore
     @ObservedObject var viewModel: ViewModel
-    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         List {
@@ -54,6 +52,7 @@ struct VideoList<ViewModel>: View where ViewModel: VideoListViewModelInterface {
                         ForEach(section.rows, id: \.self) { item in
                             NavigationLink(destination: VideoPlayerScene(item: item)) {
                                 HStack {
+                                    // thumbnailsImageView: UIImageView!
                                     Text(item.title)
                                         .foregroundColor(.green)
                                     Spacer(minLength: 5.0)
@@ -69,24 +68,12 @@ struct VideoList<ViewModel>: View where ViewModel: VideoListViewModelInterface {
         .navigationBarTitle(Text("My video list"), displayMode: .inline)
         .edgesIgnoringSafeArea(.bottom)
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: Button(
-            action: {
-                self.presentationMode.wrappedValue.dismiss()
-            }, label: {
-                HStack {
-                    Image(systemName: "arrow.left.circle")
-                        .foregroundColor(.white)
-                    Text("Back")
-                        .foregroundColor(.white)
-                }
-            })
-        )
+        .navigationBarItems(leading: BackButton())
     }
 }
 
 struct ErrorMessage<ViewModel>: View where ViewModel: VideoListViewModelInterface {
     @ObservedObject var viewModel: ViewModel
-    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         VStack {
@@ -96,24 +83,11 @@ struct ErrorMessage<ViewModel>: View where ViewModel: VideoListViewModelInterfac
         .navigationBarTitle(Text("My video list"), displayMode: .inline)
         .edgesIgnoringSafeArea(.bottom)
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: Button(
-            action: {
-                self.presentationMode.wrappedValue.dismiss()
-            }, label: {
-                HStack {
-                    Image(systemName: "arrow.left.circle")
-                        .foregroundColor(.white)
-                    Text("Back")
-                        .foregroundColor(.white)
-                }
-            })
-        )
+        .navigationBarItems(leading: BackButton())
     }
 }
 
 struct VideoPlayerScene: View {
-    @Environment(\.presentationMode) var presentationMode
-
     let item: VideoListRow
     init(item: VideoListRow) {
         self.item = item
@@ -127,7 +101,15 @@ struct VideoPlayerScene: View {
         .navigationBarTitle(Text(item.title), displayMode: .inline)
         .edgesIgnoringSafeArea(.bottom)
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: Button(
+        .navigationBarItems(leading: BackButton())
+    }
+}
+
+struct BackButton: View {
+    @Environment(\.presentationMode) var presentationMode
+
+    var body: some View {
+        Button(
             action: {
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
@@ -138,6 +120,5 @@ struct VideoPlayerScene: View {
                         .foregroundColor(.white)
                 }
             })
-        )
     }
 }
