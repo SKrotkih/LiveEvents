@@ -43,6 +43,7 @@ struct VideoListRow: Codable, Identifiable, Hashable {
 class VideoListViewModel: VideoListViewModelInterface {
     @Published var sections = [VideoListSection]()
     @Published var errorMessage = ""
+    @Published var isDataDownloading = false
 
     // Default value of the used video player
     private static let playerType: VideoPlayerType = .VideoPlayerViewController
@@ -64,10 +65,12 @@ class VideoListViewModel: VideoListViewModelInterface {
     }
 
     func loadData() {
+        isDataDownloading = true
         Task {
             let data = await dataSource.loadData()
             await parseResult(data: data)
             await parseError(data: data)
+            await MainActor.run { isDataDownloading.toggle() }
         }
     }
 

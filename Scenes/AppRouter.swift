@@ -45,18 +45,13 @@ class AppRouter: NSObject {
         UIStoryboard.main.segueToRootViewController(self.mainScreenDependencies)
     }
 
-    // Video List Screen
-    @MainActor
-    func openVideoListScreen() {
-        UIStoryboard.main.sequePushViewController(self.videoListScreenDependencies)
-    }
-
     // Start Live Video
     @MainActor
     func openLiveVideoScreen() {
         UIStoryboard.main.segueToModalViewController(self.liveVideoDependencies, optional: nil)
     }
 
+    // Start video player
     @MainActor
     func presentModalVideoPlayerView(videoId: String) {
         UIStoryboard.main.segueToModalViewController(self.videoPlayerDependencies, optional: videoId)
@@ -97,14 +92,6 @@ extension AppRouter {
     private func mainScreenDependencies(_ viewController: MainViewController) {
         viewController.store = store
         environment.service.presentingViewController = viewController
-    }
-
-    ///
-    /// Inject dependecncies in the VideoListViewController
-    ///
-    private func videoListScreenDependencies(_ viewController: VideoListViewController) {
-        viewController.store = store
-        viewController.broadcastsAPI = apiProvider.getApi()
     }
 
     ///

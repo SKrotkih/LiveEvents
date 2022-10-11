@@ -15,7 +15,6 @@ protocol HomeViewModelInterface: ObservableObject {
     func downloadImage(url: String)
     var isAvatarDownloading: Bool { get set }
     func logOut()
-    func showVideoList()
 }
 
 class HomeViewModel: HomeViewModelInterface {
@@ -46,9 +45,5 @@ class HomeViewModel: HomeViewModelInterface {
 
     func logOut() {
         store.stateDispatch(action: .logOut)
-    }
-
-    @MainActor func showVideoList() {
-        Router.openVideoListScreen()
     }
 }
