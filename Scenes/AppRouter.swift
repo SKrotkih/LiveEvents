@@ -35,10 +35,6 @@ class AppRouter: NSObject {
         YTApiProvider(store: store)
     }()
 
-    lazy var videoPlayerViewController: SwiftUiVideoPlayerViewController = {
-        SwiftUiVideoPlayerViewController()
-    }()
-
     // Home screen
     @MainActor
     func openMainScreen() {
@@ -51,12 +47,6 @@ class AppRouter: NSObject {
         UIStoryboard.main.segueToModalViewController(self.liveVideoDependencies, optional: nil)
     }
 
-    // Start video player
-    @MainActor
-    func presentModalVideoPlayerView(videoId: String) {
-        UIStoryboard.main.segueToModalViewController(self.videoPlayerDependencies, optional: videoId)
-    }
-
     // New stream
     @MainActor
     func showNewStreamScreen() {
@@ -65,22 +55,7 @@ class AppRouter: NSObject {
 
     // Start Live Video
     @MainActor
-    func playVideo(with videoId: String) {
-        if #available(iOS 13.0, *) {
-            presentModalNewVideoPlayerView(videoId: videoId)
-        } else {
-            presentModalVideoPlayerView(videoId: videoId)
-        }
-    }
-
-    // Play Video
-    @MainActor
-    func presentModalNewVideoPlayerView(videoId: String) {
-        swiftUiVideoPlayerDependencies(videoPlayerViewController, videoId)
-        if let rootViewController = AppDelegate.shared.window?.rootViewController {
-            rootViewController.present(self.videoPlayerViewController, animated: false, completion: {})
-        }
-    }
+    func playVideo(with videoId: String) { }
 }
 
 // MARK: - Dependencies Injection
@@ -109,18 +84,6 @@ extension AppRouter {
         let viewModel = NewStreamViewModel()
         viewModel.broadcastsAPI = apiProvider.getApi()
         viewController.viewModel = viewModel
-    }
-    /// UIKit:
-    /// Inject dependecncies in to the VideoPlayerViewController
-    ///
-    private func videoPlayerDependencies(_ viewController: VideoPlayerViewController, _ optional: Any?) {
-        VideoPlayerConfigurator.configure(viewController, optional)
-    }
-    /// SwiftUI:
-    /// Inject dependecncies in to the (SwiftUI version of the VideoPlayerViewController) SwiftUiVideoPlayerViewController
-    ///
-    private func swiftUiVideoPlayerDependencies(_ viewController: SwiftUiVideoPlayerViewController, _ optional: Any?) {
-        SwiftUIVideoPlayerConfigurator.configure(viewController, optional)
     }
 }
 

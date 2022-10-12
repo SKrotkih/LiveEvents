@@ -11,9 +11,9 @@ import SwiftUI
 import Combine
 
 enum VideoPlayerType {
+    case DefaultVideoPlayer
     case oldVersionForIos8
     case AVPlayerViewController
-    case VideoPlayerViewController
 }
 
 struct VideoListSection: Codable, Identifiable, Hashable {
@@ -30,11 +30,13 @@ struct VideoListSection: Codable, Identifiable, Hashable {
 
 struct VideoListRow: Codable, Identifiable, Hashable {
     var id: UUID
+    var videoId: String
     var title: String
     var publishedAt: String
 
-    init(title: String, publishedAt: String) {
+    init(videoId: String, title: String, publishedAt: String) {
         self.id = .init()
+        self.videoId = videoId
         self.title = title
         self.publishedAt = publishedAt
     }
@@ -46,7 +48,7 @@ class VideoListViewModel: VideoListViewModelInterface {
     @Published var isDataDownloading = false
 
     // Default value of the used video player
-    private static let playerType: VideoPlayerType = .VideoPlayerViewController
+    private static let playerType: VideoPlayerType = .DefaultVideoPlayer
 
     @Lateinit var dataSource: any BroadcastsDataFetcher
     @Lateinit var store: AuthReduxStore
@@ -59,7 +61,7 @@ class VideoListViewModel: VideoListViewModelInterface {
             return XCDYouTubeVideoPlayer8()
         case .AVPlayerViewController:
             return XCDYouTubeVideoPlayer()
-        case .VideoPlayerViewController:
+        case .DefaultVideoPlayer:
             return YTVideoPlayer()
         }
     }
@@ -82,7 +84,8 @@ class VideoListViewModel: VideoListViewModelInterface {
         sections = data.map({ sectionModel in
             VideoListSection(sectionName: sectionModel.model,
                              rows: sectionModel.items.map({ streamModel in
-                VideoListRow(title: streamModel.snippet.title,
+                VideoListRow(videoId: streamModel.id,
+                             title: streamModel.snippet.title,
                              publishedAt: formatter.string(from: streamModel.snippet.publishedAt))
             }))
         })
@@ -113,22 +116,5 @@ class VideoListViewModel: VideoListViewModelInterface {
 
     @MainActor func createBroadcast() {
         Router.showNewStreamScreen()
-    }
-
-    func didLaunchStreamAction(indexPath: IndexPath, viewController: UIViewController) {
-        videoPlayer.youtubeVideoPlayer = playerFactory
-
-        switch indexPath.section {
-        case 0:
-            assert(false, "Incorrect section number")
-        case 1:
-            let broadcast = dataSource.getCurrent(for: indexPath.row)
-            videoPlayer.playYoutubeID(broadcast.id, viewController: viewController)
-        case 2:
-            let broadcast = dataSource.getPast(for: indexPath.row)
-            videoPlayer.playYoutubeID(broadcast.id, viewController: viewController)
-        default:
-            assert(false, "Incorrect section number")
-        }
     }
 }

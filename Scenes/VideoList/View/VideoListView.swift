@@ -2,23 +2,26 @@
 //  VideoListView.swift
 //  LiveEvents
 //
-//  Created by Sergey Krotkih on 10/9/22.
+//  Created by Serhii Krotkykh
 //
 
 import SwiftUI
 import Combine
 
-protocol VideoListViewModelInterface: ObservableObject {
+protocol VideoListViewModelDataSource: ObservableObject {
     func loadData()
     var sections: [VideoListSection] { get set }
     var errorMessage: String { get set }
     var isDataDownloading: Bool { get set}
+}
 
+protocol VideoListViewModelActions {
     func didCloseViewAction()
     func didUserLogOutAction()
     func createBroadcast()
-    func didLaunchStreamAction(indexPath: IndexPath, viewController: UIViewController)
 }
+
+typealias VideoListViewModelInterface = VideoListViewModelDataSource & VideoListViewModelActions
 
 struct VideoListView<ViewModel>: View where ViewModel: VideoListViewModelInterface {
     @EnvironmentObject var store: AuthReduxStore
@@ -26,11 +29,17 @@ struct VideoListView<ViewModel>: View where ViewModel: VideoListViewModelInterfa
 
     var body: some View {
         NavigationView {
-            if viewModel.errorMessage.isEmpty {
-                VideoList(viewModel: viewModel)
-            } else {
-                ErrorMessage(viewModel: viewModel)
+            VStack {
+                if viewModel.errorMessage.isEmpty {
+                    VideoList(viewModel: viewModel)
+                } else {
+                    ErrorMessage(viewModel: viewModel)
+                }
             }
+            .navigationBarTitle(Text("My video list"), displayMode: .inline)
+            .edgesIgnoringSafeArea(.bottom)
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: BackButton())
         }
         .onAppear {
             viewModel.loadData()
@@ -50,7 +59,8 @@ struct VideoList<ViewModel>: View where ViewModel: VideoListViewModelInterface {
                     .font(.title)
                     .foregroundColor(.white)) {
                         ForEach(section.rows, id: \.self) { item in
-                            NavigationLink(destination: VideoPlayerScene(item: item)) {
+                            NavigationLink(destination: VideoControllerView(videoId: item.videoId,
+                                                                            title: item.title)) {
                                 HStack {
                                     // thumbnailsImageView: UIImageView!
                                     Text(item.title)
@@ -65,10 +75,6 @@ struct VideoList<ViewModel>: View where ViewModel: VideoListViewModelInterface {
             }
         }
         .listStyle(GroupedListStyle())
-        .navigationBarTitle(Text("My video list"), displayMode: .inline)
-        .edgesIgnoringSafeArea(.bottom)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: BackButton())
     }
 }
 
@@ -80,28 +86,6 @@ struct ErrorMessage<ViewModel>: View where ViewModel: VideoListViewModelInterfac
             Text(viewModel.errorMessage)
                 .foregroundColor(.red)
         }
-        .navigationBarTitle(Text("My video list"), displayMode: .inline)
-        .edgesIgnoringSafeArea(.bottom)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: BackButton())
-    }
-}
-
-struct VideoPlayerScene: View {
-    let item: VideoListRow
-    init(item: VideoListRow) {
-        self.item = item
-    }
-
-    var body: some View {
-        VStack {
-            Text(item.title)
-                .foregroundColor(.red)
-        }
-        .navigationBarTitle(Text(item.title), displayMode: .inline)
-        .edgesIgnoringSafeArea(.bottom)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: BackButton())
     }
 }
 
