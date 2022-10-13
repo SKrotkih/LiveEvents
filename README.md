@@ -5,6 +5,8 @@ LiveEvents is an iOS app developed on Swift with using
 [SwiftGoogleSignIn](https://github.com/SKrotkih/SwiftGoogleSignIn.git) package
 and can be supposed as an example of using the package and the framework.
 
+Note: It is as called UIKit version. It uses UIKit layout.
+
 ## Requirements
 
 - Xcode 13+
