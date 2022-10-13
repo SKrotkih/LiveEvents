@@ -45,6 +45,9 @@ Please pay attention on the Home and SignIn screens.
 ## Video
 [Video of an one of the old version](https://youtu.be/HwYbvUU2fJo)
 
+## UIKit version
+The branch UIKit consists from as called UIKit version of the app. It uses UIKit layout instead of SwiftUI. 
+
 Author
 Serhii Krotkykh
 
