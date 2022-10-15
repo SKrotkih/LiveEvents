@@ -12,12 +12,17 @@ struct MainBodyView: View {
     @EnvironmentObject var store: AuthReduxStore
 
     var body: some View {
-        VStack {
-            if store.state.isConnected {
-                HomeView(viewModel: HomeViewModel(store: store))
-            } else {
-                LogInView(viewModel: LogInViewModel(store: store))
+        NavigationView {
+            VStack {
+                if store.state.isConnected {
+                    HomeView(viewModel: HomeViewModel(store: store))
+                } else {
+                    LogInView(viewModel: LogInViewModel(store: store))
+                }
             }
+            .navigationBarTitle(Text("Live Events"), displayMode: .inline)
+            .edgesIgnoringSafeArea(.bottom)
+            .navigationBarBackButtonHidden(true)
         }
     }
 }

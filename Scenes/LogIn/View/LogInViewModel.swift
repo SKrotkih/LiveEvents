@@ -14,7 +14,7 @@ protocol LogInViewModelInterface: ObservableObject {
     func subscribeOnLogInState()
 }
 
-class LogInViewModel: LogInViewModelInterface {
+final class LogInViewModel: LogInViewModelInterface {
     private let store: AuthReduxStore
     private var disposables = Set<AnyCancellable>()
 

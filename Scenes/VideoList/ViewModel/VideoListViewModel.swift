@@ -42,7 +42,22 @@ struct VideoListRow: Codable, Identifiable, Hashable {
     }
 }
 
-class VideoListViewModel: VideoListViewModelInterface {
+protocol VideoListViewModelObservable: ObservableObject {
+    var sections: [VideoListSection] { get set }
+    var errorMessage: String { get set }
+    var isDataDownloading: Bool { get set}
+}
+
+protocol VideoListViewModelLaunched {
+    func didCloseViewAction()
+    func didUserLogOutAction()
+    func createBroadcast()
+    func loadData()
+}
+
+typealias VideoListViewModelInterface = VideoListViewModelObservable & VideoListViewModelLaunched
+
+final class VideoListViewModel: VideoListViewModelInterface {
     @Published var sections = [VideoListSection]()
     @Published var errorMessage = ""
     @Published var isDataDownloading = false

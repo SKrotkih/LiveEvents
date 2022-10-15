@@ -10,20 +10,28 @@ import Foundation
 import RxSwift
 import YTLiveStreaming
 
-protocol NewStreamProtocol {
+protocol NewStreamViewModelPresentable {
     var title: String { get set }
     var description: String { get set }
     var hours: String { get set }
     var minutes: String { get set }
     var secunds: String { get set }
     var date: Date { get set }
+}
+
+protocol NewStreamViewModelLaunched {
     var verification: Result<Void, LVError> { get }
     func createBroadcast()
+}
+
+protocol NewStreamViewModelObservable {
     var rxOperationCompleted: PublishSubject<Bool> { get }
     var rxStartDate: PublishSubject<String> { get }
 }
 
-class NewStreamViewModel: NewStreamProtocol {
+typealias NewStreamViewModelInterface = NewStreamViewModelPresentable & NewStreamViewModelLaunched & NewStreamViewModelObservable
+
+class NewStreamViewModel: NewStreamViewModelInterface {
     var broadcastsAPI: YTLiveStreaming!
     let rxOperationCompleted: PublishSubject<Bool> = PublishSubject()
     let rxStartDate: PublishSubject<String> = PublishSubject()

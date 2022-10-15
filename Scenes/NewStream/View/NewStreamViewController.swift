@@ -11,7 +11,7 @@ import RxSwift
 
 class NewStreamViewController: BaseViewController {
 
-    var viewModel: NewStreamProtocol!
+    var viewModel: NewStreamViewModelInterface!
 
     @IBOutlet weak var titleTextFiled: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!

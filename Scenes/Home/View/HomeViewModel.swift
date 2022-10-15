@@ -9,15 +9,20 @@ import Foundation
 import SwiftUI
 import Combine
 
-protocol HomeViewModelInterface: ObservableObject {
+protocol HomeViewModelObservable: ObservableObject {
     var userName: String { get }
     var avatarImage: UIImage? { get set }
-    func downloadImage(url: String)
     var isAvatarDownloading: Bool { get set }
+}
+
+protocol HomeViewModelLaunched: ObservableObject {
+    func downloadImage(url: String)
     func logOut()
 }
 
-class HomeViewModel: HomeViewModelInterface {
+typealias HomeViewModelInterface = HomeViewModelObservable & HomeViewModelLaunched
+
+final class HomeViewModel: HomeViewModelInterface {
     @Published var isAvatarDownloading = false
     @Published var avatarImage: UIImage?
 

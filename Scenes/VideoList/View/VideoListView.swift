@@ -8,39 +8,24 @@
 import SwiftUI
 import Combine
 
-protocol VideoListViewModelDataSource: ObservableObject {
-    func loadData()
-    var sections: [VideoListSection] { get set }
-    var errorMessage: String { get set }
-    var isDataDownloading: Bool { get set}
-}
-
-protocol VideoListViewModelActions {
-    func didCloseViewAction()
-    func didUserLogOutAction()
-    func createBroadcast()
-}
-
-typealias VideoListViewModelInterface = VideoListViewModelDataSource & VideoListViewModelActions
-
 struct VideoListView<ViewModel>: View where ViewModel: VideoListViewModelInterface {
     @EnvironmentObject var store: AuthReduxStore
     @ObservedObject var viewModel: ViewModel
 
     var body: some View {
-        NavigationView {
-            VStack {
-                if viewModel.errorMessage.isEmpty {
-                    VideoList(viewModel: viewModel)
-                } else {
-                    ErrorMessage(viewModel: viewModel)
-                }
+        VStack {
+            if viewModel.errorMessage.isEmpty {
+                VideoList(viewModel: viewModel)
+            } else {
+                ErrorMessage(viewModel: viewModel)
             }
-            .navigationBarTitle(Text("My video list"), displayMode: .inline)
-            .edgesIgnoringSafeArea(.bottom)
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: BackButton())
         }
+        .padding(.top, 30.0)
+        .navigationBarTitle(Text("My video list"), displayMode: .inline)
+        .edgesIgnoringSafeArea(.bottom)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: BackButton(),
+                            trailing: NewStreamButton(store: store))
         .onAppear {
             viewModel.loadData()
         }
@@ -104,5 +89,37 @@ struct BackButton: View {
                         .foregroundColor(.white)
                 }
             })
+    }
+}
+
+struct NewStreamButton: View {
+    @State private var action: Int? = 0
+    let viewModel: NewStreamViewModel
+
+    init(store: AuthReduxStore) {
+        viewModel = NewStreamViewModel()
+        viewModel.broadcastsAPI = YTApiProvider(store: store).getApi()
+    }
+
+    var body: some View {
+        HStack {
+            Button(action: {
+                action = 1
+            }, label: {
+                HStack {
+                    Image(systemName: "plus.app")
+                        .foregroundColor(.white)
+                    Text("Add")
+                        .foregroundColor(.white)
+                }
+            })
+            NavigationLink(
+                destination: NewStreamView(viewModel: viewModel),
+                tag: 1,
+                selection: $action
+            ) {
+                EmptyView()
+            }
+        }
     }
 }

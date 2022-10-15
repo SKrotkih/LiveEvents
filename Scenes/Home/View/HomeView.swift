@@ -12,36 +12,49 @@ import Combine
 struct HomeView<ViewModel>: View where ViewModel: HomeViewModelInterface {
     @EnvironmentObject var store: AuthReduxStore
     @ObservedObject var viewModel: ViewModel
+    
+    var body: some View {
+        VStack {
+            Spacer()
+            Image("icon-logo")
+                .resizable()
+                .scaledToFit()
+                .frame(height: 100.0)
+                .padding(30)
+            Spacer()
+            VideoListButton(store: store)
+            LogOutButton(viewModel: viewModel)
+        }
+        .padding(.top, 30.0)
+        .padding(.bottom, 30.0)
+        .loadingIndicator(viewModel.isAvatarDownloading)
+        .navigationBarTitle(Text("Live Events"), displayMode: .inline)
+        .edgesIgnoringSafeArea(.bottom)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: UserNameView(viewModel.userName),
+                            trailing: UserAvatarView(viewModel: viewModel))
+    }
+}
+
+struct UserNameView: View {
+    let userName: String
+
+    init(_ userName: String) {
+        self.userName = userName
+    }
 
     var body: some View {
-        NavigationView {
-            VStack {
-                HStack(alignment: .top, spacing: 15.0) {
-                    Text(viewModel.userName)
-                        .foregroundColor(.gray)
-                        .lineLimit(0)
-                        .padding(.leading, 30.0)
-                    Spacer()
-                    AvatarImageView(viewModel: viewModel)
-                        .padding(.trailing, 30.0)
-                }
-                .frame(height: 30.0)
-                Spacer()
-                Image("icon-logo")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 100.0)
-                    .padding(30)
-                Spacer()
-                VideoListButton(store: store)
-                LogOutButton(viewModel: viewModel)
-            }
-            .padding(.top, 30.0)
-            .padding(.bottom, 30.0)
-            .loadingIndicator(viewModel.isAvatarDownloading)
-            .navigationBarTitle(Text(""), displayMode: .inline)
-            .edgesIgnoringSafeArea(.bottom)
-            .navigationBarBackButtonHidden(true)
+        Text(self.userName)
+    }
+}
+
+struct UserAvatarView<ViewModel>: View where ViewModel: HomeViewModelInterface {
+    @ObservedObject var viewModel: ViewModel
+
+    var body: some View {
+        HStack {
+            AvatarImageView(viewModel: viewModel)
+                .padding(.trailing, 0.0)
         }
     }
 }
@@ -57,7 +70,9 @@ struct VideoListButton: View {
     }
 
     var body: some View {
-        NavigationLink(destination: VideoListView(viewModel: videoListViewModel), tag: 1, selection: $action) {
+        NavigationLink(destination: VideoListView(viewModel: videoListViewModel),
+                       tag: 1,
+                       selection: $action) {
             EmptyView()
         }
         Button(action: {
