@@ -29,7 +29,6 @@
 		7F4C22B32869CEE500F29118 /* SwiftGoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 7F4C22B22869CEE500F29118 /* SwiftGoogleSignIn */; };
 		7F5296332857649800548281 /* LateInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5296322857649800548281 /* LateInit.swift */; };
 		7F5296382858A17F00548281 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5296372858A17F00548281 /* LogInView.swift */; };
-		7F52963C2858AF6D00548281 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F52963B2858AF6C00548281 /* MainViewController.swift */; };
 		7F53B1AA2030724200E09CFA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F53B1A62030724200E09CFA /* LaunchScreen.storyboard */; };
 		7F53B1AB2030724200E09CFA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F53B1A82030724200E09CFA /* Main.storyboard */; };
 		7F53B1B12030B38100E09CFA /* VideoListFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F53B1B02030B38100E09CFA /* VideoListFetcher.swift */; };
@@ -63,6 +62,7 @@
 		7FAEE35228883EA300770924 /* AuthReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE34F28883EA300770924 /* AuthReducer.swift */; };
 		7FAEE354288CC1E000770924 /* UserDefaultsValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE353288CC1DF00770924 /* UserDefaultsValue.swift */; };
 		7FAF9E92246187B900C8B81B /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF9E91246187B900C8B81B /* Config.plist */; };
+		7FB0103F2901624800AE0F87 /* LiveEventsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB0103E2901624800AE0F87 /* LiveEventsApp.swift */; };
 		7FB8A42B1DD23C3100955C2D /* LFLivePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB8A42A1DD23C3100955C2D /* LFLivePreview.m */; };
 		7FB8A42D1DD23F8400955C2D /* LFLiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB8A42C1DD23F8400955C2D /* LFLiveViewController.swift */; };
 		7FBC71792653DB9B001DDAE7 /* VideoControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBC71782653DB9B001DDAE7 /* VideoControllerView.swift */; };
@@ -115,7 +115,6 @@
 		65A4996DDBF267DFE82ED9D5 /* Pods-LiveEvents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveEvents.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiveEvents/Pods-LiveEvents.release.xcconfig"; sourceTree = "<group>"; };
 		7F0933CE24574FCB00FB5579 /* SignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInService.swift; sourceTree = "<group>"; };
 		7F11514228F2DE7A0013D2F7 /* VideoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListView.swift; sourceTree = "<group>"; };
-		7F11514428F2E4ED0013D2F7 /* VideoListViewController_.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoListViewController_.swift; sourceTree = "<group>"; };
 		7F161889286C473C0004D0B6 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
 		7F1E96AE2546B8BF00638965 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		7F1E96AF2546B8BF00638965 /* Date+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
@@ -137,7 +136,6 @@
 		7F384BED24587498004C07EE /* Appearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
 		7F5296322857649800548281 /* LateInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LateInit.swift; sourceTree = "<group>"; };
 		7F5296372858A17F00548281 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
-		7F52963B2858AF6C00548281 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		7F53B1A72030724200E09CFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7F53B1A92030724200E09CFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7F53B1B02030B38100E09CFA /* VideoListFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListFetcher.swift; sourceTree = "<group>"; };
@@ -178,6 +176,7 @@
 		7FAEE34F28883EA300770924 /* AuthReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthReducer.swift; sourceTree = "<group>"; };
 		7FAEE353288CC1DF00770924 /* UserDefaultsValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsValue.swift; sourceTree = "<group>"; };
 		7FAF9E91246187B900C8B81B /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Config.plist; sourceTree = SOURCE_ROOT; };
+		7FB0103E2901624800AE0F87 /* LiveEventsApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveEventsApp.swift; sourceTree = "<group>"; };
 		7FB8A4291DD23C3100955C2D /* LFLivePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFLivePreview.h; sourceTree = "<group>"; };
 		7FB8A42A1DD23C3100955C2D /* LFLivePreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFLivePreview.m; sourceTree = "<group>"; };
 		7FB8A42C1DD23F8400955C2D /* LFLiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFLiveViewController.swift; sourceTree = "<group>"; };
@@ -329,8 +328,8 @@
 				7FCFD64E28658AC600F61B48 /* Home */,
 				7FA94FFF2032C5750083B23B /* LogIn */,
 				7F53B1AF2030B15C00E09CFA /* VideoList */,
-				7F809FBF26414026006C4B4E /* YouTubeVideoPlayer */,
 				7FA74D55260B3B2D0069DA8A /* NewStream */,
+				7F809FBF26414026006C4B4E /* YouTubeVideoPlayer */,
 				7F53B1AE2030733200E09CFA /* LiveStreaming */,
 				7F1E96C52546B91A00638965 /* XCDYouTubeKitPresenter */,
 			);
@@ -350,7 +349,6 @@
 		7F53B1AF2030B15C00E09CFA /* VideoList */ = {
 			isa = PBXGroup;
 			children = (
-				7F11514428F2E4ED0013D2F7 /* VideoListViewController_.swift */,
 				7F8FD2A524596D970041CF36 /* View */,
 				7F8FD2A624596DB20041CF36 /* ViewModel */,
 			);
@@ -560,7 +558,7 @@
 		7FAEE2FC28862A0500770924 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7F52963B2858AF6C00548281 /* MainViewController.swift */,
+				7FB0103E2901624800AE0F87 /* LiveEventsApp.swift */,
 				7FFA59862861DDDE00D2F4FE /* MainBodyView.swift */,
 			);
 			path = View;
@@ -945,6 +943,7 @@
 				7FAEE35128883EA300770924 /* AuthAction.swift in Sources */,
 				7FFA59872861DDDF00D2F4FE /* HomeView.swift in Sources */,
 				7FB8A42B1DD23C3100955C2D /* LFLivePreview.m in Sources */,
+				7FB0103F2901624800AE0F87 /* LiveEventsApp.swift in Sources */,
 				7F79FE42265E6BB1002FA510 /* loadMockData.swift in Sources */,
 				7F1E96BC2546B8BF00638965 /* Date+Ext.swift in Sources */,
 				7FF255152856DA63008A7390 /* WindowCustomizer.swift in Sources */,
@@ -962,7 +961,6 @@
 				7F384BEE24587498004C07EE /* Appearance.swift in Sources */,
 				7FE331E22647B33F00D412AE /* VideoListMockData.swift in Sources */,
 				7FBC71792653DB9B001DDAE7 /* VideoControllerView.swift in Sources */,
-				7F52963C2858AF6D00548281 /* MainViewController.swift in Sources */,
 				7F98F6B228F913B400AF6858 /* NewStreamView.swift in Sources */,
 				7F2439F624580FA500C1FB17 /* VideoListViewModel.swift in Sources */,
 				7F73C8E92654D66900715F9A /* VideoPlayerInteractor.swift in Sources */,
@@ -1058,7 +1056,7 @@
 				DEVELOPMENT_TEAM = N5B5T39W8Y;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = LiveEventsTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1098,7 +1096,7 @@
 				DEVELOPMENT_TEAM = N5B5T39W8Y;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = LiveEventsTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1162,7 +1160,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1214,7 +1212,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1241,12 +1239,12 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.skdevappleid.liveevents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1279,12 +1277,12 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.skdevappleid.liveevents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

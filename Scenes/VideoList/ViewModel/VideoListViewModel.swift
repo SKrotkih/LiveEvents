@@ -126,7 +126,8 @@ final class VideoListViewModel: VideoListViewModelInterface {
 
     @MainActor
     func didCloseViewAction() {
-        Router.openMainScreen()
+        // TODO: !!!
+//        Router.openMainScreen()
     }
 
     @MainActor func createBroadcast() {

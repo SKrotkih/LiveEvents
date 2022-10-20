@@ -6,7 +6,28 @@
 //
 
 import UIKit
+
+import SwiftUI
 import Combine
+
+let NewRouter = NewAppRouter.shared
+
+class NewAppRouter: NSObject {
+    
+    static let shared = NewAppRouter()
+    
+    let store: AuthReduxStore
+    private let environment: NetworkService
+    
+    private override init() {
+        environment = NetworkService()
+        store = Store(initialState: .init(userSession: nil), reducer: authReducer, environment: environment)
+        environment.service.store = store
+        environment.service.configure()
+    }
+}
+
+// Old app router
 
 let Router = AppRouter.shared
 
@@ -35,12 +56,6 @@ class AppRouter: NSObject {
         YTApiProvider(store: store)
     }()
 
-    // Home screen
-    @MainActor
-    func openMainScreen() {
-        UIStoryboard.main.segueToRootViewController(self.mainScreenDependencies)
-    }
-
     // Start Live Video
     @MainActor
     func openLiveVideoScreen() {
@@ -64,10 +79,10 @@ extension AppRouter {
     ///
     /// Inject dependecncies in the MainViewController
     ///
-    private func mainScreenDependencies(_ viewController: MainViewController) {
-        viewController.store = store
-        environment.service.presentingViewController = viewController
-    }
+//    private func mainScreenDependencies(_ viewController: MainViewController) {
+//        viewController.store = store
+//        environment.service.presentingViewController = viewController
+//    }
 
     ///
     /// Inject dependecncies in the LFLiveViewController
@@ -98,7 +113,7 @@ extension AppRouter {
 extension AppRouter: UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        openMainScreen()
+//        openMainScreen()
         return true
     }
 

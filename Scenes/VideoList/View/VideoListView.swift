@@ -21,6 +21,7 @@ struct VideoListView<ViewModel>: View where ViewModel: VideoListViewModelInterfa
             }
         }
         .padding(.top, 30.0)
+        .loadingIndicator(viewModel.isDataDownloading)
         .navigationBarTitle(Text("My video list"), displayMode: .inline)
         .edgesIgnoringSafeArea(.bottom)
         .navigationBarBackButtonHidden(true)
@@ -29,7 +30,6 @@ struct VideoListView<ViewModel>: View where ViewModel: VideoListViewModelInterfa
         .onAppear {
             viewModel.loadData()
         }
-        .loadingIndicator(viewModel.isDataDownloading)
     }
 }
 

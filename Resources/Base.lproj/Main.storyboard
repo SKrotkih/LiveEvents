@@ -22,25 +22,6 @@
             </objects>
             <point key="canvasLocation" x="-1258" y="615"/>
         </scene>
-        <!--Main View Controller-->
-        <scene sceneID="OYS-Ni-TUv">
-            <objects>
-                <viewController storyboardIdentifier="MainViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9jU-58-C9i" customClass="MainViewController" customModule="LiveEvents" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="yHa-8i-v3O"/>
-                        <viewControllerLayoutGuide type="bottom" id="dV8-NG-STo"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="JnP-Cn-gIj">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="9Y8-2g-JG4"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4d7-TJ-GZw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-610.39999999999998" y="614.84257871064472"/>
-        </scene>
         <!--Live View Controller-->
         <scene sceneID="abt-IF-T5P">
             <objects>
@@ -162,7 +143,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="njm-gX-vHu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="49" y="615"/>
+            <point key="canvasLocation" x="-634" y="615"/>
         </scene>
         <!--New Stream View Controller-->
         <scene sceneID="vAu-Wj-pvZ">
@@ -365,7 +346,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IAc-dc-ymm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1336.8" y="614.84257871064472"/>
+            <point key="canvasLocation" x="-6" y="615"/>
         </scene>
     </scenes>
     <resources>

@@ -12,7 +12,7 @@ import Combine
 struct HomeView<ViewModel>: View where ViewModel: HomeViewModelInterface {
     @EnvironmentObject var store: AuthReduxStore
     @ObservedObject var viewModel: ViewModel
-    
+
     var body: some View {
         VStack {
             Spacer()

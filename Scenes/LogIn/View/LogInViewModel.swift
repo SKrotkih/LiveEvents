@@ -31,7 +31,8 @@ final class LogInViewModel: LogInViewModelInterface {
             .sink { state in
                 if state.isConnected {
                     Task {
-                        await Router.openMainScreen()
+                        // TODO: !!!
+                        // await Router.openMainScreen()
                     }
                 }
             }

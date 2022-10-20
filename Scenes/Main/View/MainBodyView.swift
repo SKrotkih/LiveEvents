@@ -21,8 +21,9 @@ struct MainBodyView: View {
                 }
             }
             .navigationBarTitle(Text("Live Events"), displayMode: .inline)
-            .edgesIgnoringSafeArea(.bottom)
             .navigationBarBackButtonHidden(true)
+            .edgesIgnoringSafeArea(.bottom)
+            .statusBar(hidden: true)
         }
     }
 }

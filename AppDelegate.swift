@@ -7,8 +7,7 @@
 
 import UIKit
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: NSObject, UIApplicationDelegate {
 
     lazy var window: UIWindow? = UIWindow()
 
