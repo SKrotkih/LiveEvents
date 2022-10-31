@@ -13,12 +13,12 @@ import Combine
 let NewRouter = NewAppRouter.shared
 
 class NewAppRouter: NSObject {
-    
+
     static let shared = NewAppRouter()
-    
+
     let store: AuthReduxStore
     private let environment: NetworkService
-    
+
     private override init() {
         environment = NetworkService()
         store = Store(initialState: .init(userSession: nil), reducer: authReducer, environment: environment)
@@ -27,7 +27,7 @@ class NewAppRouter: NSObject {
     }
 }
 
-// Old app router
+// TODO: Old app router variation. It needs to transfer to the new one.
 
 let Router = AppRouter.shared
 

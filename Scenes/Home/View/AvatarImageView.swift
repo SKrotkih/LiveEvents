@@ -2,7 +2,7 @@
 //  AvatarImageView.swift
 //  LiveEvents
 //
-//  Created by Sergey Krotkih on 9/17/22.
+//  Created by Serhii Krotkykh on 9/17/22.
 //
 
 import Foundation
@@ -56,10 +56,7 @@ extension Image {
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: 30.0, height: 30.0)
-            .cornerRadius(15.0)
-            .background(
-                RoundedRectangle(cornerRadius: 15.0)
-                    .stroke(.white, lineWidth: 1)
-            )
+            .clipShape(Circle())
+            .overlay(Circle().stroke(.white, lineWidth: 1))
    }
 }

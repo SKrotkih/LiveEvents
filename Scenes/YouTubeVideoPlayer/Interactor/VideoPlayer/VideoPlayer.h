@@ -1,10 +1,3 @@
-//
-//  VideoPlayer.h
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh
-//
-
 #import <UIKit/UIKit.h>
 #import <youtube_ios_player_helper/YTPlayerView.h>
 

@@ -2,7 +2,7 @@
 //  NewStreamView.swift
 //  LiveEvents
 //
-//  Created by Sergey Krotkih on 10/14/22.
+//  Created by Serhii Krotkykh on 10/14/22.
 //
 
 import SwiftUI

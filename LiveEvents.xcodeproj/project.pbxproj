@@ -63,6 +63,7 @@
 		7FAEE354288CC1E000770924 /* UserDefaultsValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE353288CC1DF00770924 /* UserDefaultsValue.swift */; };
 		7FAF9E92246187B900C8B81B /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF9E91246187B900C8B81B /* Config.plist */; };
 		7FB0103F2901624800AE0F87 /* LiveEventsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB0103E2901624800AE0F87 /* LiveEventsApp.swift */; };
+		7FB0104129017C3E00AE0F87 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB0104029017C3E00AE0F87 /* VideoPlayerView.swift */; };
 		7FB8A42B1DD23C3100955C2D /* LFLivePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB8A42A1DD23C3100955C2D /* LFLivePreview.m */; };
 		7FB8A42D1DD23F8400955C2D /* LFLiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB8A42C1DD23F8400955C2D /* LFLiveViewController.swift */; };
 		7FBC71792653DB9B001DDAE7 /* VideoControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBC71782653DB9B001DDAE7 /* VideoControllerView.swift */; };
@@ -177,6 +178,7 @@
 		7FAEE353288CC1DF00770924 /* UserDefaultsValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsValue.swift; sourceTree = "<group>"; };
 		7FAF9E91246187B900C8B81B /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Config.plist; sourceTree = SOURCE_ROOT; };
 		7FB0103E2901624800AE0F87 /* LiveEventsApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveEventsApp.swift; sourceTree = "<group>"; };
+		7FB0104029017C3E00AE0F87 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		7FB8A4291DD23C3100955C2D /* LFLivePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFLivePreview.h; sourceTree = "<group>"; };
 		7FB8A42A1DD23C3100955C2D /* LFLivePreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFLivePreview.m; sourceTree = "<group>"; };
 		7FB8A42C1DD23F8400955C2D /* LFLiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFLiveViewController.swift; sourceTree = "<group>"; };
@@ -451,6 +453,7 @@
 				7F8221CA265646E6005A6015 /* VideoPlayer.h */,
 				7F8221C6265646AD005A6015 /* VideoPlayer.mm */,
 				7F809FC426414C4E006C4B4E /* YTVideoPlayer.swift */,
+				7FB0104029017C3E00AE0F87 /* VideoPlayerView.swift */,
 			);
 			path = VideoPlayer;
 			sourceTree = "<group>";
@@ -948,6 +951,7 @@
 				7F1E96BC2546B8BF00638965 /* Date+Ext.swift in Sources */,
 				7FF255152856DA63008A7390 /* WindowCustomizer.swift in Sources */,
 				7F9A91D82609AC170036CA0B /* YouTubeVideoPlayed.swift in Sources */,
+				7FB0104129017C3E00AE0F87 /* VideoPlayerView.swift in Sources */,
 				7FAEE35228883EA300770924 /* AuthReducer.swift in Sources */,
 				7F384BEB245873A6004C07EE /* BaseViewController.swift in Sources */,
 				7FA74D5D260B3BF50069DA8A /* NewStreamViewModel.swift in Sources */,

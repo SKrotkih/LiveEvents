@@ -49,9 +49,7 @@ extension LiveStreamingViewModel: YouTubeLiveVideoPublisher {
             return
         }
         broadcastsAPI.startBroadcast(broadcast, delegate: delegate, completion: { streamName, streamUrl, scheduledStartTime in
-            if let streamName = streamName,
-                let streamUrl = streamUrl,
-                let scheduledStartTime = scheduledStartTime {
+            if let streamName, let streamUrl, let scheduledStartTime {
                 let streamUrl = "\(streamUrl)/\(streamName)"
                 let startTime = scheduledStartTime as NSDate?
                 completed(streamUrl, startTime)
@@ -91,9 +89,7 @@ extension LiveStreamingViewModel {
     }
 
     func didTransitionToStatus(broadcastStatus: String?, streamStatus: String?, healthStatus: String?) {
-        if let broadcastStatus = broadcastStatus,
-            let streamStatus = streamStatus,
-            let healthStatus = healthStatus {
+        if let broadcastStatus, let streamStatus, let healthStatus {
             let text = "status: \(broadcastStatus) [\(streamStatus);\(healthStatus)]"
             rxStateDescription.onNext(text)
         }

@@ -1,10 +1,3 @@
-//
-//  VideoPlayer.mm
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh
-//
-
 #import "VideoPlayer.h"
 
 @implementation VideoPlayer
