@@ -13,15 +13,7 @@ struct VideoListView<ViewModel>: View where ViewModel: VideoListViewModelInterfa
     @ObservedObject var viewModel: ViewModel
 
     var body: some View {
-        VStack {
-            if viewModel.errorMessage.isEmpty {
-                VideoList(viewModel: viewModel)
-            } else {
-                ErrorMessage(viewModel: viewModel)
-            }
-        }
-        .padding(.top, 30.0)
-        .loadingIndicator(viewModel.isDataDownloading)
+        contentView
         .navigationBarTitle(Text("My video list"), displayMode: .inline)
         .edgesIgnoringSafeArea(.bottom)
         .navigationBarBackButtonHidden(true)
@@ -30,6 +22,19 @@ struct VideoListView<ViewModel>: View where ViewModel: VideoListViewModelInterfa
         .onAppear {
             viewModel.loadData()
         }
+    }
+
+    private var contentView: some View {
+        VStack {
+            Spacer()
+                .frame(height: 30.0)
+            if viewModel.errorMessage.isEmpty {
+                VideoList(viewModel: viewModel)
+            } else {
+                ErrorMessage(viewModel: viewModel)
+            }
+        }
+        .loadingIndicator(viewModel.isDataDownloading)
     }
 }
 

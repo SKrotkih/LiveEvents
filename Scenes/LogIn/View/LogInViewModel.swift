@@ -10,19 +10,22 @@ import SwiftUI
 import Combine
 
 protocol LogInViewModelInterface: ObservableObject {
+    var isConnected: Bool { get }
     var errorMessage: String { get }
     func subscribeOnLogInState()
 }
 
 final class LogInViewModel: LogInViewModelInterface {
+    @Published var errorMessage: String = ""
+    @Published var isConnected: Bool = false
+
     private let store: AuthReduxStore
+
     private var disposables = Set<AnyCancellable>()
 
     init(store: AuthReduxStore) {
         self.store = store
     }
-
-    var errorMessage: String { store.state.logInErrorMessage ?? "" }
 
     func subscribeOnLogInState() {
         store
@@ -30,10 +33,9 @@ final class LogInViewModel: LogInViewModelInterface {
             .receive(on: DispatchQueue.main)
             .sink { state in
                 if state.isConnected {
-                    Task {
-                        // TODO: !!!
-                        // await Router.openMainScreen()
-                    }
+                    self.isConnected = true
+                } else if let message = state.logInErrorMessage, !message.isEmpty {
+                    self.errorMessage = message
                 }
             }
             .store(in: &disposables)

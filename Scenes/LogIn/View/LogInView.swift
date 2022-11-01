@@ -11,8 +11,23 @@ import SwiftGoogleSignIn
 /// SwiftUI content view for the Google Sign In
 struct LogInView<ViewModel>: View where ViewModel: LogInViewModelInterface {
     @ObservedObject var viewModel: ViewModel
+    @State private var selectedTag: Int? = 1
 
     var body: some View {
+        if viewModel.isConnected {
+            NavigationLink(destination: MainBodyView(),
+                           tag: 1,
+                           selection: $selectedTag) {
+                EmptyView()
+            }
+        }
+        contentView
+        .onAppear {
+            viewModel.subscribeOnLogInState()
+        }
+    }
+
+    private var contentView: some View {
         VStack {
             Spacer()
             Image("icon-logo")
@@ -21,22 +36,20 @@ struct LogInView<ViewModel>: View where ViewModel: LogInViewModelInterface {
                 .frame(height: 100.0)
                 .padding(30)
             Spacer()
-            Text(viewModel.errorMessage)
-                .lineLimit(nil)
-                .multilineTextAlignment(.center)
-                .padding(25.0)
-                .foregroundColor(.red)
-            VStack {
-                SignInButton()
-                    .padding()
-                    .frame(width: 130.0)
+            if viewModel.errorMessage.isEmpty {
+                EmptyView()
+            } else {
+                Text(viewModel.errorMessage)
+                    .lineLimit(nil)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.red)
+                    .padding(30.0)
             }
-            .frame(height: 20.0)
-        }
-        .padding(.top, 30.0)
-        .padding(.bottom, 30.0)
-        .onAppear {
-            viewModel.subscribeOnLogInState()
+            SignInButton()   // native google sign in button will be shown here
+                .padding()
+                .frame(width: 130.0, height: 20.0)
+            Spacer()
+                .frame(height: 60.0)
         }
     }
 }

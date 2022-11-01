@@ -13,17 +13,21 @@ struct MainBodyView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
-                if store.state.isConnected {
-                    HomeView(viewModel: HomeViewModel(store: store))
-                } else {
-                    LogInView(viewModel: LogInViewModel(store: store))
-                }
-            }
+            contentView
             .navigationBarTitle(Text("Live Events"), displayMode: .inline)
             .navigationBarBackButtonHidden(true)
-            .edgesIgnoringSafeArea(.bottom)
             .statusBar(hidden: true)
         }
+    }
+
+    private var contentView: some View {
+        VStack {
+            if store.state.isConnected {
+                HomeView(viewModel: HomeViewModel(store: store))
+            } else {
+                LogInView(viewModel: LogInViewModel(store: store))
+            }
+        }
+        .edgesIgnoringSafeArea(.bottom)
     }
 }

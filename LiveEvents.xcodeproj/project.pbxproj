@@ -261,6 +261,7 @@
 				7F1E96AE2546B8BF00638965 /* Alert.swift */,
 				7FDCF9852546BF1400D5B492 /* LVError.swift */,
 				7FC6B7F128EE981900C20F74 /* LoadingIndicator.swift */,
+				7FF255142856DA63008A7390 /* WindowCustomizer.swift */,
 				7F1E96B02546B8BF00638965 /* StatusBarShowingViewController.swift */,
 			);
 			path = Helpers;
@@ -325,7 +326,6 @@
 			isa = PBXGroup;
 			children = (
 				7F2C3C3B2544187100CA9912 /* AppRouter.swift */,
-				7FF255142856DA63008A7390 /* WindowCustomizer.swift */,
 				7FCFD64D28658A8F00F61B48 /* Main */,
 				7FCFD64E28658AC600F61B48 /* Home */,
 				7FA94FFF2032C5750083B23B /* LogIn */,

@@ -14,25 +14,30 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelInterface {
     @ObservedObject var viewModel: ViewModel
 
     var body: some View {
+        contentView
+        .navigationBarTitle(Text("Live Events"), displayMode: .inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: UserNameView(viewModel.userName),
+                            trailing: UserAvatarView(viewModel: viewModel))
+    }
+
+    private var contentView: some View {
         VStack {
             Spacer()
             Image("icon-logo")
                 .resizable()
                 .scaledToFit()
                 .frame(height: 100.0)
-                .padding(30)
             Spacer()
             VideoListButton(store: store)
+            Spacer()
+                .frame(height: 30.0)
             LogOutButton(viewModel: viewModel)
+            Spacer()
+                .frame(height: 30.0)
         }
-        .padding(.top, 30.0)
-        .padding(.bottom, 30.0)
         .loadingIndicator(viewModel.isAvatarDownloading)
-        .navigationBarTitle(Text("Live Events"), displayMode: .inline)
         .edgesIgnoringSafeArea(.bottom)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: UserNameView(viewModel.userName),
-                            trailing: UserAvatarView(viewModel: viewModel))
     }
 }
 
@@ -60,7 +65,7 @@ struct UserAvatarView<ViewModel>: View where ViewModel: HomeViewModelInterface {
 }
 
 struct VideoListButton: View {
-    @State private var action: Int? = 0
+    @State private var selectedTag: Int? = 0
     let videoListViewModel: VideoListViewModel
 
     init(store: AuthReduxStore) {
@@ -70,13 +75,14 @@ struct VideoListButton: View {
     }
 
     var body: some View {
+        // go to the next screen automatically if the tag is equal to the selection value
         NavigationLink(destination: VideoListView(viewModel: videoListViewModel),
                        tag: 1,
-                       selection: $action) {
+                       selection: $selectedTag) {
             EmptyView()
         }
         Button(action: {
-            action = 1
+            selectedTag = 1 // go to the Video List screen immediately
         }, label: {
             Text("Video List")
                 .padding()

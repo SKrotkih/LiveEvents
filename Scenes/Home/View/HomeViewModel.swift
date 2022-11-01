@@ -33,7 +33,7 @@ final class HomeViewModel: HomeViewModelInterface {
         self.store = store
     }
 
-    var userName: String { store.state.userSession?.profile.fullName ?? "" }
+    lazy var userName: String = { store.state.userSession?.profile.fullName ?? "" }()
 
     func downloadImage(url: String) {
         self.isAvatarDownloading = true
