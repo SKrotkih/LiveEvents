@@ -9,10 +9,10 @@ import SwiftUI
 import Combine
 
 /// SwiftUI content view for the Home screen
-struct HomeView<ViewModel>: View where ViewModel: HomeViewModelInterface {
+struct HomeView: View {
     @EnvironmentObject var store: AuthReduxStore
-    @ObservedObject var viewModel: ViewModel
-
+    @StateObject var viewModel = HomeViewModel(store: NewRouter.store)
+    
     var body: some View {
         contentView
         .navigationBarTitle(Text("Live Events"), displayMode: .inline)

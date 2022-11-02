@@ -9,8 +9,8 @@ import SwiftUI
 import SwiftGoogleSignIn
 
 /// SwiftUI content view for the Google Sign In
-struct LogInView<ViewModel>: View where ViewModel: LogInViewModelInterface {
-    @ObservedObject var viewModel: ViewModel
+struct LogInView: View {
+    @StateObject var viewModel = LogInViewModel(store: NewRouter.store)
     @State private var selectedTag: Int? = 1
 
     var body: some View {
@@ -23,9 +23,8 @@ struct LogInView<ViewModel>: View where ViewModel: LogInViewModelInterface {
         }
         contentView
         .onAppear {
-            let viewController = UIHostingController(rootView: self)
-            // google sign in process demands the viewcontroller
-            viewModel.configure(with: viewController)
+            viewModel.presentingViewController = UIHostingController(rootView: self)
+            viewModel.configure()
         }
     }
 
@@ -36,16 +35,16 @@ struct LogInView<ViewModel>: View where ViewModel: LogInViewModelInterface {
                 .resizable()
                 .scaledToFit()
                 .frame(height: 100.0)
-                .padding(30)
             Spacer()
-            if viewModel.errorMessage.isEmpty {
-                EmptyView()
-            } else {
-                Text(viewModel.errorMessage)
+            if let errorMessage = viewModel.errorMessage, !errorMessage.isEmpty {
+                Text(errorMessage)
                     .lineLimit(nil)
                     .multilineTextAlignment(.center)
                     .foregroundColor(.red)
-                    .padding(30.0)
+                Spacer()
+                    .frame(height: 30.0)
+            } else {
+                EmptyView()
             }
             SignInButton()   // native google sign in button will be shown here
                 .padding()

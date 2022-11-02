@@ -23,9 +23,9 @@ struct MainBodyView: View {
     private var contentView: some View {
         VStack {
             if store.state.isConnected {
-                HomeView(viewModel: HomeViewModel(store: store))
+                HomeView()
             } else {
-                LogInView(viewModel: LogInViewModel(store: store))
+                LogInView()
             }
         }
         .edgesIgnoringSafeArea(.bottom)
