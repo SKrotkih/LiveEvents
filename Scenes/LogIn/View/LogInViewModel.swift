@@ -12,7 +12,7 @@ import Combine
 protocol LogInViewModelInterface: ObservableObject {
     var isConnected: Bool { get }
     var errorMessage: String { get }
-    func subscribeOnLogInState()
+    func configure(with viewController: UIViewController)
 }
 
 final class LogInViewModel: LogInViewModelInterface {
@@ -27,7 +27,11 @@ final class LogInViewModel: LogInViewModelInterface {
         self.store = store
     }
 
-    func subscribeOnLogInState() {
+    func configure(with viewController: UIViewController) {
+
+        NewRouter.environment.service.presentingViewController = viewController
+
+        // subscribe on Log In state
         store
             .$state
             .receive(on: DispatchQueue.main)

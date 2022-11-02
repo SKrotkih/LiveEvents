@@ -23,7 +23,9 @@ struct LogInView<ViewModel>: View where ViewModel: LogInViewModelInterface {
         }
         contentView
         .onAppear {
-            viewModel.subscribeOnLogInState()
+            let viewController = UIHostingController(rootView: self)
+            // google sign in process demands the viewcontroller
+            viewModel.configure(with: viewController)
         }
     }
 

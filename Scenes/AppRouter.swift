@@ -17,7 +17,7 @@ class NewAppRouter: NSObject {
     static let shared = NewAppRouter()
 
     let store: AuthReduxStore
-    private let environment: NetworkService
+    let environment: NetworkService
 
     private override init() {
         environment = NetworkService()
