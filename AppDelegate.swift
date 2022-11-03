@@ -10,9 +10,9 @@ import SwiftUI
 import Combine
 
 @UIApplicationMain
-class AppDelegate: NSObject, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    lazy var window: UIWindow? = UIWindow()
+    var window: UIWindow?
 
     lazy private var observers: [UIApplicationDelegate]? = [
         WindowCustomizer(),
@@ -29,7 +29,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        setUpAppWindow()
+//        setUpAppWindow()
         observers?.forEach {
             _ = $0.application?(application, didFinishLaunchingWithOptions: launchOptions)
         }
@@ -79,7 +79,7 @@ extension AppDelegate: UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = UIHostingController(rootView: contentView)
-            self.window = window
+            AppDelegate.shared.window = window
             window.makeKeyAndVisible()
         }
     }

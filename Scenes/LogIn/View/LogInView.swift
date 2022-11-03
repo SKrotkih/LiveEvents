@@ -23,7 +23,8 @@ struct LogInView: View {
         }
         contentView
         .onAppear {
-            viewModel.presentingViewController = UIHostingController(rootView: self)
+            // Set the window root view controller as the `GIDSignIn` presenting view controller.
+            viewModel.presentingViewController = AppDelegate.shared.window?.rootViewController ?? UIHostingController(rootView: self)
             viewModel.configure()
         }
     }

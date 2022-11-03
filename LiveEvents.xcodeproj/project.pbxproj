@@ -176,7 +176,6 @@
 		7FAEE34F28883EA300770924 /* AuthReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthReducer.swift; sourceTree = "<group>"; };
 		7FAEE353288CC1DF00770924 /* UserDefaultsValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsValue.swift; sourceTree = "<group>"; };
 		7FAF9E91246187B900C8B81B /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Config.plist; sourceTree = SOURCE_ROOT; };
-		7FB0103E2901624800AE0F87 /* LiveEventsApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveEventsApp.swift; sourceTree = "<group>"; };
 		7FB0104029017C3E00AE0F87 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		7FB8A4291DD23C3100955C2D /* LFLivePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFLivePreview.h; sourceTree = "<group>"; };
 		7FB8A42A1DD23C3100955C2D /* LFLivePreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFLivePreview.m; sourceTree = "<group>"; };
@@ -560,7 +559,6 @@
 		7FAEE2FC28862A0500770924 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7FB0103E2901624800AE0F87 /* LiveEventsApp.swift */,
 				7FFA59862861DDDE00D2F4FE /* MainBodyView.swift */,
 			);
 			path = View;
