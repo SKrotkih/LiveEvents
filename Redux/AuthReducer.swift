@@ -25,10 +25,10 @@ func authReducer(state: inout AuthState,
     case .loggedOut:
         state.userSession = nil
     case .logOut:
-        // async operation; finished by .loggedOut sate:
+        // async operation; finished by .loggedOut state:
         environment.service.logOut()
     case let .loggedInWithError(message):
         state.logInErrorMessage = message
     }
-    return Empty().eraseToAnyPublisher()
+    return Empty().eraseToAnyPublisher() // informs subscriber about state is changed
 }

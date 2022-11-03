@@ -21,10 +21,11 @@ protocol UserSessionObserver {
 }
 
 class SignInService: SignInObserver, ObservableObject {
+    @Published var userSession: UserSession?
+    @Lateinit var store: AuthReduxStore
+
     let signInPackageAPI = SwiftGoogleSignIn.packageAPI
 
-    private let isScopesApproved = false
-    @Lateinit var store: AuthReduxStore
     // There are needed sensitive scopes to have ability to work properly
     // Make sure they are presented in your app. Then send request on an verification
     private let googleAPIscopes = [
@@ -33,9 +34,9 @@ class SignInService: SignInObserver, ObservableObject {
         "https://www.googleapis.com/auth/youtube.force-ssl"
     ]
 
+    // My google API scopes are not approved so far!
+    private let isScopesApproved = false
     private var disposables = Set<AnyCancellable>()
-
-    @Published var userSession: UserSession?
 
     func configure() {
         signInPackageAPI.initialize(isScopesApproved ? googleAPIscopes : nil)

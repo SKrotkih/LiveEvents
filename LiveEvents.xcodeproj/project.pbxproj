@@ -62,7 +62,6 @@
 		7FAEE35228883EA300770924 /* AuthReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE34F28883EA300770924 /* AuthReducer.swift */; };
 		7FAEE354288CC1E000770924 /* UserDefaultsValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE353288CC1DF00770924 /* UserDefaultsValue.swift */; };
 		7FAF9E92246187B900C8B81B /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF9E91246187B900C8B81B /* Config.plist */; };
-		7FB0103F2901624800AE0F87 /* LiveEventsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB0103E2901624800AE0F87 /* LiveEventsApp.swift */; };
 		7FB0104129017C3E00AE0F87 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB0104029017C3E00AE0F87 /* VideoPlayerView.swift */; };
 		7FB8A42B1DD23C3100955C2D /* LFLivePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB8A42A1DD23C3100955C2D /* LFLivePreview.m */; };
 		7FB8A42D1DD23F8400955C2D /* LFLiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB8A42C1DD23F8400955C2D /* LFLiveViewController.swift */; };
@@ -262,7 +261,6 @@
 				7FDCF9852546BF1400D5B492 /* LVError.swift */,
 				7FC6B7F128EE981900C20F74 /* LoadingIndicator.swift */,
 				7FF255142856DA63008A7390 /* WindowCustomizer.swift */,
-				7F1E96B02546B8BF00638965 /* StatusBarShowingViewController.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -482,6 +480,7 @@
 				7F384BED24587498004C07EE /* Appearance.swift */,
 				7F384BEA245873A5004C07EE /* MainNavController.swift */,
 				7F384BE9245873A5004C07EE /* BaseViewController.swift */,
+				7F1E96B02546B8BF00638965 /* StatusBarShowingViewController.swift */,
 			);
 			path = Appearance;
 			sourceTree = "<group>";
@@ -946,7 +945,6 @@
 				7FAEE35128883EA300770924 /* AuthAction.swift in Sources */,
 				7FFA59872861DDDF00D2F4FE /* HomeView.swift in Sources */,
 				7FB8A42B1DD23C3100955C2D /* LFLivePreview.m in Sources */,
-				7FB0103F2901624800AE0F87 /* LiveEventsApp.swift in Sources */,
 				7F79FE42265E6BB1002FA510 /* loadMockData.swift in Sources */,
 				7F1E96BC2546B8BF00638965 /* Date+Ext.swift in Sources */,
 				7FF255152856DA63008A7390 /* WindowCustomizer.swift in Sources */,
@@ -1236,7 +1234,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = N5B5T39W8Y;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1248,7 +1246,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.skdevappleid.liveevents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1274,7 +1272,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = N5B5T39W8Y;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1286,7 +1284,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.skdevappleid.liveevents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
