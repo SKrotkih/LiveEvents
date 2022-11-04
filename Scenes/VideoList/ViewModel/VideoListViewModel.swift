@@ -49,7 +49,6 @@ protocol VideoListViewModelObservable: ObservableObject {
 }
 
 protocol VideoListViewModelLaunched {
-    func didCloseViewAction()
     func didUserLogOutAction()
     func createBroadcast()
     func loadData()
@@ -82,21 +81,45 @@ final class VideoListViewModel: VideoListViewModelInterface {
     }
 
     func loadData() {
-        isDataDownloading = true
         Task {
+            await MainActor.run { isDataDownloading = true }
             let data = await dataSource.loadData()
-            await parseResult(data: data)
-            await parseError(data: data)
+            // example of using task group
+            let _sections = await withTaskGroup(of: [VideoListSection].self,
+                                returning: [VideoListSection].self,
+                                body: { taskGroup in
+                taskGroup.addTask {
+                    return await self.parseResult(data: data)
+                }
+                var _sections = [VideoListSection]()
+                for await result in taskGroup {
+                    _sections = result
+                }
+                return _sections
+            })
+            // example of parsing task return result
+            let error = Task { () -> String in
+                return await self.parseError(data: data)
+            }
+            do {
+                let result = await error.result
+                let message = try result.get()
+                if !message.isEmpty {
+                    await MainActor.run { self.errorMessage = message }
+                }
+            } catch {
+                print("Unknown error.")
+            }
             await MainActor.run { isDataDownloading.toggle() }
+            await MainActor.run { sections = _sections }
         }
     }
 
     // Presenter
-    @MainActor
-    private func parseResult(data: [SectionModel]) async {
+    private func parseResult(data: [SectionModel]) async -> [VideoListSection] {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm, d MMM y"
-        sections = data.map({ sectionModel in
+        return data.map({ sectionModel in
             VideoListSection(sectionName: sectionModel.model,
                              rows: sectionModel.items.map({ streamModel in
                 VideoListRow(videoId: streamModel.id,
@@ -106,8 +129,7 @@ final class VideoListViewModel: VideoListViewModelInterface {
         })
     }
 
-    @MainActor
-    private func parseError(data: [SectionModel]) async {
+    private func parseError(data: [SectionModel]) async -> String {
         let message: String = data.reduce("") { partialResult, item in
             var message = ""
             if let errorMessage = item.error {
@@ -115,9 +137,7 @@ final class VideoListViewModel: VideoListViewModelInterface {
             }
             return partialResult + message
         }
-        if !message.isEmpty {
-            errorMessage = message
-        }
+        return message
     }
 
     func didUserLogOutAction() {
@@ -125,12 +145,7 @@ final class VideoListViewModel: VideoListViewModelInterface {
     }
 
     @MainActor
-    func didCloseViewAction() {
-        // TODO: !!!
-//        Router.openMainScreen()
-    }
-
-    @MainActor func createBroadcast() {
+    func createBroadcast() {
         Router.showNewStreamScreen()
     }
 }
