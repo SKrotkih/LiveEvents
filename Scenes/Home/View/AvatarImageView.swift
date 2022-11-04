@@ -8,13 +8,12 @@
 import Foundation
 import SwiftUI
 
-struct AvatarImageView<ViewModel>: View where ViewModel: HomeViewModelInterface {
+struct AvatarImageView: View {
     @EnvironmentObject var store: AuthReduxStore
-    @ObservedObject var viewModel: ViewModel
 
     var body: some View {
         if let url = store.state.userSession?.profile.profilePicUrl {
-            ProfileImageView(withURL: url.absoluteString, viewModel: viewModel)
+            ProfileImageView(withURL: url.absoluteString)
         } else {
             PlaceholderView()
         }
@@ -28,13 +27,12 @@ struct PlaceholderView: View {
     }
 }
 
-struct ProfileImageView<ViewModel>: View where ViewModel: HomeViewModelInterface {
-    @ObservedObject private var viewModel: ViewModel
+struct ProfileImageView: View {
+    @EnvironmentObject var viewModel: HomeViewModel
     private let imageUrl: String
 
-    init(withURL url: String, viewModel: ViewModel) {
+    init(withURL url: String) {
         self.imageUrl = url
-        self.viewModel = viewModel
     }
 
     var body: some View {

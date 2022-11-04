@@ -10,7 +10,8 @@ import SwiftGoogleSignIn
 
 /// SwiftUI content view for the Google Sign In
 struct LogInView: View {
-    @StateObject var viewModel = LogInViewModel(store: NewRouter.store)
+    @EnvironmentObject var viewModel: LogInViewModel
+
     @State private var selectedTag: Int? = 1
 
     var body: some View {
@@ -61,8 +62,10 @@ struct LogInView_Previews: PreviewProvider {
         let store = Store(initialState: .init(userSession: nil),
                           reducer: authReducer,
                           environment: NetworkService())
-        LogInView(viewModel: LogInViewModel(store: store))
+        let viewModel = LogInViewModel(store: store)
+        LogInView()
             .previewDevice(PreviewDevice(rawValue: "iPhone 12 Pro"))
             .previewDisplayName("iPhone 12 Pro")
+            .environmentObject(viewModel)
     }
 }

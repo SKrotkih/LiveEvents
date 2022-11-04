@@ -3,7 +3,6 @@
 //  LiveEvents
 //
 //  Created by Serhii Krotkykh on 24.03.2021.
-//  Copyright © 2021 Serhii Krotkykh. All rights reserved.
 //
 
 import Foundation
@@ -29,7 +28,10 @@ protocol NewStreamViewModelObservable {
     var rxStartDate: PublishSubject<String> { get }
 }
 
-typealias NewStreamViewModelInterface = NewStreamViewModelPresentable & NewStreamViewModelLaunched & NewStreamViewModelObservable
+typealias NewStreamViewModelInterface = ObservableObject &
+NewStreamViewModelPresentable &
+NewStreamViewModelLaunched &
+NewStreamViewModelObservable
 
 class NewStreamViewModel: NewStreamViewModelInterface {
     var broadcastsAPI: YTLiveStreaming!

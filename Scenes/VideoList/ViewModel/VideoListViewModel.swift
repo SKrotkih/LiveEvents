@@ -42,7 +42,7 @@ struct VideoListRow: Codable, Identifiable, Hashable {
     }
 }
 
-protocol VideoListViewModelObservable: ObservableObject {
+protocol VideoListViewModelObservable {
     var sections: [VideoListSection] { get set }
     var errorMessage: String { get set }
     var isDataDownloading: Bool { get set}
@@ -54,7 +54,7 @@ protocol VideoListViewModelLaunched {
     func loadData()
 }
 
-typealias VideoListViewModelInterface = VideoListViewModelObservable & VideoListViewModelLaunched
+typealias VideoListViewModelInterface = ObservableObject & VideoListViewModelObservable & VideoListViewModelLaunched
 
 final class VideoListViewModel: VideoListViewModelInterface {
     @Published var sections = [VideoListSection]()
@@ -64,8 +64,13 @@ final class VideoListViewModel: VideoListViewModelInterface {
     // Default value of the used video player
     private static let playerType: VideoPlayerType = .DefaultVideoPlayer
 
-    @Lateinit var dataSource: any BroadcastsDataFetcher
-    @Lateinit var store: AuthReduxStore
+    let dataSource: any BroadcastsDataFetcher
+    let store: AuthReduxStore
+
+    init(store: AuthReduxStore, dataSource: any BroadcastsDataFetcher) {
+        self.store = store
+        self.dataSource = dataSource
+    }
 
     lazy private var videoPlayer = YouTubePlayer()
 

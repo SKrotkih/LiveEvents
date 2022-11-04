@@ -11,14 +11,14 @@ import Combine
 /// SwiftUI content view for the Home screen
 struct HomeView: View {
     @EnvironmentObject var store: AuthReduxStore
-    @StateObject var viewModel = HomeViewModel(store: NewRouter.store)
-    
+    @EnvironmentObject var viewModel: HomeViewModel
+
     var body: some View {
         contentView
         .navigationBarTitle(Text("Live Events"), displayMode: .inline)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: UserNameView(viewModel.userName),
-                            trailing: UserAvatarView(viewModel: viewModel))
+                            trailing: UserAvatarView())
     }
 
     private var contentView: some View {
@@ -29,10 +29,10 @@ struct HomeView: View {
                 .scaledToFit()
                 .frame(height: 100.0)
             Spacer()
-            VideoListButton(store: store)
+            VideoListButton()
             Spacer()
                 .frame(height: 30.0)
-            LogOutButton(viewModel: viewModel)
+            LogOutButton()
             Spacer()
                 .frame(height: 30.0)
         }
@@ -53,12 +53,10 @@ struct UserNameView: View {
     }
 }
 
-struct UserAvatarView<ViewModel>: View where ViewModel: HomeViewModelInterface {
-    @ObservedObject var viewModel: ViewModel
-
+struct UserAvatarView: View {
     var body: some View {
         HStack {
-            AvatarImageView(viewModel: viewModel)
+            AvatarImageView()
                 .padding(.trailing, 0.0)
         }
     }
@@ -66,17 +64,10 @@ struct UserAvatarView<ViewModel>: View where ViewModel: HomeViewModelInterface {
 
 struct VideoListButton: View {
     @State private var selectedTag: Int? = 0
-    let videoListViewModel: VideoListViewModel
-
-    init(store: AuthReduxStore) {
-        videoListViewModel = VideoListViewModel()
-        let dataSource = VideoListFetcher(broadcastsAPI: YTApiProvider(store: store).getApi())
-        videoListViewModel.dataSource = dataSource
-    }
 
     var body: some View {
         // go to the next screen automatically if the tag is equal to the selection value
-        NavigationLink(destination: VideoListView(viewModel: videoListViewModel),
+        NavigationLink(destination: VideoListView(),
                        tag: 1,
                        selection: $selectedTag) {
             EmptyView()
@@ -98,8 +89,8 @@ struct VideoListButton: View {
     }
 }
 
-struct LogOutButton<ViewModel>: View where ViewModel: HomeViewModelInterface {
-    @ObservedObject var viewModel: ViewModel
+struct LogOutButton: View {
+    @EnvironmentObject var viewModel: HomeViewModel
 
     var body: some View {
         Button(action: {
@@ -119,9 +110,11 @@ struct HomeView_Previews: PreviewProvider {
         let store = Store(initialState: .init(userSession: nil),
                           reducer: authReducer,
                           environment: NetworkService())
-        HomeView(viewModel: HomeViewModel(store: store))
+        let viewModel = HomeViewModel(store: store)
+        HomeView()
             .previewDevice(PreviewDevice(rawValue: "iPhone 12 Pro"))
             .previewDisplayName("iPhone 12 Pro")
             .environmentObject(store)
+            .environmentObject(viewModel)
     }
 }

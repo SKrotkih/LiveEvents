@@ -8,9 +8,9 @@
 import SwiftUI
 import Combine
 
-struct VideoListView<ViewModel>: View where ViewModel: VideoListViewModelInterface {
+struct VideoListView: View {
     @EnvironmentObject var store: AuthReduxStore
-    @ObservedObject var viewModel: ViewModel
+    @EnvironmentObject var viewModel: VideoListViewModel
 
     var body: some View {
         contentView
@@ -18,7 +18,7 @@ struct VideoListView<ViewModel>: View where ViewModel: VideoListViewModelInterfa
         .edgesIgnoringSafeArea(.bottom)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: BackButton(),
-                            trailing: NewStreamButton(store: store))
+                            trailing: NewStreamButton())
         .onAppear {
             viewModel.loadData()
         }
@@ -31,15 +31,15 @@ struct VideoListView<ViewModel>: View where ViewModel: VideoListViewModelInterfa
             if viewModel.errorMessage.isEmpty {
                 VideoList(viewModel: viewModel)
             } else {
-                ErrorMessage(viewModel: viewModel)
+                ErrorMessage()
             }
         }
         .loadingIndicator(viewModel.isDataDownloading)
     }
 }
 
+// TODO: it's a good idea to use like this (protocol instead of class anywhere):
 struct VideoList<ViewModel>: View where ViewModel: VideoListViewModelInterface {
-    @EnvironmentObject var store: AuthReduxStore
     @ObservedObject var viewModel: ViewModel
 
     var body: some View {
@@ -68,8 +68,8 @@ struct VideoList<ViewModel>: View where ViewModel: VideoListViewModelInterface {
     }
 }
 
-struct ErrorMessage<ViewModel>: View where ViewModel: VideoListViewModelInterface {
-    @ObservedObject var viewModel: ViewModel
+struct ErrorMessage: View {
+    @EnvironmentObject var viewModel: VideoListViewModel
 
     var body: some View {
         VStack {
@@ -99,12 +99,6 @@ struct BackButton: View {
 
 struct NewStreamButton: View {
     @State private var action: Int? = 0
-    let viewModel: NewStreamViewModel
-
-    init(store: AuthReduxStore) {
-        viewModel = NewStreamViewModel()
-        viewModel.broadcastsAPI = YTApiProvider(store: store).getApi()
-    }
 
     var body: some View {
         HStack {
@@ -119,7 +113,7 @@ struct NewStreamButton: View {
                 }
             })
             NavigationLink(
-                destination: NewStreamView(viewModel: viewModel),
+                destination: NewStreamView(),
                 tag: 1,
                 selection: $action
             ) {

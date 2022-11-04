@@ -8,11 +8,7 @@
 import SwiftUI
 
 struct NewStreamView: View {
-    let viewModel: NewStreamViewModel
-
-    init(viewModel: NewStreamViewModel) {
-        self.viewModel = viewModel
-    }
+    @EnvironmentObject var viewModel: NewStreamViewModel
 
     var body: some View {
         VStack {

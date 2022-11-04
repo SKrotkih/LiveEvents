@@ -9,12 +9,17 @@ import Foundation
 import SwiftUI
 import Combine
 
-protocol LogInViewModelInterface: ObservableObject {
+protocol LogInViewPresentable {
     var presentingViewController: UIViewController! { get set }
-    var isConnected: Bool { get }
     var errorMessage: String? { get }
+}
+
+protocol LogInViewConnectable {
+    var isConnected: Bool { get }
     func configure()
 }
+
+typealias LogInViewModelInterface = ObservableObject & LogInViewPresentable & LogInViewConnectable
 
 final class LogInViewModel: LogInViewModelInterface {
     @Published var errorMessage: String?

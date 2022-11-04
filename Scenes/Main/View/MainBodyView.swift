@@ -14,9 +14,10 @@ struct MainBodyView: View {
     var body: some View {
         NavigationView {
             contentView
-            .navigationBarTitle(Text("Live Events"), displayMode: .inline)
-            .navigationBarBackButtonHidden(true)
-            .statusBar(hidden: true)
+                .edgesIgnoringSafeArea(.bottom)
+                .navigationBarTitle(Text("Live Events"), displayMode: .inline)
+                .navigationBarBackButtonHidden(true)
+                .statusBar(hidden: true)
         }
     }
 
@@ -28,6 +29,5 @@ struct MainBodyView: View {
                 LogInView()
             }
         }
-        .edgesIgnoringSafeArea(.bottom)
     }
 }
