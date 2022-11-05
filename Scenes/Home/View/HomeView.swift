@@ -10,7 +10,6 @@ import Combine
 
 /// SwiftUI content view for the Home screen
 struct HomeView: View {
-    @EnvironmentObject var store: AuthReduxStore
     @EnvironmentObject var viewModel: HomeViewModel
 
     var body: some View {
@@ -114,7 +113,6 @@ struct HomeView_Previews: PreviewProvider {
         HomeView()
             .previewDevice(PreviewDevice(rawValue: "iPhone 12 Pro"))
             .previewDisplayName("iPhone 12 Pro")
-            .environmentObject(store)
             .environmentObject(viewModel)
     }
 }

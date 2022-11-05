@@ -8,10 +8,6 @@
 import Foundation
 import YTLiveStreaming
 
-enum DSSettings {
-    static let USE_MOCK_DATA = true
-}
-
 struct SectionModel {
     var model: String
     var items: [LiveBroadcastStreamModel]

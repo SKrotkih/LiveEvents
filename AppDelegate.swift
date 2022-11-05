@@ -69,11 +69,11 @@ extension AppDelegate: UIWindowSceneDelegate {
         let logInViewModel = LogInViewModel(store: store)
         let dataSource = VideoListFetcher(broadcastsAPI: broadcastsAPI)
         let videoListViewModel = VideoListViewModel(store: store, dataSource: dataSource)
-        let newStreamViewModel = NewStreamViewModel()
+        let newStreamViewModel = NewNewStreamViewModel()
         newStreamViewModel.broadcastsAPI = broadcastsAPI
 
         let contentView = MainBodyView()
-            .environmentObject(NewRouter.store)
+            .environmentObject(store)
             .environmentObject(homeViewModel)
             .environmentObject(logInViewModel)
             .environmentObject(videoListViewModel)

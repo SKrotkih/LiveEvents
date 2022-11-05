@@ -9,12 +9,12 @@
 import Foundation
 
 struct NewStream {
-    var title: String
-    var description: String
-    var hours: String
-    var minutes: String
-    var seconds: String
-    var date: Date
+    var title = ""
+    var description = ""
+    var hours = ""
+    var minutes = ""
+    var seconds = ""
+    var date = Date()
 
     func verification() -> Result<Void, LVError> {
         if title.isEmpty {

@@ -25,3 +25,7 @@ extension UIColor {
     static var orange: UIColor { #colorLiteral(red: 0.9050243497, green: 0.5463837981, blue: 0.1405682266, alpha: 1) }
     static var contactsSeparator: UIColor { #colorLiteral(red: 0.8235294118, green: 0.8235294118, blue: 0.8235294118, alpha: 1) }
 }
+
+enum DSSettings {
+    static let USE_MOCK_DATA = true
+}
