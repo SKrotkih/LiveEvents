@@ -50,7 +50,6 @@ protocol VideoListViewModelObservable {
 
 protocol VideoListViewModelLaunched {
     func didUserLogOutAction()
-    func createBroadcast()
     func loadData()
 }
 
@@ -147,10 +146,5 @@ final class VideoListViewModel: VideoListViewModelInterface {
 
     func didUserLogOutAction() {
         store.stateDispatch(action: .logOut)
-    }
-
-    @MainActor
-    func createBroadcast() {
-        Router.showNewStreamScreen()
     }
 }

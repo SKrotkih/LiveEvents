@@ -62,12 +62,6 @@ class AppRouter: NSObject {
         UIStoryboard.main.segueToModalViewController(self.liveVideoDependencies, optional: nil)
     }
 
-    // New stream
-    @MainActor
-    func showNewStreamScreen() {
-        UIStoryboard.main.sequePushViewController(self.newStreamDependencies)
-    }
-
     // Start Live Video
     @MainActor
     func playVideo(with videoId: String) { }
@@ -77,26 +71,10 @@ class AppRouter: NSObject {
 
 extension AppRouter {
     ///
-    /// Inject dependecncies in the MainViewController
-    ///
-//    private func mainScreenDependencies(_ viewController: MainViewController) {
-//        viewController.store = store
-//        environment.service.presentingViewController = viewController
-//    }
-
-    ///
     /// Inject dependecncies in the LFLiveViewController
     ///
     private func liveVideoDependencies(_ viewController: LFLiveViewController, _ optional: Any?) {
         let viewModel = LiveStreamingViewModel()
-        viewModel.broadcastsAPI = apiProvider.getApi()
-        viewController.viewModel = viewModel
-    }
-    ///
-    /// Inject dependecncies in the LFLiveViewController
-    ///
-    private func newStreamDependencies(_ viewController: NewStreamViewController) {
-        let viewModel = NewStreamViewModel()
         viewModel.broadcastsAPI = apiProvider.getApi()
         viewController.viewModel = viewModel
     }

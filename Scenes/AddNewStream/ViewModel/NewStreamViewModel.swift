@@ -1,5 +1,5 @@
 //
-//  NewNewStreamViewModel.swift
+//  NewStreamViewModel.swift
 //  LiveEvents
 //
 //  Created by Sergey Krotkih on 11/5/22.
@@ -8,13 +8,15 @@
 import Combine
 import YTLiveStreaming
 
-class NewNewStreamViewModel: ObservableObject {
+class NewStreamViewModel: ObservableObject {
     @Published var model = NewStream()
     @Published var error = ""
+    @Published var operationCompleted = false
+    @Published var isAvatarDownloading = false
 
     var broadcastsAPI: YTLiveStreaming!
 
-    func done() {
+    func createNewStream() {
         switch model.verification() {
         case .success:
             createBroadcast()
@@ -26,24 +28,25 @@ class NewNewStreamViewModel: ObservableObject {
 
 // MARK: - Interactor
 
-extension NewNewStreamViewModel {
-
-    func createBroadcast() {
+extension NewStreamViewModel {
+    private func createBroadcast() {
+        isAvatarDownloading = true
         self.broadcastsAPI.createBroadcast(model.title,
                                            description: model.description,
                                            startTime: model.startStreaming,
                                            completion: { [weak self] result in
             switch result {
             case .success(let broadcast):
-                Alert.showOk("Good job!", message: "You have scheduled a new broadcast with title '\(broadcast.snippet.title)'")
-                // self?.rxOperationCompleted.onNext(true)
+                print("You have scheduled a new broadcast with title '\(broadcast.snippet.title)'")
+                self?.isAvatarDownloading = false
+                self?.operationCompleted = true
             case .failure(let error):
+                self?.isAvatarDownloading = false
                 switch error {
                 case .systemMessage(let code, let message):
-                    let text = "\(code): \(message)"
-                    Alert.showOk("Error", message: text)
+                    self?.error = "\(code): \(message)"
                 default:
-                    Alert.showOk("Error", message: error.message())
+                    self?.error = error.message()
                 }
             }
         })

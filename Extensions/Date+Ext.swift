@@ -23,4 +23,10 @@ extension Date {
         }
         return self
     }
+
+    var streamDateFormat: String {
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        return df.string(from: self)
+    }
 }

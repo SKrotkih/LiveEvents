@@ -3,7 +3,6 @@
 //  LiveEvents
 //
 //  Created by Serhii Krotkykh on 24.03.2021.
-//  Copyright © 2021 Serhii Krotkykh. All rights reserved.
 //
 
 import Foundation
@@ -24,6 +23,10 @@ struct NewStream {
         } else {
             return .success(Void())
         }
+    }
+
+    var runAt: String {
+        startStreaming.streamDateFormat
     }
 
     var startStreaming: Date {

@@ -53,10 +53,8 @@
 		7F9A91D82609AC170036CA0B /* YouTubeVideoPlayed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A91D72609AC170036CA0B /* YouTubeVideoPlayed.swift */; };
 		7F9A92352609BE180036CA0B /* XCDYouTubeVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A92342609BE180036CA0B /* XCDYouTubeVideoPlayer.swift */; };
 		7FA64500287EF493009E76F5 /* ReSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7FA644FF287EF493009E76F5 /* ReSwift */; };
-		7FA74D5A260B3BD70069DA8A /* NewStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA74D59260B3BD70069DA8A /* NewStreamViewController.swift */; };
-		7FA74D5D260B3BF50069DA8A /* NewStreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA74D5C260B3BF50069DA8A /* NewStreamViewModel.swift */; };
 		7FA74D60260B3C0E0069DA8A /* NewStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA74D5F260B3C0E0069DA8A /* NewStream.swift */; };
-		7FA8C85D2916A7A90079C174 /* NewNewStreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA8C85C2916A7A90079C174 /* NewNewStreamViewModel.swift */; };
+		7FA8C85D2916A7A90079C174 /* NewStreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA8C85C2916A7A90079C174 /* NewStreamViewModel.swift */; };
 		7FAEE3482887AADF00770924 /* AuthState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE3472887AADF00770924 /* AuthState.swift */; };
 		7FAEE35028883EA300770924 /* AuthReduxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE34D28883EA100770924 /* AuthReduxStore.swift */; };
 		7FAEE35128883EA300770924 /* AuthAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE34E28883EA200770924 /* AuthAction.swift */; };
@@ -168,10 +166,8 @@
 		7F9A91D72609AC170036CA0B /* YouTubeVideoPlayed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeVideoPlayed.swift; sourceTree = "<group>"; };
 		7F9A92342609BE180036CA0B /* XCDYouTubeVideoPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCDYouTubeVideoPlayer.swift; sourceTree = "<group>"; };
 		7FA6450C28817702009E76F5 /* main.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; name = main.yml; path = .github/workflows/main.yml; sourceTree = SOURCE_ROOT; };
-		7FA74D59260B3BD70069DA8A /* NewStreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStreamViewController.swift; sourceTree = "<group>"; };
-		7FA74D5C260B3BF50069DA8A /* NewStreamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStreamViewModel.swift; sourceTree = "<group>"; };
 		7FA74D5F260B3C0E0069DA8A /* NewStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStream.swift; sourceTree = "<group>"; };
-		7FA8C85C2916A7A90079C174 /* NewNewStreamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNewStreamViewModel.swift; sourceTree = "<group>"; };
+		7FA8C85C2916A7A90079C174 /* NewStreamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStreamViewModel.swift; sourceTree = "<group>"; };
 		7FAEE3472887AADF00770924 /* AuthState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthState.swift; sourceTree = "<group>"; };
 		7FAEE34D28883EA100770924 /* AuthReduxStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthReduxStore.swift; sourceTree = "<group>"; };
 		7FAEE34E28883EA200770924 /* AuthAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthAction.swift; sourceTree = "<group>"; };
@@ -329,7 +325,7 @@
 				7FCFD64E28658AC600F61B48 /* Home */,
 				7FA94FFF2032C5750083B23B /* LogIn */,
 				7F53B1AF2030B15C00E09CFA /* VideoList */,
-				7FA74D55260B3B2D0069DA8A /* NewStream */,
+				7FA74D55260B3B2D0069DA8A /* AddNewStream */,
 				7F809FBF26414026006C4B4E /* YouTubeVideoPlayer */,
 				7F53B1AE2030733200E09CFA /* LiveStreaming */,
 				7F1E96C52546B91A00638965 /* XCDYouTubeKitPresenter */,
@@ -514,20 +510,19 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		7FA74D55260B3B2D0069DA8A /* NewStream */ = {
+		7FA74D55260B3B2D0069DA8A /* AddNewStream */ = {
 			isa = PBXGroup;
 			children = (
 				7FA74D56260B3B580069DA8A /* View */,
 				7FA74D57260B3B650069DA8A /* ViewModel */,
 				7FA74D58260B3B710069DA8A /* Model */,
 			);
-			path = NewStream;
+			path = AddNewStream;
 			sourceTree = "<group>";
 		};
 		7FA74D56260B3B580069DA8A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7FA74D59260B3BD70069DA8A /* NewStreamViewController.swift */,
 				7F98F6B128F913B400AF6858 /* NewStreamView.swift */,
 			);
 			path = View;
@@ -536,8 +531,7 @@
 		7FA74D57260B3B650069DA8A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				7FA74D5C260B3BF50069DA8A /* NewStreamViewModel.swift */,
-				7FA8C85C2916A7A90079C174 /* NewNewStreamViewModel.swift */,
+				7FA8C85C2916A7A90079C174 /* NewStreamViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -953,10 +947,9 @@
 				7FB0104129017C3E00AE0F87 /* VideoPlayerView.swift in Sources */,
 				7FAEE35228883EA300770924 /* AuthReducer.swift in Sources */,
 				7F384BEB245873A6004C07EE /* BaseViewController.swift in Sources */,
-				7FA74D5D260B3BF50069DA8A /* NewStreamViewModel.swift in Sources */,
 				7FD974E328D6958B00E8E16E /* LogInViewModel.swift in Sources */,
 				7FAEE3482887AADF00770924 /* AuthState.swift in Sources */,
-				7FA8C85D2916A7A90079C174 /* NewNewStreamViewModel.swift in Sources */,
+				7FA8C85D2916A7A90079C174 /* NewStreamViewModel.swift in Sources */,
 				7FD974DF28D58BBD00E8E16E /* AvatarImageView.swift in Sources */,
 				7F9A92352609BE180036CA0B /* XCDYouTubeVideoPlayer.swift in Sources */,
 				7FFA598A2864AE6600D2F4FE /* RemoteStorageData.swift in Sources */,
@@ -977,7 +970,6 @@
 				7F83E34D1DBDD49100DE4102 /* LiveStreamingViewModel.swift in Sources */,
 				7F0933CF24574FCB00FB5579 /* SignInService.swift in Sources */,
 				7F83E35D1DBDD5DB00DE4102 /* XCDYouTubeVideoPlayer8.swift in Sources */,
-				7FA74D5A260B3BD70069DA8A /* NewStreamViewController.swift in Sources */,
 				7F9A91D42609AAB90036CA0B /* YouTubeHelpers.swift in Sources */,
 				7F5296332857649800548281 /* LateInit.swift in Sources */,
 				7FDCF9862546BF1400D5B492 /* LVError.swift in Sources */,

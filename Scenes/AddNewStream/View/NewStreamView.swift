@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewStreamView: View {
-    @EnvironmentObject var viewModel: NewNewStreamViewModel
+    @EnvironmentObject var viewModel: NewStreamViewModel
 
     var body: some View {
         if !viewModel.error.isEmpty {
@@ -20,14 +20,15 @@ struct NewStreamView: View {
             }
         }
         NewStreamContentView(model: $viewModel.model)
-        .padding(.top, 30.0)
-        .navigationBarTitle(Text("Schedule a new live video"), displayMode: .inline)
-        .edgesIgnoringSafeArea(.bottom)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: BackButton(),
-                            trailing: DoneButton())
-        .onAppear {
-        }
+            .loadingIndicator(viewModel.isAvatarDownloading)
+            .padding(.top, 30.0)
+            .navigationBarTitle(Text("Schedule a new live video"), displayMode: .inline)
+            .edgesIgnoringSafeArea(.bottom)
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: BackButton(),
+                                trailing: DoneButton())
+            .onAppear {
+            }
     }
 
     struct NewStreamContentView: View {
@@ -36,42 +37,50 @@ struct NewStreamView: View {
         var body: some View {
             Form {
                 Section(header: Text("Title")) {
-                    TextField("Title", text: $model.title)
+                    TextField("Enter title new live video", text: $model.title)
                         .textFieldStyle(.roundedBorder)
                         .padding()
                 }
                 Section(header: Text("Description")) {
-                    TextField("Description", text: $model.description)
+                    TextField("Enter short description of the new live video", text: $model.description)
                         .textFieldStyle(.roundedBorder)
                         .padding()
                 }
-                Section(header: Text("After Hours")) {
+                Section(header: Text("Run after:")) {
                     TextField("Hours", text: $model.hours)
                         .textFieldStyle(.roundedBorder)
                         .padding()
-                }
-                Section(header: Text("After Minutes")) {
                     TextField("Minutes", text: $model.minutes)
                         .textFieldStyle(.roundedBorder)
                         .padding()
-                }
-                Section(header: Text("After Seconds")) {
                     TextField("Seconds", text: $model.seconds)
                         .textFieldStyle(.roundedBorder)
                         .padding()
                 }
-                DatePicker("Date", selection: $model.date, displayedComponents: .date)
+                Section(header: Text("Run at:")) {
+                    Text(model.runAt)
+                    DatePicker("Date", selection: $model.date, displayedComponents: .date)
+                }
             }
         }
     }
 
     struct DoneButton: View {
-        @EnvironmentObject var viewModel: NewNewStreamViewModel
+        @EnvironmentObject var viewModel: NewStreamViewModel
 
         var body: some View {
             HStack {
                 Button(action: {
-                    viewModel.done()
+
+//                    Alert.showConfirmCancel(
+//                        "YouTube Live Streaming API",
+//                        message: "Do you realy want to create a new Live broadcast video?",
+//                        onConfirm: {
+//                            self.viewModel.createBroadcast()
+//                        }
+//                    )
+
+                    viewModel.createNewStream()
                 }, label: {
                     HStack {
                         Text("Done")
