@@ -46,6 +46,7 @@
 		7F83E35B1DBDD58C00DE4102 /* YouTubePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F83E35A1DBDD58C00DE4102 /* YouTubePlayer.swift */; };
 		7F83E35D1DBDD5DB00DE4102 /* XCDYouTubeVideoPlayer8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F83E35C1DBDD5DB00DE4102 /* XCDYouTubeVideoPlayer8.swift */; };
 		7F853734265796BF00C21921 /* TextViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F853733265796BF00C21921 /* TextViewRepresentable.swift */; };
+		7F8CEC73291803B8009DAAC6 /* Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8CEC72291803B8009DAAC6 /* Views.swift */; };
 		7F91D0F6287A80C3007E7A29 /* YTLiveStreaming in Frameworks */ = {isa = PBXBuildFile; productRef = 7F91D0F5287A80C3007E7A29 /* YTLiveStreaming */; };
 		7F9274B31DBDCAD00051DE6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F9274B21DBDCAD00051DE6B /* Assets.xcassets */; };
 		7F98F6B228F913B400AF6858 /* NewStreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F98F6B128F913B400AF6858 /* NewStreamView.swift */; };
@@ -159,6 +160,7 @@
 		7F83E35A1DBDD58C00DE4102 /* YouTubePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YouTubePlayer.swift; sourceTree = "<group>"; };
 		7F83E35C1DBDD5DB00DE4102 /* XCDYouTubeVideoPlayer8.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCDYouTubeVideoPlayer8.swift; sourceTree = "<group>"; };
 		7F853733265796BF00C21921 /* TextViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewRepresentable.swift; sourceTree = "<group>"; };
+		7F8CEC72291803B8009DAAC6 /* Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views.swift; sourceTree = "<group>"; };
 		7F9274A81DBDCAD00051DE6B /* LiveEvents.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveEvents.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F9274B21DBDCAD00051DE6B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7F98F6B128F913B400AF6858 /* NewStreamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStreamView.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 		7F53B1AD203072EA00E09CFA /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				7F8CEC7129180375009DAAC6 /* ViewComponents */,
 				7F2C3C3B2544187100CA9912 /* AppRouter.swift */,
 				7FCFD64D28658A8F00F61B48 /* Main */,
 				7FCFD64E28658AC600F61B48 /* Home */,
@@ -451,6 +454,14 @@
 				7FB0104029017C3E00AE0F87 /* VideoPlayerView.swift */,
 			);
 			path = VideoPlayer;
+			sourceTree = "<group>";
+		};
+		7F8CEC7129180375009DAAC6 /* ViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				7F8CEC72291803B8009DAAC6 /* Views.swift */,
+			);
+			path = ViewComponents;
 			sourceTree = "<group>";
 		};
 		7F8FD2A524596D970041CF36 /* View */ = {
@@ -950,6 +961,7 @@
 				7FD974E328D6958B00E8E16E /* LogInViewModel.swift in Sources */,
 				7FAEE3482887AADF00770924 /* AuthState.swift in Sources */,
 				7FA8C85D2916A7A90079C174 /* NewStreamViewModel.swift in Sources */,
+				7F8CEC73291803B8009DAAC6 /* Views.swift in Sources */,
 				7FD974DF28D58BBD00E8E16E /* AvatarImageView.swift in Sources */,
 				7F9A92352609BE180036CA0B /* XCDYouTubeVideoPlayer.swift in Sources */,
 				7FFA598A2864AE6600D2F4FE /* RemoteStorageData.swift in Sources */,

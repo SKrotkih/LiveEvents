@@ -79,24 +79,6 @@ struct ErrorMessage: View {
     }
 }
 
-struct BackButton: View {
-    @Environment(\.presentationMode) var presentationMode
-
-    var body: some View {
-        Button(
-            action: {
-                self.presentationMode.wrappedValue.dismiss()
-            }, label: {
-                HStack {
-                    Image(systemName: "arrow.left.circle")
-                        .foregroundColor(.white)
-                    Text("Back")
-                        .foregroundColor(.white)
-                }
-            })
-    }
-}
-
 struct NewStreamButton: View {
     @State private var action: Int? = 0
 

@@ -20,15 +20,13 @@ struct NewStreamView: View {
             }
         }
         NewStreamContentView(model: $viewModel.model)
-            .loadingIndicator(viewModel.isAvatarDownloading)
+            .loadingIndicator(viewModel.isOperationInProgress)
             .padding(.top, 30.0)
             .navigationBarTitle(Text("Schedule a new live video"), displayMode: .inline)
             .edgesIgnoringSafeArea(.bottom)
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: BackButton(),
                                 trailing: DoneButton())
-            .onAppear {
-            }
     }
 
     struct NewStreamContentView: View {
@@ -39,23 +37,15 @@ struct NewStreamView: View {
                 Section(header: Text("Title")) {
                     TextField("Enter title new live video", text: $model.title)
                         .textFieldStyle(.roundedBorder)
-                        .padding()
                 }
                 Section(header: Text("Description")) {
                     TextField("Enter short description of the new live video", text: $model.description)
                         .textFieldStyle(.roundedBorder)
-                        .padding()
                 }
                 Section(header: Text("Run after:")) {
-                    TextField("Hours", text: $model.hours)
-                        .textFieldStyle(.roundedBorder)
-                        .padding()
-                    TextField("Minutes", text: $model.minutes)
-                        .textFieldStyle(.roundedBorder)
-                        .padding()
-                    TextField("Seconds", text: $model.seconds)
-                        .textFieldStyle(.roundedBorder)
-                        .padding()
+                    decimalTextField("Hours", $model.hours)
+                    decimalTextField("Minutes", $model.minutes)
+                    decimalTextField("Seconds", $model.seconds)
                 }
                 Section(header: Text("Run at:")) {
                     Text(model.runAt)
@@ -67,26 +57,27 @@ struct NewStreamView: View {
 
     struct DoneButton: View {
         @EnvironmentObject var viewModel: NewStreamViewModel
+        @Environment(\.presentationMode) var presentationMode
+        @State var showingAlert = false
 
         var body: some View {
             HStack {
                 Button(action: {
-
-//                    Alert.showConfirmCancel(
-//                        "YouTube Live Streaming API",
-//                        message: "Do you realy want to create a new Live broadcast video?",
-//                        onConfirm: {
-//                            self.viewModel.createBroadcast()
-//                        }
-//                    )
-
-                    viewModel.createNewStream()
+                    showingAlert = viewModel.verification()
                 }, label: {
                     HStack {
                         Text("Done")
                             .foregroundColor(.white)
                     }
                 })
+                .alert("Do you realy want to create a new Live broadcast video?", isPresented: $showingAlert) {
+                    Button("Cancel", role: .cancel) { }
+                    Button("OK") {
+                        viewModel.createNewStream {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
+                    }
+                }
             }
         }
     }

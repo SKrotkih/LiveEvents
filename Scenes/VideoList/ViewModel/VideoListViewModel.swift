@@ -114,8 +114,8 @@ final class VideoListViewModel: VideoListViewModelInterface {
             } catch {
                 print("Unknown error.")
             }
-            await MainActor.run { isDataDownloading.toggle() }
             await MainActor.run { sections = _sections }
+            await MainActor.run { isDataDownloading.toggle() }
         }
     }
 
