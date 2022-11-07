@@ -11,7 +11,6 @@ import YTLiveStreaming
 class NewStreamViewModel: ObservableObject {
     @Published var model = NewStream()
     @Published var error = ""
-    @Published var isOperationCompleted = false
     @Published var isOperationInProgress = false
 
     var broadcastsAPI: YTLiveStreaming!
@@ -30,27 +29,35 @@ class NewStreamViewModel: ObservableObject {
 // MARK: - Interactor
 
 extension NewStreamViewModel {
-    func createNewStream(_ completion: @escaping () -> Void) {
-        isOperationInProgress = true
-        self.broadcastsAPI.createBroadcast(model.title,
-                                           description: model.description,
-                                           startTime: model.startStreaming,
-                                           completion: { [weak self] result in
-            switch result {
-            case .success(let broadcast):
-                print("You have scheduled a new broadcast with title '\(broadcast.snippet.title)'")
-                self?.isOperationInProgress = false
-                self?.isOperationCompleted = true
-                completion()
-            case .failure(let error):
-                self?.isOperationInProgress = false
-                switch error {
-                case .systemMessage(let code, let message):
-                    self?.error = "\(code): \(message)"
-                default:
-                    self?.error = error.message()
-                }
+    func createNewStream() async throws {
+        await MainActor.run {
+            isOperationInProgress = true
+        }
+        // do effect sending request. make sense in case error
+        try await Task.sleep(nanoseconds: 2_000_000_000)
+
+        let result = await withUnsafeContinuation { continuation in
+            self.broadcastsAPI.createBroadcast(model.title,
+                                               description: model.description,
+                                               startTime: model.startStreaming,
+                                               completion: { result in
+                continuation.resume(returning: result)
+            })
+        }
+        await MainActor.run {
+            isOperationInProgress = false
+        }
+
+        switch result {
+        case .success(let broadcast):
+            print("You have scheduled a new broadcast with title '\(broadcast.snippet.title)'")
+        case .failure(let error):
+            switch error {
+            case .systemMessage(let code, let message):
+                throw LVError.message("\(code): \(message)")
+            default:
+                throw LVError.message(error.message())
             }
-        })
+        }
     }
 }

@@ -8,14 +8,27 @@
 import Foundation
 import SwiftUI
 
-struct AvatarImageView: View {
+struct AvatarImageView: View, Themeable {
     @EnvironmentObject var store: AuthReduxStore
-
+    @Environment(\.colorScheme) var colorScheme
+    @State var profilePicUrl: URL?
+    
     var body: some View {
-        if let url = store.state.userSession?.profile.profilePicUrl {
-            ProfileImageView(withURL: url.absoluteString)
-        } else {
-            PlaceholderView()
+        contentView
+            .task {
+                if let userSession = await store.state.userSession {
+                    profilePicUrl = userSession.profile.profilePicUrl
+                }
+            }
+    }
+    
+    private var contentView: some View {
+        VStack {
+            if let url = profilePicUrl {
+                ProfileImageView(withURL: url.absoluteString)
+            } else {
+                PlaceholderView()
+            }
         }
     }
 }

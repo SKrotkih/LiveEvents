@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 typealias AuthReduxStore = Store<AuthState, AuthAction, NetworkService>
-typealias Reducer<State, Action, Environment> = (inout State, Action, Environment) -> AnyPublisher<Action, Never>?
+typealias Reducer<State, Action, Environment> = (State, Action, Environment) -> State
 
 //
 // Store: Store holds the state. Store receives the action and passes on to the reducer
@@ -23,7 +23,7 @@ typealias Reducer<State, Action, Environment> = (inout State, Action, Environmen
 //
 // Thanks https://github.com/mecid/redux-like-state-container-in-swiftui for idea
 final class Store<State, Action, Environment>: ObservableObject {
-    @Published private(set) var state: State
+    @Published var state: State
 
     private let reducer: Reducer<State, Action, Environment>
     private let environment: Environment
@@ -40,12 +40,6 @@ final class Store<State, Action, Environment>: ObservableObject {
     }
 
     func stateDispatch(action: Action) {
-        guard let effect = reducer(&state, action, environment) else {
-            return
-        }
-        effect
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: stateDispatch)
-            .store(in: &disposables)
+        state = reducer(state, action, environment)
     }
 }

@@ -11,17 +11,9 @@ import SwiftGoogleSignIn
 /// SwiftUI content view for the Google Sign In
 struct LogInView: View {
     @EnvironmentObject var viewModel: LogInViewModel
-
-    @State private var selectedTag: Int? = 1
+    @EnvironmentObject var currentState: CurrentSessionState
 
     var body: some View {
-        if viewModel.isConnected {
-            NavigationLink(destination: MainBodyView(),
-                           tag: 1,
-                           selection: $selectedTag) {
-                EmptyView()
-            }
-        }
         contentView
         .onAppear {
             // Set the window root view controller as the `GIDSignIn` presenting view controller.
@@ -38,7 +30,7 @@ struct LogInView: View {
                 .scaledToFit()
                 .frame(height: 100.0)
             Spacer()
-            if let errorMessage = viewModel.errorMessage, !errorMessage.isEmpty {
+            if let errorMessage = currentState.errorMessage, !errorMessage.isEmpty {
                 Text(errorMessage)
                     .lineLimit(nil)
                     .multilineTextAlignment(.center)

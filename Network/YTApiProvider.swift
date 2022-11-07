@@ -12,7 +12,11 @@ struct YTApiProvider {
     let store: AuthReduxStore
 
     func getApi() -> YTLiveStreaming {
-        GoogleOAuth2.sharedInstance.accessToken = store.state.userSession?.remoteSession.accessToken
+        Task {
+            if let userSession = await store.state.userSession {
+                GoogleOAuth2.sharedInstance.accessToken = userSession.remoteSession.accessToken
+            }
+        }
         return YTLiveStreaming()
     }
 }

@@ -1,5 +1,5 @@
 //
-//  VideoPlayerInteractor.swift
+//  VideoControllerViewModel.swift
 //  LiveEvents
 //
 //  Created by Serhii Krotkykh
@@ -9,6 +9,7 @@ import Foundation
 import RxSwift
 
 protocol VideoPlayerControlled {
+    var playerView: PlayerViewRepresentable { get }
     func play()
     func pause()
     func stop()
@@ -18,11 +19,19 @@ protocol VideoPlayerControlled {
     func seekToSeconds(_ seconds: Float)
 }
 
-final class VideoPlayerInteractor: VideoPlayerControlled {
-    var videoPlayer: VideoPlayer
+final class VideoControllerViewModel: ObservableObject, VideoPlayerControlled {
+    private var videoId: String
 
-    init(videoPlayer: VideoPlayer) {
-        self.videoPlayer = videoPlayer
+    lazy var videoPlayer: VideoPlayer = {
+        VideoPlayer(videoId: videoId)
+    }()
+
+    init(videoId: String) {
+        self.videoId = videoId
+    }
+
+    var playerView: PlayerViewRepresentable {
+        PlayerViewRepresentable(playerView: videoPlayer.playerView)
     }
 
     func play() {

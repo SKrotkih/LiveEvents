@@ -9,15 +9,26 @@ import SwiftUI
 import Combine
 
 /// SwiftUI content view for the Home screen
-struct HomeView: View {
+struct HomeView: View, Themeable {
     @EnvironmentObject var viewModel: HomeViewModel
+    @EnvironmentObject var currentState: CurrentSessionState
+    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.presentationMode) var presentationMode
+    @State private var selectedTag: Int? = 1
 
     var body: some View {
+        if !currentState.isConnected {
+            NavigationLink(destination: MainBodyView(),
+                           tag: 1,
+                           selection: $selectedTag) {
+                EmptyView()
+            }
+        }
         contentView
-        .navigationBarTitle(Text("Live Events"), displayMode: .inline)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: UserNameView(viewModel.userName),
-                            trailing: UserAvatarView())
+            .navigationBarTitle(Text("Live Events"), displayMode: .inline)
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: UserNameView(),
+                                trailing: UserAvatarView())
     }
 
     private var contentView: some View {
@@ -40,15 +51,21 @@ struct HomeView: View {
     }
 }
 
-struct UserNameView: View {
-    let userName: String
-
-    init(_ userName: String) {
-        self.userName = userName
-    }
+struct UserNameView: View, Themeable {
+    @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var currentState: CurrentSessionState
+    @State var userName = ""
 
     var body: some View {
         Text(self.userName)
+            .foregroundColor(userNameColor)
+            .onAppear {
+                Task {
+                    if let userSession = await self.currentState.store.state.userSession {
+                        self.userName = userSession.profile.fullName
+                    }
+                }
+            }
     }
 }
 
@@ -88,14 +105,16 @@ struct VideoListButton: View {
     }
 }
 
-struct LogOutButton: View {
+struct LogOutButton: View, Themeable {
     @EnvironmentObject var viewModel: HomeViewModel
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         Button(action: {
             viewModel.logOut()
         }, label: {
             Text("Log Out")
+                .foregroundColor(logOutButtonColor)
                 .padding()
                 .frame(width: 130.0)
                 .foregroundColor(.white)

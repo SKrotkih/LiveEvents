@@ -11,19 +11,15 @@ import Combine
 
 protocol LogInViewPresentable {
     var presentingViewController: UIViewController! { get set }
-    var errorMessage: String? { get }
 }
 
 protocol LogInViewConnectable {
-    var isConnected: Bool { get }
     func configure()
 }
 
 typealias LogInViewModelInterface = ObservableObject & LogInViewPresentable & LogInViewConnectable
 
 final class LogInViewModel: LogInViewModelInterface {
-    @Published var errorMessage: String?
-    @Published var isConnected: Bool = false
     var presentingViewController: UIViewController!
 
     private let store: AuthReduxStore
@@ -34,23 +30,6 @@ final class LogInViewModel: LogInViewModelInterface {
     }
 
     func configure() {
-        NewRouter.environment.service.presentingViewController = presentingViewController
-        // subscribe on Log In state
-        store
-            .$state
-            .receive(on: DispatchQueue.main)
-            .sink { state in
-                if state.isConnected {
-                    self.errorMessage = nil
-                    self.isConnected = true
-                } else if let message = state.logInErrorMessage, !message.isEmpty {
-                    self.errorMessage = message
-                    self.isConnected = false
-                } else {
-                    self.errorMessage = nil
-                    self.isConnected = false
-                }
-            }
-            .store(in: &disposables)
+        Router.environment.service.presentingViewController = presentingViewController
     }
 }

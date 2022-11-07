@@ -16,19 +16,21 @@ struct NetworkService {
 
 // Reducer: A Reducer is a function that takes the current state from the store, and the action.
 // It combines the action and current state together and returns the new state
-func authReducer(state: inout AuthState,
+func authReducer(state: AuthState,
                  action: AuthAction,
-                 environment: NetworkService) -> AnyPublisher<AuthAction, Never> {
-    switch action {
-    case let .signedIn(userSession):
-        state.userSession = userSession
-    case .loggedOut:
-        state.userSession = nil
-    case .logOut:
-        // async operation; finished by .loggedOut state:
-        environment.service.logOut()
-    case let .loggedInWithError(message):
-        state.logInErrorMessage = message
+                 environment: NetworkService) -> AuthState {
+    Task {
+        switch action {
+        case let .signedIn(userSession):
+            await state.setUpNewSession(userSession)
+        case .loggedOut:
+            await state.setUpNewSession(nil)
+        case .logOut:
+            // async operation; finished by .loggedOut state:
+            environment.service.logOut()
+        case let .loggedInWithError(message):
+            await state.setUpError(AuthError.message(message))
+        }
     }
-    return Empty().eraseToAnyPublisher() // informs subscriber about state is changed
+    return state
 }

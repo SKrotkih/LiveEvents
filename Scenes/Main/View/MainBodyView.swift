@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import Combine
 
 /// Show sign in view or home view depends on the user  has logged in already
 struct MainBodyView: View {
-    @EnvironmentObject var store: AuthReduxStore
-
+    @EnvironmentObject var currentState: CurrentSessionState
+    
     var body: some View {
         NavigationView {
             contentView
@@ -23,10 +24,12 @@ struct MainBodyView: View {
 
     private var contentView: some View {
         VStack {
-            if store.state.isConnected {
-                HomeView()
-            } else {
-                LogInView()
+            VStack {
+                if currentState.isConnected {
+                    HomeView()
+                } else {
+                    LogInView()
+                }
             }
         }
     }

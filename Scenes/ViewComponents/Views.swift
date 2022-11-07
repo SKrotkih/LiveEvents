@@ -8,8 +8,9 @@
 import SwiftUI
 import Combine
 
-struct BackButton: View {
+struct BackButton: View, Themeable {
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         Button(
@@ -18,9 +19,9 @@ struct BackButton: View {
             }, label: {
                 HStack {
                     Image(systemName: "arrow.left.circle")
-                        .foregroundColor(.white)
+                        .foregroundColor(backButtonColor)
                     Text("Back")
-                        .foregroundColor(.white)
+                        .foregroundColor(backButtonColor)
                 }
             })
     }
@@ -35,4 +36,47 @@ func decimalTextField(_ title: String, _ bindingString: Binding<String>) -> some
                 bindingString.wrappedValue = filtered
             }
         }
+}
+
+protocol Themeable {
+    var colorScheme: ColorScheme { get }
+}
+
+extension Themeable {
+    var fontColor: Color {
+        colorScheme == .dark ? .white : .black
+    }
+    var homeTitleColor: Color {
+        colorScheme == .dark ? .white : .black
+    }
+    var userNameColor: Color {
+        colorScheme == .dark ? .white : .red
+    }
+    var logOutButtonColor: Color {
+        colorScheme == .dark ? .white : .black
+    }
+    var videoListSectionColor: Color {
+        colorScheme == .dark ? .white : .black
+    }
+    var videoListItemColor: Color {
+        colorScheme == .dark ? .green : .red
+    }
+    var videoListPlusButtonColor: Color {
+        colorScheme == .dark ? .white : .black
+    }
+    var backButtonColor: Color {
+        colorScheme == .dark ? .white : .black
+    }
+    var loadingIndicatorBGColor: Color {
+        colorScheme == .dark ? .white : .black
+    }
+    var loadingIndicatorColor: Color {
+        colorScheme == .dark ? .red : .red
+    }
+    var addStreamSectionColor: Color {
+        colorScheme == .dark ? .white : .black
+    }
+    var doneButtonColor: Color {
+        colorScheme == .dark ? .white : .black
+    }
 }

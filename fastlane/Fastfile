@@ -1,0 +1,50 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+# AppStore
+KEY_FILE_PATH = "YOUR_KEY_FILE_PATH"
+KEY_ID = "YOUR_KEY_ID"
+ISSUER_ID = "YOUR_ISSUER_ID"
+WORKSPACE_PATH = "LiveEvents.xcodeproj/project.xcworkspace"
+TARGET_SCHEME = "LiveEvents"
+CONFIG_APPSTORE = "Release"
+OUTPUT_DIRECTORY = "./fastlane/builds"
+
+default_platform :ios
+
+platform :ios do
+
+  desc "Push a new beta build to TestFlight"
+  lane :release do
+    app_store_connect_api_key(
+      key_id: KEY_ID,
+      issuer_id: ISSUER_ID,
+      key_filepath: KEY_FILE_PATH,
+      duration: 1200, # optional (maximum 1200)
+      in_house: false # optional but may be required if using match/sigh
+    )
+    build_app(workspace: WORKSPACE_PATH,
+              scheme: TARGET_SCHEME,
+              configuration: CONFIG_APPSTORE,
+              export_method: "app-store",
+              export_options: {
+                provisioningProfiles: {
+                  "com.skdevappleid.LiveEvent" => "LiveEvent AppStore"
+                }
+              },
+            )
+    upload_to_testflight
+  end
+end

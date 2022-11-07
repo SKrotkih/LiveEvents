@@ -38,26 +38,26 @@ struct VideoListView: View {
     }
 }
 
-// TODO: it's a good idea to use like this (protocol instead of class anywhere):
-struct VideoList<ViewModel>: View where ViewModel: VideoListViewModelInterface {
+// TODO: You should use protocol instead of class anywhere like this. But there is a some problem...:
+struct VideoList<ViewModel>: View, Themeable where ViewModel: VideoListViewModelInterface {
     @ObservedObject var viewModel: ViewModel
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         List {
             ForEach(viewModel.sections, id: \.self) { section in
                 Section(header: Text(section.sectionName)
                     .font(.title)
-                    .foregroundColor(.white)) {
+                    .foregroundColor(videoListSectionColor)) {
                         ForEach(section.rows, id: \.self) { item in
                             NavigationLink(destination: VideoControllerView(videoId: item.videoId,
                                                                             title: item.title)) {
                                 HStack {
-                                    // thumbnailsImageView: UIImageView!
                                     Text(item.title)
-                                        .foregroundColor(.green)
+                                        .foregroundColor(videoListItemColor)
                                     Spacer(minLength: 5.0)
                                     Text("\(item.publishedAt)")
-                                        .foregroundColor(.green)
+                                        .foregroundColor(videoListItemColor)
                                 }
                             }
                         }
@@ -79,8 +79,9 @@ struct ErrorMessage: View {
     }
 }
 
-struct NewStreamButton: View {
+struct NewStreamButton: View, Themeable {
     @State private var action: Int? = 0
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         HStack {
@@ -89,9 +90,9 @@ struct NewStreamButton: View {
             }, label: {
                 HStack {
                     Image(systemName: "plus.app")
-                        .foregroundColor(.white)
+                        .foregroundColor(videoListPlusButtonColor)
                     Text("Add")
-                        .foregroundColor(.white)
+                        .foregroundColor(videoListPlusButtonColor)
                 }
             })
             NavigationLink(

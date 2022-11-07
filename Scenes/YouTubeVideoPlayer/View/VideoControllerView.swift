@@ -7,30 +7,30 @@
 
 import SwiftUI
 
-typealias PlayerInteractor = VideoPlayerControlled
-
 struct VideoControllerView: View {
     @State private var seekToSeconds: Float = 0.0
     @State private var isSliderChanged = false {
         didSet {
-            interactor.seekToSeconds(seekToSeconds)
+            viewModel.seekToSeconds(seekToSeconds)
         }
     }
-    let title: String
-    var interactor: PlayerInteractor
-    var navigateController: NavicationObservable
-    var playerView: PlayerViewRepresentable
+    private var viewModel: VideoPlayerControlled
+    private let title: String
+    private var navigateController: NavicationObservable
+    private var playerView: PlayerViewRepresentable {
+        viewModel.playerView
+    }
 
     init(videoId: String, title: String) {
         self.title = title
-        let videoPlayer = VideoPlayer(videoId: videoId)
-        interactor = VideoPlayerInteractor(videoPlayer: videoPlayer!)
+        viewModel = VideoControllerViewModel(videoId: videoId)
         navigateController = NavicationObservable()
-        playerView = PlayerViewRepresentable(playerView: videoPlayer!.playerView)
     }
 
     var body: some View {
         VStack {
+            Spacer()
+                .frame(height: 30.0)
             playerView
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
             Spacer()
@@ -47,25 +47,25 @@ struct VideoControllerView: View {
             }
             HStack {
                 Spacer()
-                Button("Play") { interactor.play() }
+                Button("Play") { viewModel.play() }
                     .foregroundColor(.gray)
                 Spacer()
-                Button("Pause") { interactor.pause() }
+                Button("Pause") { viewModel.pause() }
                     .foregroundColor(.gray)
                 Spacer()
-                Button("Stop") { interactor.stop() }
+                Button("Stop") { viewModel.stop() }
                     .foregroundColor(.gray)
                 Spacer()
             }
             HStack {
                 Spacer()
-                Button("Start") { interactor.start() }
+                Button("Start") { viewModel.start() }
                     .foregroundColor(.gray)
                 Spacer()
-                Button("Reverse") { interactor.reverse() }
+                Button("Reverse") { viewModel.reverse() }
                     .foregroundColor(.gray)
                 Spacer()
-                Button("Forward") { interactor.forward() }
+                Button("Forward") { viewModel.forward() }
                     .foregroundColor(.gray)
                 Spacer()
             }

@@ -10,17 +10,26 @@ import SwiftGoogleSignIn
 
 // State: Based on your state you render your UI or respond in any form.
 // So basically state refers to the source of truth.
-struct AuthState: Equatable {
-    var isConnected = false
-
-    var userSession: UserSession? {
-        didSet {
-            isConnected = userSession != nil
-        }
+actor AuthState: Equatable {
+    static func == (lhs: AuthState, rhs: AuthState) -> Bool {
+        true
+    }
+    var isConnected: Bool {
+        userSession == nil ? false : true
     }
 
-    var logInErrorMessage: String?
+    var userSession: UserSession?
+    
+    func setUpNewSession(_ session: UserSession?) {
+        userSession = session
+    }
 
+    var error: AuthError?
+
+    func setUpError(_ error: AuthError?) {
+        self.error = error
+    }
+    
     init(userSession: UserSession?) {
         self.userSession = userSession
     }

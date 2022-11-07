@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		310D7F3129275F2B00FD7C1C /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D7F3029275F2B00FD7C1C /* AuthError.swift */; };
+		31A2179329299DAD003741DA /* CurrentSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A2179229299DAD003741DA /* CurrentSessionState.swift */; };
 		7F0933CF24574FCB00FB5579 /* SignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0933CE24574FCB00FB5579 /* SignInService.swift */; };
 		7F11514328F2DE7A0013D2F7 /* VideoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F11514228F2DE7A0013D2F7 /* VideoListView.swift */; };
 		7F16188A286C473C0004D0B6 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 7F161889286C473C0004D0B6 /* .swiftlint.yml */; };
@@ -33,7 +35,7 @@
 		7F53B1AB2030724200E09CFA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F53B1A82030724200E09CFA /* Main.storyboard */; };
 		7F53B1B12030B38100E09CFA /* VideoListFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F53B1B02030B38100E09CFA /* VideoListFetcher.swift */; };
 		7F53B1B72030B4B400E09CFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F53B1B32030B4B300E09CFA /* AppDelegate.swift */; };
-		7F73C8E92654D66900715F9A /* VideoPlayerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F73C8E82654D66900715F9A /* VideoPlayerInteractor.swift */; };
+		7F73C8E92654D66900715F9A /* VideoControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F73C8E82654D66900715F9A /* VideoControllerViewModel.swift */; };
 		7F79C8A22547F2910044CF81 /* BroadcastsApiProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F79C8A12547F2910044CF81 /* BroadcastsApiProtocol.swift */; };
 		7F79C8A6254802FB0044CF81 /* BroadcastsDataFetcherProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F79C8A5254802FB0044CF81 /* BroadcastsDataFetcherProtocol.swift */; };
 		7F79C8AB254806DF0044CF81 /* YouTubeLiveVideoPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F79C8AA254806DF0044CF81 /* YouTubeLiveVideoPublisher.swift */; };
@@ -112,6 +114,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		310D7F3029275F2B00FD7C1C /* AuthError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
+		31A2179229299DAD003741DA /* CurrentSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentSessionState.swift; sourceTree = "<group>"; };
 		65A4996DDBF267DFE82ED9D5 /* Pods-LiveEvents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveEvents.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiveEvents/Pods-LiveEvents.release.xcconfig"; sourceTree = "<group>"; };
 		7F0933CE24574FCB00FB5579 /* SignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInService.swift; sourceTree = "<group>"; };
 		7F11514228F2DE7A0013D2F7 /* VideoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListView.swift; sourceTree = "<group>"; };
@@ -144,7 +148,7 @@
 		7F563B5C286C1DB100F0901D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		7F563B5E286C217700F0901D /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
 		7F68E8DE285F240A000022F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = SOURCE_ROOT; };
-		7F73C8E82654D66900715F9A /* VideoPlayerInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerInteractor.swift; sourceTree = "<group>"; };
+		7F73C8E82654D66900715F9A /* VideoControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoControllerViewModel.swift; sourceTree = "<group>"; };
 		7F79C8A12547F2910044CF81 /* BroadcastsApiProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastsApiProtocol.swift; sourceTree = "<group>"; };
 		7F79C8A5254802FB0044CF81 /* BroadcastsDataFetcherProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastsDataFetcherProtocol.swift; sourceTree = "<group>"; };
 		7F79C8AA254806DF0044CF81 /* YouTubeLiveVideoPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeLiveVideoPublisher.swift; sourceTree = "<group>"; };
@@ -324,6 +328,7 @@
 			children = (
 				7F8CEC7129180375009DAAC6 /* ViewComponents */,
 				7F2C3C3B2544187100CA9912 /* AppRouter.swift */,
+				31A2179229299DAD003741DA /* CurrentSessionState.swift */,
 				7FCFD64D28658A8F00F61B48 /* Main */,
 				7FCFD64E28658AC600F61B48 /* Home */,
 				7FA94FFF2032C5750083B23B /* LogIn */,
@@ -375,7 +380,7 @@
 		7F73C8E72654D64000715F9A /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
-				7F73C8E82654D66900715F9A /* VideoPlayerInteractor.swift */,
+				7F73C8E82654D66900715F9A /* VideoControllerViewModel.swift */,
 				7F85372B26577CC700C21921 /* VideoPlayer */,
 			);
 			path = Interactor;
@@ -586,6 +591,7 @@
 			isa = PBXGroup;
 			children = (
 				7FAEE3472887AADF00770924 /* AuthState.swift */,
+				310D7F3029275F2B00FD7C1C /* AuthError.swift */,
 				7FAEE34E28883EA200770924 /* AuthAction.swift */,
 				7FAEE34F28883EA300770924 /* AuthReducer.swift */,
 				7FAEE34D28883EA100770924 /* AuthReduxStore.swift */,
@@ -947,6 +953,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				310D7F3129275F2B00FD7C1C /* AuthError.swift in Sources */,
 				7FC6B7F228EE981900C20F74 /* LoadingIndicator.swift in Sources */,
 				7FAEE35128883EA300770924 /* AuthAction.swift in Sources */,
 				7FFA59872861DDDF00D2F4FE /* HomeView.swift in Sources */,
@@ -972,7 +979,7 @@
 				7FBC71792653DB9B001DDAE7 /* VideoControllerView.swift in Sources */,
 				7F98F6B228F913B400AF6858 /* NewStreamView.swift in Sources */,
 				7F2439F624580FA500C1FB17 /* VideoListViewModel.swift in Sources */,
-				7F73C8E92654D66900715F9A /* VideoPlayerInteractor.swift in Sources */,
+				7F73C8E92654D66900715F9A /* VideoControllerViewModel.swift in Sources */,
 				7F1E96C72546B95A00638965 /* Constants.swift in Sources */,
 				7F83E35B1DBDD58C00DE4102 /* YouTubePlayer.swift in Sources */,
 				7F1E96BE2546B8BF00638965 /* UIViewController+Ext.swift in Sources */,
@@ -1005,6 +1012,7 @@
 				7F1E96C22546B8BF00638965 /* DispatchQueue+Ext.swift in Sources */,
 				7F2C3C3C2544187100CA9912 /* AppRouter.swift in Sources */,
 				7FA74D60260B3C0E0069DA8A /* NewStream.swift in Sources */,
+				31A2179329299DAD003741DA /* CurrentSessionState.swift in Sources */,
 				7F1E96BB2546B8BF00638965 /* Alert.swift in Sources */,
 				7FAEE354288CC1E000770924 /* UserDefaultsValue.swift in Sources */,
 				7F1E96C42546B8BF00638965 /* EnumIteration.swift in Sources */,
@@ -1240,13 +1248,14 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = N5B5T39W8Y;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Live Events";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1278,13 +1287,14 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = N5B5T39W8Y;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Live Events";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -10,7 +10,6 @@ import SwiftUI
 import Combine
 
 protocol HomeViewModelObservable {
-    var userName: String { get }
     var avatarImage: UIImage? { get set }
     var isAvatarDownloading: Bool { get set }
 }
@@ -32,9 +31,7 @@ final class HomeViewModel: HomeViewModelInterface {
     init(store: AuthReduxStore) {
         self.store = store
     }
-
-    lazy var userName: String = { store.state.userSession?.profile.fullName ?? "" }()
-
+    
     func downloadImage(url: String) {
         self.isAvatarDownloading = true
         RemoteStorageData.fetch(urlData: url)

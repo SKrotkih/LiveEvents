@@ -9,15 +9,14 @@ import SwiftUI
 
 struct NewStreamView: View {
     @EnvironmentObject var viewModel: NewStreamViewModel
+    @State var localError = ""
 
     var body: some View {
         if !viewModel.error.isEmpty {
-            VStack {
-                Spacer()
-                    .frame(height: 40.0)
-                Text(viewModel.error)
-                    .foregroundColor(.red)
-            }
+            textError(viewModel.error)
+        }
+        if !localError.isEmpty {
+            textError(localError)
         }
         NewStreamContentView(model: $viewModel.model)
             .loadingIndicator(viewModel.isOperationInProgress)
@@ -26,28 +25,38 @@ struct NewStreamView: View {
             .edgesIgnoringSafeArea(.bottom)
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: BackButton(),
-                                trailing: DoneButton())
+                                trailing: DoneButton(errorMessage: $localError))
     }
 
-    struct NewStreamContentView: View {
+    private func textError(_ message: String) -> some View {
+        VStack {
+            Spacer()
+                .frame(height: 40.0)
+            Text(message)
+                .foregroundColor(.red)
+        }
+    }
+
+    struct NewStreamContentView: View, Themeable {
         @Binding var model: NewStream
+        @Environment(\.colorScheme) var colorScheme
 
         var body: some View {
             Form {
-                Section(header: Text("Title")) {
+                Section(header: Text("Title").foregroundColor(addStreamSectionColor)) {
                     TextField("Enter title new live video", text: $model.title)
                         .textFieldStyle(.roundedBorder)
                 }
-                Section(header: Text("Description")) {
+                Section(header: Text("Description").foregroundColor(addStreamSectionColor)) {
                     TextField("Enter short description of the new live video", text: $model.description)
                         .textFieldStyle(.roundedBorder)
                 }
-                Section(header: Text("Run after:")) {
+                Section(header: Text("Run after:").foregroundColor(addStreamSectionColor)) {
                     decimalTextField("Hours", $model.hours)
                     decimalTextField("Minutes", $model.minutes)
                     decimalTextField("Seconds", $model.seconds)
                 }
-                Section(header: Text("Run at:")) {
+                Section(header: Text("Run at:").foregroundColor(addStreamSectionColor)) {
                     Text(model.runAt)
                     DatePicker("Date", selection: $model.date, displayedComponents: .date)
                 }
@@ -55,9 +64,11 @@ struct NewStreamView: View {
         }
     }
 
-    struct DoneButton: View {
+    struct DoneButton: View, Themeable {
         @EnvironmentObject var viewModel: NewStreamViewModel
         @Environment(\.presentationMode) var presentationMode
+        @Environment(\.colorScheme) var colorScheme
+        @Binding var errorMessage: String
         @State var showingAlert = false
 
         var body: some View {
@@ -67,14 +78,19 @@ struct NewStreamView: View {
                 }, label: {
                     HStack {
                         Text("Done")
-                            .foregroundColor(.white)
+                            .foregroundColor(doneButtonColor)
                     }
                 })
                 .alert("Do you realy want to create a new Live broadcast video?", isPresented: $showingAlert) {
                     Button("Cancel", role: .cancel) { }
                     Button("OK") {
-                        viewModel.createNewStream {
-                            self.presentationMode.wrappedValue.dismiss()
+                        Task {
+                            do {
+                                try await viewModel.createNewStream()
+                                presentationMode.wrappedValue.dismiss()
+                            } catch let error {
+                                errorMessage = (error as! LVError).message()
+                            }
                         }
                     }
                 }

@@ -5,18 +5,20 @@
 
 import SwiftUI
 
-struct LoadingIndicator: ViewModifier {
-    var isShowing: Bool
+struct LoadingIndicator: ViewModifier, Themeable {
+    @Environment(\.colorScheme) var colorScheme
 
     @State private var isCircleRotating = true
     @State private var animateStart = false
     @State private var animateEnd = true
 
+    var isShowing: Bool
+
     private var loadingView: some View {
         ZStack {
             Circle()
                 .stroke(lineWidth: Settings.background.borderWidth)
-                .fill(Settings.background.color)
+                .fill(loadingIndicatorBGColor)
                 .frame(width: Settings.background.size.width,
                        height: Settings.background.size.height)
             Circle()
@@ -25,7 +27,7 @@ struct LoadingIndicator: ViewModifier {
                 .rotationEffect(.degrees(isCircleRotating ? 360 : 0))
                 .frame(width: Settings.foreground.size.width,
                        height: Settings.foreground.size.height)
-                .foregroundColor(Settings.foreground.color)
+                .foregroundColor(loadingIndicatorColor)
                 .onAppear {
                     withAnimation(Animation
                                     .linear(duration: 1)
@@ -54,15 +56,6 @@ extension LoadingIndicator {
     enum Settings {
         case background
         case foreground
-
-        var color: Color {
-            switch self {
-            case .background:
-                return .white
-            case .foreground:
-                return .red
-            }
-        }
 
         struct Size {
             let width: CGFloat

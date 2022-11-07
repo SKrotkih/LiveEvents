@@ -10,40 +10,18 @@ import UIKit
 import SwiftUI
 import Combine
 
-let NewRouter = NewAppRouter.shared
-
-class NewAppRouter: NSObject {
-
-    static let shared = NewAppRouter()
-
-    let store: AuthReduxStore
-    let environment: NetworkService
-
-    private override init() {
-        environment = NetworkService()
-        store = Store(initialState: .init(userSession: nil), reducer: authReducer, environment: environment)
-        environment.service.store = store
-        environment.service.configure()
-    }
-}
-
-// TODO: Old app router variation. It needs to transfer to the new one.
-
 let Router = AppRouter.shared
 
 class AppRouter: NSObject {
 
     static let shared = AppRouter()
 
-    private let store: AuthReduxStore
-    private let environment: NetworkService
-
-    private override init() {
-        environment = NetworkService()
-        store = Store(initialState: .init(userSession: nil), reducer: authReducer, environment: environment)
-        environment.service.store = store
-        environment.service.configure()
-    }
+    let store: AuthReduxStore
+    let environment: NetworkService
+    
+    lazy var apiProvider: YTApiProvider = {
+        YTApiProvider(store: store)
+    }()
 
     enum StroyboadType: String, Iteratable {
         case main = "Main"
@@ -52,19 +30,25 @@ class AppRouter: NSObject {
         }
     }
 
-    lazy var apiProvider: YTApiProvider = {
-        YTApiProvider(store: store)
-    }()
+    private override init() {
+        environment = NetworkService()
+        store = Store(initialState: .init(userSession: nil), reducer: authReducer, environment: environment)
+        environment.service.store = store
+    }
 
+    func environmentConfigure() {
+        environment.service.configure()
+    }
+    
+    // Start Live Video
+    @MainActor
+    func playVideo(with videoId: String) { }
+    
     // Start Live Video
     @MainActor
     func openLiveVideoScreen() {
         UIStoryboard.main.segueToModalViewController(self.liveVideoDependencies, optional: nil)
     }
-
-    // Start Live Video
-    @MainActor
-    func playVideo(with videoId: String) { }
 }
 
 // MARK: - Dependencies Injection
@@ -80,18 +64,11 @@ extension AppRouter {
     }
 }
 
-extension AppRouter {
-    func closeModal(viewController: UIViewController) {
-        viewController.dismiss(animated: true, completion: nil)
-    }
-}
-
 // MARK: - UIApplicationDelegate protocol.
 
 extension AppRouter: UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-//        openMainScreen()
         return true
     }
 
@@ -99,5 +76,11 @@ extension AppRouter: UIApplicationDelegate {
                      open url: URL,
                      options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         return environment.service.openURL(url)
+    }
+}
+
+extension AppRouter {
+    func closeModal(viewController: UIViewController) {
+        viewController.dismiss(animated: true, completion: nil)
     }
 }
