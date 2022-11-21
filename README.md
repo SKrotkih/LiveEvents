@@ -43,7 +43,7 @@ Please pay attention on the Home and SignIn screens.
 - [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) used as a package in current release (can be used as Cocoa Pods Framework too).
 
 ## Video
-[Video of an one of the old version](https://youtu.be/HwYbvUU2fJo)
+![LiveEvents Demo Video](https://user-images.githubusercontent.com/2775621/203057067-4312cba6-dd33-40dc-9fa1-d278e6ce55b9.gif)
 
 ## The 'UIKit' of the app version
 In branch 'UIKit' you will find UIKit version of the app where used UIKit layout instead of SwiftUI approach. It is the previous version of the app. 
