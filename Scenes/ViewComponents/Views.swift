@@ -8,6 +8,9 @@
 import SwiftUI
 import Combine
 
+/**
+ Back button for the view navigation
+ */
 struct BackButton: View, Themeable {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.colorScheme) var colorScheme
@@ -27,6 +30,9 @@ struct BackButton: View, Themeable {
     }
 }
 
+/**
+ Enter just decimal symbols
+ */
 func decimalTextField(_ title: String, _ bindingString: Binding<String>) -> some View {
     TextField(title, text: bindingString)
         .keyboardType(.numberPad)
@@ -38,6 +44,9 @@ func decimalTextField(_ title: String, _ bindingString: Binding<String>) -> some
         }
 }
 
+/**
+ Themeable protocol for customize Views by color
+ */
 protocol Themeable {
     var colorScheme: ColorScheme { get }
 }

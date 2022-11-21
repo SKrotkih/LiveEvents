@@ -1,4 +1,4 @@
-//  Appearance
+//  Appearance.swift
 //  LiveEvents
 //
 //  Created by Serhii Krotkykh
@@ -26,7 +26,7 @@ class Appearance {
 
     func window() {
         // Color file template should be added into the project.
-        UIApplication.shared.keyWindow?.tintColor = .black
+        AppDelegate.shared.window?.tintColor = .black
     }
 
     func navigationBar() {

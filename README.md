@@ -2,7 +2,7 @@
 
 # LiveEvents
 
-LiveEvents can manage your own Youtube video.  
+LiveEvents helps you to manage your own Youtube video in your account.  
 It is an example of using [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) and
 [SwiftGoogleSignIn](https://github.com/SKrotkih/SwiftGoogleSignIn.git) Swift packages (SPM).
 It uses [SwiftUI](https://developer.apple.com/documentation/SwiftUI), [Combine](https://developer.apple.com/documentation/Combine), [Concurrency (await/async)](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html), [Redux](https://en.wikipedia.org/wiki/Redux_%28JavaScript_library%29) pattern for Swift.
@@ -18,13 +18,13 @@ It uses [SwiftUI](https://developer.apple.com/documentation/SwiftUI), [Combine](
 
 - Download or clone the repository
 
-- Launch  `pod install` in the root directory   
+- Launch console command `pod install` in the root directory   
 
-- Open LiveEvents.xcworkspace
+- Open the LiveEvents.xcworkspace file in Xcode
 
 - Update current bundle id on yours
 
-- Create Config.plist and copy content of the Config.plist.example.plist file there. Change client ID and API key on yours  
+- Rename Config.plist.example.plist (you can find it in the root directory) to Config.plist. Include it into the app main bundle. It used by SwiftGoogleSignIn package for Google signing in. Edit the Config.plist namely change client ID and API key values on yours
 
 <img src="https://user-images.githubusercontent.com/2775621/173193901-cbdc8653-76c8-4aea-b0d9-0f9d4391fba3.png" alt="Config.plist" style="width: 690px;" />
 
@@ -45,13 +45,14 @@ Please pay attention on the Home and SignIn screens.
 ## Video
 [Video of an one of the old version](https://youtu.be/HwYbvUU2fJo)
 
-## UIKit version
-The branch UIKit consists from as called UIKit version of the app. It uses UIKit layout instead of SwiftUI. 
+## The 'UIKit' of the app version
+In branch 'UIKit' you will find UIKit version of the app where used UIKit layout instead of SwiftUI approach. It is the previous version of the app. 
 
 Author
 Serhii Krotkykh
 
 Changes history:
+- 20-22-2022 current user session is safe now
 - 20-09-2022 bug fixes. Redesign home and log in screens
 - 20-07-2022 implement Redux pattern for Login scene
 - 15-07-2022 added CI unit tests with Xcode Actions  

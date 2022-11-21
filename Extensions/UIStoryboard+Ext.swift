@@ -34,56 +34,12 @@ extension UIStoryboard {
     }
 
     private func setUpRootViewController(_ viewController: UIViewController?) {
-//        guard let window = AppDelegate.shared.window else {
-//            assertionFailure()
-//            return
-//        }
-//
-//        if let navController = window.rootViewController as? UINavigationController {
-//            navController.popToRootViewController(animated: false)
-//            navController.setViewControllers([], animated: false)
-//        }
-//        window.rootViewController = nil
-//
-//        let vc = viewController ?? self.instantiateInitialViewController()
-//        window.rootViewController = vc
     }
 
     func segueToModalViewController<T>(_ configure: (T, Any?) -> Void, optional: Any? = nil) where T: UIViewController {
-//        guard let window = AppDelegate.shared.window else {
-//            assertionFailure()
-//            return
-//        }
-//        let id = String(describing: T.self)
-//        if let viewController = self.instantiateViewController(withIdentifier: id) as? T {
-//            configure(viewController, optional)
-//            window.rootViewController?.present(viewController, animated: false, completion: {
-//            })
-//        } else {
-//            assertionFailure("Failed to open \(id) view controller")
-//        }
     }
 
     func sequePushViewController<T>(_ configure: (T) -> Void) where T: UIViewController {
-//        guard let window = AppDelegate.shared.window else {
-//            assertionFailure()
-//            return
-//        }
-//        if window.rootViewController as? UINavigationController == nil {
-//            let navController = UINavigationController()
-//            window.rootViewController = navController
-//        }
-//        if let navController = window.rootViewController as? UINavigationController {
-//            let id = String(describing: T.self)
-//            if let viewController = self.instantiateViewController(withIdentifier: id) as? T {
-//                configure(viewController)
-//                navController.pushViewController(viewController, animated: false)
-//            } else {
-//                assertionFailure("Failed to open \(id) view controller")
-//            }
-//        } else {
-//            assertionFailure("Failed to open screen")
-//        }
     }
 }
 

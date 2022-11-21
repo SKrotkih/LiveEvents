@@ -4,7 +4,6 @@
 //
 //  Created by Serhii Krotkykh on 9/17/22.
 //
-
 import Foundation
 import SwiftUI
 
@@ -15,9 +14,11 @@ struct AvatarImageView: View, Themeable {
     
     var body: some View {
         contentView
-            .task {
-                if let userSession = await store.state.userSession {
-                    profilePicUrl = userSession.profile.profilePicUrl
+            .onAppear {
+                Task {
+                    if let userSession = await store.state.userSession {
+                        profilePicUrl = userSession.profile.profilePicUrl
+                    }
                 }
             }
     }
@@ -55,7 +56,7 @@ struct ProfileImageView: View {
         } else {
             PlaceholderView()
                 .onAppear {
-                    viewModel.downloadImage(url: imageUrl)
+                    viewModel.downloadAvatarImage(url: imageUrl)
                 }
         }
     }

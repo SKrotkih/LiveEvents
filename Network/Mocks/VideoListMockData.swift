@@ -3,7 +3,6 @@
 //  LiveEvents
 //
 //  Created by Serhii Krotkykh on 09.05.2021.
-//  Copyright © 2021 Serhii Krotkykh. All rights reserved.
 //
 import Foundation
 import YTLiveStreaming

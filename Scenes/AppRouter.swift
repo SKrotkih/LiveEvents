@@ -6,12 +6,14 @@
 //
 
 import UIKit
-
 import SwiftUI
 import Combine
 
 let Router = AppRouter.shared
 
+/**
+ View navigation helper (almost deprecated)
+ */
 class AppRouter: NSObject {
 
     static let shared = AppRouter()
@@ -54,9 +56,9 @@ class AppRouter: NSObject {
 // MARK: - Dependencies Injection
 
 extension AppRouter {
-    ///
-    /// Inject dependecncies in the LFLiveViewController
-    ///
+    /**
+     Inject dependecncies in the LFLiveViewController
+     */
     private func liveVideoDependencies(_ viewController: LFLiveViewController, _ optional: Any?) {
         let viewModel = LiveStreamingViewModel()
         viewModel.broadcastsAPI = apiProvider.getApi()

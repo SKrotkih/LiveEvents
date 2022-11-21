@@ -15,7 +15,7 @@ protocol HomeViewModelObservable {
 }
 
 protocol HomeViewModelLaunched {
-    func downloadImage(url: String)
+    func downloadAvatarImage(url: String)
     func logOut()
 }
 
@@ -32,7 +32,7 @@ final class HomeViewModel: HomeViewModelInterface {
         self.store = store
     }
     
-    func downloadImage(url: String) {
+    func downloadAvatarImage(url: String) {
         self.isAvatarDownloading = true
         RemoteStorageData.fetch(urlData: url)
             .subscribe(on: DispatchQueue.global())

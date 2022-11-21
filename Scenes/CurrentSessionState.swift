@@ -7,6 +7,9 @@
 import SwiftUI
 import Combine
 
+/**
+ Current user session state safe observable object
+ */
 @MainActor final class CurrentSessionState: ObservableObject {
     @Published private(set) var isConnected = false
     @Published private(set) var errorMessage: String?
@@ -14,10 +17,10 @@ import Combine
     private var disposables = Set<AnyCancellable>()
     
     init() {
-        observeCurrentState()
+        startListeningToState()
     }
     
-    func observeCurrentState() {
+    private func startListeningToState() {
         store.$state
             .sink { state in
                 Task {
@@ -28,9 +31,9 @@ import Combine
                             self.errorMessage = nil
                             self.isConnected = true
                         }
-                    } else if let error = logInError {
+                    } else if let logInError {
                         await MainActor.run {
-                            switch error {
+                            switch logInError {
                             case .message(let text):
                                 self.errorMessage = text
                             }
