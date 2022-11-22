@@ -15,21 +15,16 @@ struct MainBodyView: View {
     var body: some View {
         NavigationView {
             contentView
-                .edgesIgnoringSafeArea(.bottom)
-                .navigationBarTitle(Text("Live Events"), displayMode: .inline)
-                .navigationBarBackButtonHidden(true)
-                .statusBar(hidden: true)
+                .navigationBar(title: "Live Events")
         }
     }
 
     private var contentView: some View {
         VStack {
-            VStack {
-                if currentState.isConnected {
-                    HomeView()
-                } else {
-                    LogInView()
-                }
+            if currentState.isConnected {
+                HomeView()
+            } else {
+                LogInView()
             }
         }
     }

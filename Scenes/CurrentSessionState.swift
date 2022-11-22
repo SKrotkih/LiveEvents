@@ -2,7 +2,7 @@
 //  CurrentSessionState.swift
 //  LiveEvents
 //
-//  Created by Sergey Krotkih on 20.11.2022.
+//  Created by Serhii Krotkykh on 20.11.2022.
 //
 import SwiftUI
 import Combine
@@ -17,33 +17,28 @@ import Combine
     private var disposables = Set<AnyCancellable>()
     
     init() {
-        startListeningToState()
+        listeningToState()
     }
     
-    private func startListeningToState() {
+    private func listeningToState() {
         store.$state
             .sink { state in
-                Task {
+                Task { @MainActor in
                     let userSession = await state.userSession
                     let logInError = await state.error
-                    if userSession != nil {
-                        await MainActor.run {
-                            self.errorMessage = nil
-                            self.isConnected = true
+                    switch (userSession, logInError) {
+                    case (.some(_) , .none):
+                        self.errorMessage = nil
+                        self.isConnected = true
+                    case (.none, .some(_)):
+                        switch logInError! {
+                        case .message(let text):
+                            self.errorMessage = text
                         }
-                    } else if let logInError {
-                        await MainActor.run {
-                            switch logInError {
-                            case .message(let text):
-                                self.errorMessage = text
-                            }
-                            self.isConnected = false
-                        }
-                    } else {
-                        await MainActor.run {
-                            self.errorMessage = nil
-                            self.isConnected = false
-                        }
+                        self.isConnected = false
+                    default:
+                        self.errorMessage = nil
+                        self.isConnected = false
                     }
                 }
             }

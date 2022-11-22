@@ -14,14 +14,12 @@ struct VideoListView: View {
 
     var body: some View {
         contentView
-        .navigationBarTitle(Text("My video list"), displayMode: .inline)
-        .edgesIgnoringSafeArea(.bottom)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: BackButton(),
-                            trailing: NewStreamButton())
-        .onAppear {
-            viewModel.loadData()
-        }
+            .navigationBar(title: "My video list")
+            .navigationBarItems(leading: BackButton(),
+                                trailing: NewStreamButton())
+            .onAppear {
+                viewModel.loadData()
+            }
     }
 
     private var contentView: some View {

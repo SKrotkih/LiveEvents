@@ -2,7 +2,7 @@
 //  NewStreamViewModel.swift
 //  LiveEvents
 //
-//  Created by Sergey Krotkih on 11/5/22.
+//  Created by Serhii Krotkykh on 11/5/22.
 //
 
 import Combine

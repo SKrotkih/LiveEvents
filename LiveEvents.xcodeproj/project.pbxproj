@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		310D7F3129275F2B00FD7C1C /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D7F3029275F2B00FD7C1C /* AuthError.swift */; };
+		316EE548292D3ABA009F6168 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE547292D3ABA009F6168 /* NavigationBar.swift */; };
+		316EE54A292D3B34009F6168 /* ColorSheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE549292D3B34009F6168 /* ColorSheme.swift */; };
+		316EE54C292D3B7F009F6168 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE54B292D3B7F009F6168 /* BackButton.swift */; };
 		31A2179329299DAD003741DA /* CurrentSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A2179229299DAD003741DA /* CurrentSessionState.swift */; };
 		7F0933CF24574FCB00FB5579 /* SignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0933CE24574FCB00FB5579 /* SignInService.swift */; };
 		7F11514328F2DE7A0013D2F7 /* VideoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F11514228F2DE7A0013D2F7 /* VideoListView.swift */; };
@@ -45,7 +48,7 @@
 		7F83E35B1DBDD58C00DE4102 /* YouTubePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F83E35A1DBDD58C00DE4102 /* YouTubePlayer.swift */; };
 		7F83E35D1DBDD5DB00DE4102 /* XCDYouTubeVideoPlayer8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F83E35C1DBDD5DB00DE4102 /* XCDYouTubeVideoPlayer8.swift */; };
 		7F853734265796BF00C21921 /* TextViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F853733265796BF00C21921 /* TextViewRepresentable.swift */; };
-		7F8CEC73291803B8009DAAC6 /* Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8CEC72291803B8009DAAC6 /* Views.swift */; };
+		7F8CEC73291803B8009DAAC6 /* DecimalTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8CEC72291803B8009DAAC6 /* DecimalTextField.swift */; };
 		7F91D0F6287A80C3007E7A29 /* YTLiveStreaming in Frameworks */ = {isa = PBXBuildFile; productRef = 7F91D0F5287A80C3007E7A29 /* YTLiveStreaming */; };
 		7F9274B31DBDCAD00051DE6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F9274B21DBDCAD00051DE6B /* Assets.xcassets */; };
 		7F98F6B228F913B400AF6858 /* NewStreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F98F6B128F913B400AF6858 /* NewStreamView.swift */; };
@@ -112,6 +115,9 @@
 
 /* Begin PBXFileReference section */
 		310D7F3029275F2B00FD7C1C /* AuthError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
+		316EE547292D3ABA009F6168 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		316EE549292D3B34009F6168 /* ColorSheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSheme.swift; sourceTree = "<group>"; };
+		316EE54B292D3B7F009F6168 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		31A2179229299DAD003741DA /* CurrentSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentSessionState.swift; sourceTree = "<group>"; };
 		65A4996DDBF267DFE82ED9D5 /* Pods-LiveEvents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveEvents.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiveEvents/Pods-LiveEvents.release.xcconfig"; sourceTree = "<group>"; };
 		7F0933CE24574FCB00FB5579 /* SignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInService.swift; sourceTree = "<group>"; };
@@ -158,7 +164,7 @@
 		7F83E35A1DBDD58C00DE4102 /* YouTubePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YouTubePlayer.swift; sourceTree = "<group>"; };
 		7F83E35C1DBDD5DB00DE4102 /* XCDYouTubeVideoPlayer8.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCDYouTubeVideoPlayer8.swift; sourceTree = "<group>"; };
 		7F853733265796BF00C21921 /* TextViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewRepresentable.swift; sourceTree = "<group>"; };
-		7F8CEC72291803B8009DAAC6 /* Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views.swift; sourceTree = "<group>"; };
+		7F8CEC72291803B8009DAAC6 /* DecimalTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalTextField.swift; sourceTree = "<group>"; };
 		7F9274A81DBDCAD00051DE6B /* LiveEvents.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveEvents.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F9274B21DBDCAD00051DE6B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7F98F6B128F913B400AF6858 /* NewStreamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStreamView.swift; sourceTree = "<group>"; };
@@ -457,7 +463,10 @@
 		7F8CEC7129180375009DAAC6 /* ViewComponents */ = {
 			isa = PBXGroup;
 			children = (
-				7F8CEC72291803B8009DAAC6 /* Views.swift */,
+				7F8CEC72291803B8009DAAC6 /* DecimalTextField.swift */,
+				316EE54B292D3B7F009F6168 /* BackButton.swift */,
+				316EE549292D3B34009F6168 /* ColorSheme.swift */,
+				316EE547292D3ABA009F6168 /* NavigationBar.swift */,
 			);
 			path = ViewComponents;
 			sourceTree = "<group>";
@@ -949,6 +958,7 @@
 				7FAEE35128883EA300770924 /* AuthAction.swift in Sources */,
 				7FFA59872861DDDF00D2F4FE /* HomeView.swift in Sources */,
 				7FB8A42B1DD23C3100955C2D /* LFLivePreview.m in Sources */,
+				316EE54C292D3B7F009F6168 /* BackButton.swift in Sources */,
 				7F79FE42265E6BB1002FA510 /* loadMockData.swift in Sources */,
 				7F1E96BC2546B8BF00638965 /* Date+Ext.swift in Sources */,
 				7FF255152856DA63008A7390 /* WindowCustomizer.swift in Sources */,
@@ -958,7 +968,7 @@
 				7FD974E328D6958B00E8E16E /* LogInViewModel.swift in Sources */,
 				7FAEE3482887AADF00770924 /* AuthState.swift in Sources */,
 				7FA8C85D2916A7A90079C174 /* NewStreamViewModel.swift in Sources */,
-				7F8CEC73291803B8009DAAC6 /* Views.swift in Sources */,
+				7F8CEC73291803B8009DAAC6 /* DecimalTextField.swift in Sources */,
 				7FD974DF28D58BBD00E8E16E /* AvatarImageView.swift in Sources */,
 				7F9A92352609BE180036CA0B /* XCDYouTubeVideoPlayer.swift in Sources */,
 				7FFA598A2864AE6600D2F4FE /* RemoteStorageData.swift in Sources */,
@@ -978,6 +988,7 @@
 				7FFA59882861DDDF00D2F4FE /* MainBodyView.swift in Sources */,
 				7F83E34D1DBDD49100DE4102 /* LiveStreamingViewModel.swift in Sources */,
 				7F0933CF24574FCB00FB5579 /* SignInService.swift in Sources */,
+				316EE54A292D3B34009F6168 /* ColorSheme.swift in Sources */,
 				7F83E35D1DBDD5DB00DE4102 /* XCDYouTubeVideoPlayer8.swift in Sources */,
 				7F9A91D42609AAB90036CA0B /* YouTubeHelpers.swift in Sources */,
 				7F5296332857649800548281 /* LateInit.swift in Sources */,
@@ -998,6 +1009,7 @@
 				7F1E96BD2546B8BF00638965 /* StatusBarShowingViewController.swift in Sources */,
 				7F79C8A22547F2910044CF81 /* BroadcastsApiProtocol.swift in Sources */,
 				7F1E96BF2546B8BF00638965 /* UIStoryboard+Ext.swift in Sources */,
+				316EE548292D3ABA009F6168 /* NavigationBar.swift in Sources */,
 				7F2C3C3C2544187100CA9912 /* AppRouter.swift in Sources */,
 				7FA74D60260B3C0E0069DA8A /* NewStream.swift in Sources */,
 				31A2179329299DAD003741DA /* CurrentSessionState.swift in Sources */,

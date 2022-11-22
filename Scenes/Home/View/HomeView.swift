@@ -25,8 +25,7 @@ struct HomeView: View, Themeable {
             }
         }
         contentView
-            .navigationBarTitle(Text("Live Events"), displayMode: .inline)
-            .navigationBarBackButtonHidden(true)
+            .navigationBar(title: "Live Events")
             .navigationBarItems(leading: UserNameView(),
                                 trailing: UserAvatarView())
     }

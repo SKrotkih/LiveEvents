@@ -21,9 +21,7 @@ struct NewStreamView: View {
         NewStreamContentView(model: $viewModel.model)
             .loadingIndicator(viewModel.isOperationInProgress)
             .padding(.top, 30.0)
-            .navigationBarTitle(Text("Schedule a new live video"), displayMode: .inline)
-            .edgesIgnoringSafeArea(.bottom)
-            .navigationBarBackButtonHidden(true)
+            .navigationBar(title: "Schedule a new live video")
             .navigationBarItems(leading: BackButton(),
                                 trailing: DoneButton(errorMessage: $localError))
     }

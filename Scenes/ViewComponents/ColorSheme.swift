@@ -1,48 +1,11 @@
 //
-//  Views.swift
+//  ColorSheme.swift
 //  LiveEvents
 //
-//  Created by Sergey Krotkih on 11/6/22.
+//  Created by Serhii Krotkykh on 22.11.2022.
 //
 
 import SwiftUI
-import Combine
-
-/**
- Back button for the view navigation
- */
-struct BackButton: View, Themeable {
-    @Environment(\.presentationMode) var presentationMode
-    @Environment(\.colorScheme) var colorScheme
-
-    var body: some View {
-        Button(
-            action: {
-                self.presentationMode.wrappedValue.dismiss()
-            }, label: {
-                HStack {
-                    Image(systemName: "arrow.left.circle")
-                        .foregroundColor(backButtonColor)
-                    Text("Back")
-                        .foregroundColor(backButtonColor)
-                }
-            })
-    }
-}
-
-/**
- Enter just decimal symbols
- */
-func decimalTextField(_ title: String, _ bindingString: Binding<String>) -> some View {
-    TextField(title, text: bindingString)
-        .keyboardType(.numberPad)
-        .onReceive(Just(bindingString.wrappedValue)) { newValue in
-            let filtered = newValue.filter { "0123456789".contains($0) }
-            if filtered != newValue {
-                bindingString.wrappedValue = filtered
-            }
-        }
-}
 
 /**
  Themeable protocol for customize Views by color

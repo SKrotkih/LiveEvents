@@ -62,29 +62,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // configure environment (DI)
-        let store = Router.store
-        let broadcastsAPI = YTApiProvider(store: store).getApi()
-        let homeViewModel = HomeViewModel(store: store)
-        let logInViewModel = LogInViewModel(store: store)
-        let dataSource = VideoListFetcher(broadcastsAPI: broadcastsAPI)
-        let videoListViewModel = VideoListViewModel(store: store, dataSource: dataSource)
-        let newStreamViewModel = NewStreamViewModel()
-        newStreamViewModel.broadcastsAPI = broadcastsAPI
-        let currentState = CurrentSessionState()
-        Router.environmentConfigure()
-
-        let contentView = MainBodyView()
-            .environmentObject(store)
-            .environmentObject(homeViewModel)
-            .environmentObject(logInViewModel)
-            .environmentObject(videoListViewModel)
-            .environmentObject(newStreamViewModel)
-            .environmentObject(currentState)
-
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: contentView)
+            window.rootViewController = UIHostingController(rootView: Router.getMainContentView())
             AppDelegate.shared.window = window
             window.makeKeyAndVisible()
         }
