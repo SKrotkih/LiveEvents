@@ -4,12 +4,10 @@
 //
 //  Created by Serhii Krotkykh
 //
-
-import Foundation
 import Combine
 
 typealias AuthReduxStore = Store<AuthState, AuthAction, NetworkService>
-typealias Reducer<State, Action, Environment> = (State, Action, Environment) -> State
+typealias Reducer<State, Action, Environment> = (State, Action, Environment) async throws -> State
 
 /**
   Store: Store holds the state. Store receives the action and passes on to the reducer
@@ -38,6 +36,14 @@ final class Store<State, Action, Environment>: ObservableObject {
     }
     
     func stateDispatch(action: Action) {
-        state = reducer(state, action, environment)
+        Task { @MainActor in
+            do {
+                // actually the state is a reference type (it's an Actor type)
+                // may be reassign is a redundant action, but tonetheless...
+                self.state = try await reducer(self.state, action, self.environment)
+            } catch {
+                fatalError("Failed to change state")
+            }
+        }
     }
 }

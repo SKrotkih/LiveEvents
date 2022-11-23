@@ -22,8 +22,8 @@ struct NetworkService {
  */
 func authReducer(state: AuthState,
                  action: AuthAction,
-                 environment: NetworkService) -> AuthState {
-    Task {
+                 environment: NetworkService) async throws -> AuthState {
+    let newState = await Task {
         switch action {
         case let .signedIn(userSession):
             await state.setUpNewSession(userSession)
@@ -35,6 +35,8 @@ func authReducer(state: AuthState,
         case let .loggedInWithError(message):
             await state.setUpError(AuthError.message(message))
         }
-    }
-    return state
+        return state
+    }.value
+
+    return newState
 }

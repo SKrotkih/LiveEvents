@@ -7,9 +7,10 @@
 import Foundation
 import YTLiveStreaming
 
-// MARK: - Get mock data for the app UI testing
-
-class VideoListMockData {
+/**
+ Get test mock data
+ */
+struct VideoListMockData {
     static func loadMockData(for state: YTLiveVideoState) async -> Result<[LiveBroadcastStreamModel], LVError> {
         let data = await DecodeData.loadMockData("LiveBroadcast\(state.rawValue).json", as: LiveBroadcastListModel.self)
         switch data {

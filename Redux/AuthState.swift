@@ -13,27 +13,26 @@ import SwiftGoogleSignIn
  So basically state refers to the source of truth.
  */
 actor AuthState: Equatable {
-    static func == (lhs: AuthState, rhs: AuthState) -> Bool {
-        true
-    }
-
+    var userSession: UserSession?
+    var error: AuthError?
     var isConnected: Bool {
         userSession == nil ? false : true
     }
 
-    var userSession: UserSession?
-    
+    init(userSession: UserSession?) {
+        self.userSession = userSession
+    }
+
     func setUpNewSession(_ session: UserSession?) {
         userSession = session
     }
 
-    var error: AuthError?
-
     func setUpError(_ error: AuthError?) {
         self.error = error
     }
-    
-    init(userSession: UserSession?) {
-        self.userSession = userSession
+
+    static func == (lhs: AuthState, rhs: AuthState) -> Bool {
+        // TODO: How to implement async equatable protocol?
+        true
     }
 }
