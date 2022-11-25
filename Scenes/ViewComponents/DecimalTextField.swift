@@ -7,9 +7,9 @@
 
 import SwiftUI
 import Combine
-/**
- Enter just decimal symbols
- */
+///
+/// TextField with only decimal symbols enter ability
+///
 func decimalTextField(_ title: String, _ bindingString: Binding<String>) -> some View {
     TextField(title, text: bindingString)
         .keyboardType(.numberPad)

@@ -11,9 +11,9 @@ import Combine
 
 let Router = AppRouter.shared
 
-/**
- View navigation helper (almost deprecated)
- */
+///
+/// Attempt of the app router implementation
+///
 class AppRouter: NSObject {
 
     static let shared = AppRouter()
@@ -58,6 +58,9 @@ class AppRouter: NSObject {
 extension AppRouter {
     @MainActor
     func getMainContentView() -> some View {
+        ///
+        /// For the  app views environment configuration
+        ///
         let store = Router.store
         let broadcastsAPI = YTApiProvider(store: store).getApi()
         let homeViewModel = HomeViewModel(store: store)
@@ -82,9 +85,9 @@ extension AppRouter {
 }
 
 extension AppRouter {
-    /**
-     Inject dependecncies in the LFLiveViewController
-     */
+    ///
+    /// Inject dependecncies in the LFLiveViewController (old fashion)
+    ///
     private func liveVideoDependencies(_ viewController: LFLiveViewController, _ optional: Any?) {
         let viewModel = LiveStreamingViewModel()
         viewModel.broadcastsAPI = apiProvider.getApi()

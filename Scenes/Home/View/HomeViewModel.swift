@@ -23,13 +23,24 @@ typealias HomeViewModelInterface = ObservableObject & HomeViewModelObservable & 
 
 final class HomeViewModel: HomeViewModelInterface {
     @Published var isAvatarDownloading = false
+    @Published var isConnected = false
     @Published var avatarImage: UIImage?
+    @Published var userName: String = ""
 
     private var disposables = Set<AnyCancellable>()
     private let store: AuthReduxStore
 
     init(store: AuthReduxStore) {
         self.store = store
+    }
+    
+    @MainActor
+    func checkConnection() async {
+        if let _ = await self.store.state.userSession {
+            self.isConnected = true
+        } else {
+            self.isConnected = false
+        }
     }
     
     func downloadAvatarImage(url: String) {
@@ -47,5 +58,14 @@ final class HomeViewModel: HomeViewModelInterface {
 
     func logOut() {
         store.stateDispatch(action: .logOut)
+    }
+    
+    @MainActor
+    func downloadUserName() async {
+        if let userSession = await self.store.state.userSession {
+            self.userName = userSession.profile.fullName
+        } else {
+            self.userName = "Undefined name"
+        }
     }
 }

@@ -6,9 +6,9 @@
 //
 import SwiftUI
 
-/**
- Back button for the view navigation
- */
+///
+/// Back button for the view navigation
+///
 struct BackButton: View, Themeable {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.colorScheme) var colorScheme

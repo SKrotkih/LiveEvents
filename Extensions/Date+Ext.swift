@@ -7,9 +7,9 @@
 import Foundation
 
 extension Date {
-    /**
-     Computes date after appropriated hours, minutes, seconds
-     */
+    ///
+    /// Computes date after appropriated hours, minutes, seconds
+    ///
     func add(hours: Int = 0,
              minutes: Int = 0,
              seconds: Int = 0) -> Date {

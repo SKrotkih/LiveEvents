@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-/// SwiftUI content view for the Home screen
+/// Home screen. Contains two buttons: Video List and Log Out
 struct HomeView: View, Themeable {
     @EnvironmentObject var viewModel: HomeViewModel
     @EnvironmentObject var currentState: CurrentSessionState
@@ -51,18 +51,15 @@ struct HomeView: View, Themeable {
 }
 
 struct UserNameView: View, Themeable {
+    @EnvironmentObject var viewModel: HomeViewModel
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var currentState: CurrentSessionState
-    @State var userName = ""
 
     var body: some View {
-        Text(self.userName)
+        Text(viewModel.userName)
             .foregroundColor(userNameColor)
             .onAppear {
                 Task {
-                    if let userSession = await self.currentState.store.state.userSession {
-                        self.userName = userSession.profile.fullName
-                    }
+                    await viewModel.downloadUserName()
                 }
             }
     }
@@ -77,7 +74,8 @@ struct UserAvatarView: View {
     }
 }
 
-struct VideoListButton: View {
+struct VideoListButton: View, Themeable {
+    @Environment(\.colorScheme) var colorScheme
     @State private var selectedTag: Int? = 0
 
     var body: some View {
@@ -93,7 +91,7 @@ struct VideoListButton: View {
             Text("Video List")
                 .padding()
                 .frame(width: 130.0)
-                .foregroundColor(.red)
+                .foregroundColor(videoListButtonColor)
                 .background(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(.red, lineWidth: 2)

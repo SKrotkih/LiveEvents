@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+///
+/// Customized navigation bar. Can be used as modifier for views
+///
 struct NavigationBar: ViewModifier, Themeable {
     var title: String
     

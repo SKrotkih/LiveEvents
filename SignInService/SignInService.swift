@@ -20,9 +20,9 @@ protocol UserSessionObserver {
     var userSession: UserSession? { get }
 }
 
-/**
- SwiftGoogleSignIn package adapter
- */
+///
+/// SwiftGoogleSignIn package adapter
+///
 class SignInService: SignInObserver, ObservableObject {
     @Published var userSession: UserSession?
     @Lateinit var store: AuthReduxStore

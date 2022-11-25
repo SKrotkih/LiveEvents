@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-/**
- Themeable protocol for customize Views by color
- */
+///
+/// Themeable protocol for customize Views by color
+///
 protocol Themeable {
     var colorScheme: ColorScheme { get }
 }
@@ -29,6 +29,9 @@ extension Themeable {
     }
     var videoListSectionColor: Color {
         colorScheme == .dark ? .white : .black
+    }
+    var videoListButtonColor: Color {
+        colorScheme == .dark ? .red : .black
     }
     var videoListItemColor: Color {
         colorScheme == .dark ? .green : .red

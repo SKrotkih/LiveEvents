@@ -7,9 +7,9 @@
 import SwiftUI
 import Combine
 
-/**
- Current user session state safe observable object
- */
+///
+/// Current user session state safe observable object
+///
 @MainActor final class CurrentSessionState: ObservableObject {
     @Published private(set) var isConnected = false
     @Published private(set) var errorMessage: String?

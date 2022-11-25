@@ -8,10 +8,10 @@
 import Foundation
 import SwiftGoogleSignIn
 
-/**
- State: Based on your state you render your UI or respond in any form.
- So basically state refers to the source of truth.
- */
+///
+/// State: Based on your state you render your UI or respond in any form.
+/// So basically state refers to the source of truth.
+///
 actor AuthState: Equatable {
     var userSession: UserSession?
     var error: AuthError?
