@@ -13,8 +13,9 @@ struct YTApiProvider {
 
     func getApi() -> YTLiveStreaming {
         Task {
-            if let userSession = await store.state.userSession {
-                GoogleOAuth2.sharedInstance.accessToken = userSession.remoteSession.accessToken
+            if let userSession = await store.state.userSession,
+               let remoteSession = userSession.remoteSession {
+                GoogleOAuth2.sharedInstance.accessToken = remoteSession.accessToken
             }
         }
         return YTLiveStreaming()

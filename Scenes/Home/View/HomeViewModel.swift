@@ -62,8 +62,9 @@ final class HomeViewModel: HomeViewModelInterface {
     
     @MainActor
     func downloadUserName() async {
-        if let userSession = await self.store.state.userSession {
-            self.userName = userSession.profile.fullName
+        if let userSession = await self.store.state.userSession,
+           let profile = userSession.profile {
+            self.userName = profile.fullName
         } else {
             self.userName = "Undefined name"
         }

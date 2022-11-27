@@ -17,7 +17,7 @@ struct AvatarImageView: View, Themeable {
             .onAppear {
                 Task {
                     if let userSession = await store.state.userSession {
-                        profilePicUrl = userSession.profile.profilePicUrl
+                        profilePicUrl = userSession.profile?.profilePicUrl
                     }
                 }
             }

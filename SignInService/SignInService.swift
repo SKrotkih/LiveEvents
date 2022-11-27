@@ -27,7 +27,7 @@ class SignInService: SignInObserver, ObservableObject {
     @Published var userSession: UserSession?
     @Lateinit var store: AuthReduxStore
 
-    let signInPackageAPI = SwiftGoogleSignIn.packageAPI
+    var signInPackageAPI = SwiftGoogleSignIn.API
 
     // There are needed sensitive scopes to have ability to work properly
     // Make sure they are presented in your app. Then send request on an verification
@@ -61,24 +61,16 @@ class SignInService: SignInObserver, ObservableObject {
     }
 
     private func startListeningUserConnect() {
-        signInPackageAPI.currentUser
+        signInPackageAPI.publisher
             .receive(on: RunLoop.main)
             .sink { [weak self] session in
-                self?.store.stateDispatch(action: .signedIn(userSession: session))
+                if session.isConnected {
+                    self?.store.stateDispatch(action: .signedIn(userSession: session))
+                } else if let error = session.error {
+                    self?.parse(error: error)
+                }
             }
             .store(in: &self.disposables)
-
-        signInPackageAPI.loginResult?
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .failure(let error):
-                    self.parse(error: error)
-                default:
-                    break
-                }
-            }, receiveValue: { _ in
-            })
-            .store(in: &disposables)
 
         signInPackageAPI.logoutResult?
             .receive(on: DispatchQueue.main)
