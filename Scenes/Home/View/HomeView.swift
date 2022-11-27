@@ -11,7 +11,7 @@ import Combine
 /// Home screen. Contains two buttons: Video List and Log Out
 struct HomeView: View, Themeable {
     @EnvironmentObject var viewModel: HomeViewModel
-    @EnvironmentObject var currentState: CurrentSessionState
+    @EnvironmentObject var currentState: UserSessionState
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
     @State private var selectedTag: Int? = 1

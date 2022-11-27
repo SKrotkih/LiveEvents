@@ -69,7 +69,7 @@ extension AppRouter {
         let videoListViewModel = VideoListViewModel(store: store, dataSource: dataSource)
         let newStreamViewModel = NewStreamViewModel()
         newStreamViewModel.broadcastsAPI = broadcastsAPI
-        let currentState = CurrentSessionState()
+        let currentState = UserSessionState()
         Router.environmentConfigure()
 
         let contentView = MainBodyView()

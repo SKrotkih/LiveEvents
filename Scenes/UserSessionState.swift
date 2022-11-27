@@ -1,5 +1,5 @@
 //
-//  CurrentSessionState.swift
+//  UserSessionState.swift
 //  LiveEvents
 //
 //  Created by Serhii Krotkykh on 20.11.2022.
@@ -10,7 +10,7 @@ import Combine
 ///
 /// Current user session state safe observable object
 ///
-@MainActor final class CurrentSessionState: ObservableObject {
+@MainActor final class UserSessionState: ObservableObject {
     @Published private(set) var isConnected = false
     @Published private(set) var errorMessage: String?
     @ObservedObject var store: AuthReduxStore = Router.store

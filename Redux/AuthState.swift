@@ -32,7 +32,7 @@ actor AuthState: Equatable {
     }
 
     static func == (lhs: AuthState, rhs: AuthState) -> Bool {
-        // TODO: How to implement async equatable protocol?
+        // TODO: Need to research how to implement async equatable protocol
         true
     }
 }

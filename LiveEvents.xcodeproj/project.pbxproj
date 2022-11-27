@@ -11,7 +11,7 @@
 		316EE548292D3ABA009F6168 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE547292D3ABA009F6168 /* NavigationBar.swift */; };
 		316EE54A292D3B34009F6168 /* ColorSheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE549292D3B34009F6168 /* ColorSheme.swift */; };
 		316EE54C292D3B7F009F6168 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE54B292D3B7F009F6168 /* BackButton.swift */; };
-		31A2179329299DAD003741DA /* CurrentSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A2179229299DAD003741DA /* CurrentSessionState.swift */; };
+		31A2179329299DAD003741DA /* UserSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A2179229299DAD003741DA /* UserSessionState.swift */; };
 		7F0933CF24574FCB00FB5579 /* SignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0933CE24574FCB00FB5579 /* SignInService.swift */; };
 		7F11514328F2DE7A0013D2F7 /* VideoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F11514228F2DE7A0013D2F7 /* VideoListView.swift */; };
 		7F16188A286C473C0004D0B6 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 7F161889286C473C0004D0B6 /* .swiftlint.yml */; };
@@ -118,7 +118,7 @@
 		316EE547292D3ABA009F6168 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		316EE549292D3B34009F6168 /* ColorSheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSheme.swift; sourceTree = "<group>"; };
 		316EE54B292D3B7F009F6168 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
-		31A2179229299DAD003741DA /* CurrentSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentSessionState.swift; sourceTree = "<group>"; };
+		31A2179229299DAD003741DA /* UserSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionState.swift; sourceTree = "<group>"; };
 		65A4996DDBF267DFE82ED9D5 /* Pods-LiveEvents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveEvents.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiveEvents/Pods-LiveEvents.release.xcconfig"; sourceTree = "<group>"; };
 		7F0933CE24574FCB00FB5579 /* SignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInService.swift; sourceTree = "<group>"; };
 		7F11514228F2DE7A0013D2F7 /* VideoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListView.swift; sourceTree = "<group>"; };
@@ -325,9 +325,8 @@
 		7F53B1AD203072EA00E09CFA /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				7F8CEC7129180375009DAAC6 /* ViewComponents */,
 				7F2C3C3B2544187100CA9912 /* AppRouter.swift */,
-				31A2179229299DAD003741DA /* CurrentSessionState.swift */,
+				31A2179229299DAD003741DA /* UserSessionState.swift */,
 				7FCFD64D28658A8F00F61B48 /* Main */,
 				7FCFD64E28658AC600F61B48 /* Home */,
 				7FA94FFF2032C5750083B23B /* LogIn */,
@@ -619,6 +618,7 @@
 				7F39A88B24569F3800C18130 /* Network */,
 				7F1E96A82546B46A00638965 /* SignInService */,
 				7FAEE34C288828C000770924 /* Redux */,
+				7F8CEC7129180375009DAAC6 /* ViewComponents */,
 				7F53B1AD203072EA00E09CFA /* Scenes */,
 				7F53B1A5203071F000E09CFA /* Resources */,
 				7F53B1B22030B43000E09CFA /* Supporting Files */,
@@ -1012,7 +1012,7 @@
 				316EE548292D3ABA009F6168 /* NavigationBar.swift in Sources */,
 				7F2C3C3C2544187100CA9912 /* AppRouter.swift in Sources */,
 				7FA74D60260B3C0E0069DA8A /* NewStream.swift in Sources */,
-				31A2179329299DAD003741DA /* CurrentSessionState.swift in Sources */,
+				31A2179329299DAD003741DA /* UserSessionState.swift in Sources */,
 				7F1E96BB2546B8BF00638965 /* Alert.swift in Sources */,
 				7FAEE354288CC1E000770924 /* UserDefaultsValue.swift in Sources */,
 				7F1E96C42546B8BF00638965 /* EnumIteration.swift in Sources */,

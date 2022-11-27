@@ -61,7 +61,7 @@ class SignInService: SignInObserver, ObservableObject {
     }
 
     private func startListeningUserConnect() {
-        signInPackageAPI.userSessionObservable?
+        signInPackageAPI.currentUser
             .receive(on: RunLoop.main)
             .sink { [weak self] session in
                 self?.store.stateDispatch(action: .signedIn(userSession: session))

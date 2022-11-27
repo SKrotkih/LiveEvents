@@ -11,7 +11,7 @@ import SwiftGoogleSignIn
 /// SwiftUI content view for the Google Sign In
 struct LogInView: View {
     @EnvironmentObject var viewModel: LogInViewModel
-    @EnvironmentObject var currentState: CurrentSessionState
+    @EnvironmentObject var currentState: UserSessionState
 
     var body: some View {
         contentView
