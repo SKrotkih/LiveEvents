@@ -36,6 +36,7 @@ struct NewStreamView: View {
     }
 
     struct NewStreamContentView: View, Themeable {
+        @EnvironmentObject var viewModel: NewStreamViewModel
         @Binding var model: NewStream
         @Environment(\.colorScheme) var colorScheme
 
@@ -55,7 +56,7 @@ struct NewStreamView: View {
                     decimalTextField("Seconds", $model.seconds)
                 }
                 Section(header: Text("Run at:").foregroundColor(addStreamSectionColor)) {
-                    Text(model.runAt)
+                    Text(viewModel.runAt)
                     DatePicker("Date", selection: $model.date, displayedComponents: .date)
                 }
             }

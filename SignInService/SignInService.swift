@@ -21,13 +21,15 @@ protocol UserSessionObserver {
 }
 
 ///
-/// SwiftGoogleSignIn package adapter
+/// The SwiftGoogleSignIn package adapter
+/// It's an example of using the package.
+/// It's listening to the package events and updating Redux store state accordingly
 ///
 class SignInService: SignInObserver, ObservableObject {
     @Published var userSession: UserSession?
     @Lateinit var store: AuthReduxStore
 
-    var signInPackageAPI = SwiftGoogleSignIn.API
+    var signInAPI: SwiftGoogleSignInInterface = SwiftGoogleSignIn.API
 
     // There are needed sensitive scopes to have ability to work properly
     // Make sure they are presented in your app. Then send request on an verification
@@ -42,44 +44,39 @@ class SignInService: SignInObserver, ObservableObject {
     private var disposables = Set<AnyCancellable>()
 
     func configure() {
-        signInPackageAPI.initialize(isScopesApproved ? googleAPIscopes : nil)
-        startListeningUserConnect()
+        signInAPI.initialize(isScopesApproved ? googleAPIscopes : nil)
+        subscribeOnSignedIn()
     }
 
     func openURL(_ url: URL) -> Bool {
-        return signInPackageAPI.openUrl(url)
+        return signInAPI.openUrl(url)
     }
 
     func logOut() {
-        signInPackageAPI.logOut()
+        signInAPI.logOut()
     }
 
     var presentingViewController: UIViewController? {
         didSet {
-            signInPackageAPI.presentingViewController = presentingViewController
+            signInAPI.presentingViewController = presentingViewController
         }
     }
 
-    private func startListeningUserConnect() {
-        signInPackageAPI.publisher
+    private func subscribeOnSignedIn() {
+        signInAPI
+            .publisher
             .receive(on: RunLoop.main)
             .sink { [weak self] session in
+                guard let self else { return }
                 if session.isConnected {
-                    self?.store.stateDispatch(action: .signedIn(userSession: session))
+                    self.store.stateDispatch(action: .signedIn(userSession: session))
                 } else if let error = session.error {
-                    self?.parse(error: error)
-                }
-            }
-            .store(in: &self.disposables)
-
-        signInPackageAPI.logoutResult?
-            .receive(on: DispatchQueue.main)
-            .sink { result in
-                if result {
+                    self.parse(error: error)
+                } else {
                     self.store.stateDispatch(action: .loggedOut)
                 }
             }
-            .store(in: &disposables)
+            .store(in: &self.disposables)
     }
 
     // MARK: - Private methods
@@ -92,7 +89,7 @@ class SignInService: SignInObserver, ObservableObject {
                 store.stateDispatch(action: .loggedInWithError(message: message))
             case 501:
                 Alert.showOkCancel(message, message: "Would you like to send request?", onComplete: {
-                    self.signInPackageAPI.requestPermissions()
+                    self.signInAPI.requestPermissions()
                 })
             default:
                 store.stateDispatch(action: .loggedInWithError(message: message))

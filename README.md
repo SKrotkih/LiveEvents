@@ -2,10 +2,13 @@
 
 # LiveEvents
 
-LiveEvents helps you to manage your own Youtube video in your account.  
+Your Youtube video manager.  
 It is an example of using [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) and
 [SwiftGoogleSignIn](https://github.com/SKrotkih/SwiftGoogleSignIn.git) Swift packages (SPM).
-It uses [SwiftUI](https://developer.apple.com/documentation/SwiftUI), [Combine](https://developer.apple.com/documentation/Combine), [Concurrency (await/async)](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html), [Redux](https://en.wikipedia.org/wiki/Redux_%28JavaScript_library%29) pattern for Swift.
+It uses [SwiftUI](https://developer.apple.com/documentation/SwiftUI), 
+[Combine](https://developer.apple.com/documentation/Combine), 
+[New Swift Concurrency (await/async)](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html), 
+[Redux pattern for Swift](https://en.wikipedia.org/wiki/Redux_%28JavaScript_library%29).
 
 ## Requirements
 
@@ -14,7 +17,7 @@ It uses [SwiftUI](https://developer.apple.com/documentation/SwiftUI), [Combine](
 
 ## Introduction
 
-- First of all follow instructions for the [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) Framework to create and set up Google application which uses the YouTube Data API v3.
+- First of all follow instructions for the [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) Framework and Package to create and set up Google application which uses the YouTube Data API v3.
 
 - Download or clone the repository
 
@@ -32,9 +35,12 @@ It uses [SwiftUI](https://developer.apple.com/documentation/SwiftUI), [Combine](
 
 <img src="https://user-images.githubusercontent.com/2775621/173220142-003b05e9-3903-4959-b88a-7f1181c1c010.png" alt="Info.plist Example" style="width: 690px;" />
 
-## The Redux pattern was used
+## SwiftUI and Combine
+UI of the app is developed with using [SwiftUI](https://developer.apple.com/documentation/SwiftUI) and [Combine](https://developer.apple.com/documentation/Combine) frameworks and newest [Concurrency Swift](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html) approach.  
 
-Please pay attention on the Home and SignIn screens.
+## The Redux pattern
+
+The app uses Redux pattern. In current version it's used for Sign In only. Please pay attention on the Home and SignIn screens.
 
 ## Libraries Used
 
@@ -46,13 +52,14 @@ Please pay attention on the Home and SignIn screens.
 ![LiveEvents Demo Video](https://user-images.githubusercontent.com/2775621/203057067-4312cba6-dd33-40dc-9fa1-d278e6ce55b9.gif)
 
 ## The 'UIKit' of the app version
-In branch 'UIKit' you will find UIKit version of the app where used UIKit layout instead of SwiftUI approach. It is the previous version of the app. 
+Branch 'UIKit' consists UIKit version of the app. 
 
 Author
 Serhii Krotkykh
 
 Changes history:
-- 20-22-2022 current user session is safe now
+- 30-11-2022 update with SwiftGoogleSignIn 1.57 build
+- 20-11-2022 current user session is safe now
 - 20-09-2022 bug fixes. Redesign home and log in screens
 - 20-07-2022 implement Redux pattern for Login scene
 - 15-07-2022 added CI unit tests with Xcode Actions  

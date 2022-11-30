@@ -16,13 +16,30 @@ class NewStreamViewModel: ObservableObject {
     var broadcastsAPI: YTLiveStreaming!
 
     func verification() -> Bool {
-        switch model.verification() {
-        case .success:
-            return true
-        case .failure(let error):
-            self.error = error.message()
+        if model.title.isEmpty {
+            error = "The Live Event Title is empty"
             return false
+        } else if startStreaming <= Date() {
+            error = "Start Live Event time is wrong"
+            return false
+        } else {
+            return true
         }
+    }
+    
+    private var startStreaming: Date {
+        let h = model.hours.isEmpty ? 0 : Int(model.hours) ?? 0
+        let m = model.minutes.isEmpty ? 0 : Int(model.minutes) ?? 0
+        let s = model.seconds.isEmpty ? 0 : Int(model.seconds) ?? 0
+        if h + m + s > 0 {
+            return Date().add(hours: h > 24 ? 0 : h, minutes: m > 60 ? 0 : m, seconds: s > 60 ? 0 : s)
+        } else {
+            return model.date
+        }
+    }
+
+    var runAt: String {
+        startStreaming.streamDateFormat
     }
 }
 
@@ -39,7 +56,7 @@ extension NewStreamViewModel {
         let result = await withUnsafeContinuation { continuation in
             self.broadcastsAPI.createBroadcast(model.title,
                                                description: model.description,
-                                               startTime: model.startStreaming,
+                                               startTime: startStreaming,
                                                completion: { result in
                 continuation.resume(returning: result)
             })
