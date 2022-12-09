@@ -66,16 +66,19 @@ class SignInService: SignInObserver, ObservableObject {
         signInAPI
             .publisher
             .receive(on: RunLoop.main)
-            .sink { [weak self] session in
-                guard let self else { return }
-                if session.isConnected {
-                    self.store.stateDispatch(action: .signedIn(userSession: session))
-                } else if let error = session.error {
-                    self.parse(error: error)
-                } else {
-                    self.store.stateDispatch(action: .loggedOut)
+            .sink(
+                receiveCompletion: { result in
+                    if case let .failure(error) = result {
+                        self.parse(error: error)
+                    }},
+                receiveValue: { session in
+                    if session.isConnected {
+                        self.store.stateDispatch(action: .signedIn(userSession: session))
+                    } else {
+                        self.store.stateDispatch(action: .loggedOut)
+                    }
                 }
-            }
+            )
             .store(in: &self.disposables)
     }
 
