@@ -34,6 +34,7 @@ extension YTLiveVideoState {
             return 3
         }
     }
+    // TODO: localized
     func description() -> String {
         switch self {
         case .upcoming:

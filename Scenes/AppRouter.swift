@@ -42,23 +42,13 @@ class AppRouter: NSObject {
     func configure() {
         store.stateDispatch(action: .configure)
     }
-    
-    // Start Live Video
-    @MainActor
-    func playVideo(with videoId: String) { }
-    
-    // Start Live Video
-    @MainActor
-    func openLiveVideoScreen() {
-        UIStoryboard.main.segueToModalViewController(self.liveVideoDependencies, optional: nil)
-    }
 }
 
 // MARK: - Dependencies Injection
 
 extension AppRouter {
     @MainActor
-    func getMainContentView() -> some View {
+    func createMainContentView() -> some View {
         ///
         /// For the  app views environment configuration
         ///
@@ -86,6 +76,16 @@ extension AppRouter {
 }
 
 extension AppRouter {
+    /// Start Live Video
+    @MainActor
+    func playVideo(with videoId: String) { }
+    
+    /// Start Live Video
+    @MainActor
+    func openLiveVideoScreen() {
+        UIStoryboard.main.segueToModalViewController(self.liveVideoDependencies, optional: nil)
+    }
+
     ///
     /// Inject dependecncies in the LFLiveViewController (old fashion)
     ///
@@ -96,7 +96,7 @@ extension AppRouter {
     }
 }
 
-// MARK: - UIApplicationDelegate protocol.
+// MARK: - The UIApplicationDelegate protocol
 
 extension AppRouter: UIApplicationDelegate {
     func application(_ application: UIApplication,

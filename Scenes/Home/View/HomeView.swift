@@ -7,28 +7,15 @@
 
 import SwiftUI
 import Combine
-
-/// Home screen. Contains two buttons: Video List and Log Out
+///
+/// Home screen. Contains two buttons currently: Video List and Log Out
+///
 struct HomeView: View, Themeable {
     @EnvironmentObject var viewModel: HomeViewModel
     @EnvironmentObject var currentState: UserSessionState
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
     @State private var selectedTag: Int? = 1
-
-    var body: some View {
-        if !currentState.isConnected {
-            NavigationLink(destination: MainBodyView(),
-                           tag: 1,
-                           selection: $selectedTag) {
-                EmptyView()
-            }
-        }
-        contentView
-            .navigationBar(title: "Live Events")
-            .navigationBarItems(leading: UserNameView(),
-                                trailing: UserAvatarView())
-    }
 
     private var contentView: some View {
         VStack {
@@ -47,6 +34,21 @@ struct HomeView: View, Themeable {
         }
         .loadingIndicator(viewModel.isAvatarDownloading)
         .edgesIgnoringSafeArea(.bottom)
+    }
+
+    var body: some View {
+        if !currentState.isConnected {
+            // The user has not logged in yet: go to the Log In view
+            NavigationLink(destination: MainBodyView(),
+                           tag: 1,
+                           selection: $selectedTag) {
+                EmptyView()
+            }
+        }
+        contentView
+            .navigationBar(title: "Live Events")
+            .navigationBarItems(leading: UserNameView(),
+                                trailing: UserAvatarView())
     }
 }
 

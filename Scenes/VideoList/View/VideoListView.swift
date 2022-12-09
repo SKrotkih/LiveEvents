@@ -12,16 +12,6 @@ struct VideoListView: View {
     @EnvironmentObject var store: AuthReduxStore
     @EnvironmentObject var viewModel: VideoListViewModel
 
-    var body: some View {
-        contentView
-            .navigationBar(title: "My video list")
-            .navigationBarItems(leading: BackButton(),
-                                trailing: NewStreamButton())
-            .onAppear {
-                viewModel.loadData()
-            }
-    }
-
     private var contentView: some View {
         VStack {
             Spacer()
@@ -34,9 +24,20 @@ struct VideoListView: View {
         }
         .loadingIndicator(viewModel.isDataDownloading)
     }
+
+    var body: some View {
+        contentView
+            .navigationBar(title: "My video list")
+            .navigationBarItems(leading: BackButton(),
+                                trailing: NewStreamButton())
+            .onAppear {
+                viewModel.loadData()
+            }
+    }
 }
 
-// TODO: You should use protocol instead of class anywhere like this. But there is a some problem...:
+// TODO: Here used a protocol. We should use like this approach instead of a particularly class like anywhere rest.
+// But there is some problem ( . Please check it out.
 struct VideoList<ViewModel>: View, Themeable where ViewModel: VideoListViewModelInterface {
     @ObservedObject var viewModel: ViewModel
     @Environment(\.colorScheme) var colorScheme

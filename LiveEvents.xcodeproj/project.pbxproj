@@ -12,6 +12,7 @@
 		316EE54A292D3B34009F6168 /* ColorSheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE549292D3B34009F6168 /* ColorSheme.swift */; };
 		316EE54C292D3B7F009F6168 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE54B292D3B7F009F6168 /* BackButton.swift */; };
 		31A2179329299DAD003741DA /* UserSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A2179229299DAD003741DA /* UserSessionState.swift */; };
+		31CAA6E22943AE5C0038069D /* VideoPlayerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA6E12943AE5C0038069D /* VideoPlayerFactory.swift */; };
 		7F0933CF24574FCB00FB5579 /* SignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0933CE24574FCB00FB5579 /* SignInService.swift */; };
 		7F11514328F2DE7A0013D2F7 /* VideoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F11514228F2DE7A0013D2F7 /* VideoListView.swift */; };
 		7F16188A286C473C0004D0B6 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 7F161889286C473C0004D0B6 /* .swiftlint.yml */; };
@@ -119,6 +120,7 @@
 		316EE549292D3B34009F6168 /* ColorSheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSheme.swift; sourceTree = "<group>"; };
 		316EE54B292D3B7F009F6168 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		31A2179229299DAD003741DA /* UserSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionState.swift; sourceTree = "<group>"; };
+		31CAA6E12943AE5C0038069D /* VideoPlayerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerFactory.swift; sourceTree = "<group>"; };
 		65A4996DDBF267DFE82ED9D5 /* Pods-LiveEvents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveEvents.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiveEvents/Pods-LiveEvents.release.xcconfig"; sourceTree = "<group>"; };
 		7F0933CE24574FCB00FB5579 /* SignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInService.swift; sourceTree = "<group>"; };
 		7F11514228F2DE7A0013D2F7 /* VideoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListView.swift; sourceTree = "<group>"; };
@@ -453,6 +455,7 @@
 			children = (
 				7F8221CA265646E6005A6015 /* VideoPlayer.h */,
 				7F8221C6265646AD005A6015 /* VideoPlayer.mm */,
+				31CAA6E12943AE5C0038069D /* VideoPlayerFactory.swift */,
 				7F809FC426414C4E006C4B4E /* YTVideoPlayer.swift */,
 				7FB0104029017C3E00AE0F87 /* VideoPlayerView.swift */,
 			);
@@ -1000,6 +1003,7 @@
 				7FCFD6642868011600F61B48 /* YTApiProvider.swift in Sources */,
 				7FD974DD28D4BCFE00E8E16E /* HomeViewModel.swift in Sources */,
 				7F5296382858A17F00548281 /* LogInView.swift in Sources */,
+				31CAA6E22943AE5C0038069D /* VideoPlayerFactory.swift in Sources */,
 				7F79C8A6254802FB0044CF81 /* BroadcastsDataFetcherProtocol.swift in Sources */,
 				7F53B1B12030B38100E09CFA /* VideoListFetcher.swift in Sources */,
 				7F7E9FBC26563A0000D82B60 /* PlayerViewRepresentable.swift in Sources */,

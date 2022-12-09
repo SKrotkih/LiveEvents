@@ -43,13 +43,13 @@ func authReducer(state: AuthState,
             environment.actions.openURL(url)
         case let .signedIn(userSession):
             await state.setUpNewSession(userSession)
+        case let .signInError(message):
+            await state.setUpError(AuthError.message(message))
         case .loggedOut:
             await state.setUpNewSession(nil)
         case .logOut:
             // async operation; finished by .loggedOut state:
             environment.actions.logOut()
-        case let .loggedInWithError(message):
-            await state.setUpError(AuthError.message(message))
         case let .openUrlWithError(message):
             print(message)
         }

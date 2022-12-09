@@ -6,34 +6,16 @@
 //
 
 import Foundation
-import SwiftUI
 import Combine
 
-protocol LogInViewPresentable {
-    var presentingViewController: UIViewController? { get set }
-}
-
-protocol LogInViewConnectable {
-    func configure()
-}
-
-typealias LogInViewModelInterface = ObservableObject & LogInViewPresentable & LogInViewConnectable
-
-final class LogInViewModel: LogInViewModelInterface {
-    var presentingViewController: UIViewController?
-
+final class LogInViewModel: ObservableObject {
     private let store: AuthReduxStore
-    private var disposables = Set<AnyCancellable>()
 
     init(store: AuthReduxStore) {
         self.store = store
     }
 
-    func configure() {
-        if let presentingViewController {
-            store.stateDispatch(action: .viewController(presentingViewController))
-        } else {
-            fatalError("Set up the presentingViewController before")
-        }
+    func configure(with viewController: UIViewController) {
+        store.stateDispatch(action: .viewController(viewController))
     }
 }

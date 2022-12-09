@@ -17,7 +17,7 @@ enum AuthAction {
     case configure
     case viewController(UIViewController)
     case signedIn(userSession: UserSession?)
-    case loggedInWithError(message: String)
+    case signInError(message: String)
     case logOut
     case loggedOut
     case openUrl(URL)

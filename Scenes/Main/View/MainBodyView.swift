@@ -8,7 +8,9 @@
 import SwiftUI
 import Combine
 
-/// Show sign in view or home view depends on the user  has logged or not
+///
+/// Show sign in view or home view. It depends on either the user  has logged or not
+///
 struct MainBodyView: View {
     @EnvironmentObject var currentState: UserSessionState
     

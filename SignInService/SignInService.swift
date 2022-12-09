@@ -103,16 +103,16 @@ class SignInService: NetworkProtocol, ObservableObject {
         case .systemMessage(let code, let message):
             switch code {
             case 401:
-                Router.store.stateDispatch(action: .loggedInWithError(message: message))
+                Router.store.stateDispatch(action: .signInError(message: message))
             case 501:
                 Alert.showOkCancel(message, message: "Would you like to send request?", onComplete: {
                     self.signInAPI.requestPermissions()
                 })
             default:
-                Router.store.stateDispatch(action: .loggedInWithError(message: message))
+                Router.store.stateDispatch(action: .signInError(message: message))
             }
         case .message(let text):
-            Router.store.stateDispatch(action: .loggedInWithError(message: text))
+            Router.store.stateDispatch(action: .signInError(message: text))
         }
     }
 }

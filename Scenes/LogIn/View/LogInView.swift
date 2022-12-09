@@ -8,7 +8,9 @@
 import SwiftUI
 import SwiftGoogleSignIn
 
-/// SwiftUI content view for the Google Sign In
+///
+/// Google Sign In content view
+///
 struct LogInView: View {
     @EnvironmentObject var viewModel: LogInViewModel
     @EnvironmentObject var currentState: UserSessionState
@@ -16,9 +18,8 @@ struct LogInView: View {
     var body: some View {
         contentView
         .onAppear {
-            // Set the window root view controller as the `GIDSignIn` presenting view controller.
-            viewModel.presentingViewController = AppDelegate.shared.window?.rootViewController ?? UIHostingController(rootView: self)
-            viewModel.configure()
+            // Set up the window root view controller as the `GIDSignIn` presenting view controller.
+            viewModel.configure(with: AppDelegate.shared.window?.rootViewController ?? UIHostingController(rootView: self))
         }
     }
 
@@ -40,7 +41,7 @@ struct LogInView: View {
             } else {
                 EmptyView()
             }
-            SignInButton()   // native google sign in button will be shown here
+            SignInButton()   // native Google Sign in button will be shown here
                 .padding()
                 .frame(width: 130.0, height: 20.0)
             Spacer()

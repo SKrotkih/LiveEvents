@@ -10,12 +10,6 @@ import YTLiveStreaming
 import SwiftUI
 import Combine
 
-enum VideoPlayerType {
-    case DefaultVideoPlayer
-    case oldVersionForIos8
-    case AVPlayerViewController
-}
-
 struct VideoListSection: Codable, Identifiable, Hashable {
     var id: UUID
     var sectionName: String
@@ -60,28 +54,12 @@ final class VideoListViewModel: VideoListViewModelInterface {
     @Published var errorMessage = ""
     @Published var isDataDownloading = false
 
-    // Default value of the used video player
-    private static let playerType: VideoPlayerType = .DefaultVideoPlayer
-
     let dataSource: any BroadcastsDataFetcher
     let store: AuthReduxStore
 
     init(store: AuthReduxStore, dataSource: any BroadcastsDataFetcher) {
         self.store = store
         self.dataSource = dataSource
-    }
-
-    lazy private var videoPlayer = YouTubePlayer()
-
-    var playerFactory: YouTubeVideoPlayed {
-        switch VideoListViewModel.playerType {
-        case .oldVersionForIos8:
-            return XCDYouTubeVideoPlayer8()
-        case .AVPlayerViewController:
-            return XCDYouTubeVideoPlayer()
-        case .DefaultVideoPlayer:
-            return YTVideoPlayer()
-        }
     }
 
     func loadData() {
