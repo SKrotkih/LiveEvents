@@ -5,7 +5,7 @@
 //  Created by Serhii Krotkykh
 //
 
-import Foundation
+import UIKit
 import SwiftGoogleSignIn
 
 ///
@@ -14,8 +14,12 @@ import SwiftGoogleSignIn
 /// touch events, network API responses etc,.
 ///
 enum AuthAction {
+    case configure
+    case viewController(UIViewController)
     case signedIn(userSession: UserSession?)
     case loggedInWithError(message: String)
     case logOut
     case loggedOut
+    case openUrl(URL)
+    case openUrlWithError(message: String)
 }

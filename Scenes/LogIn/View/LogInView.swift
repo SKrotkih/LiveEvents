@@ -53,7 +53,7 @@ struct LogInView_Previews: PreviewProvider {
     static var previews: some View {
         let store = Store(initialState: .init(userSession: nil),
                           reducer: authReducer,
-                          environment: NetworkService())
+                          environment: NetworkService(with: SignInService()))
         let viewModel = LogInViewModel(store: store)
         LogInView()
             .previewDevice(PreviewDevice(rawValue: "iPhone 12 Pro"))

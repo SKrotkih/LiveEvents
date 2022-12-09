@@ -18,7 +18,10 @@ class AppRouter: NSObject {
 
     static let shared = AppRouter()
 
-    let store: AuthReduxStore
+    lazy var store: AuthReduxStore = {
+        return Store(initialState: .init(userSession: nil), reducer: authReducer, environment: environment)
+    }()
+
     let environment: NetworkService
     
     lazy var apiProvider: YTApiProvider = {
@@ -33,13 +36,11 @@ class AppRouter: NSObject {
     }
 
     private override init() {
-        environment = NetworkService()
-        store = Store(initialState: .init(userSession: nil), reducer: authReducer, environment: environment)
-        environment.service.store = store
+        environment = NetworkService(with: SignInService())
     }
 
-    func environmentConfigure() {
-        environment.service.configure()
+    func configure() {
+        store.stateDispatch(action: .configure)
     }
     
     // Start Live Video
@@ -70,7 +71,7 @@ extension AppRouter {
         let newStreamViewModel = NewStreamViewModel()
         newStreamViewModel.broadcastsAPI = broadcastsAPI
         let currentState = UserSessionState()
-        Router.environmentConfigure()
+        Router.configure()
 
         let contentView = MainBodyView()
             .environmentObject(store)
@@ -106,7 +107,8 @@ extension AppRouter: UIApplicationDelegate {
     func application(_ application: UIApplication,
                      open url: URL,
                      options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        return environment.service.openURL(url)
+        store.stateDispatch(action: .openUrl(url))
+        return true
     }
 }
 

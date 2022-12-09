@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 protocol LogInViewPresentable {
-    var presentingViewController: UIViewController! { get set }
+    var presentingViewController: UIViewController? { get set }
 }
 
 protocol LogInViewConnectable {
@@ -20,7 +20,7 @@ protocol LogInViewConnectable {
 typealias LogInViewModelInterface = ObservableObject & LogInViewPresentable & LogInViewConnectable
 
 final class LogInViewModel: LogInViewModelInterface {
-    var presentingViewController: UIViewController!
+    var presentingViewController: UIViewController?
 
     private let store: AuthReduxStore
     private var disposables = Set<AnyCancellable>()
@@ -30,6 +30,10 @@ final class LogInViewModel: LogInViewModelInterface {
     }
 
     func configure() {
-        Router.environment.service.presentingViewController = presentingViewController
+        if let presentingViewController {
+            store.stateDispatch(action: .viewController(presentingViewController))
+        } else {
+            fatalError("Set up the presentingViewController before")
+        }
     }
 }

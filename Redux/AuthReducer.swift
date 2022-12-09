@@ -13,7 +13,17 @@ import Combine
 /// https://vimeo.com/291588126
 ///
 struct NetworkService {
-    var service = SignInService()
+    var configurator: SignInConfigurable
+    var actions: SignInActions
+    var publisher: SignInPublisher
+    var presenter: SignInPresentable
+
+    init(with service: NetworkProtocol) {
+        configurator = service
+        actions = service
+        publisher = service
+        presenter = service
+    }
 }
 
 ///
@@ -25,15 +35,23 @@ func authReducer(state: AuthState,
                  environment: NetworkService) async throws -> AuthState {
     let newState = await Task {
         switch action {
+        case .configure:
+            environment.configurator.configure()
+        case .viewController(let viewController):
+            environment.presenter.setUpViewController(viewController)
+        case .openUrl(let url):
+            environment.actions.openURL(url)
         case let .signedIn(userSession):
             await state.setUpNewSession(userSession)
         case .loggedOut:
             await state.setUpNewSession(nil)
         case .logOut:
             // async operation; finished by .loggedOut state:
-            environment.service.logOut()
+            environment.actions.logOut()
         case let .loggedInWithError(message):
             await state.setUpError(AuthError.message(message))
+        case let .openUrlWithError(message):
+            print(message)
         }
         return state
     }.value

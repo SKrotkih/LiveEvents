@@ -9,53 +9,67 @@ import UIKit
 import Combine
 import SwiftGoogleSignIn
 
-// MARK: - SignIn ViewModel Protocol
+// MARK: - NetworkProtocol
 
-typealias SignInObserver = SignInResultObserver & UserSessionObserver
-
-protocol SignInResultObserver {
-}
-
-protocol UserSessionObserver {
+protocol SignInPublisher {
     var userSession: UserSession? { get }
 }
 
+protocol SignInActions {
+    func openURL(_ url: URL)
+    func logOut()
+}
+
+protocol SignInPresentable {
+    func setUpViewController(_ viewController: UIViewController)
+}
+
+protocol SignInConfigurable {
+    func configure()
+}
+
+typealias NetworkProtocol = SignInPublisher & SignInActions & SignInPresentable & SignInConfigurable
+
 ///
-/// The SwiftGoogleSignIn package adapter
-/// It's an example of using the package.
-/// It's listening to the package events and updating Redux store state accordingly
+/// This is an example of using SwiftGoogleSignIn package
+/// listening to the package events and update the app state with Redux
 ///
-class SignInService: SignInObserver, ObservableObject {
+class SignInService: NetworkProtocol, ObservableObject {
     @Published var userSession: UserSession?
-    @Lateinit var store: AuthReduxStore
 
     var signInAPI: SwiftGoogleSignInInterface = SwiftGoogleSignIn.API
 
-    // There are needed sensitive scopes to have ability to work properly
-    // Make sure they are presented in your app. Then send request on an verification
-    private let googleAPIscopes = [
-        "https://www.googleapis.com/auth/youtube",
-        "https://www.googleapis.com/auth/youtube.readonly",
-        "https://www.googleapis.com/auth/youtube.force-ssl"
-    ]
-
-    // My google API scopes are not approved so far!
+    // My own google API scopes are not approved so far btw!
     private let isScopesApproved = false
     private var disposables = Set<AnyCancellable>()
 
     func configure() {
+        // There are needed sensitive scopes to have ability to work properly
+        // Make sure they are presented in your app. Then send request on an verification
+        let googleAPIscopes = [
+            "https://www.googleapis.com/auth/youtube",
+            "https://www.googleapis.com/auth/youtube.readonly",
+            "https://www.googleapis.com/auth/youtube.force-ssl"
+        ]
         signInAPI.initialize(isScopesApproved ? googleAPIscopes : nil)
         subscribeOnSignedIn()
     }
 
-    func openURL(_ url: URL) -> Bool {
-        return signInAPI.openUrl(url)
+    func openURL(_ url: URL) {
+        let result = signInAPI.openUrl(url)
+        if result == false {
+            Router.store.stateDispatch(action: .openUrlWithError(message: "Failed open \(url.absoluteString)"))
+        }
     }
 
     func logOut() {
         signInAPI.logOut()
     }
 
+    func setUpViewController(_ viewController: UIViewController) {
+        presentingViewController = viewController
+    }
+    
     var presentingViewController: UIViewController? {
         didSet {
             signInAPI.presentingViewController = presentingViewController
@@ -69,13 +83,13 @@ class SignInService: SignInObserver, ObservableObject {
             .sink(
                 receiveCompletion: { result in
                     if case let .failure(error) = result {
-                        self.parse(error: error)
+                        self.parse(error)
                     }},
                 receiveValue: { session in
                     if session.isConnected {
-                        self.store.stateDispatch(action: .signedIn(userSession: session))
+                        Router.store.stateDispatch(action: .signedIn(userSession: session))
                     } else {
-                        self.store.stateDispatch(action: .loggedOut)
+                        Router.store.stateDispatch(action: .loggedOut)
                     }
                 }
             )
@@ -84,21 +98,21 @@ class SignInService: SignInObserver, ObservableObject {
 
     // MARK: - Private methods
 
-    private func parse(error: SwiftError) {
+    private func parse(_ error: SwiftError) {
         switch error {
         case .systemMessage(let code, let message):
             switch code {
             case 401:
-                store.stateDispatch(action: .loggedInWithError(message: message))
+                Router.store.stateDispatch(action: .loggedInWithError(message: message))
             case 501:
                 Alert.showOkCancel(message, message: "Would you like to send request?", onComplete: {
                     self.signInAPI.requestPermissions()
                 })
             default:
-                store.stateDispatch(action: .loggedInWithError(message: message))
+                Router.store.stateDispatch(action: .loggedInWithError(message: message))
             }
         case .message(let text):
-            store.stateDispatch(action: .loggedInWithError(message: text))
+            Router.store.stateDispatch(action: .loggedInWithError(message: text))
         }
     }
 }

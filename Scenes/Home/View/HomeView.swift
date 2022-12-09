@@ -124,7 +124,7 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         let store = Store(initialState: .init(userSession: nil),
                           reducer: authReducer,
-                          environment: NetworkService())
+                          environment: NetworkService(with: SignInService()))
         let viewModel = HomeViewModel(store: store)
         HomeView()
             .previewDevice(PreviewDevice(rawValue: "iPhone 12 Pro"))
