@@ -10,24 +10,17 @@ import YTLiveStreaming
 import Combine
 
 protocol BroadcastsDataFetcher: ObservableObject {
-    /// send request to load source data for Broadcasts List
+    /// Dowload source data for Broadcast List
     ///
     /// - Parameters:
     ///
     /// - Returns:
-    func loadData() async -> [SectionModel]
+    func loadData() async
     /// Get Current Broadcast
     ///
     /// - Parameters:
     ///     - index of the Broadcast source data
     ///
     /// - Returns:
-    func getCurrent(for index: Int) -> LiveBroadcastStreamModel
-    /// Get Completed  Broadcast
-    ///
-    /// - Parameters:
-    ///     - index of the Broadcast source data
-    ///
-    /// - Returns:
-    func getPast(for index: Int) -> LiveBroadcastStreamModel
+    var sectionModels: CurrentValueSubject<[SectionModel], Never> { get }
 }

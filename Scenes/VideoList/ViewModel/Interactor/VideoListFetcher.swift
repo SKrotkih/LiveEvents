@@ -7,6 +7,7 @@
 
 import Foundation
 import YTLiveStreaming
+import Combine
 
 struct SectionModel {
     var model: String
@@ -21,7 +22,7 @@ extension SectionModel {
     }
 }
 
-extension YTLiveVideoState {
+extension YTLiveVideoState: CustomStringConvertible {
     var index: Int {
         switch self {
         case .upcoming:
@@ -34,8 +35,8 @@ extension YTLiveVideoState {
             return 3
         }
     }
-    // TODO: localized
-    func description() -> String {
+
+    public var description: String {
         switch self {
         case .upcoming:
             return "Upcoming"
@@ -49,99 +50,86 @@ extension YTLiveVideoState {
     }
 }
 
+class VideoSectionItems {
+    lazy var data = {
+        SectionModel(model: String(describing: section), items: [])
+    }()
+    private let section: YTLiveVideoState
+
+    init(section: YTLiveVideoState) {
+        self.section = section
+    }
+    
+    func clear() {
+        data.items.removeAll()
+    }
+
+    func loadData(with broadcastsAPI: BroadcastsAPI) async {
+        let result = await withUnsafeContinuation { continuation in
+            switch section {
+            case .upcoming:
+                broadcastsAPI.getUpcomingBroadcasts { result in
+                    continuation.resume(returning: result)
+                }
+            case .active:
+                broadcastsAPI.getLiveNowBroadcasts { result in
+                    continuation.resume(returning: result)
+                }
+            case .completed:
+                broadcastsAPI.getCompletedBroadcasts { result in
+                    continuation.resume(returning: result)
+                }
+            default:
+                continuation.resume(returning: .success([]))
+            }
+        }
+        await self.parseResult(result)
+    }
+
+    private func parseResult(_ result: Result<[LiveBroadcastStreamModel], YTError>) async {
+        let result: (String?, [LiveBroadcastStreamModel]) = await {
+            switch result {
+            case .success(let items):
+                return (nil, items)
+            case .failure(let error):
+                if DSSettings.USE_MOCK_DATA {
+                    switch await VideoListMockData.loadMockData(for: section) {
+                    case .success(let items):
+                        return (nil, items)
+                    case .failure(let error):
+                        return (error.message(), [])
+                    }
+                } else {
+                    let errMessage = "\(section):\n" + error.message()
+                    return (errMessage, [])
+                }
+            }
+        }()
+        (data.error, data.items) = result
+    }
+}
+
 class VideoListFetcher: BroadcastsDataFetcher {
+    var sectionModels = CurrentValueSubject<[SectionModel], Never>([])
     private var broadcastsAPI: BroadcastsAPI
     required init(broadcastsAPI: BroadcastsAPI) {
         self.broadcastsAPI = broadcastsAPI
     }
-    private var data = [
-        SectionModel(model: YTLiveVideoState.upcoming.description(), items: []),
-        SectionModel(model: YTLiveVideoState.active.description(), items: []),
-        SectionModel(model: YTLiveVideoState.completed.description(), items: [])
+    private let sections = [
+        VideoSectionItems(section: .upcoming),
+        VideoSectionItems(section: .active),
+        VideoSectionItems(section: .completed)
     ]
 
-    func getUpcoming(for index: Int) -> LiveBroadcastStreamModel {
-        return getData(index: index, for: .upcoming)
-    }
-
-    func getCurrent(for index: Int) -> LiveBroadcastStreamModel {
-        return getData(index: index, for: .active)
-    }
-
-    func getPast(for index: Int) -> LiveBroadcastStreamModel {
-        return getData(index: index, for: .completed)
-    }
-
-    private func getData(index: Int, for state: YTLiveVideoState) -> LiveBroadcastStreamModel {
-        let items = data[state.index].items
-        assert(index < items.count, "Video list index (\(index) from \(items.count)) is wrong")
-        return items[index]
-    }
-
-    func loadData() async -> [SectionModel] {
-        for i in 0..<data.count {
-            data[i].items.removeAll()
-        }
+    func loadData() async {
+        sections.forEach { $0.clear() }
         await withTaskGroup(of: Void.self) { group in
-            group.addTask {
-                await self.getUpcomingBroadcasts()
-            }
-            group.addTask {
-                await self.getLiveNowBroadcasts()
-            }
-            group.addTask {
-                await self.getCompletedBroadcasts()
-            }
-        }
-        return self.data
-    }
-
-    private func getUpcomingBroadcasts() async {
-        let result = await withUnsafeContinuation { continuation in
-            self.broadcastsAPI.getUpcomingBroadcasts { result in
-                continuation.resume(returning: result)
-            }
-        }
-        await self.parseResult(result, for: .upcoming)
-    }
-
-    private func getLiveNowBroadcasts() async {
-        let result = await withUnsafeContinuation { continuation in
-            self.broadcastsAPI.getLiveNowBroadcasts { result in
-                continuation.resume(returning: result)
-            }
-        }
-        await self.parseResult(result, for: .active)
-    }
-
-    private func getCompletedBroadcasts() async {
-        let result = await withUnsafeContinuation { continuation in
-            self.broadcastsAPI.getCompletedBroadcasts { result in
-                continuation.resume(returning: result)
-            }
-        }
-        await self.parseResult(result, for: .completed)
-    }
-
-    private func parseResult(_ result: Result<[LiveBroadcastStreamModel], YTError>, for state: YTLiveVideoState) async {
-        switch result {
-        case .success(let items):
-            data[state.index].items += items
-        case .failure(let error):
-            if DSSettings.USE_MOCK_DATA {
-                switch await VideoListMockData.loadMockData(for: state) {
-                case .success(let items):
-                    data[state.index].error = nil
-                    data[state.index].items = items
-                case .failure(let error):
-                    data[state.index].error = error.message()
-                    data[state.index].items = []
+            sections.forEach { section in
+                group.addTask {
+                    await section.loadData(with: self.broadcastsAPI)
                 }
-            } else {
-                let errMessage = state.description() + ":\n" + error.message()
-                data[state.index].error = errMessage
-                data[state.index].items = []
             }
         }
+        sectionModels.value = sections.map { $0.data }
     }
 }

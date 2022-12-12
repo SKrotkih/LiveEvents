@@ -54,51 +54,65 @@ final class VideoListViewModel: VideoListViewModelInterface {
     @Published var errorMessage = ""
     @Published var isDataDownloading = false
 
+    private var disposableBag = Set<AnyCancellable>()
+    
     let dataSource: any BroadcastsDataFetcher
     let store: AuthReduxStore
 
     init(store: AuthReduxStore, dataSource: any BroadcastsDataFetcher) {
         self.store = store
         self.dataSource = dataSource
+        subscribeOnData()
     }
 
     func loadData() {
         Task {
             await MainActor.run { isDataDownloading = true }
-            let data = await dataSource.loadData()
-            // example of using task group
-            let _sections = await withTaskGroup(of: [VideoListSection].self,
-                                returning: [VideoListSection].self,
-                                body: { taskGroup in
-                taskGroup.addTask {
-                    return await self.parseResult(data: data)
-                }
-                var _sections = [VideoListSection]()
-                for await result in taskGroup {
-                    _sections = result
-                }
-                return _sections
-            })
-            // example of parsing task return result
-            let error = Task { () -> String in
-                return await self.parseError(data: data)
-            }
-            do {
-                let result = await error.result
-                let message = try result.get()
-                if !message.isEmpty {
-                    await MainActor.run { self.errorMessage = message }
-                }
-            } catch {
-                print("Unknown error.")
-            }
-            await MainActor.run { sections = _sections }
+            await dataSource.loadData()
             await MainActor.run { isDataDownloading.toggle() }
         }
     }
 
-    // Presenter
-    private func parseResult(data: [SectionModel]) async -> [VideoListSection] {
+    private func subscribeOnData() {
+        dataSource.sectionModels
+            .sink(receiveValue: { data in
+                Task {
+                    // example of using task group
+                    let _sections = await withTaskGroup(of: [VideoListSection].self,
+                                        returning: [VideoListSection].self,
+                                        body: { taskGroup in
+                        taskGroup.addTask {
+                            return await self.format(data: data)
+                        }
+                        var _sections = [VideoListSection]()
+                        for await result in taskGroup {
+                            _sections = result
+                        }
+                        return _sections
+                    })
+                    // Parse Error while loading data
+                    let error = Task { () -> String in
+                        return await self.parseError(data: data)
+                    }
+                    do {
+                        let result = await error.result
+                        let message = try result.get()
+                        if !message.isEmpty {
+                            await MainActor.run { self.errorMessage = message }
+                        }
+                    } catch {
+                        print("Unknown error.")
+                    }
+                    await MainActor.run { self.sections = _sections }
+                }
+            })
+            .store(in: &disposableBag)
+    }
+
+    // Presenter: prepare data for presenting
+    // [SectionModel] - model
+    // [VideoListSection] - presentable data
+    private func format(data: [SectionModel]) async -> [VideoListSection] {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm, d MMM y"
         return data.map({ sectionModel in
