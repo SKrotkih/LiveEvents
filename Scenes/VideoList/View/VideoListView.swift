@@ -8,6 +8,8 @@
 import SwiftUI
 import Combine
 
+/// Three sectioned video list View
+/// uses from the VideoListViewModel data and watches for downloading process
 struct VideoListView: View {
     @EnvironmentObject var store: AuthReduxStore
     @EnvironmentObject var viewModel: VideoListViewModel
@@ -36,8 +38,8 @@ struct VideoListView: View {
     }
 }
 
-// TODO: Here used a protocol. We should use like this approach instead of a particularly class like anywhere rest.
-// But there is some problem ( . Please check it out.
+/// TODO: As you can see here is used a protocol instead of concrete class like on rest of codebase.
+/// We should use protocol anywhere
 struct VideoList<ViewModel>: View, Themeable where ViewModel: VideoListViewModelInterface {
     @ObservedObject var viewModel: ViewModel
     @Environment(\.colorScheme) var colorScheme
@@ -67,6 +69,7 @@ struct VideoList<ViewModel>: View, Themeable where ViewModel: VideoListViewModel
     }
 }
 
+/// Show error message got while downloading remote data process
 struct ErrorMessage: View {
     @EnvironmentObject var viewModel: VideoListViewModel
 
@@ -78,6 +81,7 @@ struct ErrorMessage: View {
     }
 }
 
+/// New Stream button. The user presses on the button to go NewStreamView
 struct NewStreamButton: View, Themeable {
     @State private var action: Int? = 0
     @Environment(\.colorScheme) var colorScheme

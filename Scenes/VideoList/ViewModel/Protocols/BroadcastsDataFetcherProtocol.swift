@@ -15,7 +15,7 @@ protocol BroadcastsDataFetcher: ObservableObject {
     /// - Parameters:
     ///
     /// - Returns:
-    func loadData() async
+    func fetchData() async
     /// Get Current Broadcast
     ///
     /// - Parameters:

@@ -12,13 +12,12 @@ struct AvatarImageView: View, Themeable {
     @Environment(\.colorScheme) var colorScheme
     @State var profilePicUrl: URL?
     
+    @ViewBuilder
     private var contentView: some View {
-        VStack {
-            if let url = profilePicUrl {
-                ProfileImageView(withURL: url.absoluteString)
-            } else {
-                PlaceholderView()
-            }
+        if let url = profilePicUrl {
+            ProfileImageView(withURL: url.absoluteString)
+        } else {
+            PlaceholderView()
         }
     }
 

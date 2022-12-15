@@ -9,25 +9,26 @@ import SwiftUI
 import Combine
 
 ///
-/// Show sign in view or home view. It depends on either the user  has logged or not
+/// Switching Sign in view or home view depends on either the user  has logged or not
 ///
 struct MainBodyView: View {
     @EnvironmentObject var currentState: UserSessionState
     
     var body: some View {
         NavigationView {
-            contentView
-                .navigationBar(title: "Live Events")
+            VStack {
+                contentView
+                    .navigationBar(title: "Live Events")
+            }
         }
     }
 
+    @ViewBuilder
     private var contentView: some View {
-        VStack {
-            if currentState.isConnected {
-                HomeView()
-            } else {
-                LogInView()
-            }
+        if currentState.isConnected {
+            HomeView()
+        } else {
+            LogInView()
         }
     }
 }

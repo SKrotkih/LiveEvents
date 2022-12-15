@@ -11,6 +11,8 @@
 		316EE548292D3ABA009F6168 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE547292D3ABA009F6168 /* NavigationBar.swift */; };
 		316EE54A292D3B34009F6168 /* ColorSheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE549292D3B34009F6168 /* ColorSheme.swift */; };
 		316EE54C292D3B7F009F6168 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE54B292D3B7F009F6168 /* BackButton.swift */; };
+		318F34DA294854C8005EB0A6 /* ResultBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318F34D9294854C8005EB0A6 /* ResultBuilder.swift */; };
+		3192C4A8294B38E2005E062D /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3192C4A7294B38E2005E062D /* ButtonStyles.swift */; };
 		31A2179329299DAD003741DA /* UserSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A2179229299DAD003741DA /* UserSessionState.swift */; };
 		31CAA6E22943AE5C0038069D /* VideoPlayerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA6E12943AE5C0038069D /* VideoPlayerFactory.swift */; };
 		7F0933CF24574FCB00FB5579 /* SignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0933CE24574FCB00FB5579 /* SignInService.swift */; };
@@ -119,6 +121,8 @@
 		316EE547292D3ABA009F6168 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		316EE549292D3B34009F6168 /* ColorSheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSheme.swift; sourceTree = "<group>"; };
 		316EE54B292D3B7F009F6168 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		318F34D9294854C8005EB0A6 /* ResultBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultBuilder.swift; sourceTree = "<group>"; };
+		3192C4A7294B38E2005E062D /* ButtonStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 		31A2179229299DAD003741DA /* UserSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionState.swift; sourceTree = "<group>"; };
 		31CAA6E12943AE5C0038069D /* VideoPlayerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerFactory.swift; sourceTree = "<group>"; };
 		65A4996DDBF267DFE82ED9D5 /* Pods-LiveEvents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveEvents.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiveEvents/Pods-LiveEvents.release.xcconfig"; sourceTree = "<group>"; };
@@ -266,6 +270,7 @@
 				7FDCF9852546BF1400D5B492 /* LVError.swift */,
 				7FC6B7F128EE981900C20F74 /* LoadingIndicator.swift */,
 				7FF255142856DA63008A7390 /* WindowCustomizer.swift */,
+				318F34D9294854C8005EB0A6 /* ResultBuilder.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -467,6 +472,7 @@
 			children = (
 				7F8CEC72291803B8009DAAC6 /* DecimalTextField.swift */,
 				316EE54B292D3B7F009F6168 /* BackButton.swift */,
+				3192C4A7294B38E2005E062D /* ButtonStyles.swift */,
 				316EE549292D3B34009F6168 /* ColorSheme.swift */,
 				316EE547292D3ABA009F6168 /* NavigationBar.swift */,
 			);
@@ -956,6 +962,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				318F34DA294854C8005EB0A6 /* ResultBuilder.swift in Sources */,
 				310D7F3129275F2B00FD7C1C /* AuthError.swift in Sources */,
 				7FC6B7F228EE981900C20F74 /* LoadingIndicator.swift in Sources */,
 				7FAEE35128883EA300770924 /* AuthAction.swift in Sources */,
@@ -986,6 +993,7 @@
 				7F1E96C72546B95A00638965 /* Constants.swift in Sources */,
 				7F83E35B1DBDD58C00DE4102 /* YouTubePlayer.swift in Sources */,
 				7F1E96BE2546B8BF00638965 /* UIViewController+Ext.swift in Sources */,
+				3192C4A8294B38E2005E062D /* ButtonStyles.swift in Sources */,
 				7F1E96C12546B8BF00638965 /* Color+Ext.swift in Sources */,
 				7FAEE35028883EA300770924 /* AuthReduxStore.swift in Sources */,
 				7FFA59882861DDDF00D2F4FE /* MainBodyView.swift in Sources */,

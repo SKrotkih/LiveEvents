@@ -21,16 +21,37 @@ protocol HomeViewModelLaunched {
 
 typealias HomeViewModelInterface = ObservableObject & HomeViewModelObservable & HomeViewModelLaunched
 
+enum HomeViewActions {
+    case videoList
+    case logOut
+    case nothing
+}
+
 final class HomeViewModel: HomeViewModelInterface {
     @Published var isAvatarDownloading = false
     @Published var avatarImage: UIImage?
     @Published var userName: String = ""
 
+    @Published var actions: HomeViewActions = .nothing
+    
     private var disposables = Set<AnyCancellable>()
     private let store: AuthReduxStore
 
     init(store: AuthReduxStore) {
         self.store = store
+        
+        $actions
+            .sink { userActivities in
+                switch userActivities {
+                case .logOut:
+                    self.logOut()
+                case .videoList:
+                    // View is hundling by itself
+                    break
+                case .nothing:
+                    break
+                }
+            }.store(in: &disposables)
     }
 
     @MainActor

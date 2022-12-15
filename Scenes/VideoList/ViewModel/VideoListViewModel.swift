@@ -68,42 +68,55 @@ final class VideoListViewModel: VideoListViewModelInterface {
     func loadData() {
         Task {
             await MainActor.run { isDataDownloading = true }
-            await dataSource.loadData()
+            await dataSource.fetchData()
             await MainActor.run { isDataDownloading.toggle() }
         }
     }
 
     private func subscribeOnData() {
+        enum ConcurrencyWay {
+            case asyncLet
+            case taskGroup
+        }
+        let concurrencyWay: ConcurrencyWay = .asyncLet
+        
         dataSource.sectionModels
             .sink(receiveValue: { data in
                 Task {
-                    // example of using task group
-                    let _sections = await withTaskGroup(of: [VideoListSection].self,
-                                        returning: [VideoListSection].self,
-                                        body: { taskGroup in
-                        taskGroup.addTask {
-                            return await self.format(data: data)
+                    if concurrencyWay == .asyncLet {
+                        // example of using async let
+                        async let formattedData = await self.format(data: data)
+                        async let parsedError = await self.parseError(data: data)
+                        let result = await (formattedData, parsedError)
+                        await MainActor.run { self.sections = result.0 }
+                        await MainActor.run { self.errorMessage = result.1 }
+                    } else {
+                        // example of using task group
+                        let _sections = await withTaskGroup(of: [VideoListSection].self,
+                                            returning: [VideoListSection].self,
+                                            body: { taskGroup in
+                            taskGroup.addTask {
+                                return await self.format(data: data)
+                            }
+                            var _sections = [VideoListSection]()
+                            for await result in taskGroup {
+                                _sections = result
+                            }
+                            return _sections
+                        })
+                        // Parse Error while loading data
+                        let error = Task { () -> String in
+                            return await self.parseError(data: data)
                         }
-                        var _sections = [VideoListSection]()
-                        for await result in taskGroup {
-                            _sections = result
-                        }
-                        return _sections
-                    })
-                    // Parse Error while loading data
-                    let error = Task { () -> String in
-                        return await self.parseError(data: data)
-                    }
-                    do {
-                        let result = await error.result
-                        let message = try result.get()
-                        if !message.isEmpty {
+                        do {
+                            let result = await error.result
+                            let message = try result.get()
                             await MainActor.run { self.errorMessage = message }
+                        } catch {
+                            await MainActor.run { self.errorMessage = "Unknown error" }
                         }
-                    } catch {
-                        print("Unknown error.")
+                        await MainActor.run { self.sections = _sections }
                     }
-                    await MainActor.run { self.sections = _sections }
                 }
             })
             .store(in: &disposableBag)

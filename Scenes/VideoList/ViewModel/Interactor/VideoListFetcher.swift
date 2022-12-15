@@ -121,7 +121,7 @@ class VideoListFetcher: BroadcastsDataFetcher {
         VideoSectionItems(section: .completed)
     ]
 
-    func loadData() async {
+    func fetchData() async {
         sections.forEach { $0.clear() }
         await withTaskGroup(of: Void.self) { group in
             sections.forEach { section in

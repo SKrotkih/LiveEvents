@@ -8,13 +8,14 @@
 import SwiftUI
 import Combine
 ///
-/// Home screen. Contains two buttons currently: Video List and Log Out
+/// Home screen. Contains just two buttons currently: Video List one and Log Out one
 ///
 struct HomeView: View, Themeable {
     @EnvironmentObject var viewModel: HomeViewModel
     @EnvironmentObject var currentState: UserSessionState
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
+
     @State private var selectedTag: Int? = 1
 
     private var contentView: some View {
@@ -25,22 +26,33 @@ struct HomeView: View, Themeable {
                 .scaledToFit()
                 .frame(height: 100.0)
             Spacer()
-            VideoListButton()
+            VideoListButton(title: "Video List",
+                            action: $viewModel.actions,
+                            runAction: .videoList)
             Spacer()
-                .frame(height: 30.0)
-            LogOutButton()
+                .frame(height: 65.0)
+            LogOutButton(title: "Log Out",
+                         action: $viewModel.actions,
+                         runAction: .logOut)
             Spacer()
-                .frame(height: 30.0)
+                .frame(height: 65.0)
         }
         .loadingIndicator(viewModel.isAvatarDownloading)
         .edgesIgnoringSafeArea(.bottom)
     }
 
     var body: some View {
-        if !currentState.isConnected {
+        if currentState.isConnected == false {
             // The user has not logged in yet: go to the Log In view
             NavigationLink(destination: MainBodyView(),
-                           tag: 1,
+                           tag: selectedTag!,
+                           selection: $selectedTag) {
+                EmptyView()
+            }
+        } else if viewModel.actions == .videoList {
+            // go to the next screen automatically if the tag is equal to the selection value
+            NavigationLink(destination: VideoListView(),
+                           tag: selectedTag!,
                            selection: $selectedTag) {
                 EmptyView()
             }
@@ -49,9 +61,13 @@ struct HomeView: View, Themeable {
             .navigationBar(title: "Live Events")
             .navigationBarItems(leading: UserNameView(),
                                 trailing: UserAvatarView())
+            .onAppear {
+                viewModel.actions = .nothing
+            }
     }
 }
 
+/// User name View
 struct UserNameView: View, Themeable {
     @EnvironmentObject var viewModel: HomeViewModel
     @Environment(\.colorScheme) var colorScheme
@@ -67,6 +83,7 @@ struct UserNameView: View, Themeable {
     }
 }
 
+/// User's profile avatar image View
 struct UserAvatarView: View {
     var body: some View {
         HStack {
@@ -76,52 +93,49 @@ struct UserAvatarView: View {
     }
 }
 
+/// Video list button
 struct VideoListButton: View, Themeable {
     @Environment(\.colorScheme) var colorScheme
-    @State private var selectedTag: Int? = 0
+
+    var title: String
+    @Binding var action: HomeViewActions
+    let runAction: HomeViewActions
 
     var body: some View {
-        // go to the next screen automatically if the tag is equal to the selection value
-        NavigationLink(destination: VideoListView(),
-                       tag: 1,
-                       selection: $selectedTag) {
-            EmptyView()
-        }
         Button(action: {
-            selectedTag = 1 // go to the Video List screen immediately
+            action = runAction
         }, label: {
-            Text("Video List")
+            Text(title)
                 .padding()
-                .frame(width: 130.0)
                 .foregroundColor(videoListButtonColor)
-                .background(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(.red, lineWidth: 2)
-                )
         })
-        .shadow(color: .white, radius: 10, y: 5)
-        .frame(height: 20.0)
+        .style(appStyle: .redBorderButton)
+        .frame(width: 130.0, height: 20.0)
     }
 }
 
+/// Log out button
 struct LogOutButton: View, Themeable {
-    @EnvironmentObject var viewModel: HomeViewModel
     @Environment(\.colorScheme) var colorScheme
 
+    let title: String
+    @Binding var action: HomeViewActions
+    let runAction: HomeViewActions
+
     var body: some View {
         Button(action: {
-            viewModel.logOut()
+            action = runAction
         }, label: {
-            Text("Log Out")
-                .foregroundColor(logOutButtonColor)
+            Text(title)
                 .padding()
-                .frame(width: 130.0)
-                .foregroundColor(.white)
+                .foregroundColor(logOutButtonColor)
         })
-        .frame(height: 100.0)
+        .style(appStyle: .noStyle)
+        .frame(width: 130.0, height: 20.0)
     }
 }
 
+/// Home view Preview
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         let store = Store(initialState: .init(userSession: nil),
