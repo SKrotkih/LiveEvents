@@ -15,15 +15,14 @@ extension Button {
         case redBorderButton
         case noStyle
     }
-    
+
+    @ViewBuilder
     func style(appStyle: AppButtonStyle) -> some View {
-        Group {
-            switch appStyle {
-            case .redBorderButton:
-                redBorderButton()
-            case .noStyle:
-                noStyleButton()
-            }
+        switch appStyle {
+        case .redBorderButton:
+            redBorderButton()
+        case .noStyle:
+            noStyleButton()
         }
     }
 }

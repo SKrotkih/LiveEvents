@@ -57,6 +57,17 @@ extension NewStreamViewModel {
             self.broadcastsAPI.createBroadcast(model.title,
                                                description: model.description,
                                                startTime: startStreaming,
+                                               isReusable: false,
+                                               endDateTime: startStreaming.add(hours: 5, minutes: 0, seconds: 0),
+                                               selfDeclaredMadeForKids: "",
+                                               enableAutoStart: false,
+                                               enableAutoStop: false,
+                                               enableClosedCaptions: false,
+                                               enableDvr: false,
+                                               enableEmbed: false,
+                                               recordFromStart: false,
+                                               enableMonitorStream: false,
+                                               broadcastStreamDelayMs: 0,
                                                completion: { result in
                 continuation.resume(returning: result)
             })

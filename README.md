@@ -58,6 +58,7 @@ Author
 Serhii Krotkykh
 
 Changes history:
+- 19-12-2022 Update according of the 0.2.28 YTLeaveStreaming package build
 - 30-11-2022 update with SwiftGoogleSignIn 1.57 build
 - 20-11-2022 current user session is safe now
 - 20-09-2022 bug fixes. Redesign home and log in screens

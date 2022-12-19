@@ -37,7 +37,21 @@ protocol BroadcastsAPI {
         @param
         @return
      */
-    func createBroadcast(_ title: String, description: String?, startTime: Date, completion: @escaping (Result<LiveBroadcastStreamModel, YTError>) -> Void)
+    func createBroadcast(_ title: String,
+                         description: String?,
+                         startTime: Date,
+                         isReusable: Bool,
+                         endDateTime: Date,
+                         selfDeclaredMadeForKids: String,
+                         enableAutoStart: Bool,
+                         enableAutoStop: Bool,
+                         enableClosedCaptions: Bool,
+                         enableDvr: Bool,
+                         enableEmbed: Bool,
+                         recordFromStart: Bool,
+                         enableMonitorStream: Bool,
+                         broadcastStreamDelayMs: Int,
+                         completion: @escaping (Result<LiveBroadcastStreamModel, YTError>) -> Void)
     /**
         @param
         @return
