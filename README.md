@@ -58,6 +58,7 @@ Author
 Serhii Krotkykh
 
 Changes history:
+- 20-12-2022 Update according 0.2.29 YTLeaveStreaming package build requarements, update mock data
 - 19-12-2022 Update according of the 0.2.28 YTLeaveStreaming package build
 - 30-11-2022 update with SwiftGoogleSignIn 1.57 build
 - 20-11-2022 current user session is safe now
