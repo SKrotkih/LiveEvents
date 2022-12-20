@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3107E0732951F3D90023E663 /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3107E0722951F3D90023E663 /* OSLog.swift */; };
 		310D7F3129275F2B00FD7C1C /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D7F3029275F2B00FD7C1C /* AuthError.swift */; };
 		316EE548292D3ABA009F6168 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE547292D3ABA009F6168 /* NavigationBar.swift */; };
 		316EE54A292D3B34009F6168 /* ColorSheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE549292D3B34009F6168 /* ColorSheme.swift */; };
@@ -117,6 +118,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3107E0722951F3D90023E663 /* OSLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLog.swift; sourceTree = "<group>"; };
 		310D7F3029275F2B00FD7C1C /* AuthError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		316EE547292D3ABA009F6168 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		316EE549292D3B34009F6168 /* ColorSheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSheme.swift; sourceTree = "<group>"; };
@@ -281,6 +283,7 @@
 				7FC7367C2605D9ED00F426A9 /* YYAdd */,
 				7F1E96B32546B8BF00638965 /* UIViewController+Ext.swift */,
 				7F1E96B42546B8BF00638965 /* UIStoryboard+Ext.swift */,
+				3107E0722951F3D90023E663 /* OSLog.swift */,
 				7F1E96B62546B8BF00638965 /* Color+Ext.swift */,
 				7F1E96AF2546B8BF00638965 /* Date+Ext.swift */,
 				7F5296322857649800548281 /* LateInit.swift */,
@@ -1017,6 +1020,7 @@
 				7F7E9FBC26563A0000D82B60 /* PlayerViewRepresentable.swift in Sources */,
 				7FB8A42D1DD23F8400955C2D /* LFLiveViewController.swift in Sources */,
 				7F8221C7265646AD005A6015 /* VideoPlayer.mm in Sources */,
+				3107E0732951F3D90023E663 /* OSLog.swift in Sources */,
 				7F11514328F2DE7A0013D2F7 /* VideoListView.swift in Sources */,
 				7F1E96BD2546B8BF00638965 /* StatusBarShowingViewController.swift in Sources */,
 				7F79C8A22547F2910044CF81 /* BroadcastsApiProtocol.swift in Sources */,

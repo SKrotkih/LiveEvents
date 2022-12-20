@@ -54,6 +54,12 @@ The app uses Redux pattern. In current version it's used for Sign In only. Pleas
 ## The 'UIKit' of the app version
 Branch 'UIKit' consists UIKit version of the app. 
 
+## OSLog. Reading logs with the Console.app
+- Start the Console.app
+- Select your device (or simulator) in the Devices menu
+- Set up SUBSYSTEM <bundle id> and CATEGORY appstate in the search field 
+- Save search pattern
+
 Author
 Serhii Krotkykh
 

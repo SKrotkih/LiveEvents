@@ -7,7 +7,7 @@
 
 import Foundation
 import Combine
-
+import os.log
 ///
 /// For more information check "How To Control The World" - Stephen Celis
 /// https://vimeo.com/291588126
@@ -56,5 +56,7 @@ func authReducer(state: AuthState,
         return state
     }.value
 
+    await os_log("appstate: The user is %{private}@", log: OSLog.appState, type: .info, newState.isConnected ? "connected" : "disconnected")
+    
     return newState
 }

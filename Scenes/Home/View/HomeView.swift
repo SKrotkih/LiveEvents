@@ -15,8 +15,8 @@ struct HomeView: View, Themeable {
     @EnvironmentObject var currentState: UserSessionState
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
-
-    @State private var selectedTag: Int? = 1
+    @State private var isShowingMainView = false
+    @State private var isShowingVideoListView = false
 
     private var contentView: some View {
         VStack {
@@ -42,27 +42,22 @@ struct HomeView: View, Themeable {
     }
 
     var body: some View {
-        if currentState.isConnected == false {
-            // The user has not logged in yet: go to the Log In view
-            NavigationLink(destination: MainBodyView(),
-                           tag: selectedTag!,
-                           selection: $selectedTag) {
-                EmptyView()
-            }
-        } else if viewModel.actions == .videoList {
-            // go to the next screen automatically if the tag is equal to the selection value
-            NavigationLink(destination: VideoListView(),
-                           tag: selectedTag!,
-                           selection: $selectedTag) {
-                EmptyView()
-            }
-        }
+        NavigationLink(destination: MainBodyView(),
+                       isActive: $isShowingMainView) { EmptyView() }
+        NavigationLink(destination: VideoListView(),
+                       isActive: $isShowingVideoListView) { EmptyView() }
         contentView
             .navigationBar(title: "Live Events")
             .navigationBarItems(leading: UserNameView(),
                                 trailing: UserAvatarView())
             .onAppear {
                 viewModel.actions = .nothing
+            }
+            .onChange(of: currentState.isConnected) { newValue in
+                isShowingMainView = newValue
+            }
+            .onChange(of: viewModel.actions) { newValue in
+                isShowingVideoListView = newValue == .videoList
             }
     }
 }
