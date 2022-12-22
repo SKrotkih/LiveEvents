@@ -17,8 +17,9 @@
 		31965253295407C400B2C891 /* LiveBroadcastactive.json in Resources */ = {isa = PBXBuildFile; fileRef = 31965252295407C400B2C891 /* LiveBroadcastactive.json */; };
 		31965256295435A400B2C891 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31965254295432E400B2C891 /* SideMenu.swift */; };
 		31965258295436D200B2C891 /* SideMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31965257295436D200B2C891 /* SideMenuButton.swift */; };
-		3196525B295462A100B2C891 /* SideMenuContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196525A295462A100B2C891 /* SideMenuContent.swift */; };
+		3196525B295462A100B2C891 /* MenuContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196525A295462A100B2C891 /* MenuContent.swift */; };
 		3196525D2954702C00B2C891 /* LogOutButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196525C2954702C00B2C891 /* LogOutButton.swift */; };
+		3196525E29549EA200B2C891 /* LiveBroadcastactive.json in Resources */ = {isa = PBXBuildFile; fileRef = 31965252295407C400B2C891 /* LiveBroadcastactive.json */; };
 		31A2179329299DAD003741DA /* UserSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A2179229299DAD003741DA /* UserSessionState.swift */; };
 		31CAA6E22943AE5C0038069D /* VideoPlayerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA6E12943AE5C0038069D /* VideoPlayerFactory.swift */; };
 		7F0933CF24574FCB00FB5579 /* SignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0933CE24574FCB00FB5579 /* SignInService.swift */; };
@@ -132,7 +133,7 @@
 		31965252295407C400B2C891 /* LiveBroadcastactive.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LiveBroadcastactive.json; sourceTree = "<group>"; };
 		31965254295432E400B2C891 /* SideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		31965257295436D200B2C891 /* SideMenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuButton.swift; sourceTree = "<group>"; };
-		3196525A295462A100B2C891 /* SideMenuContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuContent.swift; sourceTree = "<group>"; };
+		3196525A295462A100B2C891 /* MenuContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuContent.swift; sourceTree = "<group>"; };
 		3196525C2954702C00B2C891 /* LogOutButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutButton.swift; sourceTree = "<group>"; };
 		31A2179229299DAD003741DA /* UserSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionState.swift; sourceTree = "<group>"; };
 		31CAA6E12943AE5C0038069D /* VideoPlayerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerFactory.swift; sourceTree = "<group>"; };
@@ -249,7 +250,7 @@
 		31965259295439E400B2C891 /* SideMenu */ = {
 			isa = PBXGroup;
 			children = (
-				3196525A295462A100B2C891 /* SideMenuContent.swift */,
+				3196525A295462A100B2C891 /* MenuContent.swift */,
 				31965254295432E400B2C891 /* SideMenu.swift */,
 				31965257295436D200B2C891 /* SideMenuButton.swift */,
 				3196525C2954702C00B2C891 /* LogOutButton.swift */,
@@ -818,6 +819,7 @@
 				7FAF9E92246187B900C8B81B /* Config.plist in Resources */,
 				7F16188A286C473C0004D0B6 /* .swiftlint.yml in Resources */,
 				7F53B1AA2030724200E09CFA /* LaunchScreen.storyboard in Resources */,
+				3196525E29549EA200B2C891 /* LiveBroadcastactive.json in Resources */,
 				7FC6B7FB28EEEA5900C20F74 /* LiveBroadcastupcoming.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -980,7 +982,7 @@
 				7F1E96BC2546B8BF00638965 /* Date+Ext.swift in Sources */,
 				7FF255152856DA63008A7390 /* WindowCustomizer.swift in Sources */,
 				7F9A91D82609AC170036CA0B /* YouTubeVideoPlayed.swift in Sources */,
-				3196525B295462A100B2C891 /* SideMenuContent.swift in Sources */,
+				3196525B295462A100B2C891 /* MenuContent.swift in Sources */,
 				7FB0104129017C3E00AE0F87 /* VideoPlayerView.swift in Sources */,
 				7FAEE35228883EA300770924 /* AuthReducer.swift in Sources */,
 				7FD974E328D6958B00E8E16E /* LogInViewModel.swift in Sources */,

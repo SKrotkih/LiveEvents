@@ -13,7 +13,7 @@ import Combine
 struct VideoListView: View {
     @EnvironmentObject var store: AuthReduxStore
     @EnvironmentObject var viewModel: VideoListViewModel
-    @State private var showSideMenu = false
+    @State private var isShowing = false
 
     private var contentView: some View {
         VStack {
@@ -31,13 +31,13 @@ struct VideoListView: View {
     var body: some View {
         contentView
             .navigationBar(title: "Live Events")
-            .navigationBarItems(leading: SideMenuButton(isSideMenuShown: $showSideMenu),
+            .navigationBarItems(leading: SideMenuButton(isSideMenuShown: $isShowing),
                                 trailing: NewStreamButton())
             .onAppear {
-                viewModel.loadData()
+                viewModel.selectedListType.send(.byVideoState)
             }
-            .sideMenu(isShowing: $showSideMenu) {
-                SideMenuContent(showSideMenu: $showSideMenu)
+            .sideMenu(isShowing: $isShowing) {
+                MenuContent(isShowing: $isShowing)
             }
     }
 }

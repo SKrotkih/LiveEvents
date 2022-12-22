@@ -11,7 +11,19 @@ import YTLiveStreaming
 ///
 struct VideoListMockData {
     static func loadMockData(for state: YTLiveVideoState) async -> Result<[String: [LiveBroadcastStreamModel]], LVError> {
-        let data = await DecodeData.loadMockData("LiveBroadcastAll.json", as: LiveBroadcastListModel.self)
+        let fileName = {
+            switch state {
+            case .completed:
+                return "LiveBroadcastcompleted"
+            case .active:
+                return "LiveBroadcastactive"
+            case .upcoming:
+                return "LiveBroadcastupcoming"
+            case .all:
+                return "LiveBroadcastAll"
+            }
+        }()
+        let data = await DecodeData.loadMockData("\(fileName).json", as: LiveBroadcastListModel.self)
         var a: [String: [LiveBroadcastStreamModel]] = [:]
         for status in LifiCycleStatus.allCases {
             a[status.rawValue] = []

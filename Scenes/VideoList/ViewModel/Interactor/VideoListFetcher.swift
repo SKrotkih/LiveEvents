@@ -10,7 +10,7 @@ import YTLiveStreaming
 import Combine
 
 struct SectionModel {
-    var model: String
+    var section: YTLiveVideoState
     var items: [String: [LiveBroadcastStreamModel]]
     var error: String?
 }
@@ -22,7 +22,7 @@ extension SectionModel {
     }
 }
 
-extension YTLiveVideoState: CustomStringConvertible {
+extension YTLiveVideoState {
     var index: Int {
         switch self {
         case .upcoming:
@@ -36,7 +36,7 @@ extension YTLiveVideoState: CustomStringConvertible {
         }
     }
 
-    public var description: String {
+    public var title: String {
         switch self {
         case .upcoming:
             return "Upcoming"
@@ -45,14 +45,14 @@ extension YTLiveVideoState: CustomStringConvertible {
         case .completed:
             return "Completed"
         case .all:
-            return "-"
+            return "All"
         }
     }
 }
 
 class VideoSectionItems {
     lazy var data = {
-        SectionModel(model: String(describing: section), items: [:])
+        SectionModel(section: section, items: [:])
     }()
     private let section: YTLiveVideoState
 
@@ -79,18 +79,26 @@ class VideoSectionItems {
                 broadcastsAPI.getCompletedBroadcasts { result in
                     continuation.resume(returning: result)
                 }
-            default:
-                continuation.resume(returning: .success([]))
+            case .all:
+                broadcastsAPI.getAllBroadcasts { (result1, result2, result3) in
+                    var data = [LiveBroadcastStreamModel]()
+                    if let result1 { data.append(contentsOf: result1) }
+                    if let result2 { data.append(contentsOf: result2) }
+                    if let result3 { data.append(contentsOf: result3) }
+                    continuation.resume(returning: .success(data))
+                }
             }
         }
         switch result {
         case .success(let items):
             var a: [String: [LiveBroadcastStreamModel]] = [:]
-            for status in LifiCycleStatus.allCases {
-                a[status.rawValue] = []
-            }
             items.forEach { item in
                 if let status = item.status?.lifeCycleStatus {
+                    if a.count == 0 {
+                        for status in LifiCycleStatus.allCases {
+                            a[status.rawValue] = []
+                        }
+                    }
                     a[status]?.append(item)
                 }
             }
@@ -104,15 +112,14 @@ class VideoSectionItems {
         let result: (String?, [String: [LiveBroadcastStreamModel]]) = await {
             switch result {
             case .success(let items):
-                return (nil, items)
+                if section == .all && items.count == 0 && DSSettings.USE_MOCK_DATA {
+                    return await getMockData()
+                } else {
+                    return (nil, items)
+                }
             case .failure(let error):
                 if DSSettings.USE_MOCK_DATA {
-                    switch await VideoListMockData.loadMockData(for: section) {
-                    case .success(let items):
-                        return (nil, items)
-                    case .failure(let error):
-                        return (error.message(), [:])
-                    }
+                    return await getMockData()
                 } else {
                     let errMessage = "\(section):\n" + error.message()
                     return (errMessage, [:])
@@ -120,6 +127,15 @@ class VideoSectionItems {
             }
         }()
         (data.error, data.items) = result
+    }
+    
+    private func getMockData() async -> (String?, [String: [LiveBroadcastStreamModel]]) {
+        switch await VideoListMockData.loadMockData(for: section) {
+        case .success(let items):
+            return (nil, items)
+        case .failure(let error):
+            return (error.message(), [:])
+        }
     }
 }
 
@@ -132,7 +148,8 @@ class VideoListFetcher: BroadcastsDataFetcher {
     private let sections = [
         VideoSectionItems(section: .upcoming),
         VideoSectionItems(section: .active),
-        VideoSectionItems(section: .completed)
+        VideoSectionItems(section: .completed),
+        VideoSectionItems(section: .all)
     ]
 
     func fetchData() async {

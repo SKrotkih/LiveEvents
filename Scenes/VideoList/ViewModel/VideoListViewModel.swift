@@ -40,6 +40,11 @@ struct VideoListRow: Codable, Identifiable, Hashable {
     }
 }
 
+enum ListByType {
+    case byVideoState
+    case byLifeCycleStatus
+}
+
 protocol VideoListViewModelObservable {
     var sections: [VideoListSection] { get set }
     var errorMessage: String { get set }
@@ -57,16 +62,26 @@ final class VideoListViewModel: VideoListViewModelInterface {
     @Published var sections = [VideoListSection]()
     @Published var errorMessage = ""
     @Published var isDataDownloading = false
-
-    private var disposableBag = Set<AnyCancellable>()
-    
+    var selectedListType = CurrentValueSubject<ListByType, Never>(.byLifeCycleStatus)
     let dataSource: any BroadcastsDataFetcher
     let store: AuthReduxStore
+
+    private var disposableBag = Set<AnyCancellable>()
 
     init(store: AuthReduxStore, dataSource: any BroadcastsDataFetcher) {
         self.store = store
         self.dataSource = dataSource
         subscribeOnData()
+        selectedListType
+            .sink { type in
+                switch type {
+                case .byLifeCycleStatus:
+                    self.loadData()
+                case .byVideoState:
+                    self.loadData()
+                }
+            }
+            .store(in: &disposableBag)
     }
 
     func loadData() {
@@ -89,9 +104,11 @@ final class VideoListViewModel: VideoListViewModelInterface {
                 Task {
                     if concurrencyWay == .asyncLet {
                         // example of using async let
-                        async let formattedData = await self.format(data: data)
+                        async let sectionedData = self.selectedListType.value == .byLifeCycleStatus ?
+                            await self.prepareSectioned(data: data, sections: .upcoming, .active, .completed)
+                        : await self.prepareAllSection(data: data)
                         async let parsedError = await self.parseError(data: data)
-                        let result = await (formattedData, parsedError)
+                        let result = await (sectionedData, parsedError)
                         await MainActor.run { self.sections = result.0 }
                         await MainActor.run { self.errorMessage = result.1 }
                     } else {
@@ -100,7 +117,11 @@ final class VideoListViewModel: VideoListViewModelInterface {
                                             returning: [VideoListSection].self,
                                             body: { taskGroup in
                             taskGroup.addTask {
-                                return await self.format(data: data)
+                                if self.selectedListType.value == .byLifeCycleStatus {
+                                    return await self.prepareSectioned(data: data, sections: .upcoming, .active, .completed)
+                                } else {
+                                    return await self.prepareAllSection(data: data)
+                                }
                             }
                             var _sections = [VideoListSection]()
                             for await result in taskGroup {
@@ -129,31 +150,50 @@ final class VideoListViewModel: VideoListViewModelInterface {
     // Presenter: prepare data for presenting
     // [SectionModel] - model
     // [VideoListSection] - presentable data
-    private func format(data: [SectionModel]) async -> [VideoListSection] {
-        return data.map({ sectionModel in
-            var rows = [VideoListRow]()
-            sectionModel.items.forEach {
-                let status = $0.key
-                let items = $0.value
-                items.forEach { streamModel in
+    private func prepareSectioned(data: [SectionModel], sections: YTLiveVideoState...) async -> [VideoListSection] {
+        var result = [VideoListSection]()
+        data.forEach { sectionModel in
+            if sections.first(where: { sectionModel.section == $0 }) != nil {
+                var rows = [VideoListRow]()
+                sectionModel.items.forEach {
+                    let status = $0.key
+                    let items = $0.value
+                    items.forEach { streamModel in
+                        rows.append(
+                            VideoListRow(videoId: streamModel.id,
+                                         status: status,
+                                         title: streamModel.snippet.title,
+                                         description: streamModel.snippet.description,
+                                         publishedAt: streamModel.snippet.publishedAt.fullDateFormat)
+                        )
+                    }
+                }
+                result.append(VideoListSection(sectionName: sectionModel.section.title,
+                                               rows: rows))
+            }
+        }
+        return result
+    }
+    
+    private func prepareAllSection(data: [SectionModel]) async -> [VideoListSection] {
+        var result = [VideoListSection]()
+        data.forEach { sectionModel in
+            sectionModel.items.keys.forEach { sectionName in
+                var rows = [VideoListRow]()
+                sectionModel.items[sectionName]?.forEach { streamModel in
                     rows.append(
                         VideoListRow(videoId: streamModel.id,
-                                     status: status,
+                                     status: "",
                                      title: streamModel.snippet.title,
                                      description: streamModel.snippet.description,
-                                     publishedAt: dateFormatted(streamModel.snippet.publishedAt))
+                                     publishedAt: streamModel.snippet.publishedAt.fullDateFormat)
                     )
                 }
+                result.append(VideoListSection(sectionName: sectionName,
+                                               rows: rows))
             }
-            return VideoListSection(sectionName: sectionModel.model,
-                                    rows: rows)
-        })
-    }
-
-    private func dateFormatted(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm, d MMM y"
-        return formatter.string(from: date)
+        }
+        return result
     }
     
     private func parseError(data: [SectionModel]) async -> String {

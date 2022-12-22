@@ -29,4 +29,10 @@ extension Date {
         df.dateFormat = "yyyy-MM-dd hh:mm:ss"
         return df.string(from: self)
     }
+    
+    var fullDateFormat: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm, d MMM y"
+        return formatter.string(from: self)
+    }
 }

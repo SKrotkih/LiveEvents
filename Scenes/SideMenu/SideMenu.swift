@@ -43,10 +43,7 @@ struct SideMenu<MenuContent: View>: ViewModifier {
 }
 
 extension View {
-    func sideMenu<MenuContent: View>(
-        isShowing: Binding<Bool>,
-        @ViewBuilder menuContent: @escaping () -> MenuContent
-    ) -> some View {
+    func sideMenu<MenuContent: View>(isShowing: Binding<Bool>, @ViewBuilder menuContent: @escaping () -> MenuContent) -> some View {
         self.modifier(SideMenu(isShowing: isShowing, menuContent: menuContent))
     }
 }

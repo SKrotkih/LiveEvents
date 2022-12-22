@@ -1,5 +1,5 @@
 //
-//  SideMenuContent.swift
+//  MenuContent.swift
 //  LiveEvents
 //
 //  Created by Sergey Krotkih on 22.12.2022.
@@ -7,10 +7,10 @@
 //
 import SwiftUI
 
-struct SideMenuContent: View, Themeable {
+struct MenuContent: View, Themeable {
     @EnvironmentObject var viewModel: HomeViewModel
     @Environment(\.colorScheme) var colorScheme
-    @Binding var showSideMenu: Bool
+    @Binding var isShowing: Bool
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -18,7 +18,7 @@ struct SideMenuContent: View, Themeable {
                 Spacer()
                 Button(action: {
                     withAnimation {
-                        self.showSideMenu = false
+                        self.isShowing = false
                     }
                 }) {
                     HStack {
