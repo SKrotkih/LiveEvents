@@ -15,6 +15,10 @@
 		318F34DA294854C8005EB0A6 /* ResultBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318F34D9294854C8005EB0A6 /* ResultBuilder.swift */; };
 		3192C4A8294B38E2005E062D /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3192C4A7294B38E2005E062D /* ButtonStyles.swift */; };
 		31965253295407C400B2C891 /* LiveBroadcastactive.json in Resources */ = {isa = PBXBuildFile; fileRef = 31965252295407C400B2C891 /* LiveBroadcastactive.json */; };
+		31965256295435A400B2C891 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31965254295432E400B2C891 /* SideMenu.swift */; };
+		31965258295436D200B2C891 /* SideMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31965257295436D200B2C891 /* SideMenuButton.swift */; };
+		3196525B295462A100B2C891 /* SideMenuContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196525A295462A100B2C891 /* SideMenuContent.swift */; };
+		3196525D2954702C00B2C891 /* LogOutButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3196525C2954702C00B2C891 /* LogOutButton.swift */; };
 		31A2179329299DAD003741DA /* UserSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A2179229299DAD003741DA /* UserSessionState.swift */; };
 		31CAA6E22943AE5C0038069D /* VideoPlayerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA6E12943AE5C0038069D /* VideoPlayerFactory.swift */; };
 		7F0933CF24574FCB00FB5579 /* SignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0933CE24574FCB00FB5579 /* SignInService.swift */; };
@@ -88,7 +92,6 @@
 		7FDCF9862546BF1400D5B492 /* LVError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDCF9852546BF1400D5B492 /* LVError.swift */; };
 		7FE331E22647B33F00D412AE /* VideoListMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE331E12647B33F00D412AE /* VideoListMockData.swift */; };
 		7FF255152856DA63008A7390 /* WindowCustomizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF255142856DA63008A7390 /* WindowCustomizer.swift */; };
-		7FFA59872861DDDF00D2F4FE /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFA59852861DDDE00D2F4FE /* HomeView.swift */; };
 		7FFA59882861DDDF00D2F4FE /* MainBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFA59862861DDDE00D2F4FE /* MainBodyView.swift */; };
 		7FFA598A2864AE6600D2F4FE /* RemoteStorageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFA59892864AE6600D2F4FE /* RemoteStorageData.swift */; };
 		B9CC7E4719CFCD847E4A62A7 /* Pods_LiveEvents_LiveEventsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30E5B8AAAEDC735322F3362 /* Pods_LiveEvents_LiveEventsTests.framework */; };
@@ -127,6 +130,10 @@
 		318F34D9294854C8005EB0A6 /* ResultBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultBuilder.swift; sourceTree = "<group>"; };
 		3192C4A7294B38E2005E062D /* ButtonStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 		31965252295407C400B2C891 /* LiveBroadcastactive.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LiveBroadcastactive.json; sourceTree = "<group>"; };
+		31965254295432E400B2C891 /* SideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
+		31965257295436D200B2C891 /* SideMenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuButton.swift; sourceTree = "<group>"; };
+		3196525A295462A100B2C891 /* SideMenuContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuContent.swift; sourceTree = "<group>"; };
+		3196525C2954702C00B2C891 /* LogOutButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutButton.swift; sourceTree = "<group>"; };
 		31A2179229299DAD003741DA /* UserSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionState.swift; sourceTree = "<group>"; };
 		31CAA6E12943AE5C0038069D /* VideoPlayerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerFactory.swift; sourceTree = "<group>"; };
 		65A4996DDBF267DFE82ED9D5 /* Pods-LiveEvents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveEvents.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiveEvents/Pods-LiveEvents.release.xcconfig"; sourceTree = "<group>"; };
@@ -207,7 +214,6 @@
 		7FDCF9852546BF1400D5B492 /* LVError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LVError.swift; sourceTree = "<group>"; };
 		7FE331E12647B33F00D412AE /* VideoListMockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListMockData.swift; sourceTree = "<group>"; };
 		7FF255142856DA63008A7390 /* WindowCustomizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCustomizer.swift; sourceTree = "<group>"; };
-		7FFA59852861DDDE00D2F4FE /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		7FFA59862861DDDE00D2F4FE /* MainBodyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainBodyView.swift; sourceTree = "<group>"; };
 		7FFA59892864AE6600D2F4FE /* RemoteStorageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStorageData.swift; sourceTree = "<group>"; };
 		A144B4F6FBDD3317B5035D73 /* Pods-LiveEvents.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveEvents.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LiveEvents/Pods-LiveEvents.debug.xcconfig"; sourceTree = "<group>"; };
@@ -240,6 +246,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		31965259295439E400B2C891 /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				3196525A295462A100B2C891 /* SideMenuContent.swift */,
+				31965254295432E400B2C891 /* SideMenu.swift */,
+				31965257295436D200B2C891 /* SideMenuButton.swift */,
+				3196525C2954702C00B2C891 /* LogOutButton.swift */,
+				7FD974DC28D4BCFE00E8E16E /* HomeViewModel.swift */,
+				7FD974DE28D58BBD00E8E16E /* AvatarImageView.swift */,
+			);
+			path = SideMenu;
+			sourceTree = "<group>";
+		};
 		7F1E96A72546B45900638965 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -337,10 +356,10 @@
 		7F53B1AD203072EA00E09CFA /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				31965259295439E400B2C891 /* SideMenu */,
 				7F2C3C3B2544187100CA9912 /* AppRouter.swift */,
 				31A2179229299DAD003741DA /* UserSessionState.swift */,
 				7FCFD64D28658A8F00F61B48 /* Main */,
-				7FCFD64E28658AC600F61B48 /* Home */,
 				7FA94FFF2032C5750083B23B /* LogIn */,
 				7F53B1AF2030B15C00E09CFA /* VideoList */,
 				7FA74D55260B3B2D0069DA8A /* AddNewStream */,
@@ -590,16 +609,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		7FAEE2FD28862A1B00770924 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				7FFA59852861DDDE00D2F4FE /* HomeView.swift */,
-				7FD974DE28D58BBD00E8E16E /* AvatarImageView.swift */,
-				7FD974DC28D4BCFE00E8E16E /* HomeViewModel.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		7FAEE34C288828C000770924 /* Redux */ = {
 			isa = PBXGroup;
 			children = (
@@ -657,14 +666,6 @@
 				7FAEE2FC28862A0500770924 /* View */,
 			);
 			path = Main;
-			sourceTree = "<group>";
-		};
-		7FCFD64E28658AC600F61B48 /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				7FAEE2FD28862A1B00770924 /* View */,
-			);
-			path = Home;
 			sourceTree = "<group>";
 		};
 		7FE331E02647B31200D412AE /* Mocks */ = {
@@ -973,13 +974,13 @@
 				310D7F3129275F2B00FD7C1C /* AuthError.swift in Sources */,
 				7FC6B7F228EE981900C20F74 /* LoadingIndicator.swift in Sources */,
 				7FAEE35128883EA300770924 /* AuthAction.swift in Sources */,
-				7FFA59872861DDDF00D2F4FE /* HomeView.swift in Sources */,
 				7FB8A42B1DD23C3100955C2D /* LFLivePreview.m in Sources */,
 				316EE54C292D3B7F009F6168 /* BackButton.swift in Sources */,
 				7F79FE42265E6BB1002FA510 /* loadMockData.swift in Sources */,
 				7F1E96BC2546B8BF00638965 /* Date+Ext.swift in Sources */,
 				7FF255152856DA63008A7390 /* WindowCustomizer.swift in Sources */,
 				7F9A91D82609AC170036CA0B /* YouTubeVideoPlayed.swift in Sources */,
+				3196525B295462A100B2C891 /* SideMenuContent.swift in Sources */,
 				7FB0104129017C3E00AE0F87 /* VideoPlayerView.swift in Sources */,
 				7FAEE35228883EA300770924 /* AuthReducer.swift in Sources */,
 				7FD974E328D6958B00E8E16E /* LogInViewModel.swift in Sources */,
@@ -1014,6 +1015,7 @@
 				7F53B1B72030B4B400E09CFA /* AppDelegate.swift in Sources */,
 				7F853734265796BF00C21921 /* TextViewRepresentable.swift in Sources */,
 				7F1E96C02546B8BF00638965 /* UIView+YYAdd.m in Sources */,
+				31965258295436D200B2C891 /* SideMenuButton.swift in Sources */,
 				7F1E96C32546B8BF00638965 /* UIControl+YYAdd.m in Sources */,
 				7FCFD6642868011600F61B48 /* YTApiProvider.swift in Sources */,
 				7FD974DD28D4BCFE00E8E16E /* HomeViewModel.swift in Sources */,
@@ -1022,6 +1024,7 @@
 				7F79C8A6254802FB0044CF81 /* BroadcastsDataFetcherProtocol.swift in Sources */,
 				7F53B1B12030B38100E09CFA /* VideoListFetcher.swift in Sources */,
 				7F7E9FBC26563A0000D82B60 /* PlayerViewRepresentable.swift in Sources */,
+				31965256295435A400B2C891 /* SideMenu.swift in Sources */,
 				7FB8A42D1DD23F8400955C2D /* LFLiveViewController.swift in Sources */,
 				7F8221C7265646AD005A6015 /* VideoPlayer.mm in Sources */,
 				3107E0732951F3D90023E663 /* OSLog.swift in Sources */,
@@ -1032,6 +1035,7 @@
 				316EE548292D3ABA009F6168 /* NavigationBar.swift in Sources */,
 				7F2C3C3C2544187100CA9912 /* AppRouter.swift in Sources */,
 				7FA74D60260B3C0E0069DA8A /* NewStream.swift in Sources */,
+				3196525D2954702C00B2C891 /* LogOutButton.swift in Sources */,
 				31A2179329299DAD003741DA /* UserSessionState.swift in Sources */,
 				7F1E96BB2546B8BF00638965 /* Alert.swift in Sources */,
 				7FAEE354288CC1E000770924 /* UserDefaultsValue.swift in Sources */,

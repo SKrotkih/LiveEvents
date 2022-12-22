@@ -13,6 +13,7 @@ import Combine
 struct VideoListView: View {
     @EnvironmentObject var store: AuthReduxStore
     @EnvironmentObject var viewModel: VideoListViewModel
+    @State private var showSideMenu = false
 
     private var contentView: some View {
         VStack {
@@ -29,11 +30,14 @@ struct VideoListView: View {
 
     var body: some View {
         contentView
-            .navigationBar(title: "My video list")
-            .navigationBarItems(leading: BackButton(),
+            .navigationBar(title: "Live Events")
+            .navigationBarItems(leading: SideMenuButton(isSideMenuShown: $showSideMenu),
                                 trailing: NewStreamButton())
             .onAppear {
                 viewModel.loadData()
+            }
+            .sideMenu(isShowing: $showSideMenu) {
+                SideMenuContent(showSideMenu: $showSideMenu)
             }
     }
 }
@@ -48,7 +52,7 @@ struct VideoList<ViewModel>: View, Themeable where ViewModel: VideoListViewModel
         List {
             ForEach(viewModel.sections, id: \.self) { section in
                 Section(header: Text(section.sectionName)
-                    .font(.title)
+                    .font(.system(size: 16))
                     .foregroundColor(videoListSectionColor)) {
                         ForEach(section.rows, id: \.self) { item in
                             NavigationLink(destination: VideoControllerView(videoId: item.videoId,
@@ -63,15 +67,36 @@ struct VideoList<ViewModel>: View, Themeable where ViewModel: VideoListViewModel
     }
     
     func rowItem(_ item: VideoListRow) -> some View {
-        HStack {
-            Text(item.status)
-                .foregroundColor(.green)
+        HStack(alignment: .center) {
+            HStack {
+                Text(item.status)
+                    .foregroundColor(.green)
+                    .font(.system(size: 12))
+                Spacer()
+            }
+            .frame(width: 53.0)
             Spacer(minLength: 5.0)
-            Text(item.title)
-                .foregroundColor(videoListItemColor)
+            VStack {
+                HStack {
+                    Text(item.title)
+                        .foregroundColor(videoListItemColor)
+                        .frame(alignment: .top)
+                    Spacer()
+                }
+                HStack {
+                    Text(item.description)
+                        .foregroundColor(.black)
+                        .frame(alignment: .bottom)
+                        .font(.system(size: 12))
+                    Spacer()
+                }
+            }
             Spacer(minLength: 5.0)
             Text("\(item.publishedAt)")
                 .foregroundColor(videoListItemColor)
+                .font(.system(size: 12))
+                .frame(width: 70.0)
+            Spacer()
         }
         .font(.system(size: 14))
     }
@@ -117,3 +142,18 @@ struct NewStreamButton: View, Themeable {
         }
     }
 }
+
+/// Video List View Preview
+struct VideoListView_Previews: PreviewProvider {
+    static var previews: some View {
+        let store = Store(initialState: .init(userSession: nil),
+                          reducer: authReducer,
+                          environment: NetworkService(with: SignInService()))
+        let viewModel = HomeViewModel(store: store)
+        VideoListView()
+            .previewDevice(PreviewDevice(rawValue: "iPhone 12 Pro"))
+            .previewDisplayName("iPhone 12 Pro")
+            .environmentObject(viewModel)
+    }
+}
+

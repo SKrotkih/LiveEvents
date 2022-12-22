@@ -26,7 +26,7 @@ struct MainBodyView: View {
     @ViewBuilder
     private var contentView: some View {
         if currentState.isConnected {
-            HomeView()
+            VideoListView()
         } else {
             LogInView()
         }

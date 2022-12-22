@@ -23,16 +23,18 @@ struct VideoListSection: Codable, Identifiable, Hashable {
 }
 
 struct VideoListRow: Codable, Identifiable, Hashable {
-    var id: UUID
-    var videoId: String
-    var status: String
-    var title: String
-    var publishedAt: String
+    let id: UUID
+    let videoId: String
+    let status: String
+    let title: String
+    let description: String
+    let publishedAt: String
 
-    init(videoId: String, status: String, title: String, publishedAt: String) {
+    init(videoId: String, status: String, title: String, description: String, publishedAt: String) {
         self.id = .init()
         self.videoId = videoId
         self.title = title
+        self.description = description
         self.status = status
         self.publishedAt = publishedAt
     }
@@ -138,6 +140,7 @@ final class VideoListViewModel: VideoListViewModelInterface {
                         VideoListRow(videoId: streamModel.id,
                                      status: status,
                                      title: streamModel.snippet.title,
+                                     description: streamModel.snippet.description,
                                      publishedAt: dateFormatted(streamModel.snippet.publishedAt))
                     )
                 }

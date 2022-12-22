@@ -22,10 +22,10 @@ extension Themeable {
         colorScheme == .dark ? .white : .black
     }
     var userNameColor: Color {
-        colorScheme == .dark ? .white : .red
+        colorScheme == .dark ? .white : .white
     }
     var logOutButtonColor: Color {
-        colorScheme == .dark ? .white : .black
+        colorScheme == .dark ? .white : .white
     }
     var videoListSectionColor: Color {
         colorScheme == .dark ? .white : .black
