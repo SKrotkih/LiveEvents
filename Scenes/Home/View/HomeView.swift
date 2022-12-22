@@ -42,10 +42,6 @@ struct HomeView: View, Themeable {
     }
 
     var body: some View {
-        NavigationLink(destination: MainBodyView(),
-                       isActive: $isShowingMainView) { EmptyView() }
-        NavigationLink(destination: VideoListView(),
-                       isActive: $isShowingVideoListView) { EmptyView() }
         contentView
             .navigationBar(title: "Live Events")
             .navigationBarItems(leading: UserNameView(),
@@ -59,6 +55,10 @@ struct HomeView: View, Themeable {
             .onChange(of: viewModel.actions) { newValue in
                 isShowingVideoListView = newValue == .videoList
             }
+        NavigationLink(destination: MainBodyView(),
+                       isActive: $isShowingMainView) { EmptyView() }
+        NavigationLink(destination: VideoListView(),
+                       isActive: $isShowingVideoListView) { EmptyView() }
     }
 }
 

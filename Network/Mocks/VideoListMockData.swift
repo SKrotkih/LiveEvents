@@ -6,17 +6,25 @@
 //
 import Foundation
 import YTLiveStreaming
-
 ///
 /// Get test mock data
 ///
 struct VideoListMockData {
-    static func loadMockData(for state: YTLiveVideoState) async -> Result<[LiveBroadcastStreamModel], LVError> {
-        let data = await DecodeData.loadMockData("LiveBroadcast\(state.rawValue).json", as: LiveBroadcastListModel.self)
+    static func loadMockData(for state: YTLiveVideoState) async -> Result<[String: [LiveBroadcastStreamModel]], LVError> {
+        let data = await DecodeData.loadMockData("LiveBroadcastAll.json", as: LiveBroadcastListModel.self)
+        var a: [String: [LiveBroadcastStreamModel]] = [:]
+        for status in LifiCycleStatus.allCases {
+            a[status.rawValue] = []
+        }
         switch data {
         case .success(let model):
-            debugPrint(model)
-            return .success(model.items)
+            model.items.forEach { item in
+                if let status = item.status?.lifeCycleStatus {
+                    a[status]?.append(item)
+                }
+            }
+            debugPrint(a)
+            return .success(a)
         case .failure(let error):
             return .failure(LVError.message(error.message()))
         }

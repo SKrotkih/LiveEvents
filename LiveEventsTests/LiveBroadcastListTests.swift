@@ -22,12 +22,15 @@ class LiveBroadcastListTestCase: XCTestCase {
     // MARK: - Live Broadcasts Section
 
     func testLiveBroadcastList() {
-        switch DecodeData.loadMockData("LiveBroadcastListModel.json", as: LiveBroadcastListModel.self) {
-        case .success(let model):
-            print(model)
-            XCTAssertEqual(model.items.count, 3)
-        case .failure(let error):
-            XCTFail(error.message())
+        Task {
+            let data = await DecodeData.loadMockData("LiveBroadcastAll.json", as: LiveBroadcastListModel.self)
+            switch data {
+            case .success(let model):
+                print(model)
+                XCTAssertEqual(model.items.count, 3)
+            case .failure(let error):
+                XCTFail(error.message())
+            }
         }
     }
 }

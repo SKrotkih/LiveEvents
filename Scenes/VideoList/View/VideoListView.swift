@@ -53,13 +53,7 @@ struct VideoList<ViewModel>: View, Themeable where ViewModel: VideoListViewModel
                         ForEach(section.rows, id: \.self) { item in
                             NavigationLink(destination: VideoControllerView(videoId: item.videoId,
                                                                             title: item.title)) {
-                                HStack {
-                                    Text(item.title)
-                                        .foregroundColor(videoListItemColor)
-                                    Spacer(minLength: 5.0)
-                                    Text("\(item.publishedAt)")
-                                        .foregroundColor(videoListItemColor)
-                                }
+                                rowItem(item)
                             }
                         }
                     }
@@ -67,6 +61,21 @@ struct VideoList<ViewModel>: View, Themeable where ViewModel: VideoListViewModel
         }
         .listStyle(GroupedListStyle())
     }
+    
+    func rowItem(_ item: VideoListRow) -> some View {
+        HStack {
+            Text(item.status)
+                .foregroundColor(.green)
+            Spacer(minLength: 5.0)
+            Text(item.title)
+                .foregroundColor(videoListItemColor)
+            Spacer(minLength: 5.0)
+            Text("\(item.publishedAt)")
+                .foregroundColor(videoListItemColor)
+        }
+        .font(.system(size: 14))
+    }
+    
 }
 
 /// Show error message got while downloading remote data process

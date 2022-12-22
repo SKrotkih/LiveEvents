@@ -25,13 +25,15 @@ struct VideoListSection: Codable, Identifiable, Hashable {
 struct VideoListRow: Codable, Identifiable, Hashable {
     var id: UUID
     var videoId: String
+    var status: String
     var title: String
     var publishedAt: String
 
-    init(videoId: String, title: String, publishedAt: String) {
+    init(videoId: String, status: String, title: String, publishedAt: String) {
         self.id = .init()
         self.videoId = videoId
         self.title = title
+        self.status = status
         self.publishedAt = publishedAt
     }
 }
@@ -126,18 +128,31 @@ final class VideoListViewModel: VideoListViewModelInterface {
     // [SectionModel] - model
     // [VideoListSection] - presentable data
     private func format(data: [SectionModel]) async -> [VideoListSection] {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm, d MMM y"
         return data.map({ sectionModel in
-            VideoListSection(sectionName: sectionModel.model,
-                             rows: sectionModel.items.map({ streamModel in
-                VideoListRow(videoId: streamModel.id,
-                             title: streamModel.snippet.title,
-                             publishedAt: formatter.string(from: streamModel.snippet.publishedAt))
-            }))
+            var rows = [VideoListRow]()
+            sectionModel.items.forEach {
+                let status = $0.key
+                let items = $0.value
+                items.forEach { streamModel in
+                    rows.append(
+                        VideoListRow(videoId: streamModel.id,
+                                     status: status,
+                                     title: streamModel.snippet.title,
+                                     publishedAt: dateFormatted(streamModel.snippet.publishedAt))
+                    )
+                }
+            }
+            return VideoListSection(sectionName: sectionModel.model,
+                                    rows: rows)
         })
     }
 
+    private func dateFormatted(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm, d MMM y"
+        return formatter.string(from: date)
+    }
+    
     private func parseError(data: [SectionModel]) async -> String {
         let message: String = data.reduce("") { partialResult, item in
             var message = ""

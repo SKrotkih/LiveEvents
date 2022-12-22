@@ -11,12 +11,12 @@ import Combine
 
 struct SectionModel {
     var model: String
-    var items: [LiveBroadcastStreamModel]
+    var items: [String: [LiveBroadcastStreamModel]]
     var error: String?
 }
 
 extension SectionModel {
-    init(original: SectionModel, items: [LiveBroadcastStreamModel]) {
+    init(original: SectionModel, items: [String: [LiveBroadcastStreamModel]]) {
         self = original
         self.items = items
     }
@@ -52,7 +52,7 @@ extension YTLiveVideoState: CustomStringConvertible {
 
 class VideoSectionItems {
     lazy var data = {
-        SectionModel(model: String(describing: section), items: [])
+        SectionModel(model: String(describing: section), items: [:])
     }()
     private let section: YTLiveVideoState
 
@@ -83,11 +83,25 @@ class VideoSectionItems {
                 continuation.resume(returning: .success([]))
             }
         }
-        await self.parseResult(result)
+        switch result {
+        case .success(let items):
+            var a: [String: [LiveBroadcastStreamModel]] = [:]
+            for status in LifiCycleStatus.allCases {
+                a[status.rawValue] = []
+            }
+            items.forEach { item in
+                if let status = item.status?.lifeCycleStatus {
+                    a[status]?.append(item)
+                }
+            }
+            await self.parseResult(.success(a))
+        case .failure(let error):
+            await self.parseResult(.failure(error))
+        }
     }
 
-    private func parseResult(_ result: Result<[LiveBroadcastStreamModel], YTError>) async {
-        let result: (String?, [LiveBroadcastStreamModel]) = await {
+    private func parseResult(_ result: Result<[String: [LiveBroadcastStreamModel]], YTError>) async {
+        let result: (String?, [String: [LiveBroadcastStreamModel]]) = await {
             switch result {
             case .success(let items):
                 return (nil, items)
@@ -97,11 +111,11 @@ class VideoSectionItems {
                     case .success(let items):
                         return (nil, items)
                     case .failure(let error):
-                        return (error.message(), [])
+                        return (error.message(), [:])
                     }
                 } else {
                     let errMessage = "\(section):\n" + error.message()
-                    return (errMessage, [])
+                    return (errMessage, [:])
                 }
             }
         }()

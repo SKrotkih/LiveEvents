@@ -37,8 +37,8 @@
                 "lifeCycleStatus" : "created",
                 "recordingStatus" : "notRecording",
                 "privacyStatus" : "public",
-                "madeForKids": "",
-                "selfDeclaredMadeForKids": ""
+                "madeForKids": false,
+                "selfDeclaredMadeForKids": false
             },
             "contentDetails" : {
                 "boundStreamId": "0",
@@ -131,7 +131,6 @@
     ],
     "kind": "youtube//liveBroadcastListResponse",
     "nextPageToken": "0000",
-    "prevPageToken": "1111",
     "pageInfo": {
         "resultsPerPage": 5,
         "totalResults": 3

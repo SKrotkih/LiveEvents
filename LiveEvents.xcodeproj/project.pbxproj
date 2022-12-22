@@ -14,6 +14,7 @@
 		316EE54C292D3B7F009F6168 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE54B292D3B7F009F6168 /* BackButton.swift */; };
 		318F34DA294854C8005EB0A6 /* ResultBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318F34D9294854C8005EB0A6 /* ResultBuilder.swift */; };
 		3192C4A8294B38E2005E062D /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3192C4A7294B38E2005E062D /* ButtonStyles.swift */; };
+		31965253295407C400B2C891 /* LiveBroadcastactive.json in Resources */ = {isa = PBXBuildFile; fileRef = 31965252295407C400B2C891 /* LiveBroadcastactive.json */; };
 		31A2179329299DAD003741DA /* UserSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A2179229299DAD003741DA /* UserSessionState.swift */; };
 		31CAA6E22943AE5C0038069D /* VideoPlayerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CAA6E12943AE5C0038069D /* VideoPlayerFactory.swift */; };
 		7F0933CF24574FCB00FB5579 /* SignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0933CE24574FCB00FB5579 /* SignInService.swift */; };
@@ -74,10 +75,10 @@
 		7FBC71792653DB9B001DDAE7 /* VideoControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBC71782653DB9B001DDAE7 /* VideoControllerView.swift */; };
 		7FC6B7F228EE981900C20F74 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC6B7F128EE981900C20F74 /* LoadingIndicator.swift */; };
 		7FC6B7F628EEE59000C20F74 /* LiveBroadcastcompleted.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FC6B7F328EEE58F00C20F74 /* LiveBroadcastcompleted.json */; };
-		7FC6B7F728EEE59000C20F74 /* LiveBroadcastactive.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FC6B7F428EEE58F00C20F74 /* LiveBroadcastactive.json */; };
+		7FC6B7F728EEE59000C20F74 /* LiveBroadcastAll.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FC6B7F428EEE58F00C20F74 /* LiveBroadcastAll.json */; };
 		7FC6B7F828EEE59000C20F74 /* LiveBroadcastupcoming.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FC6B7F528EEE58F00C20F74 /* LiveBroadcastupcoming.json */; };
 		7FC6B7F928EEEA5900C20F74 /* LiveBroadcastcompleted.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FC6B7F328EEE58F00C20F74 /* LiveBroadcastcompleted.json */; };
-		7FC6B7FA28EEEA5900C20F74 /* LiveBroadcastactive.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FC6B7F428EEE58F00C20F74 /* LiveBroadcastactive.json */; };
+		7FC6B7FA28EEEA5900C20F74 /* LiveBroadcastAll.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FC6B7F428EEE58F00C20F74 /* LiveBroadcastAll.json */; };
 		7FC6B7FB28EEEA5900C20F74 /* LiveBroadcastupcoming.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FC6B7F528EEE58F00C20F74 /* LiveBroadcastupcoming.json */; };
 		7FCF0A302642BC0400B4E551 /* LiveBroadcastListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCF0A2F2642BC0400B4E551 /* LiveBroadcastListTests.swift */; };
 		7FCFD6642868011600F61B48 /* YTApiProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFD6632868011600F61B48 /* YTApiProvider.swift */; };
@@ -125,6 +126,7 @@
 		316EE54B292D3B7F009F6168 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		318F34D9294854C8005EB0A6 /* ResultBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultBuilder.swift; sourceTree = "<group>"; };
 		3192C4A7294B38E2005E062D /* ButtonStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
+		31965252295407C400B2C891 /* LiveBroadcastactive.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LiveBroadcastactive.json; sourceTree = "<group>"; };
 		31A2179229299DAD003741DA /* UserSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionState.swift; sourceTree = "<group>"; };
 		31CAA6E12943AE5C0038069D /* VideoPlayerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerFactory.swift; sourceTree = "<group>"; };
 		65A4996DDBF267DFE82ED9D5 /* Pods-LiveEvents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveEvents.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiveEvents/Pods-LiveEvents.release.xcconfig"; sourceTree = "<group>"; };
@@ -195,7 +197,7 @@
 		7FBC71782653DB9B001DDAE7 /* VideoControllerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoControllerView.swift; sourceTree = "<group>"; };
 		7FC6B7F128EE981900C20F74 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		7FC6B7F328EEE58F00C20F74 /* LiveBroadcastcompleted.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LiveBroadcastcompleted.json; sourceTree = "<group>"; };
-		7FC6B7F428EEE58F00C20F74 /* LiveBroadcastactive.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LiveBroadcastactive.json; sourceTree = "<group>"; };
+		7FC6B7F428EEE58F00C20F74 /* LiveBroadcastAll.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LiveBroadcastAll.json; sourceTree = "<group>"; };
 		7FC6B7F528EEE58F00C20F74 /* LiveBroadcastupcoming.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LiveBroadcastupcoming.json; sourceTree = "<group>"; };
 		7FCF0A2F2642BC0400B4E551 /* LiveBroadcastListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveBroadcastListTests.swift; sourceTree = "<group>"; };
 		7FCFD6632868011600F61B48 /* YTApiProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTApiProvider.swift; sourceTree = "<group>"; };
@@ -641,7 +643,8 @@
 		7FCF0A2B2642BB1400B4E551 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
-				7FC6B7F428EEE58F00C20F74 /* LiveBroadcastactive.json */,
+				7FC6B7F428EEE58F00C20F74 /* LiveBroadcastAll.json */,
+				31965252295407C400B2C891 /* LiveBroadcastactive.json */,
 				7FC6B7F328EEE58F00C20F74 /* LiveBroadcastcompleted.json */,
 				7FC6B7F528EEE58F00C20F74 /* LiveBroadcastupcoming.json */,
 			);
@@ -798,7 +801,8 @@
 			files = (
 				7FC6B7F828EEE59000C20F74 /* LiveBroadcastupcoming.json in Resources */,
 				7FC6B7F628EEE59000C20F74 /* LiveBroadcastcompleted.json in Resources */,
-				7FC6B7F728EEE59000C20F74 /* LiveBroadcastactive.json in Resources */,
+				7FC6B7F728EEE59000C20F74 /* LiveBroadcastAll.json in Resources */,
+				31965253295407C400B2C891 /* LiveBroadcastactive.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -809,7 +813,7 @@
 				7F53B1AB2030724200E09CFA /* Main.storyboard in Resources */,
 				7FC6B7F928EEEA5900C20F74 /* LiveBroadcastcompleted.json in Resources */,
 				7F9274B31DBDCAD00051DE6B /* Assets.xcassets in Resources */,
-				7FC6B7FA28EEEA5900C20F74 /* LiveBroadcastactive.json in Resources */,
+				7FC6B7FA28EEEA5900C20F74 /* LiveBroadcastAll.json in Resources */,
 				7FAF9E92246187B900C8B81B /* Config.plist in Resources */,
 				7F16188A286C473C0004D0B6 /* .swiftlint.yml in Resources */,
 				7F53B1AA2030724200E09CFA /* LaunchScreen.storyboard in Resources */,
