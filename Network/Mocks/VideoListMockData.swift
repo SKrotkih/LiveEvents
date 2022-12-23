@@ -25,13 +25,13 @@ struct VideoListMockData {
         }()
         let data = await DecodeData.loadMockData("\(fileName).json", as: LiveBroadcastListModel.self)
         var a: [String: [LiveBroadcastStreamModel]] = [:]
-        for status in LifiCycleStatus.allCases {
-            a[status.rawValue] = []
-        }
         switch data {
         case .success(let model):
             model.items.forEach { item in
-                if let status = item.status?.lifeCycleStatus {
+                if let status = item.status?.lifeCycleStatus.lowercased() {
+                    if a[status] == nil {
+                        a[status] = []
+                    }
                     a[status]?.append(item)
                 }
             }

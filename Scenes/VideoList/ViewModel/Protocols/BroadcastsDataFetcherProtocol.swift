@@ -15,7 +15,7 @@ protocol BroadcastsDataFetcher: ObservableObject {
     /// - Parameters:
     ///
     /// - Returns:
-    func fetchData() async
+    func fetchData(sections: YTLiveVideoState...) async
     /// Get Current Broadcast
     ///
     /// - Parameters:

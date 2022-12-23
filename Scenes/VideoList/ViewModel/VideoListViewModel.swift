@@ -53,7 +53,7 @@ protocol VideoListViewModelObservable {
 
 protocol VideoListViewModelLaunched {
     func didUserLogOutAction()
-    func loadData()
+    func loadData(sortType: ListByType)
 }
 
 typealias VideoListViewModelInterface = ObservableObject & VideoListViewModelObservable & VideoListViewModelLaunched
@@ -73,21 +73,22 @@ final class VideoListViewModel: VideoListViewModelInterface {
         self.dataSource = dataSource
         subscribeOnData()
         selectedListType
-            .sink { type in
-                switch type {
-                case .byLifeCycleStatus:
-                    self.loadData()
-                case .byVideoState:
-                    self.loadData()
-                }
+            .dropFirst(1)
+            .sink { sortType in
+                self.loadData(sortType: sortType)
             }
             .store(in: &disposableBag)
     }
 
-    func loadData() {
+    func loadData(sortType: ListByType) {
         Task {
             await MainActor.run { isDataDownloading = true }
-            await dataSource.fetchData()
+            switch sortType {
+            case .byLifeCycleStatus:
+                await self.dataSource.fetchData(sections: .all)
+            case .byVideoState:
+                await self.dataSource.fetchData(sections: .upcoming, .active, .completed)
+            }
             await MainActor.run { isDataDownloading.toggle() }
         }
     }
@@ -105,8 +106,8 @@ final class VideoListViewModel: VideoListViewModelInterface {
                     if concurrencyWay == .asyncLet {
                         // example of using async let
                         async let sectionedData = self.selectedListType.value == .byLifeCycleStatus ?
+                            await self.prepareAllSection(data: data) :
                             await self.prepareSectioned(data: data, sections: .upcoming, .active, .completed)
-                        : await self.prepareAllSection(data: data)
                         async let parsedError = await self.parseError(data: data)
                         let result = await (sectionedData, parsedError)
                         await MainActor.run { self.sections = result.0 }
@@ -118,9 +119,9 @@ final class VideoListViewModel: VideoListViewModelInterface {
                                             body: { taskGroup in
                             taskGroup.addTask {
                                 if self.selectedListType.value == .byLifeCycleStatus {
-                                    return await self.prepareSectioned(data: data, sections: .upcoming, .active, .completed)
-                                } else {
                                     return await self.prepareAllSection(data: data)
+                                } else {
+                                    return await self.prepareSectioned(data: data, sections: .upcoming, .active, .completed)
                                 }
                             }
                             var _sections = [VideoListSection]()

@@ -93,11 +93,9 @@ class VideoSectionItems {
         case .success(let items):
             var a: [String: [LiveBroadcastStreamModel]] = [:]
             items.forEach { item in
-                if let status = item.status?.lifeCycleStatus {
-                    if a.count == 0 {
-                        for status in LifiCycleStatus.allCases {
-                            a[status.rawValue] = []
-                        }
+                if let status = item.status?.lifeCycleStatus.lowercased() {
+                    if a[status] == nil {
+                        a[status] = []
                     }
                     a[status]?.append(item)
                 }
@@ -152,15 +150,23 @@ class VideoListFetcher: BroadcastsDataFetcher {
         VideoSectionItems(section: .all)
     ]
 
-    func fetchData() async {
-        sections.forEach { $0.clear() }
-        await withTaskGroup(of: Void.self) { group in
+    func fetchData(sections: YTLiveVideoState...) async {
+        let _sectionModels = await withTaskGroup(of: [SectionModel].self,
+                                                 returning: [SectionModel].self,
+                                                 body: { taskGroup in
             sections.forEach { section in
-                group.addTask {
-                    await section.loadData(with: self.broadcastsAPI)
+                taskGroup.addTask {
+                    let sectionItems = VideoSectionItems(section: section)
+                    await sectionItems.loadData(with: self.broadcastsAPI)
+                    return [sectionItems.data]
                 }
             }
-        }
-        sectionModels.value = sections.map { $0.data }
+            var _sectionModels = [SectionModel]()
+            for await result in taskGroup {
+                _sectionModels.append(contentsOf: result)
+            }
+            return _sectionModels
+        })
+        sectionModels.value = _sectionModels
     }
 }

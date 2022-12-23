@@ -13,6 +13,7 @@
 		316EE54A292D3B34009F6168 /* ColorSheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE549292D3B34009F6168 /* ColorSheme.swift */; };
 		316EE54C292D3B7F009F6168 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE54B292D3B7F009F6168 /* BackButton.swift */; };
 		318F34DA294854C8005EB0A6 /* ResultBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318F34D9294854C8005EB0A6 /* ResultBuilder.swift */; };
+		31900E91295582F900C2EC71 /* RadioButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31900E90295582F900C2EC71 /* RadioButtonGroup.swift */; };
 		3192C4A8294B38E2005E062D /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3192C4A7294B38E2005E062D /* ButtonStyles.swift */; };
 		31965253295407C400B2C891 /* LiveBroadcastactive.json in Resources */ = {isa = PBXBuildFile; fileRef = 31965252295407C400B2C891 /* LiveBroadcastactive.json */; };
 		31965256295435A400B2C891 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31965254295432E400B2C891 /* SideMenu.swift */; };
@@ -87,7 +88,7 @@
 		7FC6B7FB28EEEA5900C20F74 /* LiveBroadcastupcoming.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FC6B7F528EEE58F00C20F74 /* LiveBroadcastupcoming.json */; };
 		7FCF0A302642BC0400B4E551 /* LiveBroadcastListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCF0A2F2642BC0400B4E551 /* LiveBroadcastListTests.swift */; };
 		7FCFD6642868011600F61B48 /* YTApiProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFD6632868011600F61B48 /* YTApiProvider.swift */; };
-		7FD974DD28D4BCFE00E8E16E /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD974DC28D4BCFE00E8E16E /* HomeViewModel.swift */; };
+		7FD974DD28D4BCFE00E8E16E /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD974DC28D4BCFE00E8E16E /* MenuViewModel.swift */; };
 		7FD974DF28D58BBD00E8E16E /* AvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD974DE28D58BBD00E8E16E /* AvatarImageView.swift */; };
 		7FD974E328D6958B00E8E16E /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD974E228D6958B00E8E16E /* LogInViewModel.swift */; };
 		7FDCF9862546BF1400D5B492 /* LVError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDCF9852546BF1400D5B492 /* LVError.swift */; };
@@ -129,6 +130,7 @@
 		316EE549292D3B34009F6168 /* ColorSheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSheme.swift; sourceTree = "<group>"; };
 		316EE54B292D3B7F009F6168 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		318F34D9294854C8005EB0A6 /* ResultBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultBuilder.swift; sourceTree = "<group>"; };
+		31900E90295582F900C2EC71 /* RadioButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonGroup.swift; sourceTree = "<group>"; };
 		3192C4A7294B38E2005E062D /* ButtonStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 		31965252295407C400B2C891 /* LiveBroadcastactive.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LiveBroadcastactive.json; sourceTree = "<group>"; };
 		31965254295432E400B2C891 /* SideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
@@ -209,7 +211,7 @@
 		7FC6B7F528EEE58F00C20F74 /* LiveBroadcastupcoming.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LiveBroadcastupcoming.json; sourceTree = "<group>"; };
 		7FCF0A2F2642BC0400B4E551 /* LiveBroadcastListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveBroadcastListTests.swift; sourceTree = "<group>"; };
 		7FCFD6632868011600F61B48 /* YTApiProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTApiProvider.swift; sourceTree = "<group>"; };
-		7FD974DC28D4BCFE00E8E16E /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		7FD974DC28D4BCFE00E8E16E /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
 		7FD974DE28D58BBD00E8E16E /* AvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarImageView.swift; sourceTree = "<group>"; };
 		7FD974E228D6958B00E8E16E /* LogInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewModel.swift; sourceTree = "<group>"; };
 		7FDCF9852546BF1400D5B492 /* LVError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LVError.swift; sourceTree = "<group>"; };
@@ -251,10 +253,10 @@
 			isa = PBXGroup;
 			children = (
 				3196525A295462A100B2C891 /* MenuContent.swift */,
+				7FD974DC28D4BCFE00E8E16E /* MenuViewModel.swift */,
 				31965254295432E400B2C891 /* SideMenu.swift */,
 				31965257295436D200B2C891 /* SideMenuButton.swift */,
 				3196525C2954702C00B2C891 /* LogOutButton.swift */,
-				7FD974DC28D4BCFE00E8E16E /* HomeViewModel.swift */,
 				7FD974DE28D58BBD00E8E16E /* AvatarImageView.swift */,
 			);
 			path = SideMenu;
@@ -496,6 +498,7 @@
 			isa = PBXGroup;
 			children = (
 				7F8CEC72291803B8009DAAC6 /* DecimalTextField.swift */,
+				31900E90295582F900C2EC71 /* RadioButtonGroup.swift */,
 				316EE54B292D3B7F009F6168 /* BackButton.swift */,
 				3192C4A7294B38E2005E062D /* ButtonStyles.swift */,
 				316EE549292D3B34009F6168 /* ColorSheme.swift */,
@@ -991,6 +994,7 @@
 				7F8CEC73291803B8009DAAC6 /* DecimalTextField.swift in Sources */,
 				7FD974DF28D58BBD00E8E16E /* AvatarImageView.swift in Sources */,
 				7F9A92352609BE180036CA0B /* XCDYouTubeVideoPlayer.swift in Sources */,
+				31900E91295582F900C2EC71 /* RadioButtonGroup.swift in Sources */,
 				7FFA598A2864AE6600D2F4FE /* RemoteStorageData.swift in Sources */,
 				7F79C8AB254806DF0044CF81 /* YouTubeLiveVideoPublisher.swift in Sources */,
 				7F809FC526414C4E006C4B4E /* YTVideoPlayer.swift in Sources */,
@@ -1020,7 +1024,7 @@
 				31965258295436D200B2C891 /* SideMenuButton.swift in Sources */,
 				7F1E96C32546B8BF00638965 /* UIControl+YYAdd.m in Sources */,
 				7FCFD6642868011600F61B48 /* YTApiProvider.swift in Sources */,
-				7FD974DD28D4BCFE00E8E16E /* HomeViewModel.swift in Sources */,
+				7FD974DD28D4BCFE00E8E16E /* MenuViewModel.swift in Sources */,
 				7F5296382858A17F00548281 /* LogInView.swift in Sources */,
 				31CAA6E22943AE5C0038069D /* VideoPlayerFactory.swift in Sources */,
 				7F79C8A6254802FB0044CF81 /* BroadcastsDataFetcherProtocol.swift in Sources */,

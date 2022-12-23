@@ -41,7 +41,7 @@ struct PlaceholderView: View {
 }
 
 struct ProfileImageView: View {
-    @EnvironmentObject var viewModel: HomeViewModel
+    @EnvironmentObject var viewModel: MenuViewModel
     private let imageUrl: String
 
     init(withURL url: String) {

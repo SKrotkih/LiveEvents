@@ -54,7 +54,7 @@ extension AppRouter {
         ///
         let store = Router.store
         let broadcastsAPI = YTApiProvider(store: store).getApi()
-        let homeViewModel = HomeViewModel(store: store)
+        let menuViewModel = MenuViewModel(store: store)
         let logInViewModel = LogInViewModel(store: store)
         let dataSource = VideoListFetcher(broadcastsAPI: broadcastsAPI)
         let videoListViewModel = VideoListViewModel(store: store, dataSource: dataSource)
@@ -65,7 +65,7 @@ extension AppRouter {
 
         let contentView = MainBodyView()
             .environmentObject(store)
-            .environmentObject(homeViewModel)
+            .environmentObject(menuViewModel)
             .environmentObject(logInViewModel)
             .environmentObject(videoListViewModel)
             .environmentObject(newStreamViewModel)

@@ -13,7 +13,7 @@ import Combine
 struct VideoListView: View {
     @EnvironmentObject var store: AuthReduxStore
     @EnvironmentObject var viewModel: VideoListViewModel
-    @State private var isShowing = false
+    @State private var isSideMenuShowing = false
 
     private var contentView: some View {
         VStack {
@@ -31,13 +31,10 @@ struct VideoListView: View {
     var body: some View {
         contentView
             .navigationBar(title: "Live Events")
-            .navigationBarItems(leading: SideMenuButton(isSideMenuShown: $isShowing),
+            .navigationBarItems(leading: SideMenuButton(isSideMenuShown: $isSideMenuShowing),
                                 trailing: NewStreamButton())
-            .onAppear {
-                viewModel.selectedListType.send(.byVideoState)
-            }
-            .sideMenu(isShowing: $isShowing) {
-                MenuContent(isShowing: $isShowing)
+            .sideMenu(isShowing: $isSideMenuShowing) {
+                MenuContent(isShowing: $isSideMenuShowing)
             }
     }
 }
@@ -149,11 +146,16 @@ struct VideoListView_Previews: PreviewProvider {
         let store = Store(initialState: .init(userSession: nil),
                           reducer: authReducer,
                           environment: NetworkService(with: SignInService()))
-        let viewModel = HomeViewModel(store: store)
+        let broadcastsAPI = YTApiProvider(store: store).getApi()
+        let dataSource = VideoListFetcher(broadcastsAPI: broadcastsAPI)
+        let videoListViewModel = VideoListViewModel(store: store, dataSource: dataSource)
+        let menuViewModel = MenuViewModel(store: store)
+
         VideoListView()
             .previewDevice(PreviewDevice(rawValue: "iPhone 12 Pro"))
             .previewDisplayName("iPhone 12 Pro")
-            .environmentObject(viewModel)
+            .environmentObject(menuViewModel)
+            .environmentObject(videoListViewModel)
     }
 }
 

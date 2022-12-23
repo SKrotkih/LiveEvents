@@ -1,5 +1,5 @@
 //
-//  HomeViewModel.swift
+//  MenuViewModel.swift
 //  LiveEvents
 //
 //  Created by Serhii Krotkykh
@@ -9,17 +9,17 @@ import Foundation
 import SwiftUI
 import Combine
 
-protocol HomeViewModelObservable {
+protocol MenuViewModelObservable {
     var avatarImage: UIImage? { get set }
     var isAvatarDownloading: Bool { get set }
 }
 
-protocol HomeViewModelLaunched {
+protocol MenuViewModelLaunched {
     func downloadAvatarImage(url: String)
     func logOut()
 }
 
-typealias HomeViewModelInterface = ObservableObject & HomeViewModelObservable & HomeViewModelLaunched
+typealias MenuViewModelInterface = ObservableObject & MenuViewModelObservable & MenuViewModelLaunched
 
 enum HomeViewActions {
     case videoList
@@ -27,7 +27,7 @@ enum HomeViewActions {
     case nothing
 }
 
-final class HomeViewModel: HomeViewModelInterface {
+final class MenuViewModel: MenuViewModelInterface {
     @Published var isAvatarDownloading = false
     @Published var avatarImage: UIImage?
     @Published var userName: String = ""
