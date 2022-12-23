@@ -140,15 +140,10 @@ class VideoSectionItems {
 class VideoListFetcher: BroadcastsDataFetcher {
     var sectionModels = CurrentValueSubject<[SectionModel], Never>([])
     private var broadcastsAPI: BroadcastsAPI
+
     required init(broadcastsAPI: BroadcastsAPI) {
         self.broadcastsAPI = broadcastsAPI
     }
-    private let sections = [
-        VideoSectionItems(section: .upcoming),
-        VideoSectionItems(section: .active),
-        VideoSectionItems(section: .completed),
-        VideoSectionItems(section: .all)
-    ]
 
     func fetchData(sections: YTLiveVideoState...) async {
         let _sectionModels = await withTaskGroup(of: [SectionModel].self,

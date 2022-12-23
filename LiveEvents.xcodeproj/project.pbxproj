@@ -14,6 +14,8 @@
 		316EE54C292D3B7F009F6168 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE54B292D3B7F009F6168 /* BackButton.swift */; };
 		318F34DA294854C8005EB0A6 /* ResultBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318F34D9294854C8005EB0A6 /* ResultBuilder.swift */; };
 		31900E91295582F900C2EC71 /* RadioButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31900E90295582F900C2EC71 /* RadioButtonGroup.swift */; };
+		31900E962955CF9400C2EC71 /* VideoDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31900E952955CF9400C2EC71 /* VideoDetailsView.swift */; };
+		31900E982955D18000C2EC71 /* VideoDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31900E972955D18000C2EC71 /* VideoDetailsViewModel.swift */; };
 		3192C4A8294B38E2005E062D /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3192C4A7294B38E2005E062D /* ButtonStyles.swift */; };
 		31965253295407C400B2C891 /* LiveBroadcastactive.json in Resources */ = {isa = PBXBuildFile; fileRef = 31965252295407C400B2C891 /* LiveBroadcastactive.json */; };
 		31965256295435A400B2C891 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31965254295432E400B2C891 /* SideMenu.swift */; };
@@ -131,6 +133,8 @@
 		316EE54B292D3B7F009F6168 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		318F34D9294854C8005EB0A6 /* ResultBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultBuilder.swift; sourceTree = "<group>"; };
 		31900E90295582F900C2EC71 /* RadioButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonGroup.swift; sourceTree = "<group>"; };
+		31900E952955CF9400C2EC71 /* VideoDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDetailsView.swift; sourceTree = "<group>"; };
+		31900E972955D18000C2EC71 /* VideoDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDetailsViewModel.swift; sourceTree = "<group>"; };
 		3192C4A7294B38E2005E062D /* ButtonStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 		31965252295407C400B2C891 /* LiveBroadcastactive.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LiveBroadcastactive.json; sourceTree = "<group>"; };
 		31965254295432E400B2C891 /* SideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
@@ -249,6 +253,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		31900E922955CF2400C2EC71 /* VideoDetails */ = {
+			isa = PBXGroup;
+			children = (
+				31900E932955CF5700C2EC71 /* View */,
+				31900E942955CF6400C2EC71 /* ViewModel */,
+			);
+			path = VideoDetails;
+			sourceTree = "<group>";
+		};
+		31900E932955CF5700C2EC71 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				31900E952955CF9400C2EC71 /* VideoDetailsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		31900E942955CF6400C2EC71 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				31900E972955D18000C2EC71 /* VideoDetailsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		31965259295439E400B2C891 /* SideMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -365,6 +394,7 @@
 				7FCFD64D28658A8F00F61B48 /* Main */,
 				7FA94FFF2032C5750083B23B /* LogIn */,
 				7F53B1AF2030B15C00E09CFA /* VideoList */,
+				31900E922955CF2400C2EC71 /* VideoDetails */,
 				7FA74D55260B3B2D0069DA8A /* AddNewStream */,
 				7F809FBF26414026006C4B4E /* YouTubeVideoPlayer */,
 				7F53B1AE2030733200E09CFA /* LiveStreaming */,
@@ -1008,6 +1038,8 @@
 				7F83E35B1DBDD58C00DE4102 /* YouTubePlayer.swift in Sources */,
 				7F1E96BE2546B8BF00638965 /* UIViewController+Ext.swift in Sources */,
 				3192C4A8294B38E2005E062D /* ButtonStyles.swift in Sources */,
+				31900E962955CF9400C2EC71 /* VideoDetailsView.swift in Sources */,
+				31900E982955D18000C2EC71 /* VideoDetailsViewModel.swift in Sources */,
 				7F1E96C12546B8BF00638965 /* Color+Ext.swift in Sources */,
 				7FAEE35028883EA300770924 /* AuthReduxStore.swift in Sources */,
 				7FFA59882861DDDF00D2F4FE /* MainBodyView.swift in Sources */,

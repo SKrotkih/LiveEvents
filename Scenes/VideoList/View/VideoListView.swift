@@ -47,14 +47,15 @@ struct VideoList<ViewModel>: View, Themeable where ViewModel: VideoListViewModel
 
     var body: some View {
         List {
-            ForEach(viewModel.sections, id: \.self) { section in
+            ForEach(viewModel.sections, id: \.self.id) { section in
                 Section(header: Text(section.sectionName)
                     .font(.system(size: 16))
                     .foregroundColor(videoListSectionColor)) {
-                        ForEach(section.rows, id: \.self) { item in
-                            NavigationLink(destination: VideoControllerView(videoId: item.videoId,
-                                                                            title: item.title)) {
-                                rowItem(item)
+                        ForEach(section.rows, id: \.self.id) { item in
+                            let detailsViewModel = VideoDetailsViewModel(videoDetails: item.model)
+                            NavigationLink(destination: VideoDetailsView(viewModel: detailsViewModel)) {
+                                ListRow(item: item,
+                                        listType: viewModel.selectedListType.value)
                             }
                         }
                     }
@@ -63,41 +64,84 @@ struct VideoList<ViewModel>: View, Themeable where ViewModel: VideoListViewModel
         .listStyle(GroupedListStyle())
     }
     
-    func rowItem(_ item: VideoListRow) -> some View {
-        HStack(alignment: .center) {
-            HStack {
-                Text(item.status)
-                    .foregroundColor(.green)
-                    .font(.system(size: 12))
-                Spacer()
+    struct ListRow: View, Themeable {
+        @Environment(\.colorScheme) var colorScheme
+        let item: VideoListRow
+        let listType: ListByType
+        
+        var body: some View {
+            if listType == .byLifeCycleStatus {
+                rowLifeCycleStatusItem(item)
+            } else if listType == .byVideoState {
+                rowVideoStateItem(item)
+            } else {
+                EmptyView()
             }
-            .frame(width: 53.0)
-            Spacer(minLength: 5.0)
-            VStack {
+        }
+        
+        func rowVideoStateItem(_ item: VideoListRow) -> some View {
+            HStack(alignment: .center) {
                 HStack {
-                    Text(item.title)
-                        .foregroundColor(videoListItemColor)
-                        .frame(alignment: .top)
-                    Spacer()
-                }
-                HStack {
-                    Text(item.description)
-                        .foregroundColor(.black)
-                        .frame(alignment: .bottom)
+                    Text(item.status)
+                        .foregroundColor(.green)
                         .font(.system(size: 12))
                     Spacer()
                 }
+                .frame(width: 53.0)
+                Spacer(minLength: 5.0)
+                VStack {
+                    HStack {
+                        Text(item.title)
+                            .foregroundColor(videoListItemColor)
+                            .frame(alignment: .top)
+                        Spacer()
+                    }
+                    HStack {
+                        Text(item.description)
+                            .foregroundColor(.black)
+                            .frame(alignment: .bottom)
+                            .font(.system(size: 12))
+                        Spacer()
+                    }
+                }
+                Spacer(minLength: 5.0)
+                Text("\(item.publishedAt)")
+                    .foregroundColor(videoListItemColor)
+                    .font(.system(size: 12))
+                    .frame(width: 70.0)
+                Spacer()
             }
-            Spacer(minLength: 5.0)
-            Text("\(item.publishedAt)")
-                .foregroundColor(videoListItemColor)
-                .font(.system(size: 12))
-                .frame(width: 70.0)
-            Spacer()
+            .font(.system(size: 14))
         }
-        .font(.system(size: 14))
+        
+        func rowLifeCycleStatusItem(_ item: VideoListRow) -> some View {
+            HStack(alignment: .center) {
+                Spacer(minLength: 5.0)
+                VStack {
+                    HStack {
+                        Text(item.title)
+                            .foregroundColor(videoListItemColor)
+                            .frame(alignment: .top)
+                        Spacer()
+                    }
+                    HStack {
+                        Text(item.description)
+                            .foregroundColor(.black)
+                            .frame(alignment: .bottom)
+                            .font(.system(size: 12))
+                        Spacer()
+                    }
+                }
+                Spacer(minLength: 5.0)
+                Text("\(item.publishedAt)")
+                    .foregroundColor(videoListItemColor)
+                    .font(.system(size: 12))
+                    .frame(width: 70.0)
+                Spacer()
+            }
+            .font(.system(size: 14))
+        }
     }
-    
 }
 
 /// Show error message got while downloading remote data process

@@ -38,9 +38,9 @@ struct MenuContent: View, Themeable {
             }
             Spacer()
                 .frame(height: 15.0)
-
             HStack {
                 SortOfListRadioButton()
+                Spacer()
             }
             
             Spacer()

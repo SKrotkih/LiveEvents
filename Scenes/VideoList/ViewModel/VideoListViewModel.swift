@@ -10,7 +10,7 @@ import YTLiveStreaming
 import SwiftUI
 import Combine
 
-struct VideoListSection: Codable, Identifiable, Hashable {
+struct VideoListSection: Identifiable {
     var id: UUID
     var sectionName: String
     var rows: [VideoListRow]
@@ -22,21 +22,19 @@ struct VideoListSection: Codable, Identifiable, Hashable {
     }
 }
 
-struct VideoListRow: Codable, Identifiable, Hashable {
-    let id: UUID
-    let videoId: String
+struct VideoListRow: Identifiable {
+    let model: LiveBroadcastStreamModel
+    var id: UUID
+    var videoId: String { model.id }
     let status: String
-    let title: String
-    let description: String
-    let publishedAt: String
+    var title: String { model.snippet.title }
+    var description: String { model.snippet.description }
+    var publishedAt: String { model.snippet.publishedAt.fullDateFormat }
 
-    init(videoId: String, status: String, title: String, description: String, publishedAt: String) {
+    init(model: LiveBroadcastStreamModel, status: String) {
+        self.model = model
         self.id = .init()
-        self.videoId = videoId
-        self.title = title
-        self.description = description
         self.status = status
-        self.publishedAt = publishedAt
     }
 }
 
@@ -49,6 +47,7 @@ protocol VideoListViewModelObservable {
     var sections: [VideoListSection] { get set }
     var errorMessage: String { get set }
     var isDataDownloading: Bool { get set}
+    var selectedListType: CurrentValueSubject<ListByType, Never> { get }
 }
 
 protocol VideoListViewModelLaunched {
@@ -161,11 +160,7 @@ final class VideoListViewModel: VideoListViewModelInterface {
                     let items = $0.value
                     items.forEach { streamModel in
                         rows.append(
-                            VideoListRow(videoId: streamModel.id,
-                                         status: status,
-                                         title: streamModel.snippet.title,
-                                         description: streamModel.snippet.description,
-                                         publishedAt: streamModel.snippet.publishedAt.fullDateFormat)
+                            VideoListRow(model: streamModel, status: status)
                         )
                     }
                 }
@@ -183,11 +178,7 @@ final class VideoListViewModel: VideoListViewModelInterface {
                 var rows = [VideoListRow]()
                 sectionModel.items[sectionName]?.forEach { streamModel in
                     rows.append(
-                        VideoListRow(videoId: streamModel.id,
-                                     status: "",
-                                     title: streamModel.snippet.title,
-                                     description: streamModel.snippet.description,
-                                     publishedAt: streamModel.snippet.publishedAt.fullDateFormat)
+                        VideoListRow(model: streamModel, status: "")
                     )
                 }
                 result.append(VideoListSection(sectionName: sectionName,
