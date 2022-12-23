@@ -7,14 +7,30 @@
 //
 import Foundation
 import YTLiveStreaming
+import Combine
+
+enum VideoDetailsActions {
+    case playVideo
+    case nothing
+}
 
 final class VideoDetailsViewModel: ObservableObject {
     var videoDetails: LiveBroadcastStreamModel
     
+    @Published var actions: VideoDetailsActions = .nothing
+    private var disposables = Set<AnyCancellable>()
+    
     init(videoDetails: LiveBroadcastStreamModel) {
         self.videoDetails = videoDetails
+        $actions
+            .sink { userActivities in
+                switch userActivities {
+                case .playVideo:
+                    // View is hundling by itself
+                    break
+                case .nothing:
+                    break
+                }
+            }.store(in: &disposables)
     }
-
-    
-    
 }
