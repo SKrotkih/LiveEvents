@@ -16,6 +16,7 @@
 		31900E91295582F900C2EC71 /* RadioButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31900E90295582F900C2EC71 /* RadioButtonGroup.swift */; };
 		31900E962955CF9400C2EC71 /* VideoDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31900E952955CF9400C2EC71 /* VideoDetailsView.swift */; };
 		31900E982955D18000C2EC71 /* VideoDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31900E972955D18000C2EC71 /* VideoDetailsViewModel.swift */; };
+		3192764E2956DA6B00C196D9 /* ThumbnailImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3192764D2956DA6B00C196D9 /* ThumbnailImage.swift */; };
 		3192C4A8294B38E2005E062D /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3192C4A7294B38E2005E062D /* ButtonStyles.swift */; };
 		31965253295407C400B2C891 /* LiveBroadcastactive.json in Resources */ = {isa = PBXBuildFile; fileRef = 31965252295407C400B2C891 /* LiveBroadcastactive.json */; };
 		31965256295435A400B2C891 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31965254295432E400B2C891 /* SideMenu.swift */; };
@@ -135,6 +136,7 @@
 		31900E90295582F900C2EC71 /* RadioButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonGroup.swift; sourceTree = "<group>"; };
 		31900E952955CF9400C2EC71 /* VideoDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDetailsView.swift; sourceTree = "<group>"; };
 		31900E972955D18000C2EC71 /* VideoDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDetailsViewModel.swift; sourceTree = "<group>"; };
+		3192764D2956DA6B00C196D9 /* ThumbnailImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailImage.swift; sourceTree = "<group>"; };
 		3192C4A7294B38E2005E062D /* ButtonStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 		31965252295407C400B2C891 /* LiveBroadcastactive.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LiveBroadcastactive.json; sourceTree = "<group>"; };
 		31965254295432E400B2C891 /* SideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
@@ -529,6 +531,7 @@
 			children = (
 				7F8CEC72291803B8009DAAC6 /* DecimalTextField.swift */,
 				31900E90295582F900C2EC71 /* RadioButtonGroup.swift */,
+				3192764D2956DA6B00C196D9 /* ThumbnailImage.swift */,
 				316EE54B292D3B7F009F6168 /* BackButton.swift */,
 				3192C4A7294B38E2005E062D /* ButtonStyles.swift */,
 				316EE549292D3B34009F6168 /* ColorSheme.swift */,
@@ -1035,6 +1038,7 @@
 				7F2439F624580FA500C1FB17 /* VideoListViewModel.swift in Sources */,
 				7F73C8E92654D66900715F9A /* VideoControllerViewModel.swift in Sources */,
 				7F1E96C72546B95A00638965 /* Constants.swift in Sources */,
+				3192764E2956DA6B00C196D9 /* ThumbnailImage.swift in Sources */,
 				7F83E35B1DBDD58C00DE4102 /* YouTubePlayer.swift in Sources */,
 				7F1E96BE2546B8BF00638965 /* UIViewController+Ext.swift in Sources */,
 				3192C4A8294B38E2005E062D /* ButtonStyles.swift in Sources */,

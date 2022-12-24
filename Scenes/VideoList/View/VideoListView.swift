@@ -81,6 +81,9 @@ struct VideoList<ViewModel>: View, Themeable where ViewModel: VideoListViewModel
         
         func rowVideoStateItem(_ item: VideoListRow) -> some View {
             HStack(alignment: .center) {
+                ThumbnailImage(url: item.model.snippet.thumbnails.def.url,
+                               width: 40,
+                               height: 40)
                 HStack {
                     Text(item.status)
                         .foregroundColor(.green)
@@ -117,6 +120,9 @@ struct VideoList<ViewModel>: View, Themeable where ViewModel: VideoListViewModel
         func rowLifeCycleStatusItem(_ item: VideoListRow) -> some View {
             HStack(alignment: .center) {
                 Spacer(minLength: 5.0)
+                ThumbnailImage(url: item.model.snippet.thumbnails.def.url,
+                               width: 40,
+                               height: 40)
                 VStack {
                     HStack {
                         Text(item.title)
