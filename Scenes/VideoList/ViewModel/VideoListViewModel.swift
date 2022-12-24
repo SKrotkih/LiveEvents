@@ -25,16 +25,10 @@ struct VideoListSection: Identifiable {
 struct VideoListRow: Identifiable {
     let model: LiveBroadcastStreamModel
     var id: UUID
-    var videoId: String { model.id }
-    let status: String
-    var title: String { model.snippet.title }
-    var description: String { model.snippet.description }
-    var publishedAt: String { model.snippet.publishedAt.fullDateFormat }
 
-    init(model: LiveBroadcastStreamModel, status: String) {
+    init(model: LiveBroadcastStreamModel) {
         self.model = model
         self.id = .init()
-        self.status = status
     }
 }
 
@@ -160,7 +154,7 @@ final class VideoListViewModel: VideoListViewModelInterface {
                     let items = $0.value
                     items.forEach { streamModel in
                         rows.append(
-                            VideoListRow(model: streamModel, status: status)
+                            VideoListRow(model: streamModel)
                         )
                     }
                 }
@@ -178,7 +172,7 @@ final class VideoListViewModel: VideoListViewModelInterface {
                 var rows = [VideoListRow]()
                 sectionModel.items[sectionName]?.forEach { streamModel in
                     rows.append(
-                        VideoListRow(model: streamModel, status: "")
+                        VideoListRow(model: streamModel)
                     )
                 }
                 result.append(VideoListSection(sectionName: sectionName,

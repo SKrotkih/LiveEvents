@@ -84,32 +84,25 @@ struct VideoList<ViewModel>: View, Themeable where ViewModel: VideoListViewModel
                 ThumbnailImage(url: item.model.snippet.thumbnails.def.url,
                                width: 40,
                                height: 40)
-                HStack {
-                    Text(item.status)
-                        .foregroundColor(.green)
-                        .font(.system(size: 12))
-                    Spacer()
-                }
-                .frame(width: 53.0)
                 Spacer(minLength: 5.0)
                 VStack {
                     HStack {
-                        Text(item.title)
+                        Text(item.model.snippet.title)
                             .foregroundColor(videoListItemColor)
                             .frame(alignment: .top)
                         Spacer()
                     }
                     HStack {
-                        Text(item.description)
-                            .foregroundColor(.black)
+                        Text(item.model.snippet.description)
+                            .foregroundColor(videoListItemDateColor)
                             .frame(alignment: .bottom)
                             .font(.system(size: 12))
                         Spacer()
                     }
                 }
                 Spacer(minLength: 5.0)
-                Text("\(item.publishedAt)")
-                    .foregroundColor(videoListItemColor)
+                Text("\(item.model.snippet.publishedAt.fullDateFormat)")
+                    .foregroundColor(videoListItemDateColor)
                     .font(.system(size: 12))
                     .frame(width: 70.0)
                 Spacer()
@@ -125,22 +118,22 @@ struct VideoList<ViewModel>: View, Themeable where ViewModel: VideoListViewModel
                                height: 40)
                 VStack {
                     HStack {
-                        Text(item.title)
+                        Text(item.model.snippet.title)
                             .foregroundColor(videoListItemColor)
                             .frame(alignment: .top)
                         Spacer()
                     }
                     HStack {
-                        Text(item.description)
-                            .foregroundColor(.black)
+                        Text(item.model.snippet.description)
+                            .foregroundColor(videoListItemDateColor)
                             .frame(alignment: .bottom)
                             .font(.system(size: 12))
                         Spacer()
                     }
                 }
                 Spacer(minLength: 5.0)
-                Text("\(item.publishedAt)")
-                    .foregroundColor(videoListItemColor)
+                Text("\(item.model.snippet.publishedAt.fullDateFormat)")
+                    .foregroundColor(videoListItemDateColor)
                     .font(.system(size: 12))
                     .frame(width: 70.0)
                 Spacer()
@@ -162,7 +155,7 @@ struct ErrorMessage: View {
     }
 }
 
-/// New Stream button. The user presses on the button to go NewStreamView
+/// New Stream button. The user presses on the button to go NewBroadcastView
 struct NewStreamButton: View, Themeable {
     @State private var action: Int? = 0
     @Environment(\.colorScheme) var colorScheme
@@ -180,7 +173,7 @@ struct NewStreamButton: View, Themeable {
                 }
             })
             NavigationLink(
-                destination: NewStreamView(),
+                destination: NewBroadcastView(),
                 tag: 1,
                 selection: $action
             ) {

@@ -34,7 +34,10 @@ extension Themeable {
         colorScheme == .dark ? .red : .black
     }
     var videoListItemColor: Color {
-        colorScheme == .dark ? .green : .red
+        colorScheme == .dark ? .white : .black
+    }
+    var videoListItemDateColor: Color {
+        colorScheme == .dark ? .white : .gray
     }
     var videoListPlusButtonColor: Color {
         colorScheme == .dark ? .white : .black

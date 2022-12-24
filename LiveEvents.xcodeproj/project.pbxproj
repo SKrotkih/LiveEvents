@@ -65,13 +65,13 @@
 		7F8CEC73291803B8009DAAC6 /* DecimalTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8CEC72291803B8009DAAC6 /* DecimalTextField.swift */; };
 		7F91D0F6287A80C3007E7A29 /* YTLiveStreaming in Frameworks */ = {isa = PBXBuildFile; productRef = 7F91D0F5287A80C3007E7A29 /* YTLiveStreaming */; };
 		7F9274B31DBDCAD00051DE6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F9274B21DBDCAD00051DE6B /* Assets.xcassets */; };
-		7F98F6B228F913B400AF6858 /* NewStreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F98F6B128F913B400AF6858 /* NewStreamView.swift */; };
+		7F98F6B228F913B400AF6858 /* NewBroadcastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F98F6B128F913B400AF6858 /* NewBroadcastView.swift */; };
 		7F9A91D42609AAB90036CA0B /* YouTubeHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A91D32609AAB90036CA0B /* YouTubeHelpers.swift */; };
 		7F9A91D82609AC170036CA0B /* YouTubeVideoPlayed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A91D72609AC170036CA0B /* YouTubeVideoPlayed.swift */; };
 		7F9A92352609BE180036CA0B /* XCDYouTubeVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A92342609BE180036CA0B /* XCDYouTubeVideoPlayer.swift */; };
 		7FA64500287EF493009E76F5 /* ReSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7FA644FF287EF493009E76F5 /* ReSwift */; };
-		7FA74D60260B3C0E0069DA8A /* NewStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA74D5F260B3C0E0069DA8A /* NewStream.swift */; };
-		7FA8C85D2916A7A90079C174 /* NewStreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA8C85C2916A7A90079C174 /* NewStreamViewModel.swift */; };
+		7FA74D60260B3C0E0069DA8A /* NewBroadcast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA74D5F260B3C0E0069DA8A /* NewBroadcast.swift */; };
+		7FA8C85D2916A7A90079C174 /* NewBroadcastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA8C85C2916A7A90079C174 /* NewBroadcastViewModel.swift */; };
 		7FAEE3482887AADF00770924 /* AuthState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE3472887AADF00770924 /* AuthState.swift */; };
 		7FAEE35028883EA300770924 /* AuthReduxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE34D28883EA100770924 /* AuthReduxStore.swift */; };
 		7FAEE35128883EA300770924 /* AuthAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE34E28883EA200770924 /* AuthAction.swift */; };
@@ -193,13 +193,13 @@
 		7F8CEC72291803B8009DAAC6 /* DecimalTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalTextField.swift; sourceTree = "<group>"; };
 		7F9274A81DBDCAD00051DE6B /* LiveEvents.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveEvents.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F9274B21DBDCAD00051DE6B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		7F98F6B128F913B400AF6858 /* NewStreamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStreamView.swift; sourceTree = "<group>"; };
+		7F98F6B128F913B400AF6858 /* NewBroadcastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBroadcastView.swift; sourceTree = "<group>"; };
 		7F9A91D32609AAB90036CA0B /* YouTubeHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeHelpers.swift; sourceTree = "<group>"; };
 		7F9A91D72609AC170036CA0B /* YouTubeVideoPlayed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeVideoPlayed.swift; sourceTree = "<group>"; };
 		7F9A92342609BE180036CA0B /* XCDYouTubeVideoPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCDYouTubeVideoPlayer.swift; sourceTree = "<group>"; };
 		7FA6450C28817702009E76F5 /* main.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; name = main.yml; path = .github/workflows/main.yml; sourceTree = SOURCE_ROOT; };
-		7FA74D5F260B3C0E0069DA8A /* NewStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStream.swift; sourceTree = "<group>"; };
-		7FA8C85C2916A7A90079C174 /* NewStreamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStreamViewModel.swift; sourceTree = "<group>"; };
+		7FA74D5F260B3C0E0069DA8A /* NewBroadcast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBroadcast.swift; sourceTree = "<group>"; };
+		7FA8C85C2916A7A90079C174 /* NewBroadcastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBroadcastViewModel.swift; sourceTree = "<group>"; };
 		7FAEE3472887AADF00770924 /* AuthState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthState.swift; sourceTree = "<group>"; };
 		7FAEE34D28883EA100770924 /* AuthReduxStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthReduxStore.swift; sourceTree = "<group>"; };
 		7FAEE34E28883EA200770924 /* AuthAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthAction.swift; sourceTree = "<group>"; };
@@ -397,7 +397,7 @@
 				7FA94FFF2032C5750083B23B /* LogIn */,
 				7F53B1AF2030B15C00E09CFA /* VideoList */,
 				31900E922955CF2400C2EC71 /* VideoDetails */,
-				7FA74D55260B3B2D0069DA8A /* AddNewStream */,
+				7FA74D55260B3B2D0069DA8A /* AddNewBroadcast */,
 				7F809FBF26414026006C4B4E /* YouTubeVideoPlayer */,
 				7F53B1AE2030733200E09CFA /* LiveStreaming */,
 				7F1E96C52546B91A00638965 /* XCDYouTubeKitPresenter */,
@@ -595,20 +595,20 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		7FA74D55260B3B2D0069DA8A /* AddNewStream */ = {
+		7FA74D55260B3B2D0069DA8A /* AddNewBroadcast */ = {
 			isa = PBXGroup;
 			children = (
 				7FA74D56260B3B580069DA8A /* View */,
 				7FA74D57260B3B650069DA8A /* ViewModel */,
 				7FA74D58260B3B710069DA8A /* Model */,
 			);
-			path = AddNewStream;
+			path = AddNewBroadcast;
 			sourceTree = "<group>";
 		};
 		7FA74D56260B3B580069DA8A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7F98F6B128F913B400AF6858 /* NewStreamView.swift */,
+				7F98F6B128F913B400AF6858 /* NewBroadcastView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -616,7 +616,7 @@
 		7FA74D57260B3B650069DA8A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				7FA8C85C2916A7A90079C174 /* NewStreamViewModel.swift */,
+				7FA8C85C2916A7A90079C174 /* NewBroadcastViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -624,7 +624,7 @@
 		7FA74D58260B3B710069DA8A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7FA74D5F260B3C0E0069DA8A /* NewStream.swift */,
+				7FA74D5F260B3C0E0069DA8A /* NewBroadcast.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1023,7 +1023,7 @@
 				7FAEE35228883EA300770924 /* AuthReducer.swift in Sources */,
 				7FD974E328D6958B00E8E16E /* LogInViewModel.swift in Sources */,
 				7FAEE3482887AADF00770924 /* AuthState.swift in Sources */,
-				7FA8C85D2916A7A90079C174 /* NewStreamViewModel.swift in Sources */,
+				7FA8C85D2916A7A90079C174 /* NewBroadcastViewModel.swift in Sources */,
 				7F8CEC73291803B8009DAAC6 /* DecimalTextField.swift in Sources */,
 				7FD974DF28D58BBD00E8E16E /* AvatarImageView.swift in Sources */,
 				7F9A92352609BE180036CA0B /* XCDYouTubeVideoPlayer.swift in Sources */,
@@ -1034,7 +1034,7 @@
 				7F384BEE24587498004C07EE /* Appearance.swift in Sources */,
 				7FE331E22647B33F00D412AE /* VideoListMockData.swift in Sources */,
 				7FBC71792653DB9B001DDAE7 /* VideoControllerView.swift in Sources */,
-				7F98F6B228F913B400AF6858 /* NewStreamView.swift in Sources */,
+				7F98F6B228F913B400AF6858 /* NewBroadcastView.swift in Sources */,
 				7F2439F624580FA500C1FB17 /* VideoListViewModel.swift in Sources */,
 				7F73C8E92654D66900715F9A /* VideoControllerViewModel.swift in Sources */,
 				7F1E96C72546B95A00638965 /* Constants.swift in Sources */,
@@ -1076,7 +1076,7 @@
 				7F1E96BF2546B8BF00638965 /* UIStoryboard+Ext.swift in Sources */,
 				316EE548292D3ABA009F6168 /* NavigationBar.swift in Sources */,
 				7F2C3C3C2544187100CA9912 /* AppRouter.swift in Sources */,
-				7FA74D60260B3C0E0069DA8A /* NewStream.swift in Sources */,
+				7FA74D60260B3C0E0069DA8A /* NewBroadcast.swift in Sources */,
 				3196525D2954702C00B2C891 /* LogOutButton.swift in Sources */,
 				31A2179329299DAD003741DA /* UserSessionState.swift in Sources */,
 				7F1E96BB2546B8BF00638965 /* Alert.swift in Sources */,

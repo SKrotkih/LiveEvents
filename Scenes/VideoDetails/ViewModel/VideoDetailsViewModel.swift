@@ -38,6 +38,7 @@ final class VideoDetailsViewModel: ObservableObject {
     // The ID that YouTube assigns to uniquely identify the broadcast.
     var broadcastId: String { model.id }
     
+    var lifeCycleStatus: String? { model.status?.lifeCycleStatus }
     var channelId: String { model.snippet.channelId }       // The ID that YouTube uses to uniquely identify the channel that is publishing the broadcast.
     var description: String { model.snippet.description }     // The broadcast's description. As with the title, you can set this field by modifying the broadcast resource or by setting the description field of the corresponding video resource.
     

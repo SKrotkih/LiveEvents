@@ -1,5 +1,5 @@
 //
-//  NewStreamViewModel.swift
+//  NewBroadcastViewModel.swift
 //  LiveEvents
 //
 //  Created by Serhii Krotkykh on 11/5/22.
@@ -8,8 +8,8 @@
 import Combine
 import YTLiveStreaming
 
-class NewStreamViewModel: ObservableObject {
-    @Published var model = NewStream()
+class NewBroadcastViewModel: ObservableObject {
+    @Published var model = NewBroadcastModel()
     @Published var error = ""
     @Published var isOperationInProgress = false
 
@@ -38,6 +38,10 @@ class NewStreamViewModel: ObservableObject {
         }
     }
 
+    private var endStreaming: Date {
+        startStreaming.add(hours: 5, minutes: 0, seconds: 0)
+    }
+    
     var runAt: String {
         startStreaming.streamDateFormat
     }
@@ -45,7 +49,7 @@ class NewStreamViewModel: ObservableObject {
 
 // MARK: - Interactor
 
-extension NewStreamViewModel {
+extension NewBroadcastViewModel {
     func createNewStream() async throws {
         await MainActor.run {
             isOperationInProgress = true
@@ -54,20 +58,22 @@ extension NewStreamViewModel {
         try await Task.sleep(nanoseconds: 2_000_000_000)
 
         let result = await withUnsafeContinuation { continuation in
-            self.broadcastsAPI.createBroadcast(model.title,
-                                               description: model.description,
-                                               startTime: startStreaming,
-                                               isReusable: false,
-                                               endDateTime: startStreaming.add(hours: 5, minutes: 0, seconds: 0),
-                                               selfDeclaredMadeForKids: "",
-                                               enableAutoStart: false,
-                                               enableAutoStop: false,
-                                               enableClosedCaptions: false,
-                                               enableDvr: false,
-                                               enableEmbed: false,
-                                               recordFromStart: false,
-                                               enableMonitorStream: false,
-                                               broadcastStreamDelayMs: 0,
+            let body = PostLiveBroadcastBody(title: model.title,
+                                             startDateTime: startStreaming,
+                                             description: model.description,
+                                             endDateTime: endStreaming,
+                                             selfDeclaredMadeForKids: model.selfDeclaredMadeForKids,
+                                             enableAutoStart: model.enableAutoStart,
+                                             enableAutoStop: model.enableAutoStop,
+                                             enableClosedCaptions: model.enableClosedCaptions,
+                                             enableDvr: model.enableDvr,
+                                             enableEmbed: model.enableEmbed,
+                                             recordFromStart: model.recordFromStart,
+                                             enableMonitorStream: model.enableMonitorStream,
+                                             broadcastStreamDelayMs: model.broadcastStreamDelayMs,
+                                             privacyStatus: model.privacyStatus,
+                                             isReusable: model.isReusable)
+            self.broadcastsAPI.createBroadcast(body,
                                                completion: { result in
                 continuation.resume(returning: result)
             })

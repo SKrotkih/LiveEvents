@@ -76,6 +76,7 @@ struct VideoDetailsView: View, Themeable {
                 DetailsRow(title: "The date and time that the broadcast is scheduled to end", value: viewModel.scheduledEndTime)
                 DetailsRow(title: "The date and time that the broadcast actually started", value: viewModel.actualStartTime)
                 DetailsRow(title: "The date and time that the broadcast actually ended", value: viewModel.actualEndTime)
+                DetailsRow(title: "Life cycle video status", value: viewModel.lifeCycleStatus ?? "-")
             }
         }
     }

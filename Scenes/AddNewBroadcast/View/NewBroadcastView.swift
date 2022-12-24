@@ -1,5 +1,5 @@
 //
-//  NewStreamView.swift
+//  NewBroadcastView.swift
 //  LiveEvents
 //
 //  Created by Serhii Krotkykh on 10/14/22.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct NewStreamView: View {
-    @EnvironmentObject var viewModel: NewStreamViewModel
+struct NewBroadcastView: View {
+    @EnvironmentObject var viewModel: NewBroadcastViewModel
     @State var localError = ""
 
     var body: some View {
@@ -36,8 +36,8 @@ struct NewStreamView: View {
     }
 
     struct NewStreamContentView: View, Themeable {
-        @EnvironmentObject var viewModel: NewStreamViewModel
-        @Binding var model: NewStream
+        @EnvironmentObject var viewModel: NewBroadcastViewModel
+        @Binding var model: NewBroadcastModel
         @Environment(\.colorScheme) var colorScheme
 
         var body: some View {
@@ -64,7 +64,7 @@ struct NewStreamView: View {
     }
 
     struct DoneButton: View, Themeable {
-        @EnvironmentObject var viewModel: NewStreamViewModel
+        @EnvironmentObject var viewModel: NewBroadcastViewModel
         @Environment(\.presentationMode) var presentationMode
         @Environment(\.colorScheme) var colorScheme
         @Binding var errorMessage: String

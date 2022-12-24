@@ -58,7 +58,7 @@ extension AppRouter {
         let logInViewModel = LogInViewModel(store: store)
         let dataSource = VideoListFetcher(broadcastsAPI: broadcastsAPI)
         let videoListViewModel = VideoListViewModel(store: store, dataSource: dataSource)
-        let newStreamViewModel = NewStreamViewModel()
+        let newStreamViewModel = NewBroadcastViewModel()
         newStreamViewModel.broadcastsAPI = broadcastsAPI
         let currentState = UserSessionState()
         Router.configure()
