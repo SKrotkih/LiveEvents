@@ -1,12 +1,13 @@
 //
-//  NewBroadcastModel.swift
+//  BroadcastModel.swift
 //  LiveEvents
 //
 //  Created by Serhii Krotkykh on 24.03.2021.
 //
 import Foundation
+import YTLiveStreaming
 
-struct NewBroadcastModel {
+struct BroadcastModel {
     var title: String = ""                  // snippet.title
     var scheduledStartTime: Date = Date()   // snippet.scheduledStartTime
     var description: String = ""            // snippet.description
@@ -34,4 +35,25 @@ struct NewBroadcastModel {
     var privacyStatus: String = "unlisted"    // status.privacyStatus ("public", "private", "unlisted")
     //
     var isReusable: Bool = false            // For LiveStream insert used. Indicates whether the stream is reusable, which means that it can be bound to multiple broadcasts. It is common for broadcasters to reuse the same stream for many different broadcasts if those broadcasts occur at different times.
+    
+    init() {
+    }
+    
+    init(model: LiveBroadcastStreamModel) {
+        title = model.snippet.title
+        scheduledStartTime = model.snippet.scheduledStartTime ?? Date()
+        description = model.snippet.description
+        scheduledEndTime = model.snippet.scheduledEndTime ?? Date()
+        selfDeclaredMadeForKids = model.status?.selfDeclaredMadeForKids ?? false
+        enableAutoStart = model.contentDetails?.enableAutoStart ?? false
+        enableAutoStop = model.contentDetails?.enableAutoStop ?? false
+        enableClosedCaptions = model.contentDetails?.enableClosedCaptions ?? false
+        enableDvr = model.contentDetails?.enableDvr  ?? false
+        enableEmbed = model.contentDetails?.enableEmbed  ?? false
+        recordFromStart = model.contentDetails?.recordFromStart ?? false
+        enableMonitorStream = model.contentDetails?.monitorStream.enableMonitorStream ?? false
+        broadcastStreamDelayMs = model.contentDetails?.monitorStream.broadcastStreamDelayMs ?? 0
+        privacyStatus = model.status?.privacyStatus ?? "unlisted"
+        isReusable = false
+    }
 }

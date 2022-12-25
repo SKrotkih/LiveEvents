@@ -8,7 +8,7 @@ import Combine
 import YTLiveStreaming
 
 class NewBroadcastViewModel: ObservableObject {
-    @Published var model = NewBroadcastModel()
+    @Published var model = BroadcastModel()
     @Published var error = ""
     @Published var isOperationInProgress = false
 

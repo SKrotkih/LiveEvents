@@ -11,20 +11,29 @@ struct VideoDetailsView: View, Themeable {
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var viewModel: VideoDetailsViewModel
     @State private var isShowingVideoPlayer = false
+    @State private var isShowingUpdate = false
     @State private var isShowninhMore = false
 
     var body: some View {
         NavigationLink(destination: VideoControllerView(videoId: viewModel.broadcastId,
                                                         title: viewModel.title),
                        isActive: $isShowingVideoPlayer) { EmptyView() }
+        NavigationLink(destination: UpdateBroadcastView(viewModel: viewModel),
+                       isActive: $isShowingUpdate) { EmptyView() }
+
         contentView
             .navigationBar(title: viewModel.title)
-            .navigationBarItems(leading: BackButton())
+            .navigationBarItems(leading: BackButton(),
+                                trailing: UpdateBroadcastButton(viewModel: viewModel,
+                                                                action: $viewModel.actions,
+                                                                runAction: .update))
             .onChange(of: viewModel.actions) { newValue in
                 isShowingVideoPlayer = newValue == .playVideo
+                isShowingUpdate = newValue == .update
             }
             .onAppear() {
                 isShowingVideoPlayer = false
+                isShowingUpdate = false
             }
             .foregroundColor(.red)
     }
@@ -124,5 +133,28 @@ struct PlayVideoButton: View, Themeable {
         })
         .style(appStyle: .redBorderButton)
         .frame(width: viewModel.thumbnailsHigh.1, height: viewModel.thumbnailsHigh.2)
+    }
+}
+
+/// Update Broadcast button
+struct UpdateBroadcastButton: View, Themeable {
+    @Environment(\.colorScheme) var colorScheme
+    let viewModel: VideoDetailsViewModel
+    @Binding var action: VideoDetailsActions
+    let runAction: VideoDetailsActions
+    
+    var body: some View {
+        HStack {
+            Button(action: {
+                action = runAction
+            }, label: {
+                HStack {
+                    Image(systemName: "pencil")
+                        .foregroundColor(videoListPlusButtonColor)
+                    Text("Update")
+                        .foregroundColor(videoListPlusButtonColor)
+                }
+            })
+        }
     }
 }

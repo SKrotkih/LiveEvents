@@ -12,6 +12,8 @@
 		316EE548292D3ABA009F6168 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE547292D3ABA009F6168 /* NavigationBar.swift */; };
 		316EE54A292D3B34009F6168 /* ColorSheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE549292D3B34009F6168 /* ColorSheme.swift */; };
 		316EE54C292D3B7F009F6168 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE54B292D3B7F009F6168 /* BackButton.swift */; };
+		318E453A29588A1000FB0AA2 /* UpdateBroadcastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318E453929588A1000FB0AA2 /* UpdateBroadcastView.swift */; };
+		318E453C29588E1700FB0AA2 /* BroadcastContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318E453B29588E1700FB0AA2 /* BroadcastContentView.swift */; };
 		318F34DA294854C8005EB0A6 /* ResultBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318F34D9294854C8005EB0A6 /* ResultBuilder.swift */; };
 		31900E91295582F900C2EC71 /* RadioButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31900E90295582F900C2EC71 /* RadioButtonGroup.swift */; };
 		31900E962955CF9400C2EC71 /* VideoDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31900E952955CF9400C2EC71 /* VideoDetailsView.swift */; };
@@ -70,7 +72,7 @@
 		7F9A91D82609AC170036CA0B /* YouTubeVideoPlayed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A91D72609AC170036CA0B /* YouTubeVideoPlayed.swift */; };
 		7F9A92352609BE180036CA0B /* XCDYouTubeVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A92342609BE180036CA0B /* XCDYouTubeVideoPlayer.swift */; };
 		7FA64500287EF493009E76F5 /* ReSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7FA644FF287EF493009E76F5 /* ReSwift */; };
-		7FA74D60260B3C0E0069DA8A /* NewBroadcastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA74D5F260B3C0E0069DA8A /* NewBroadcastModel.swift */; };
+		7FA74D60260B3C0E0069DA8A /* BroadcastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA74D5F260B3C0E0069DA8A /* BroadcastModel.swift */; };
 		7FA8C85D2916A7A90079C174 /* NewBroadcastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA8C85C2916A7A90079C174 /* NewBroadcastViewModel.swift */; };
 		7FAEE3482887AADF00770924 /* AuthState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE3472887AADF00770924 /* AuthState.swift */; };
 		7FAEE35028883EA300770924 /* AuthReduxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE34D28883EA100770924 /* AuthReduxStore.swift */; };
@@ -132,6 +134,8 @@
 		316EE547292D3ABA009F6168 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		316EE549292D3B34009F6168 /* ColorSheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSheme.swift; sourceTree = "<group>"; };
 		316EE54B292D3B7F009F6168 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		318E453929588A1000FB0AA2 /* UpdateBroadcastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateBroadcastView.swift; sourceTree = "<group>"; };
+		318E453B29588E1700FB0AA2 /* BroadcastContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastContentView.swift; sourceTree = "<group>"; };
 		318F34D9294854C8005EB0A6 /* ResultBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultBuilder.swift; sourceTree = "<group>"; };
 		31900E90295582F900C2EC71 /* RadioButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonGroup.swift; sourceTree = "<group>"; };
 		31900E952955CF9400C2EC71 /* VideoDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDetailsView.swift; sourceTree = "<group>"; };
@@ -198,7 +202,7 @@
 		7F9A91D72609AC170036CA0B /* YouTubeVideoPlayed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeVideoPlayed.swift; sourceTree = "<group>"; };
 		7F9A92342609BE180036CA0B /* XCDYouTubeVideoPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCDYouTubeVideoPlayer.swift; sourceTree = "<group>"; };
 		7FA6450C28817702009E76F5 /* main.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; name = main.yml; path = .github/workflows/main.yml; sourceTree = SOURCE_ROOT; };
-		7FA74D5F260B3C0E0069DA8A /* NewBroadcastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBroadcastModel.swift; sourceTree = "<group>"; };
+		7FA74D5F260B3C0E0069DA8A /* BroadcastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastModel.swift; sourceTree = "<group>"; };
 		7FA8C85C2916A7A90079C174 /* NewBroadcastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBroadcastViewModel.swift; sourceTree = "<group>"; };
 		7FAEE3472887AADF00770924 /* AuthState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthState.swift; sourceTree = "<group>"; };
 		7FAEE34D28883EA100770924 /* AuthReduxStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthReduxStore.swift; sourceTree = "<group>"; };
@@ -255,6 +259,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		318E4537295889C200FB0AA2 /* UpdateBroadcast */ = {
+			isa = PBXGroup;
+			children = (
+				318E4538295889DE00FB0AA2 /* View */,
+			);
+			path = UpdateBroadcast;
+			sourceTree = "<group>";
+		};
+		318E4538295889DE00FB0AA2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				318E453929588A1000FB0AA2 /* UpdateBroadcastView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		31900E922955CF2400C2EC71 /* VideoDetails */ = {
 			isa = PBXGroup;
 			children = (
@@ -398,6 +418,7 @@
 				7F53B1AF2030B15C00E09CFA /* VideoList */,
 				31900E922955CF2400C2EC71 /* VideoDetails */,
 				7FA74D55260B3B2D0069DA8A /* AddNewBroadcast */,
+				318E4537295889C200FB0AA2 /* UpdateBroadcast */,
 				7F809FBF26414026006C4B4E /* YouTubeVideoPlayer */,
 				7F53B1AE2030733200E09CFA /* LiveStreaming */,
 				7F1E96C52546B91A00638965 /* XCDYouTubeKitPresenter */,
@@ -609,6 +630,7 @@
 			isa = PBXGroup;
 			children = (
 				7F98F6B128F913B400AF6858 /* NewBroadcastView.swift */,
+				318E453B29588E1700FB0AA2 /* BroadcastContentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -624,7 +646,7 @@
 		7FA74D58260B3B710069DA8A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7FA74D5F260B3C0E0069DA8A /* NewBroadcastModel.swift */,
+				7FA74D5F260B3C0E0069DA8A /* BroadcastModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1042,6 +1064,7 @@
 				7F83E35B1DBDD58C00DE4102 /* YouTubePlayer.swift in Sources */,
 				7F1E96BE2546B8BF00638965 /* UIViewController+Ext.swift in Sources */,
 				3192C4A8294B38E2005E062D /* ButtonStyles.swift in Sources */,
+				318E453A29588A1000FB0AA2 /* UpdateBroadcastView.swift in Sources */,
 				31900E962955CF9400C2EC71 /* VideoDetailsView.swift in Sources */,
 				31900E982955D18000C2EC71 /* VideoDetailsViewModel.swift in Sources */,
 				7F1E96C12546B8BF00638965 /* Color+Ext.swift in Sources */,
@@ -1061,6 +1084,7 @@
 				7F1E96C32546B8BF00638965 /* UIControl+YYAdd.m in Sources */,
 				7FCFD6642868011600F61B48 /* YTApiProvider.swift in Sources */,
 				7FD974DD28D4BCFE00E8E16E /* MenuViewModel.swift in Sources */,
+				318E453C29588E1700FB0AA2 /* BroadcastContentView.swift in Sources */,
 				7F5296382858A17F00548281 /* LogInView.swift in Sources */,
 				31CAA6E22943AE5C0038069D /* VideoPlayerFactory.swift in Sources */,
 				7F79C8A6254802FB0044CF81 /* BroadcastsDataFetcherProtocol.swift in Sources */,
@@ -1076,7 +1100,7 @@
 				7F1E96BF2546B8BF00638965 /* UIStoryboard+Ext.swift in Sources */,
 				316EE548292D3ABA009F6168 /* NavigationBar.swift in Sources */,
 				7F2C3C3C2544187100CA9912 /* AppRouter.swift in Sources */,
-				7FA74D60260B3C0E0069DA8A /* NewBroadcastModel.swift in Sources */,
+				7FA74D60260B3C0E0069DA8A /* BroadcastModel.swift in Sources */,
 				3196525D2954702C00B2C891 /* LogOutButton.swift in Sources */,
 				31A2179329299DAD003741DA /* UserSessionState.swift in Sources */,
 				7F1E96BB2546B8BF00638965 /* Alert.swift in Sources */,

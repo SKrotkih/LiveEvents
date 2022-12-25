@@ -11,6 +11,7 @@ import Combine
 
 enum VideoDetailsActions {
     case playVideo
+    case update
     case nothing
 }
 
@@ -19,13 +20,15 @@ final class VideoDetailsViewModel: ObservableObject {
     
     @Published var actions: VideoDetailsActions = .nothing
     private var disposables = Set<AnyCancellable>()
+
+    var broadcastModel: BroadcastModel { BroadcastModel(model: model) }
     
     init(videoDetails: LiveBroadcastStreamModel) {
         self.model = videoDetails
         $actions
             .sink { userActivities in
                 switch userActivities {
-                case .playVideo:
+                case .playVideo, .update:
                     // View is hundling by itself
                     break
                 case .nothing:
