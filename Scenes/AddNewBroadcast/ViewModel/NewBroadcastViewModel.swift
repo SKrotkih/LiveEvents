@@ -4,7 +4,6 @@
 //
 //  Created by Serhii Krotkykh on 11/5/22.
 //
-
 import Combine
 import YTLiveStreaming
 
@@ -19,31 +18,9 @@ class NewBroadcastViewModel: ObservableObject {
         if model.title.isEmpty {
             error = "The Live Event Title is empty"
             return false
-        } else if startStreaming <= Date() {
-            error = "Start Live Event time is wrong"
-            return false
         } else {
             return true
         }
-    }
-    
-    private var startStreaming: Date {
-        let h = model.hours.isEmpty ? 0 : Int(model.hours) ?? 0
-        let m = model.minutes.isEmpty ? 0 : Int(model.minutes) ?? 0
-        let s = model.seconds.isEmpty ? 0 : Int(model.seconds) ?? 0
-        if h + m + s > 0 {
-            return Date().add(hours: h > 24 ? 0 : h, minutes: m > 60 ? 0 : m, seconds: s > 60 ? 0 : s)
-        } else {
-            return model.date
-        }
-    }
-
-    private var endStreaming: Date {
-        startStreaming.add(hours: 5, minutes: 0, seconds: 0)
-    }
-    
-    var runAt: String {
-        startStreaming.streamDateFormat
     }
 }
 
@@ -59,9 +36,9 @@ extension NewBroadcastViewModel {
 
         let result = await withUnsafeContinuation { continuation in
             let body = PostLiveBroadcastBody(title: model.title,
-                                             startDateTime: startStreaming,
+                                             scheduledStartTime: model.scheduledStartTime,
                                              description: model.description,
-                                             endDateTime: endStreaming,
+                                             scheduledEndTime: model.scheduledEndTime,
                                              selfDeclaredMadeForKids: model.selfDeclaredMadeForKids,
                                              enableAutoStart: model.enableAutoStart,
                                              enableAutoStop: model.enableAutoStop,

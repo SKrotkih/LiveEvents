@@ -30,9 +30,17 @@ struct VideoListView: View {
 
     var body: some View {
         contentView
-            .navigationBar(title: "Live Events")
             .navigationBarItems(leading: SideMenuButton(isSideMenuShown: $isSideMenuShowing),
                                 trailing: NewStreamButton())
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    VStack {
+                        Text("My live video")
+                            .bold()
+                            .foregroundColor(.black)
+                    }
+                }
+            }
             .sideMenu(isShowing: $isSideMenuShowing) {
                 MenuContent(isShowing: $isSideMenuShowing)
             }
