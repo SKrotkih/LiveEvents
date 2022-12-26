@@ -165,3 +165,32 @@ class VideoListFetcher: BroadcastsDataFetcher {
         sectionModels.value = _sectionModels
     }
 }
+
+// MARK: - Delete Broadcasts Request
+
+extension VideoListFetcher {
+    func deleteBroadcasts(_ broadcastIDs: [String]) async -> [String] {
+        let _deletedIDs = await withTaskGroup(of: [String].self,
+                                              returning: [String].self,
+                                              body: { taskGroup in
+            broadcastIDs.forEach { broadcastID in
+                taskGroup.addTask {
+                    let result = await withUnsafeContinuation { continuation in
+                        self.broadcastsAPI.deleteBroadcast(id: broadcastID,
+                                                           completion: { result in
+                            continuation.resume(returning: result)
+                        })
+                    }
+                    return result ? [broadcastID] : []
+                    
+                }
+            }
+            var _deletedIDs = [String]()
+            for await ids in taskGroup {
+                _deletedIDs.append(contentsOf: ids)
+            }
+            return _deletedIDs
+        })
+        return _deletedIDs
+    }
+}

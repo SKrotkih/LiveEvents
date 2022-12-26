@@ -17,6 +17,7 @@ struct VideoListView: View {
     @State private var selectMode = false
     @State private var selectedIDs: [String] = []
     @State private var showDeleteAlert = false
+    @State private var showFailedDeleteAlert = false
 
     var body: some View {
         contentView
@@ -27,14 +28,24 @@ struct VideoListView: View {
                 MenuContent(isShowing: $isSideMenuShowing)
             }
             .alert("Do you really want to delete \(selectedIDs.count) items?", isPresented: $showDeleteAlert) {
-                        Button("OK", role: .cancel) {
-                            Task {
-                                await viewModel.deleteBroadcasts(selectedIDs)
-                                selectedIDs.removeAll()
-                                selectMode.toggle()
-                            }
+                Button("OK") {
+                    Task {
+                        if await viewModel.deleteBroadcasts(selectedIDs) == false {
+                            showFailedDeleteAlert = true
                         }
+                        selectedIDs.removeAll()
+                        selectMode.toggle()
                     }
+                }
+                Button("Cancel", role: .cancel) {
+                    selectedIDs.removeAll()
+                    selectMode.toggle()
+                }
+            }
+            .alert("Sms went wrong. The broadcasts are not deleted!", isPresented: $showFailedDeleteAlert) {
+                Button("OK", role: .cancel) { }
+            }
+
     }
 
     private var contentView: some View {

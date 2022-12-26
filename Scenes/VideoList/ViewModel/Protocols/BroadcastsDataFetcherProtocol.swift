@@ -23,4 +23,11 @@ protocol BroadcastsDataFetcher: ObservableObject {
     ///
     /// - Returns:
     var sectionModels: CurrentValueSubject<[SectionModel], Never> { get }
+    /// Delete Broadcasts
+    ///
+    /// - Parameters:
+    ///     - array of broadcasts id
+    ///
+    /// - Returns:
+    func deleteBroadcasts(_ broadcastIDs: [String]) async -> [String]
 }

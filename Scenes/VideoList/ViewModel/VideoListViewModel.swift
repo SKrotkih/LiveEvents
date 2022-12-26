@@ -87,8 +87,17 @@ final class VideoListViewModel: VideoListViewModelInterface {
         }
     }
 
-    func deleteBroadcasts(_ broadcastIDs: [String]) async {
-        print(broadcastIDs)
+    func deleteBroadcasts(_ broadcastIDs: [String]) async -> Bool {
+        guard broadcastIDs.count > 0 else { return true }
+        await MainActor.run { isDataDownloading = true }
+        let deletedIDs = await self.dataSource.deleteBroadcasts(broadcastIDs)
+        await MainActor.run { isDataDownloading.toggle() }
+        if deletedIDs.count > 0 {
+            loadData(sortType: selectedListType.value)
+            return true
+        } else {
+            return false
+        }
     }
     
     private func subscribeOnData() {
@@ -155,7 +164,6 @@ final class VideoListViewModel: VideoListViewModelInterface {
             if sections.first(where: { sectionModel.section == $0 }) != nil {
                 var rows = [VideoListRow]()
                 sectionModel.items.forEach {
-                    let status = $0.key
                     let items = $0.value
                     items.forEach { streamModel in
                         rows.append(
