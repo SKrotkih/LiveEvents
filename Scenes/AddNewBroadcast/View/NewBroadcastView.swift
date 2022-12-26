@@ -18,23 +18,13 @@ struct NewBroadcastView: View {
         if !localError.isEmpty {
             textError(localError)
         }
-        VStack {
-            BroadcastContentView(update: false, model: viewModel.model)
-        }
-        .padding(.top, 40.0)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: BackButton(),
-                            trailing: InsertBroadcastDoneButton(errorMessage: $localError))
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                VStack {
-                    Text("Schedule a new live video")
-                        .bold()
-                        .foregroundColor(.black)
-                }
-            }
-        }
-        .loadingIndicator(viewModel.isOperationInProgress)
+        Spacer()
+            .frame(height: 55.0)
+        BroadcastContentView(update: false, model: viewModel.model)
+            .navigationBar(title: "Schedule a new live video")
+            .navigationBarItems(leading: BackButton(),
+                                trailing: InsertBroadcastDoneButton(errorMessage: $localError))
+            .loadingIndicator(viewModel.isOperationInProgress)
     }
 
     private func textError(_ message: String) -> some View {

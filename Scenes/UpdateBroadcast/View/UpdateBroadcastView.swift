@@ -13,21 +13,11 @@ struct UpdateBroadcastView: View {
     @ObservedObject var viewModel: VideoDetailsViewModel
     
     var body: some View {
-        VStack {
-            BroadcastContentView(update: true, model: viewModel.broadcastModel)
-        }
-        .padding(.top, 40.0)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: BackButton())
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                VStack {
-                    Text("Update broadcast data")
-                        .bold()
-                        .foregroundColor(.black)
-                }
-            }
-        }
+        Spacer()
+            .frame(height: 55.0)
+        BroadcastContentView(update: true, model: viewModel.broadcastModel)
+            .navigationBar(title: "Update broadcast data")
+            .navigationBarItems(leading: BackButton())
     }
 }
 

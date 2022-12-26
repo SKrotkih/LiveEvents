@@ -4,7 +4,6 @@
 //
 //  Created by Serhii Krotkykh
 //
-
 import SwiftUI
 import Combine
 
@@ -16,19 +15,11 @@ struct MainBodyView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                contentView
-                    .navigationBar(title: "Live Events")
+            if currentState.isConnected {
+                VideoListView()
+            } else {
+                LogInView()
             }
-        }
-    }
-
-    @ViewBuilder
-    private var contentView: some View {
-        if currentState.isConnected {
-            VideoListView()
-        } else {
-            LogInView()
         }
     }
 }

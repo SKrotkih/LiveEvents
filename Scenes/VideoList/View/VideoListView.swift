@@ -15,10 +15,18 @@ struct VideoListView: View {
     @EnvironmentObject var viewModel: VideoListViewModel
     @State private var isSideMenuShowing = false
 
+    var body: some View {
+        contentView
+            .navigationBar(title: "My live video")
+            .navigationBarItems(leading: SideMenuButton(isSideMenuShown: $isSideMenuShowing),
+                                trailing: NewStreamButton())
+            .sideMenu(isShowing: $isSideMenuShowing) {
+                MenuContent(isShowing: $isSideMenuShowing)
+            }
+    }
+
     private var contentView: some View {
         VStack {
-            Spacer()
-                .frame(height: 30.0)
             if viewModel.errorMessage.isEmpty {
                 VideoList(viewModel: viewModel)
             } else {
@@ -26,24 +34,6 @@ struct VideoListView: View {
             }
         }
         .loadingIndicator(viewModel.isDataDownloading)
-    }
-
-    var body: some View {
-        contentView
-            .navigationBarItems(leading: SideMenuButton(isSideMenuShown: $isSideMenuShowing),
-                                trailing: NewStreamButton())
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text("My live video")
-                            .bold()
-                            .foregroundColor(.black)
-                    }
-                }
-            }
-            .sideMenu(isShowing: $isSideMenuShowing) {
-                MenuContent(isShowing: $isSideMenuShowing)
-            }
     }
 }
 
@@ -80,8 +70,12 @@ struct VideoList<ViewModel>: View, Themeable where ViewModel: VideoListViewModel
         var body: some View {
             if listType == .byLifeCycleStatus {
                 rowLifeCycleStatusItem(item)
+                    .padding(.top, 4.0)
+                    .padding(.bottom, 4.0)
             } else if listType == .byVideoState {
                 rowVideoStateItem(item)
+                    .padding(.top, 4.0)
+                    .padding(.bottom, 4.0)
             } else {
                 EmptyView()
             }

@@ -18,8 +18,16 @@ struct NavigationBar: ViewModifier, Themeable {
     func body(content: Content) -> some View {
         content
             .edgesIgnoringSafeArea(.bottom)
-            .navigationBarTitle(Text(title), displayMode: .inline)
             .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    VStack {
+                        Text(title)
+                            .bold()
+                            .foregroundColor(.black)
+                    }
+                }
+            }
             .statusBar(hidden: true)
     }
 }

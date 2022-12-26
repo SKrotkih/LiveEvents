@@ -20,7 +20,8 @@ struct VideoDetailsView: View, Themeable {
                        isActive: $isShowingVideoPlayer) { EmptyView() }
         NavigationLink(destination: UpdateBroadcastView(viewModel: viewModel),
                        isActive: $isShowingUpdate) { EmptyView() }
-
+        Spacer()
+            .frame(height: 55.0)
         contentView
             .navigationBar(title: viewModel.title)
             .navigationBarItems(leading: BackButton(),
@@ -35,13 +36,10 @@ struct VideoDetailsView: View, Themeable {
                 isShowingVideoPlayer = false
                 isShowingUpdate = false
             }
-            .foregroundColor(.red)
     }
 
     private var contentView: some View {
         VStack {
-            Spacer()
-                .frame(height: 60.0)
             Group {
                 ZStack {
                     PlayVideoButton(viewModel: viewModel,
