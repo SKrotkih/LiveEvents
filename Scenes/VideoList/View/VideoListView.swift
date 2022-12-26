@@ -14,6 +14,9 @@ struct VideoListView: View {
     @EnvironmentObject var store: AuthReduxStore
     @EnvironmentObject var viewModel: VideoListViewModel
     @State private var isSideMenuShowing = false
+    @State private var selectMode = false
+    @State private var selectedIDs: [String] = []
+    @State private var showDeleteAlert = false
 
     var body: some View {
         contentView
@@ -23,12 +26,40 @@ struct VideoListView: View {
             .sideMenu(isShowing: $isSideMenuShowing) {
                 MenuContent(isShowing: $isSideMenuShowing)
             }
+            .alert("Do you really want to delete \(selectedIDs.count) items?", isPresented: $showDeleteAlert) {
+                        Button("OK", role: .cancel) {
+                            Task {
+                                await viewModel.deleteBroadcasts(selectedIDs)
+                                selectedIDs.removeAll()
+                                selectMode.toggle()
+                            }
+                        }
+                    }
     }
 
     private var contentView: some View {
         VStack {
+            HStack {
+                if selectMode {
+                    Button("Delete \(selectedIDs.count) items") {
+                        showDeleteAlert = selectedIDs.count > 0
+                    }
+                    .padding(.leading, 15.0)
+                    Spacer()
+                } else {
+                    Button("Select") {
+                        selectMode.toggle()
+                    }
+                    .padding(.leading, 15.0)
+                    Spacer()
+                }
+            }
+            .padding(10.0)
+            .foregroundColor(.black)
             if viewModel.errorMessage.isEmpty {
-                VideoList(viewModel: viewModel)
+                VideoList(viewModel: viewModel,
+                          selectMode: $selectMode,
+                          selectedIDs: $selectedIDs)
             } else {
                 ErrorMessage()
             }
@@ -41,6 +72,8 @@ struct VideoListView: View {
 /// We should use protocol anywhere
 struct VideoList<ViewModel>: View, Themeable where ViewModel: VideoListViewModelInterface {
     @ObservedObject var viewModel: ViewModel
+    @Binding var selectMode: Bool
+    @Binding var selectedIDs: [String]
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
@@ -53,7 +86,9 @@ struct VideoList<ViewModel>: View, Themeable where ViewModel: VideoListViewModel
                             let detailsViewModel = VideoDetailsViewModel(videoDetails: item.model)
                             NavigationLink(destination: VideoDetailsView(viewModel: detailsViewModel)) {
                                 ListRow(item: item,
-                                        listType: viewModel.selectedListType.value)
+                                        listType: viewModel.selectedListType.value,
+                                        selectMode: $selectMode,
+                                        selectedIDs: $selectedIDs)
                             }
                         }
                     }
@@ -66,58 +101,39 @@ struct VideoList<ViewModel>: View, Themeable where ViewModel: VideoListViewModel
         @Environment(\.colorScheme) var colorScheme
         let item: VideoListRow
         let listType: ListByType
-        
+        @Binding var selectMode: Bool
+        @Binding var selectedIDs: [String]
+
         var body: some View {
-            if listType == .byLifeCycleStatus {
-                rowLifeCycleStatusItem(item)
-                    .padding(.top, 4.0)
-                    .padding(.bottom, 4.0)
-            } else if listType == .byVideoState {
-                rowVideoStateItem(item)
-                    .padding(.top, 4.0)
-                    .padding(.bottom, 4.0)
-            } else {
-                EmptyView()
-            }
+            rowItem(item)
+                .padding(.top, 4.0)
+                .padding(.bottom, 4.0)
         }
         
-        func rowVideoStateItem(_ item: VideoListRow) -> some View {
+        func rowItem(_ item: VideoListRow) -> some View {
             HStack(alignment: .center) {
-                ThumbnailImage(url: item.model.snippet.thumbnails.def.url,
-                               width: 40,
-                               height: 40)
-                Spacer(minLength: 5.0)
-                VStack {
-                    HStack {
-                        Text(item.model.snippet.title)
-                            .foregroundColor(videoListItemColor)
-                            .frame(alignment: .top)
-                        Spacer()
-                    }
-                    HStack {
-                        Text(item.model.snippet.description)
-                            .foregroundColor(videoListItemDateColor)
-                            .frame(alignment: .bottom)
-                            .font(.system(size: 12))
-                        Spacer()
-                    }
+                if selectMode {
+                    Image(systemName: (selectedIDs.firstIndex(of: item.model.id) == nil) ? "square" : "checkmark.square")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30.0, height: 30.0)
+                        .foregroundColor(.black)
+                        .onTapGesture {
+                            let id = item.model.id
+                            if let index = selectedIDs.firstIndex(of: id) {
+                                selectedIDs.remove(at: index)
+                            } else {
+                                selectedIDs.append(id)
+                            }
+                        }
+                    Spacer(minLength: 5.0)
+                } else {
+                    EmptyView()
                 }
-                Spacer(minLength: 5.0)
-                Text("\(item.model.snippet.publishedAt.fullDateFormat)")
-                    .foregroundColor(videoListItemDateColor)
-                    .font(.system(size: 12))
-                    .frame(width: 70.0)
-                Spacer()
-            }
-            .font(.system(size: 14))
-        }
-        
-        func rowLifeCycleStatusItem(_ item: VideoListRow) -> some View {
-            HStack(alignment: .center) {
-                Spacer(minLength: 5.0)
                 ThumbnailImage(url: item.model.snippet.thumbnails.def.url,
                                width: 40,
                                height: 40)
+                Spacer(minLength: 5.0)
                 VStack {
                     HStack {
                         Text(item.model.snippet.title)

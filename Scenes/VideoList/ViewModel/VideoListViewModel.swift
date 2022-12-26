@@ -55,6 +55,7 @@ final class VideoListViewModel: VideoListViewModelInterface {
     @Published var sections = [VideoListSection]()
     @Published var errorMessage = ""
     @Published var isDataDownloading = false
+    
     var selectedListType = CurrentValueSubject<ListByType, Never>(.byLifeCycleStatus)
     let dataSource: any BroadcastsDataFetcher
     let store: AuthReduxStore
@@ -86,6 +87,10 @@ final class VideoListViewModel: VideoListViewModelInterface {
         }
     }
 
+    func deleteBroadcasts(_ broadcastIDs: [String]) async {
+        print(broadcastIDs)
+    }
+    
     private func subscribeOnData() {
         enum ConcurrencyWay {
             case asyncLet
