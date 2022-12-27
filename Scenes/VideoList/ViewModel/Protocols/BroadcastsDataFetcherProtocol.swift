@@ -29,5 +29,5 @@ protocol BroadcastsDataFetcher: ObservableObject {
     ///     - array of broadcasts id
     ///
     /// - Returns:
-    func deleteBroadcasts(_ broadcastIDs: [String]) async -> [String]
+    func deleteBroadcasts(_ broadcastIDs: [String]) async -> Bool
 }

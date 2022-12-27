@@ -4,7 +4,6 @@
 //
 //  Created by Serhii Krotkykh
 //
-
 import UIKit
 import YTLiveStreaming
 import SwiftUI
@@ -90,21 +89,21 @@ final class VideoListViewModel: VideoListViewModelInterface {
     func deleteBroadcasts(_ broadcastIDs: [String]) async -> Bool {
         guard broadcastIDs.count > 0 else { return true }
         await MainActor.run { isDataDownloading = true }
-        let deletedIDs = await self.dataSource.deleteBroadcasts(broadcastIDs)
+        let areDeleted = await dataSource.deleteBroadcasts(broadcastIDs)
         await MainActor.run { isDataDownloading.toggle() }
-        if deletedIDs.count > 0 {
+        if areDeleted {
             loadData(sortType: selectedListType.value)
-            return true
-        } else {
-            return false
         }
+        return areDeleted
     }
     
+    // Subscribe on chenging list sort order
     private func subscribeOnData() {
         enum ConcurrencyWay {
             case asyncLet
             case taskGroup
         }
+        // Strategy: which alhorothm will be used (just as an example)
         let concurrencyWay: ConcurrencyWay = .asyncLet
         
         dataSource.sectionModels
@@ -112,50 +111,63 @@ final class VideoListViewModel: VideoListViewModelInterface {
                 Task {
                     if concurrencyWay == .asyncLet {
                         // example of using async let
-                        async let sectionedData = self.selectedListType.value == .byLifeCycleStatus ?
-                            await self.prepareAllSection(data: data) :
-                            await self.prepareSectioned(data: data, sections: .upcoming, .active, .completed)
-                        async let parsedError = await self.parseError(data: data)
-                        let result = await (sectionedData, parsedError)
-                        await MainActor.run { self.sections = result.0 }
-                        await MainActor.run { self.errorMessage = result.1 }
+                        await self.getSectionedDataByAsyncLet(data)
                     } else {
                         // example of using task group
-                        let _sections = await withTaskGroup(of: [VideoListSection].self,
-                                            returning: [VideoListSection].self,
-                                            body: { taskGroup in
-                            taskGroup.addTask {
-                                if self.selectedListType.value == .byLifeCycleStatus {
-                                    return await self.prepareAllSection(data: data)
-                                } else {
-                                    return await self.prepareSectioned(data: data, sections: .upcoming, .active, .completed)
-                                }
-                            }
-                            var _sections = [VideoListSection]()
-                            for await result in taskGroup {
-                                _sections = result
-                            }
-                            return _sections
-                        })
-                        // Parse Error while loading data
-                        let error = Task { () -> String in
-                            return await self.parseError(data: data)
-                        }
-                        do {
-                            let result = await error.result
-                            let message = try result.get()
-                            await MainActor.run { self.errorMessage = message }
-                        } catch {
-                            await MainActor.run { self.errorMessage = "Unknown error" }
-                        }
-                        await MainActor.run { self.sections = _sections }
+                        await self.getSectionedDataByTaskGroup(data)
                     }
                 }
             })
             .store(in: &disposableBag)
     }
 
-    // Presenter: prepare data for presenting
+    private func getSectionedDataByAsyncLet(_ data: [SectionModel]) async {
+        async let sectionedData = {
+            switch self.selectedListType.value {
+            case .byLifeCycleStatus:
+                return await self.prepareAllSection(data: data)
+            case .byVideoState:
+                return await self.prepareSectioned(data: data, sections: .upcoming, .active, .completed)
+            }}()
+        async let parsedError = await self.parseError(data: data)
+        let result = await (sectionedData, parsedError)
+        await MainActor.run { self.sections = result.0 }
+        await MainActor.run { self.errorMessage = result.1 }
+    }
+
+    private func getSectionedDataByTaskGroup(_ data: [SectionModel]) async {
+        let _sections = await withTaskGroup(of: [VideoListSection].self,
+                            returning: [VideoListSection].self,
+                            body: { taskGroup in
+            taskGroup.addTask {
+                switch self.selectedListType.value {
+                case .byLifeCycleStatus:
+                    return await self.prepareAllSection(data: data)
+                case .byVideoState:
+                    return await self.prepareSectioned(data: data, sections: .upcoming, .active, .completed)
+                }
+            }
+            var _sections = [VideoListSection]()
+            for await result in taskGroup {
+                _sections = result
+            }
+            return _sections
+        })
+        // Parse Error while loading data
+        let error = Task { () -> String in
+            return await self.parseError(data: data)
+        }
+        do {
+            let result = await error.result
+            let message = try result.get()
+            await MainActor.run { self.errorMessage = message }
+        } catch {
+            await MainActor.run { self.errorMessage = "Unknown error" }
+        }
+        await MainActor.run { self.sections = _sections }
+    }
+    
+    // Presenter: prepare reseived data for presenting
     // [SectionModel] - model
     // [VideoListSection] - presentable data
     private func prepareSectioned(data: [SectionModel], sections: YTLiveVideoState...) async -> [VideoListSection] {

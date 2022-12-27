@@ -32,7 +32,13 @@ protocol BroadcastsAPI {
         @param
         @return
      */
-    func getAllBroadcasts(_ completion: @escaping ([LiveBroadcastStreamModel]?, [LiveBroadcastStreamModel]?, [LiveBroadcastStreamModel]?) -> Void)
+    func getAllBroadcasts(
+        _ completion: @escaping ([LiveBroadcastStreamModel], [LiveBroadcastStreamModel], [LiveBroadcastStreamModel]) -> Void) throws
+    /**
+        @param
+        @return
+     */
+    func getBroadcastListAsync() async throws -> [LiveBroadcastStreamModel]
     /**
      @param
      - title: The broadcast's title. Note that the broadcast represents exactly one YouTube video. You can set this field by modifying the broadcast resource or by setting the title field of the corresponding video resource.
@@ -69,10 +75,25 @@ protocol BroadcastsAPI {
      */
     func completeBroadcast(_ broadcast: LiveBroadcastStreamModel, completion: @escaping (Bool) -> Void)
     /**
+     deleteAllBroadcastsAsync - async function deleting all broadcasts from the Ussr's account
+     @param
+     @return
+        true if all broadcasts were deleted successfully. No error thrown.
+     */
+    func deleteAllBroadcastsAsync() async -> Bool
+    /**
+     deleteBroadcasts - async function deleting broadcasts by IDs
+     @param
+        broadcastsIDs - array of IDs which broadcasts will be deleted
+     @return
+        true if all broadcasts were deleted successfully
+     */
+    func deleteBroadcastsAsync(_ broadcastIDs: [String]) async -> Bool
+    /**
         @param
         @return
      */
-    func deleteBroadcast(id: String, completion: @escaping (Bool) -> Void)
+    func deleteBroadcast(id: String, completion: @escaping ((Result<Void, YTError>)) -> Void)
     /**
         @param
         @return

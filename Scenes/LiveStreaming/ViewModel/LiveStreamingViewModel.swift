@@ -72,11 +72,12 @@ extension LiveStreamingViewModel: YouTubeLiveVideoPublisher {
             self.didUserFinishWatchVideo()
             return
         }
-        broadcastsAPI.deleteBroadcast(id: broadcast.id, completion: { success in
-            if success {
+        broadcastsAPI.deleteBroadcast(id: broadcast.id, completion: { result in
+            switch result {
+            case .success():
                 print("Broadcast \"\(broadcast.id)\" was deleted!")
-            } else {
-                self.rxError.onNext("System detected error while deleting the video./nTry to delete it in your YouTube account")
+            case .failure(let error):
+                self.rxError.onNext("System detected error while deleting the video./n\(error.message())/nTry to delete it in your YouTube account")
             }
             self.didUserFinishWatchVideo()
         })

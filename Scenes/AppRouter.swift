@@ -56,7 +56,7 @@ extension AppRouter {
         let broadcastsAPI = YTApiProvider(store: store).getApi()
         let menuViewModel = MenuViewModel(store: store)
         let logInViewModel = LogInViewModel(store: store)
-        let dataSource = VideoListFetcher(broadcastsAPI: broadcastsAPI)
+        let dataSource = BroadcastListFetcher(broadcastsAPI: broadcastsAPI)
         let videoListViewModel = VideoListViewModel(store: store, dataSource: dataSource)
         let newStreamViewModel = NewBroadcastViewModel()
         newStreamViewModel.broadcastsAPI = broadcastsAPI

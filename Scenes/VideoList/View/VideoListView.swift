@@ -32,6 +32,8 @@ struct VideoListView: View {
                     Task {
                         if await viewModel.deleteBroadcasts(selectedIDs) == false {
                             showFailedDeleteAlert = true
+                        } else {
+                            
                         }
                         selectedIDs.removeAll()
                         selectMode.toggle()
@@ -219,7 +221,7 @@ struct VideoListView_Previews: PreviewProvider {
                           reducer: authReducer,
                           environment: NetworkService(with: SignInService()))
         let broadcastsAPI = YTApiProvider(store: store).getApi()
-        let dataSource = VideoListFetcher(broadcastsAPI: broadcastsAPI)
+        let dataSource = BroadcastListFetcher(broadcastsAPI: broadcastsAPI)
         let videoListViewModel = VideoListViewModel(store: store, dataSource: dataSource)
         let menuViewModel = MenuViewModel(store: store)
 

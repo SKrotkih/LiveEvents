@@ -49,7 +49,7 @@
 		7F5296382858A17F00548281 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5296372858A17F00548281 /* LogInView.swift */; };
 		7F53B1AA2030724200E09CFA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F53B1A62030724200E09CFA /* LaunchScreen.storyboard */; };
 		7F53B1AB2030724200E09CFA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F53B1A82030724200E09CFA /* Main.storyboard */; };
-		7F53B1B12030B38100E09CFA /* VideoListFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F53B1B02030B38100E09CFA /* VideoListFetcher.swift */; };
+		7F53B1B12030B38100E09CFA /* BroadcastListFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F53B1B02030B38100E09CFA /* BroadcastListFetcher.swift */; };
 		7F53B1B72030B4B400E09CFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F53B1B32030B4B300E09CFA /* AppDelegate.swift */; };
 		7F73C8E92654D66900715F9A /* VideoControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F73C8E82654D66900715F9A /* VideoControllerViewModel.swift */; };
 		7F79C8A22547F2910044CF81 /* BroadcastsApiProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F79C8A12547F2910044CF81 /* BroadcastsApiProtocol.swift */; };
@@ -172,7 +172,7 @@
 		7F5296372858A17F00548281 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		7F53B1A72030724200E09CFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7F53B1A92030724200E09CFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		7F53B1B02030B38100E09CFA /* VideoListFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListFetcher.swift; sourceTree = "<group>"; };
+		7F53B1B02030B38100E09CFA /* BroadcastListFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastListFetcher.swift; sourceTree = "<group>"; };
 		7F53B1B32030B4B300E09CFA /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = SOURCE_ROOT; };
 		7F53B1B62030B4B400E09CFA /* LiveEvents-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LiveEvents-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		7F563B5C286C1DB100F0901D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
@@ -494,7 +494,7 @@
 		7F7D7DA82608EEC5005FAC3B /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
-				7F53B1B02030B38100E09CFA /* VideoListFetcher.swift */,
+				7F53B1B02030B38100E09CFA /* BroadcastListFetcher.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -1088,7 +1088,7 @@
 				7F5296382858A17F00548281 /* LogInView.swift in Sources */,
 				31CAA6E22943AE5C0038069D /* VideoPlayerFactory.swift in Sources */,
 				7F79C8A6254802FB0044CF81 /* BroadcastsDataFetcherProtocol.swift in Sources */,
-				7F53B1B12030B38100E09CFA /* VideoListFetcher.swift in Sources */,
+				7F53B1B12030B38100E09CFA /* BroadcastListFetcher.swift in Sources */,
 				7F7E9FBC26563A0000D82B60 /* PlayerViewRepresentable.swift in Sources */,
 				31965256295435A400B2C891 /* SideMenu.swift in Sources */,
 				7FB8A42D1DD23F8400955C2D /* LFLiveViewController.swift in Sources */,
