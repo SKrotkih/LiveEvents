@@ -44,17 +44,17 @@ extension BroadcastListFetcher {
             }
             sectionModels.value = _sectionModels
         case .failure(let error):
-            if DSSettings.USE_MOCK_DATA {
-                var _sectionModels = [SectionModel]()
-                for section in sections {
-                    let res = await self.parseResult(for: section, .failure(error))
-                    let sectionModel = SectionModel(section: section, items: res.1, error: res.0)
-                    _sectionModels.append(sectionModel)
-                }
-                sectionModels.value = _sectionModels
-            } else {
+//            if DSSettings.USE_MOCK_DATA {
+//                var _sectionModels = [SectionModel]()
+//                for section in sections {
+//                    let res = await self.parseResult(for: section, .failure(error))
+//                    let sectionModel = SectionModel(section: section, items: res.1, error: res.0)
+//                    _sectionModels.append(sectionModel)
+//                }
+//                sectionModels.value = _sectionModels
+//            } else {
                 sectionModels.send(completion: .failure(error))
-            }
+//            }
         }
     }
 

@@ -4,7 +4,6 @@
 //
 //  Created by Serhii Krotkykh
 //
-
 import SwiftUI
 import Combine
 
@@ -16,9 +15,12 @@ struct VideoListView: View {
     @State private var isSideMenuShowing = false
     @State private var selectMode = false
     @State private var selectedIDs: [String] = []
+    @State private var errorMessageAlert = false
     @State private var showDeleteAlert = false
     @State private var showFailedDeleteAlert = false
 
+    var sss = Set<AnyCancellable>()
+    
     var body: some View {
         contentView
             .navigationBar(title: "My live video")
@@ -32,8 +34,6 @@ struct VideoListView: View {
                     Task {
                         if await viewModel.deleteBroadcasts(selectedIDs) == false {
                             showFailedDeleteAlert = true
-                        } else {
-                            
                         }
                         selectedIDs.removeAll()
                         selectMode.toggle()
@@ -47,35 +47,36 @@ struct VideoListView: View {
             .alert("Sms went wrong. The broadcasts are not deleted!", isPresented: $showFailedDeleteAlert) {
                 Button("OK", role: .cancel) { }
             }
-
+            .alert(viewModel.errorMessage, isPresented: $errorMessageAlert) {
+                Button("OK", role: .cancel) { }
+            }
+            .onReceive(viewModel.errorMessage.publisher, perform: { _ in
+                errorMessageAlert = viewModel.errorMessage.isEmpty == false
+            })
     }
 
     private var contentView: some View {
         VStack {
-            if viewModel.errorMessage.isEmpty == false {
-                ErrorMessage()
-            } else {
-                HStack {
-                    if selectMode {
-                        Button("Delete \(selectedIDs.count) items") {
-                            showDeleteAlert = selectedIDs.count > 0
-                        }
-                        .padding(.leading, 15.0)
-                        Spacer()
-                    } else {
-                        Button("Select") {
-                            selectMode.toggle()
-                        }
-                        .padding(.leading, 15.0)
-                        Spacer()
+            HStack {
+                if selectMode {
+                    Button("Delete \(selectedIDs.count) items") {
+                        showDeleteAlert = selectedIDs.count > 0
                     }
+                    .padding(.leading, 15.0)
+                    Spacer()
+                } else {
+                    Button("Select") {
+                        selectMode.toggle()
+                    }
+                    .padding(.leading, 15.0)
+                    Spacer()
                 }
-                .padding(10.0)
-                .foregroundColor(.black)
-                VideoList(viewModel: viewModel,
-                          selectMode: $selectMode,
-                          selectedIDs: $selectedIDs)
             }
+            .padding(10.0)
+            .foregroundColor(.black)
+            VideoList(viewModel: viewModel,
+                      selectMode: $selectMode,
+                      selectedIDs: $selectedIDs)
         }
         .loadingIndicator(viewModel.isDataDownloading)
     }
@@ -170,18 +171,6 @@ struct VideoList<ViewModel>: View, Themeable where ViewModel: VideoListViewModel
                 Spacer()
             }
             .font(.system(size: 14))
-        }
-    }
-}
-
-/// Show error message got while downloading remote data process
-struct ErrorMessage: View {
-    @EnvironmentObject var viewModel: VideoListViewModel
-
-    var body: some View {
-        VStack {
-            Text(viewModel.errorMessage)
-                .foregroundColor(.red)
         }
     }
 }

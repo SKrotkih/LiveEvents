@@ -109,7 +109,9 @@ final class VideoListViewModel: VideoListViewModelInterface {
         dataSource.sectionModels
             .sink(receiveCompletion: { result in
                 if case let .failure(error) = result {
-                    self.errorMessage = error.message()
+                    Task {
+                        await MainActor.run { self.errorMessage = error.message() }
+                    }
                 }},
                   receiveValue: { data in
                 Task {
