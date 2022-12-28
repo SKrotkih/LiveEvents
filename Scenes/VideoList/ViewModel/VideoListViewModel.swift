@@ -78,9 +78,9 @@ final class VideoListViewModel: VideoListViewModelInterface {
             await MainActor.run { isDataDownloading = true }
             switch sortType {
             case .byLifeCycleStatus:
-                await self.dataSource.fetchData(sections: .all)
+                await self.dataSource.fetchBroadcastListData(sections: .all)
             case .byVideoState:
-                await self.dataSource.fetchData(sections: .upcoming, .active, .completed)
+                await self.dataSource.fetchBroadcastListData(sections: .upcoming, .active, .completed)
             }
             await MainActor.run { isDataDownloading.toggle() }
         }
@@ -107,7 +107,11 @@ final class VideoListViewModel: VideoListViewModelInterface {
         let concurrencyWay: ConcurrencyWay = .asyncLet
         
         dataSource.sectionModels
-            .sink(receiveValue: { data in
+            .sink(receiveCompletion: { result in
+                if case let .failure(error) = result {
+                    self.errorMessage = error.message()
+                }},
+                  receiveValue: { data in
                 Task {
                     if concurrencyWay == .asyncLet {
                         // example of using async let

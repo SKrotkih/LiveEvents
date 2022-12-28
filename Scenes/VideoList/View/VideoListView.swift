@@ -52,29 +52,29 @@ struct VideoListView: View {
 
     private var contentView: some View {
         VStack {
-            HStack {
-                if selectMode {
-                    Button("Delete \(selectedIDs.count) items") {
-                        showDeleteAlert = selectedIDs.count > 0
+            if viewModel.errorMessage.isEmpty == false {
+                ErrorMessage()
+            } else {
+                HStack {
+                    if selectMode {
+                        Button("Delete \(selectedIDs.count) items") {
+                            showDeleteAlert = selectedIDs.count > 0
+                        }
+                        .padding(.leading, 15.0)
+                        Spacer()
+                    } else {
+                        Button("Select") {
+                            selectMode.toggle()
+                        }
+                        .padding(.leading, 15.0)
+                        Spacer()
                     }
-                    .padding(.leading, 15.0)
-                    Spacer()
-                } else {
-                    Button("Select") {
-                        selectMode.toggle()
-                    }
-                    .padding(.leading, 15.0)
-                    Spacer()
                 }
-            }
-            .padding(10.0)
-            .foregroundColor(.black)
-            if viewModel.errorMessage.isEmpty {
+                .padding(10.0)
+                .foregroundColor(.black)
                 VideoList(viewModel: viewModel,
                           selectMode: $selectMode,
                           selectedIDs: $selectedIDs)
-            } else {
-                ErrorMessage()
             }
         }
         .loadingIndicator(viewModel.isDataDownloading)

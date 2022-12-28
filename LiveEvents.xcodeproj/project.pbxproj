@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3107E0732951F3D90023E663 /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3107E0722951F3D90023E663 /* OSLog.swift */; };
+		3107EC96295C439B00020611 /* BroadcastListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3107EC95295C439B00020611 /* BroadcastListModel.swift */; };
 		310D7F3129275F2B00FD7C1C /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D7F3029275F2B00FD7C1C /* AuthError.swift */; };
 		316EE548292D3ABA009F6168 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE547292D3ABA009F6168 /* NavigationBar.swift */; };
 		316EE54A292D3B34009F6168 /* ColorSheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE549292D3B34009F6168 /* ColorSheme.swift */; };
@@ -130,6 +131,7 @@
 
 /* Begin PBXFileReference section */
 		3107E0722951F3D90023E663 /* OSLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLog.swift; sourceTree = "<group>"; };
+		3107EC95295C439B00020611 /* BroadcastListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastListModel.swift; sourceTree = "<group>"; };
 		310D7F3029275F2B00FD7C1C /* AuthError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		316EE547292D3ABA009F6168 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		316EE549292D3B34009F6168 /* ColorSheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSheme.swift; sourceTree = "<group>"; };
@@ -259,6 +261,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3107EC93295C436700020611 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3107EC95295C439B00020611 /* BroadcastListModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		318E4537295889C200FB0AA2 /* UpdateBroadcast */ = {
 			isa = PBXGroup;
 			children = (
@@ -439,6 +449,7 @@
 		7F53B1AF2030B15C00E09CFA /* VideoList */ = {
 			isa = PBXGroup;
 			children = (
+				3107EC93295C436700020611 /* Model */,
 				7F8FD2A524596D970041CF36 /* View */,
 				7F8FD2A624596DB20041CF36 /* ViewModel */,
 			);
@@ -1045,6 +1056,7 @@
 				7FAEE35228883EA300770924 /* AuthReducer.swift in Sources */,
 				7FD974E328D6958B00E8E16E /* LogInViewModel.swift in Sources */,
 				7FAEE3482887AADF00770924 /* AuthState.swift in Sources */,
+				3107EC96295C439B00020611 /* BroadcastListModel.swift in Sources */,
 				7FA8C85D2916A7A90079C174 /* NewBroadcastViewModel.swift in Sources */,
 				7F8CEC73291803B8009DAAC6 /* DecimalTextField.swift in Sources */,
 				7FD974DF28D58BBD00E8E16E /* AvatarImageView.swift in Sources */,
