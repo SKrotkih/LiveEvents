@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import Combine
+import YTLiveStreaming
 
 /// Three sectioned video list View
 /// uses from the VideoListViewModel data and watches for downloading process
@@ -18,6 +19,7 @@ struct VideoListView: View {
     @State private var errorMessageAlert = false
     @State private var showDeleteAlert = false
     @State private var showFailedDeleteAlert = false
+    @State private var error: YTError = .message("No Errors")
 
     var sss = Set<AnyCancellable>()
     
@@ -32,7 +34,11 @@ struct VideoListView: View {
             .alert("Do you really want to delete \(selectedIDs.count) items?", isPresented: $showDeleteAlert) {
                 Button("OK") {
                     Task {
-                        if await viewModel.deleteBroadcasts(selectedIDs) == false {
+                        do {
+                            try await viewModel.deleteBroadcasts(selectedIDs)
+                        }
+                        catch {
+                            self.error = error as! YTError
                             showFailedDeleteAlert = true
                         }
                         selectedIDs.removeAll()
@@ -44,7 +50,7 @@ struct VideoListView: View {
                     selectMode.toggle()
                 }
             }
-            .alert("Sms went wrong. The broadcasts are not deleted!", isPresented: $showFailedDeleteAlert) {
+            .alert(self.error.message(), isPresented: $showFailedDeleteAlert) {
                 Button("OK", role: .cancel) { }
             }
             .alert(viewModel.errorMessage, isPresented: $errorMessageAlert) {
@@ -79,6 +85,20 @@ struct VideoListView: View {
                       selectedIDs: $selectedIDs)
         }
         .loadingIndicator(viewModel.isDataDownloading)
+    }
+    
+    private func deleteselectedItems() {
+        Task {
+            do {
+                try await viewModel.deleteBroadcasts(selectedIDs)
+            }
+            catch {
+                self.error = error as! YTError
+                showFailedDeleteAlert = true
+            }
+            selectedIDs.removeAll()
+            selectMode.toggle()
+        }
     }
 }
 

@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 protocol YouTubeLiveVideoPublisher: AnyObject {
-    func willStartPublishing(completed: @escaping (String?, NSDate?) -> Void)
+    func willStartPublishing() async -> (String?, NSDate?)
     func finishPublishing()
     func didUserCancelPublishingVideo()
     var rxDidUserFinishWatchVideo: PublishSubject<Bool> { get }

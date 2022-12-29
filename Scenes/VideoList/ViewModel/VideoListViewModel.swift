@@ -86,15 +86,18 @@ final class VideoListViewModel: VideoListViewModelInterface {
         }
     }
 
-    func deleteBroadcasts(_ broadcastIDs: [String]) async -> Bool {
-        guard broadcastIDs.count > 0 else { return true }
+    func deleteBroadcasts(_ broadcastIDs: [String]) async throws {
+        guard broadcastIDs.count > 0 else { return }
         await MainActor.run { isDataDownloading = true }
-        let areDeleted = await dataSource.deleteBroadcasts(broadcastIDs)
-        await MainActor.run { isDataDownloading.toggle() }
-        if areDeleted {
+        do {
+            try await dataSource.deleteBroadcasts(broadcastIDs)
+            await MainActor.run { isDataDownloading.toggle() }
             loadData(sortType: selectedListType.value)
         }
-        return areDeleted
+        catch {
+            await MainActor.run { isDataDownloading.toggle() }
+            throw error
+        }
     }
     
     // Subscribe on chenging list sort order

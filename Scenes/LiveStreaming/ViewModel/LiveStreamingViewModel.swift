@@ -39,22 +39,30 @@ extension LiveStreamingViewModel {
 // MARK: - Live stream publishing output protocol
 
 extension LiveStreamingViewModel: YouTubeLiveVideoPublisher {
-    func willStartPublishing(completed: @escaping (String?, NSDate?) -> Void) {
+    func willStartPublishing() async -> (String?, NSDate?) {
         guard let broadcast = self.liveBroadcast else {
             rxError.onNext("Need a broadcast object to start live video!")
-            return
+            return (nil, nil)
         }
         guard let delegate = self as? LiveStreamTransitioning else {
             rxError.onNext("The Model does not conform LiveStreamTransitioning protocol")
-            return
+            return (nil, nil)
         }
-        broadcastsAPI.startBroadcast(broadcast, delegate: delegate, completion: { streamName, streamUrl, scheduledStartTime in
+        do {
+            let (streamName, streamUrl, scheduledStartTime) = try await broadcastsAPI.startBroadcastAsync(broadcast, delegate: delegate)
             if let streamName, let streamUrl, let scheduledStartTime {
                 let streamUrl = "\(streamUrl)/\(streamName)"
                 let startTime = scheduledStartTime as NSDate?
-                completed(streamUrl, startTime)
+                return (streamUrl, startTime)
+            } else {
+                rxError.onNext("Start broadcast method returns wrong data")
+                return (nil, nil)
             }
-        })
+        }
+        catch {
+            rxError.onNext("\(error.localizedDescription). The Model does not conform LiveStreamTransitioning protocol")
+            return (nil, nil)
+        }
     }
 
     func finishPublishing() {
@@ -62,9 +70,17 @@ extension LiveStreamingViewModel: YouTubeLiveVideoPublisher {
             self.didUserFinishWatchVideo()
             return
         }
-        broadcastsAPI.completeBroadcast(broadcast, completion: { _ in
-            self.didUserFinishWatchVideo()
-        })
+        Task {
+            do {
+                try await broadcastsAPI.completeBroadcastAsync(broadcast)
+                print("Broadcast \"\(broadcast.id)\" was cancelled!")
+            }
+            catch {
+                let message = (error as! YTError).message()
+                self.rxError.onNext("System detected error while finishing the video./n\(message)")
+            }
+            didUserFinishWatchVideo()
+        }
     }
 
     func didUserCancelPublishingVideo() {
@@ -72,15 +88,17 @@ extension LiveStreamingViewModel: YouTubeLiveVideoPublisher {
             self.didUserFinishWatchVideo()
             return
         }
-        broadcastsAPI.deleteBroadcast(id: broadcast.id, completion: { result in
-            switch result {
-            case .success():
+        Task {
+            do {
+                try await broadcastsAPI.deleteBroadcast(id: broadcast.id)
                 print("Broadcast \"\(broadcast.id)\" was deleted!")
-            case .failure(let error):
-                self.rxError.onNext("System detected error while deleting the video./n\(error.message())/nTry to delete it in your YouTube account")
+            }
+            catch {
+                let message = (error as! YTError).message()
+                self.rxError.onNext("System detected error while deleting the video./n\(message)/nTry to delete it in your YouTube account")
             }
             self.didUserFinishWatchVideo()
-        })
+        }
     }
 }
 

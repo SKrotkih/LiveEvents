@@ -60,7 +60,18 @@ protocol BroadcastsAPI {
         @param
         @return
      */
+    func startBroadcastAsync(_ broadcast: LiveBroadcastStreamModel,
+                             delegate: LiveStreamTransitioning) async throws -> (String?, String?, Date?)
+    /**
+        @param
+        @return
+     */
     func startBroadcast(_ broadcast: LiveBroadcastStreamModel, delegate: LiveStreamTransitioning, completion: @escaping (String?, String?, Date?) -> Void)
+    /**
+        @param
+        @return
+     */
+    func completeBroadcastAsync(_ broadcast: LiveBroadcastStreamModel) async throws
     /**
         @param
         @return
@@ -72,7 +83,7 @@ protocol BroadcastsAPI {
      @return
         true if all broadcasts were deleted successfully. No error thrown.
      */
-    func deleteAllBroadcastsAsync() async throws -> Bool
+    func deleteAllBroadcastsAsync() async throws
     /**
      deleteBroadcasts - async function deleting broadcasts by IDs
      @param
@@ -80,12 +91,12 @@ protocol BroadcastsAPI {
      @return
         true if all broadcasts were deleted successfully
      */
-    func deleteBroadcastsAsync(_ broadcastIDs: [String]) async -> Bool
+    func deleteBroadcastsAsync(_ broadcastIDs: [String]) async throws
     /**
         @param
         @return
      */
-    func deleteBroadcast(id: String, completion: @escaping ((Result<Void, YTError>)) -> Void)
+    func deleteBroadcast(id: String) async throws
     /**
         @param
         @return
