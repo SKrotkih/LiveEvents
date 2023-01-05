@@ -23,10 +23,10 @@ typealias Reducer<State, Action, Environment> = (State, Action, Environment) asy
 ///
 final class Store<State, Action, Environment>: ObservableObject {
     @Published var state: State
-    
+
     private let reducer: Reducer<State, Action, Environment>
     private let environment: Environment
-    
+
     init(initialState: State,
          reducer: @escaping Reducer<State, Action, Environment>,
          environment: Environment) {
@@ -34,7 +34,7 @@ final class Store<State, Action, Environment>: ObservableObject {
         self.reducer = reducer
         self.environment = environment
     }
-    
+
     func stateDispatch(action: Action) {
         Task { @MainActor in
             do {

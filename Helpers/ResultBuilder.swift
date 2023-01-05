@@ -9,7 +9,7 @@ import Foundation
 
 @resultBuilder
 struct AutolayoutBuilder {
-    
+
     static func buildBlock(_ components: NSLayoutConstraint...) -> [NSLayoutConstraint] {
         components
     }

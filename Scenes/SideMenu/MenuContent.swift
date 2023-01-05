@@ -12,7 +12,7 @@ struct MenuContent: View, Themeable {
     @EnvironmentObject var listViewModel: VideoListViewModel
     @Environment(\.colorScheme) var colorScheme
     @Binding var isShowing: Bool
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -42,7 +42,7 @@ struct MenuContent: View, Themeable {
                 SortOfListRadioButton()
                 Spacer()
             }
-            
+
             Spacer()
             HStack {
                 Spacer()
@@ -97,11 +97,10 @@ struct UserAvatarView: View {
     }
 }
 
-
 struct SortOfListRadioButton: View {
     @EnvironmentObject var listViewModel: VideoListViewModel
     @State private var selection: Option?
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
@@ -142,14 +141,14 @@ struct SortOfListRadioButton: View {
                 break
             }
         }
-        .onAppear() {
+        .onAppear {
             selection = listViewModel.selectedListType.value == .byLifeCycleStatus ? .first : .second
         }
     }
 
     enum Option: CaseIterable, CustomStringConvertible {
         case first, second
-        
+
         var description: String {
             switch self {
             case .first:

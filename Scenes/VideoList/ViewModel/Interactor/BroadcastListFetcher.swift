@@ -11,21 +11,20 @@ import Combine
 class BroadcastListFetcher: BroadcastsDataFetcher {
     var sectionModels = CurrentValueSubject<[SectionModel], YTError>([])
     private var broadcastsAPI: BroadcastsAPI
-    
+
     required init(broadcastsAPI: BroadcastsAPI) {
         self.broadcastsAPI = broadcastsAPI
     }
-    
+
     func fetchBroadcastListData(sections: YTLiveVideoState...) async {
         do {
             let broadcastList = try await broadcastsAPI.getBroadcastListAsync(.all)
             await parseResponse(.success(broadcastList), sections: sections)
-        }
-        catch {
+        } catch {
             await parseResponse(.failure(error as! YTError), sections: sections)
         }
     }
-    
+
     func deleteBroadcasts(_ broadcastIDs: [String]) async throws {
         try await self.broadcastsAPI.deleteBroadcastsAsync(broadcastIDs)
     }
@@ -59,7 +58,7 @@ extension BroadcastListFetcher {
     }
 
     private func getSection(broadcastList: [LiveBroadcastStreamModel],
-                          section: YTLiveVideoState) async -> SectionModel {
+                            section: YTLiveVideoState) async -> SectionModel {
         let items = broadcastList.compactMap { listItem in
             let lifeCycleStatus = listItem.status?.lifeCycleStatus ?? "complete"
             switch lifeCycleStatus {
@@ -85,7 +84,7 @@ extension BroadcastListFetcher {
         let res = await self.parseResult(for: section, .success(a))
         return SectionModel(section: section, items: res.1, error: res.0)
     }
-    
+
     private func parseResult(for section: YTLiveVideoState, _ result: Result<[String: [LiveBroadcastStreamModel]], YTError>) async -> (String?, [String: [LiveBroadcastStreamModel]]) {
         let result: (String?, [String: [LiveBroadcastStreamModel]]) = await {
             switch result {
@@ -106,7 +105,7 @@ extension BroadcastListFetcher {
         }()
         return result
     }
-    
+
     private func getMockData(for section: YTLiveVideoState) async -> (String?, [String: [LiveBroadcastStreamModel]]) {
         switch await VideoListMockData.loadMockData(for: section) {
         case .success(let items):

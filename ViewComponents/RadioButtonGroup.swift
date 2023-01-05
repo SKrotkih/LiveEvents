@@ -7,7 +7,7 @@ import Foundation
 import SwiftUI
 
 struct RadioButtonGroup<Tag, CircleButton, Label>: View
-where Tag : Hashable, CircleButton : View, Label : View {
+where Tag: Hashable, CircleButton: View, Label: View {
   @Binding var selection: Tag?
   let orientation: Orientation
   let tags: [Tag]
@@ -44,7 +44,7 @@ where Tag : Hashable, CircleButton : View, Label : View {
 // MARK: - RadioButton
 
 struct RadioButton<Tag, CircleButton, Label>: View
-where Tag : Hashable, CircleButton : View, Label : View {
+where Tag: Hashable, CircleButton: View, Label: View {
   let tag: Tag
   @Binding var selection: Tag?
   @ViewBuilder let button: (Bool) -> CircleButton

@@ -11,7 +11,7 @@ struct AvatarImageView: View, Themeable {
     @EnvironmentObject var store: AuthReduxStore
     @Environment(\.colorScheme) var colorScheme
     @State var profilePicUrl: URL?
-    
+
     @ViewBuilder
     private var contentView: some View {
         if let url = profilePicUrl {

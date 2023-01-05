@@ -13,7 +13,7 @@ struct ThumbnailImage: View {
     let url: String?
     let width: CGFloat
     let height: CGFloat
-    
+
     var body: some View {
         if let url {
             AsyncImage(

@@ -15,11 +15,11 @@ import Combine
     @Published private(set) var errorMessage: String?
     @ObservedObject var store: AuthReduxStore = Router.store
     private var disposables = Set<AnyCancellable>()
-    
+
     init() {
         listeningToState()
     }
-    
+
     private func listeningToState() {
         store.$state
             .sink { state in
@@ -27,7 +27,7 @@ import Combine
                     let userSession = await state.userSession
                     let logInError = await state.error
                     switch (userSession, logInError) {
-                    case (.some(_) , .none):
+                    case (.some(_), .none):
                         self.errorMessage = nil
                         self.isConnected = true
                     case (.none, .some(_)):

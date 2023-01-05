@@ -14,29 +14,29 @@ import YTLiveStreaming
 ///
 protocol BroadcastsAPI {
     /**
-        @param
-        @return
+     @param
+     @return
      */
     func getUpcomingBroadcasts(_ completion: @escaping (Result<[LiveBroadcastStreamModel], YTError>) -> Void)
     /**
-        @param
-        @return
+     @param
+     @return
      */
     func getLiveNowBroadcasts(_ completion: @escaping (Result<[LiveBroadcastStreamModel], YTError>) -> Void)
     /**
-        @param
-        @return
+     @param
+     @return
      */
     func getCompletedBroadcasts(_ completion: @escaping (Result<[LiveBroadcastStreamModel], YTError>) -> Void)
     /**
-        @param
-        @return
+     @param
+     @return
      */
     func getAllBroadcasts(
         _ completion: @escaping ([LiveBroadcastStreamModel], [LiveBroadcastStreamModel], [LiveBroadcastStreamModel]) -> Void) throws
     /**
-        @param
-        @return
+     @param
+     @return
      */
     func getBroadcastListAsync(_ status: YTLiveVideoState) async throws -> [LiveBroadcastStreamModel]
     /**
@@ -49,72 +49,72 @@ protocol BroadcastsAPI {
      @return
      */
     func createBroadcast(_ body: PostLiveBroadcastBody,
-                                liveStreamName: String,
-                                completion: @escaping (Result<LiveBroadcastStreamModel, YTError>) -> Void)
+                         liveStreamName: String,
+                         completion: @escaping (Result<LiveBroadcastStreamModel, YTError>) -> Void)
     /**
-        @param
-        @return
+     @param
+     @return
      */
     func updateBroadcast(_ broadcast: LiveBroadcastStreamModel, completion: @escaping (Bool) -> Void)
     /**
-        @param
-        @return
+     @param
+     @return
      */
     func startBroadcastAsync(_ broadcast: LiveBroadcastStreamModel,
                              delegate: LiveStreamTransitioning) async throws -> (String?, String?, Date?)
     /**
-        @param
-        @return
+     @param
+     @return
      */
     func startBroadcast(_ broadcast: LiveBroadcastStreamModel, delegate: LiveStreamTransitioning, completion: @escaping (String?, String?, Date?) -> Void)
     /**
-        @param
-        @return
+     @param
+     @return
      */
     func completeBroadcastAsync(_ broadcast: LiveBroadcastStreamModel) async throws
     /**
-        @param
-        @return
+     @param
+     @return
      */
     func completeBroadcast(_ broadcast: LiveBroadcastStreamModel, completion: @escaping (Bool) -> Void)
     /**
      deleteAllBroadcastsAsync - async function deleting all broadcasts from the Ussr's account
      @param
      @return
-        true if all broadcasts were deleted successfully. No error thrown.
+     true if all broadcasts were deleted successfully. No error thrown.
      */
     func deleteAllBroadcastsAsync() async throws
     /**
      deleteBroadcasts - async function deleting broadcasts by IDs
      @param
-        broadcastsIDs - array of IDs which broadcasts will be deleted
+     broadcastsIDs - array of IDs which broadcasts will be deleted
      @return
-        true if all broadcasts were deleted successfully
+     true if all broadcasts were deleted successfully
      */
     func deleteBroadcastsAsync(_ broadcastIDs: [String]) async throws
     /**
-        @param
-        @return
+     @param
+     @return
      */
     func deleteBroadcast(id: String) async throws
     /**
-        @param
-        @return
+     @param
+     @return
      */
     func transitionBroadcast(_ broadcast: LiveBroadcastStreamModel, toStatus: String, completion: @escaping (Bool) -> Void)
     /**
-        @param
-        @return
+     @param
+     @return
      */
     func getStatusBroadcast(_ broadcast: LiveBroadcastStreamModel, stream: LiveStreamModel, completion: @escaping (String?, String?, String?) -> Void)
     /**
-        @param
-        @return
+     @param
+     @return
      */
     func transitionBroadcastToLiveState(liveBroadcast: LiveBroadcastStreamModel, liveState: @escaping (Bool) -> Void)
     /**
-        @param
-        @return
+     @param
+     @return
      */
     func isYouTubeAvailable() -> Bool
 }

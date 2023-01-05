@@ -12,7 +12,7 @@ struct SideMenuButton: View, Themeable {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.colorScheme) var colorScheme
     @Binding var isSideMenuShown: Bool
-    
+
     var body: some View {
         Button(
             action: {

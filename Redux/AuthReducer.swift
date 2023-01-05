@@ -57,6 +57,6 @@ func authReducer(state: AuthState,
     }.value
 
     await os_log("appstate: The user is %{private}@", log: OSLog.appState, type: .info, newState.isConnected ? "connected" : "disconnected")
-    
+
     return newState
 }

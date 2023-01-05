@@ -35,10 +35,10 @@ struct BroadcastModel {
     var privacyStatus: String = "unlisted"    // status.privacyStatus ("public", "private", "unlisted")
     //
     var isReusable: Bool = false            // For LiveStream insert used. Indicates whether the stream is reusable, which means that it can be bound to multiple broadcasts. It is common for broadcasters to reuse the same stream for many different broadcasts if those broadcasts occur at different times.
-    
+
     init() {
     }
-    
+
     init(model: LiveBroadcastStreamModel) {
         title = model.snippet.title
         scheduledStartTime = model.snippet.scheduledStartTime ?? Date()

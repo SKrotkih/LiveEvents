@@ -11,7 +11,7 @@ import YTLiveStreaming
 
 struct UpdateBroadcastView: View {
     @ObservedObject var viewModel: VideoDetailsViewModel
-    
+
     var body: some View {
         Spacer()
             .frame(height: 55.0)

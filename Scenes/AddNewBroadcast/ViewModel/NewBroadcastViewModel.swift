@@ -50,8 +50,7 @@ extension NewBroadcastViewModel {
             let broadcast = try await self.broadcastsAPI.createBroadcastAsync(body)
             print("You have scheduled a new broadcast with title '\(broadcast.snippet.title)'")
             await MainActor.run { isOperationInProgress = false }
-        }
-        catch {
+        } catch {
             await MainActor.run { isOperationInProgress = false }
             throw error
         }

@@ -12,7 +12,7 @@ import Combine
 ///
 struct MainBodyView: View {
     @EnvironmentObject var currentState: UserSessionState
-    
+
     var body: some View {
         NavigationView {
             if currentState.isConnected {

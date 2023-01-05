@@ -58,8 +58,7 @@ extension LiveStreamingViewModel: YouTubeLiveVideoPublisher {
                 rxError.onNext("Start broadcast method returns wrong data")
                 return (nil, nil)
             }
-        }
-        catch {
+        } catch {
             rxError.onNext("\(error.localizedDescription). The Model does not conform LiveStreamTransitioning protocol")
             return (nil, nil)
         }
@@ -74,8 +73,7 @@ extension LiveStreamingViewModel: YouTubeLiveVideoPublisher {
             do {
                 try await broadcastsAPI.completeBroadcastAsync(broadcast)
                 print("Broadcast \"\(broadcast.id)\" was cancelled!")
-            }
-            catch {
+            } catch {
                 let message = (error as! YTError).message()
                 self.rxError.onNext("System detected error while finishing the video./n\(message)")
             }
@@ -92,8 +90,7 @@ extension LiveStreamingViewModel: YouTubeLiveVideoPublisher {
             do {
                 try await broadcastsAPI.deleteBroadcast(id: broadcast.id)
                 print("Broadcast \"\(broadcast.id)\" was deleted!")
-            }
-            catch {
+            } catch {
                 let message = (error as! YTError).message()
                 self.rxError.onNext("System detected error while deleting the video./n\(message)/nTry to delete it in your YouTube account")
             }

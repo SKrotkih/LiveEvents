@@ -69,7 +69,7 @@ class SignInService: NetworkProtocol, ObservableObject {
     func setUpViewController(_ viewController: UIViewController) {
         presentingViewController = viewController
     }
-    
+
     var presentingViewController: UIViewController? {
         didSet {
             signInAPI.presentingViewController = presentingViewController

@@ -82,7 +82,7 @@ class LFLiveViewController: UIViewController {
     private func startPublishing() {
         Task {
             let (streamUrl, scheduledStartTime) = await viewModel.willStartPublishing()
-            await MainActor.run() {
+            await MainActor.run {
                 self.scheduledStartTime = scheduledStartTime
                 self.lfView.startPublishing(withStreamURL: streamUrl)
             }

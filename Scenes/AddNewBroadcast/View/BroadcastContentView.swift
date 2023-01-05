@@ -37,7 +37,7 @@ struct BroadcastContentView: View, Themeable {
                         .padding()
                 }
             }
-            Section() {
+            Section {
                 Toggle("Is it child-directed?", isOn: $model.selfDeclaredMadeForKids)
                     .tint(.red)
                 Toggle("Does this broadcast should start automatically when you start streaming video on the bound live stream?", isOn: $model.enableAutoStart)
@@ -63,7 +63,7 @@ struct BroadcastContentView: View, Themeable {
                 Toggle("Is this stream common for broadcasters to reuse the same stream for many different broadcasts?", isOn: $model.isReusable)
                     .tint(.red)
             }
-            Section() {
+            Section {
                 Picker("Select a privacy status", selection: $model.privacyStatus) {
                     ForEach(["public", "private", "unlisted"], id: \.self) {
                         Text($0)

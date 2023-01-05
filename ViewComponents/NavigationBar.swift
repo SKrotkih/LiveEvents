@@ -12,7 +12,7 @@ import SwiftUI
 ///
 struct NavigationBar: ViewModifier, Themeable {
     var title: String
-    
+
     @Environment(\.colorScheme) var colorScheme
 
     func body(content: Content) -> some View {

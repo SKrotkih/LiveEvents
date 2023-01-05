@@ -32,7 +32,7 @@ struct VideoDetailsView: View, Themeable {
                 isShowingVideoPlayer = newValue == .playVideo
                 isShowingUpdate = newValue == .update
             }
-            .onAppear() {
+            .onAppear {
                 isShowingVideoPlayer = false
                 isShowingUpdate = false
             }
@@ -73,7 +73,7 @@ struct VideoDetailsView: View, Themeable {
                 .frame(height: 60.0)
         }
     }
-    
+
     private var moreDetails: some View {
         ScrollView {
             VStack {
@@ -87,7 +87,7 @@ struct VideoDetailsView: View, Themeable {
             }
         }
     }
-    
+
     struct DetailsRow: View {
         let title: String
         let value: String?
@@ -120,7 +120,7 @@ struct PlayVideoButton: View, Themeable {
     let viewModel: VideoDetailsViewModel
     @Binding var action: VideoDetailsActions
     let runAction: VideoDetailsActions
-    
+
     var body: some View {
         Button(action: {
             action = runAction
@@ -140,7 +140,7 @@ struct UpdateBroadcastButton: View, Themeable {
     let viewModel: VideoDetailsViewModel
     @Binding var action: VideoDetailsActions
     let runAction: VideoDetailsActions
-    
+
     var body: some View {
         HStack {
             Button(action: {

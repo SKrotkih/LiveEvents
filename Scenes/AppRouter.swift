@@ -23,7 +23,7 @@ class AppRouter: NSObject {
     }()
 
     let environment: NetworkService
-    
+
     lazy var apiProvider: YTApiProvider = {
         YTApiProvider(store: store)
     }()
@@ -79,7 +79,7 @@ extension AppRouter {
     /// Start Live Video
     @MainActor
     func playVideo(with videoId: String) { }
-    
+
     /// Start Live Video
     @MainActor
     func openLiveVideoScreen() {

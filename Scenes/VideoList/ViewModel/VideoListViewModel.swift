@@ -54,7 +54,7 @@ final class VideoListViewModel: VideoListViewModelInterface {
     @Published var sections = [VideoListSection]()
     @Published var errorMessage = ""
     @Published var isDataDownloading = false
-    
+
     var selectedListType = CurrentValueSubject<ListByType, Never>(.byLifeCycleStatus)
     let dataSource: any BroadcastsDataFetcher
     let store: AuthReduxStore
@@ -93,13 +93,12 @@ final class VideoListViewModel: VideoListViewModelInterface {
             try await dataSource.deleteBroadcasts(broadcastIDs)
             await MainActor.run { isDataDownloading.toggle() }
             loadData(sortType: selectedListType.value)
-        }
-        catch {
+        } catch {
             await MainActor.run { isDataDownloading.toggle() }
             throw error
         }
     }
-    
+
     // Subscribe on chenging list sort order
     private func subscribeOnData() {
         enum ConcurrencyWay {
@@ -108,7 +107,7 @@ final class VideoListViewModel: VideoListViewModelInterface {
         }
         // Strategy: which alhorothm will be used (just as an example)
         let concurrencyWay: ConcurrencyWay = .asyncLet
-        
+
         dataSource.sectionModels
             .sink(receiveCompletion: { result in
                 if case let .failure(error) = result {
@@ -175,7 +174,7 @@ final class VideoListViewModel: VideoListViewModelInterface {
         }
         await MainActor.run { self.sections = _sections }
     }
-    
+
     // Presenter: prepare reseived data for presenting
     // [SectionModel] - model
     // [VideoListSection] - presentable data
@@ -198,7 +197,7 @@ final class VideoListViewModel: VideoListViewModelInterface {
         }
         return result
     }
-    
+
     private func prepareAllSection(data: [SectionModel]) async -> [VideoListSection] {
         var result = [VideoListSection]()
         data.forEach { sectionModel in
@@ -215,7 +214,7 @@ final class VideoListViewModel: VideoListViewModelInterface {
         }
         return result
     }
-    
+
     private func parseError(data: [SectionModel]) async -> String {
         let message: String = data.reduce("") { partialResult, item in
             var message = ""

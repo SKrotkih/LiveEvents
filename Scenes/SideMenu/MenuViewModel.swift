@@ -33,13 +33,13 @@ final class MenuViewModel: MenuViewModelInterface {
     @Published var userName: String = ""
 
     @Published var actions: HomeViewActions = .nothing
-    
+
     private var disposables = Set<AnyCancellable>()
     private let store: AuthReduxStore
 
     init(store: AuthReduxStore) {
         self.store = store
-        
+
         $actions
             .sink { userActivities in
                 switch userActivities {

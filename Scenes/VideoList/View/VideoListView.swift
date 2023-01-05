@@ -22,7 +22,7 @@ struct VideoListView: View {
     @State private var error: YTError = .message("No Errors")
 
     var sss = Set<AnyCancellable>()
-    
+
     var body: some View {
         contentView
             .navigationBar(title: "My live video")
@@ -36,8 +36,7 @@ struct VideoListView: View {
                     Task {
                         do {
                             try await viewModel.deleteBroadcasts(selectedIDs)
-                        }
-                        catch {
+                        } catch {
                             self.error = error as! YTError
                             showFailedDeleteAlert = true
                         }
@@ -86,13 +85,12 @@ struct VideoListView: View {
         }
         .loadingIndicator(viewModel.isDataDownloading)
     }
-    
+
     private func deleteselectedItems() {
         Task {
             do {
                 try await viewModel.deleteBroadcasts(selectedIDs)
-            }
-            catch {
+            } catch {
                 self.error = error as! YTError
                 showFailedDeleteAlert = true
             }
@@ -130,7 +128,7 @@ struct VideoList<ViewModel>: View, Themeable where ViewModel: VideoListViewModel
         }
         .listStyle(GroupedListStyle())
     }
-    
+
     struct ListRow: View, Themeable {
         @Environment(\.colorScheme) var colorScheme
         let item: VideoListRow
@@ -143,7 +141,7 @@ struct VideoList<ViewModel>: View, Themeable where ViewModel: VideoListViewModel
                 .padding(.top, 4.0)
                 .padding(.bottom, 4.0)
         }
-        
+
         func rowItem(_ item: VideoListRow) -> some View {
             HStack(alignment: .center) {
                 if selectMode {
@@ -241,4 +239,3 @@ struct VideoListView_Previews: PreviewProvider {
             .environmentObject(videoListViewModel)
     }
 }
-
