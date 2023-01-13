@@ -5,9 +5,8 @@
 //  Created by Serhii Krotkykh on 22.11.2022.
 //
 import SwiftUI
-///
-/// Side Menu
-///
+
+/// Side Menu Modifier
 struct SideMenu<MenuContent: View>: ViewModifier {
     @Binding var isShowing: Bool
     private let menuContent: () -> MenuContent

@@ -21,7 +21,7 @@ struct SideMenuButton: View, Themeable {
                 HStack {
                     Image(systemName: "line.horizontal.3")
                         .imageScale(.large)
-                        .foregroundColor(.black)
+                        .foregroundColor(backButtonColor)
                 }
             })
     }

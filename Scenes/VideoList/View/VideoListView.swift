@@ -25,9 +25,6 @@ struct VideoListView: View {
 
     var body: some View {
         contentView
-            .navigationBar(title: "My live video")
-            .navigationBarItems(leading: SideMenuButton(isSideMenuShown: $isSideMenuShowing),
-                                trailing: NewStreamButton())
             .sideMenu(isShowing: $isSideMenuShowing) {
                 MenuContent(isShowing: $isSideMenuShowing)
             }
@@ -49,6 +46,9 @@ struct VideoListView: View {
                     selectMode.toggle()
                 }
             }
+            .navigationBar(title: "My live video")
+            .navigationBarItems(leading: SideMenuButton(isSideMenuShown: $isSideMenuShowing),
+                                trailing: NewStreamButton())
             .alert(self.error.message(), isPresented: $showFailedDeleteAlert) {
                 Button("OK", role: .cancel) { }
             }

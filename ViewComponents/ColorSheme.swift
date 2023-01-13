@@ -40,10 +40,10 @@ extension Themeable {
         colorScheme == .dark ? .white : .gray
     }
     var videoListPlusButtonColor: Color {
-        colorScheme == .dark ? .white : .black
+        colorScheme == .dark ? .white : .white
     }
     var backButtonColor: Color {
-        colorScheme == .dark ? .white : .black
+        colorScheme == .dark ? .white : .white
     }
     var loadingIndicatorBGColor: Color {
         colorScheme == .dark ? .white : .black
@@ -55,6 +55,9 @@ extension Themeable {
         colorScheme == .dark ? .white : .black
     }
     var doneButtonColor: Color {
-        colorScheme == .dark ? .white : .black
+        colorScheme == .dark ? .white : .white
+    }
+    var menuBackgroundColor: Color {
+        colorScheme == .dark ? .red : .red
     }
 }

@@ -66,7 +66,7 @@ struct MenuContent: View, Themeable {
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(.gray)
+        .background(menuBackgroundColor)
         .edgesIgnoringSafeArea(.all)
     }
 }
