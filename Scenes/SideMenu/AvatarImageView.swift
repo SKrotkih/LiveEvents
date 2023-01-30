@@ -23,11 +23,9 @@ struct AvatarImageView: View, Themeable {
 
     var body: some View {
         contentView
-            .onAppear {
-                Task {
-                    if let userSession = await store.state.userSession {
-                        profilePicUrl = userSession.profile?.profilePicUrl
-                    }
+            .task {
+                if let userSession = await store.state.userSession {
+                    profilePicUrl = userSession.profile?.profilePicUrl
                 }
             }
     }

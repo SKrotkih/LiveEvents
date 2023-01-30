@@ -2,12 +2,16 @@
 //  LogOutButton.swift
 //  LiveEvents
 //
-//  Created by Sergey Krotkih on 22.12.2022.
+//  Created by Serhii Krotkykh on 22.12.2022.
 //  Copyright © 2022 Serhii Krotkykh. All rights reserved.
 //
 import SwiftUI
 
-/// Log out button
+/// Log out button View Structure
+///  fields:
+///  title - caption of the button
+///  action - binding with client filed
+///  runAction - action which will be executed while press on the button
 struct LogOutButton: View, Themeable {
     @Environment(\.colorScheme) var colorScheme
 

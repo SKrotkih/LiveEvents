@@ -2,10 +2,9 @@
 //  ThumbnailImage.swift
 //  LiveEvents
 //
-//  Created by Sergey Krotkih on 24.12.2022.
+//  Created by Serhii Krotkykh on 24.12.2022.
 //  Copyright © 2022 Serhii Krotkykh. All rights reserved.
 //
-
 import Foundation
 import SwiftUI
 

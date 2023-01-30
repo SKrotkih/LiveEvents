@@ -4,7 +4,6 @@
 //
 //  Created by Serhii Krotkykh on 10/14/22.
 //
-
 import SwiftUI
 
 struct NewBroadcastView: View {

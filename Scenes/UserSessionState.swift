@@ -8,7 +8,7 @@ import SwiftUI
 import Combine
 
 ///
-/// Current user session state safe observable object
+/// Current user session state safed observable object
 ///
 @MainActor final class UserSessionState: ObservableObject {
     @Published private(set) var isConnected = false
@@ -19,7 +19,8 @@ import Combine
     init() {
         listeningToState()
     }
-
+    
+    /// subscribe to the Redux storage state changes
     private func listeningToState() {
         store.$state
             .sink { state in

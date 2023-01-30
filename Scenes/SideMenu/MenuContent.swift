@@ -2,7 +2,7 @@
 //  MenuContent.swift
 //  LiveEvents
 //
-//  Created by Sergey Krotkih on 22.12.2022.
+//  Created by Serhii Krotkykh on 22.12.2022.
 //  Copyright © 2022 Serhii Krotkykh. All rights reserved.
 //
 import SwiftUI
@@ -21,16 +21,17 @@ struct MenuContent: View, Themeable {
                     withAnimation {
                         self.isShowing = false
                     }
-                }) {
+                }, label: {
                     HStack {
                         Image(systemName: "xmark")
                             .foregroundColor(.white)
                     }
-                }
+                })
             }
             .padding(.bottom, 5.0)
             HStack {
-                UserAvatarView()
+                AvatarImageView()
+                    .padding(.trailing, 0.0)
                     .padding(.leading, 5.0)
                 Spacer()
                 UserNameView()
@@ -84,16 +85,6 @@ struct UserNameView: View, Themeable {
                     await viewModel.downloadUserName()
                 }
             }
-    }
-}
-
-/// User's profile avatar image View
-struct UserAvatarView: View {
-    var body: some View {
-        HStack {
-            AvatarImageView()
-                .padding(.trailing, 0.0)
-        }
     }
 }
 

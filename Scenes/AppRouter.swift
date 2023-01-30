@@ -44,11 +44,11 @@ class AppRouter: NSObject {
     }
 }
 
-// MARK: - Dependencies Injection
-
 extension AppRouter {
-    @MainActor
-    func createMainContentView() -> some View {
+    
+    /// Create content view for the main screen
+    /// - Returns: content View as the opaque type
+    @MainActor func createMainContentView() -> some View {
         ///
         /// For the  app views environment configuration
         ///

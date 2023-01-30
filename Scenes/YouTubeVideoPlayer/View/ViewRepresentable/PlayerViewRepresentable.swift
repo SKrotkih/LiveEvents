@@ -4,7 +4,6 @@
 //
 //  Created by Serhii Krotkykh
 //
-
 import SwiftUI
 
 struct PlayerViewRepresentable: UIViewRepresentable {

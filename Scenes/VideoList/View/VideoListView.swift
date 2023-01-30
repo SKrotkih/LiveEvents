@@ -21,8 +21,6 @@ struct VideoListView: View {
     @State private var showFailedDeleteAlert = false
     @State private var error: YTError = .message("No Errors")
 
-    var sss = Set<AnyCancellable>()
-
     var body: some View {
         contentView
             .sideMenu(isShowing: $isSideMenuShowing) {

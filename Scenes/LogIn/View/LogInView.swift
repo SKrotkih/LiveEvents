@@ -4,13 +4,10 @@
 //
 //  Created by Serhii Krotkykh
 //
-
 import SwiftUI
 import SwiftGoogleSignIn
 
-///
-/// Google Sign In content view
-///
+/// Google connect to the User account via sign in buton
 struct LogInView: View {
     @EnvironmentObject var viewModel: LogInViewModel
     @EnvironmentObject var currentState: UserSessionState

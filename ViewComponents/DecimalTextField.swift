@@ -4,11 +4,10 @@
 //
 //  Created by Serhii Krotkykh on 11/6/22.
 //
-
 import SwiftUI
 import Combine
 ///
-/// TextField with only decimal symbols enter ability
+/// limit text field entering just decimal symbols
 ///
 func decimalTextField(_ title: String, _ bindingString: Binding<String>) -> some View {
     TextField(title, text: bindingString)

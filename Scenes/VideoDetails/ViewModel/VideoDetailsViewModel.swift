@@ -2,7 +2,7 @@
 //  VideoDetailsViewModel.swift
 //  LiveEvents
 //
-//  Created by Sergey Krotkih on 23.12.2022.
+//  Created by Serhii Krotkykh on 23.12.2022.
 //  Copyright © 2022 Serhii Krotkykh. All rights reserved.
 //
 import Foundation
@@ -49,7 +49,7 @@ final class VideoDetailsViewModel: ObservableObject {
     var scheduledStartTime: String? { model.snippet.scheduledStartTime?.fullDateFormat } // The date and time that the broadcast is scheduled to start. The value is specified in ISO 8601 (YYYY-MM-DDThh:mm:ss.sZ) format. Creator Studio supports the ability to create a broadcast without scheduling a start time. In this case, the broadcast starts whenever the channel owner starts streaming. For these broadcasts, the datetime value corresponds to UNIX time zero, and this value cannot be changed via the API or in Creator Studio.
     var scheduledEndTime: String? { model.snippet.scheduledEndTime?.fullDateFormat }   // The date and time that the broadcast is scheduled to end. The value is specified in ISO 8601 (YYYY-MM-DDThh:mm:ss.sZ) format. If a liveBroadcast resource does not specify a value for this property, then the broadcast is scheduled to continue indefinitely. Similarly, if you do not specify a value for this property, then YouTube treats the broadcast as if it will go on indefinitely.
     var actualStartTime: String? { model.snippet.actualStartTime?.fullDateFormat }    // The date and time that the broadcast actually started. This information is only available once the broadcast's state is live. The value is specified in ISO 8601 (YYYY-MM-DDThh:mm:ss.sZ) format.
-    var actualEndTime: String?  { model.snippet.actualEndTime?.fullDateFormat }      // The date and time that the broadcast actually ended. This information is only available once the broadcast's state is complete. The value is specified in ISO 8601 (YYYY-MM-DDThh:mm:ss.sZ) format.
+    var actualEndTime: String? { model.snippet.actualEndTime?.fullDateFormat }      // The date and time that the broadcast actually ended. This information is only available once the broadcast's state is complete. The value is specified in ISO 8601 (YYYY-MM-DDThh:mm:ss.sZ) format.
     var thumbnailsDef: (String?, width: CGFloat, height: CGFloat) {
         let url = model.snippet.thumbnails.def.url
         let w = model.snippet.thumbnails.def.width

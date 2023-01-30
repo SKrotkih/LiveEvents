@@ -7,9 +7,8 @@
 import SwiftUI
 import Combine
 
-///
-/// Switching Sign in view or home view depends on either the user  has logged or not
-///
+/// Video list (Home screen) or the log in screen dispatcher
+/// Depends on the current connection state
 struct MainBodyView: View {
     @EnvironmentObject var currentState: UserSessionState
 

@@ -2,7 +2,7 @@
 //  VideoPlayerFactory.swift
 //  LiveEvents
 //
-//  Created by Sergey Krotkih on 09.12.2022.
+//  Created by Serhii Krotkykh on 09.12.2022.
 //
 import Foundation
 
