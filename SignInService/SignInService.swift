@@ -53,7 +53,8 @@ final class SignInService: NetworkProtocol, ObservableObject {
 
     private var disposables = Set<AnyCancellable>()
 
-    init() {}
+    // Nothing actor-isolated is touched here, so the singleton AppRouter can create it off the main actor.
+    nonisolated init() {}
 
     func configure() {
         signInAPI.initialize(Self.youtubeScopes)
