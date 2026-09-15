@@ -36,7 +36,17 @@ extension UIStoryboard {
     private func setUpRootViewController(_ viewController: UIViewController?) {
     }
 
+    /// Instantiates `T` by its class-name identifier, lets the caller inject dependencies,
+    /// and presents it full screen from the top-most view controller.
     func segueToModalViewController<T>(_ configure: (T, Any?) -> Void, optional: Any? = nil) where T: UIViewController {
+        let id = String(describing: T.self)
+        guard let viewController = self.instantiateViewController(withIdentifier: id) as? T else {
+            assertionFailure("Failed to open \(id) viewcontroller")
+            return
+        }
+        configure(viewController, optional)
+        viewController.modalPresentationStyle = .fullScreen
+        UIApplication.shared.topViewController?.present(viewController, animated: true)
     }
 
     func sequePushViewController<T>(_ configure: (T) -> Void) where T: UIViewController {
@@ -46,5 +56,21 @@ extension UIStoryboard {
 extension UIStoryboard {
     @nonobjc class var main: UIStoryboard {
         return UIStoryboard(name: AppRouter.StroyboadType.main.rawValue, bundle: nil)
+    }
+}
+
+extension UIApplication {
+    /// The view controller currently on top of the key window, following presented controllers.
+    var topViewController: UIViewController? {
+        let root = connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap { $0.windows }
+            .first { $0.isKeyWindow }?
+            .rootViewController
+        var top = root
+        while let presented = top?.presentedViewController {
+            top = presented
+        }
+        return top
     }
 }

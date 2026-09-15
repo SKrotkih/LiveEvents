@@ -17,7 +17,8 @@ class LiveStreamingViewModel: NSObject {
     var rxStateDescription = PublishSubject<String>()
     var rxError = PublishSubject<String>()
 
-    fileprivate var liveBroadcast: LiveBroadcastStreamModel?
+    /// The broadcast to stream to; injected by AppRouter before the screen is shown.
+    var liveBroadcast: LiveBroadcastStreamModel?
     /// Polls YouTube and takes the broadcast live once the encoder is sending (YTLiveStreaming 1.0).
     private var monitorTask: Task<Void, Never>?
 
@@ -27,18 +28,6 @@ class LiveStreamingViewModel: NSObject {
 
     deinit {
         monitorTask?.cancel()
-    }
-}
-
-// MARK: -
-
-extension LiveStreamingViewModel {
-    @MainActor private func startBroadcast(_ liveBroadcast: LiveBroadcastStreamModel) {
-        self.liveBroadcast = liveBroadcast
-
-        print("Watch the live video here: \(liveBroadcast.watchURL?.absoluteString ?? liveBroadcast.id)")
-
-        Router.openLiveVideoScreen()
     }
 }
 

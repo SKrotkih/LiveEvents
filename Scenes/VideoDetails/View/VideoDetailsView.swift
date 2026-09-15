@@ -53,6 +53,10 @@ struct VideoDetailsView: View, Themeable {
                 }
             }
             DetailsRow(title: "", value: viewModel.title)
+            if viewModel.canGoLive {
+                GoLiveButton(viewModel: viewModel)
+                    .padding(.vertical, 8.0)
+            }
             HStack {
                 Button(action: {
                     isShowninhMore.toggle()
@@ -154,5 +158,27 @@ struct UpdateBroadcastButton: View, Themeable {
                 }
             })
         }
+    }
+}
+
+/// Opens the camera screen and streams this broadcast to YouTube (physical device only).
+struct GoLiveButton: View {
+    let viewModel: VideoDetailsViewModel
+
+    var body: some View {
+        Button(action: {
+            Router.openLiveVideoScreen(for: viewModel.broadcast)
+        }, label: {
+            HStack {
+                Image(systemName: "dot.radiowaves.left.and.right")
+                Text("Go live")
+                    .fontWeight(.semibold)
+            }
+            .padding(.horizontal, 24.0)
+            .padding(.vertical, 10.0)
+            .foregroundColor(.white)
+            .background(Color.red)
+            .cornerRadius(10.0)
+        })
     }
 }

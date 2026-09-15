@@ -8,6 +8,7 @@
 import UIKit
 import SwiftUI
 import Combine
+import YTLiveStreaming
 
 let Router = AppRouter.shared
 
@@ -80,18 +81,19 @@ extension AppRouter {
     @MainActor
     func playVideo(with videoId: String) { }
 
-    /// Start Live Video
+    /// Opens the camera / RTMP screen for `broadcast` (created with a bound stream).
     @MainActor
-    func openLiveVideoScreen() {
-        UIStoryboard.main.segueToModalViewController(self.liveVideoDependencies, optional: nil)
+    func openLiveVideoScreen(for broadcast: LiveBroadcastStreamModel) {
+        UIStoryboard.main.segueToModalViewController(self.liveVideoDependencies, optional: broadcast)
     }
 
     ///
-    /// Inject dependecncies in the LFLiveViewController (old fashion)
+    /// Inject dependencies in the LFLiveViewController (old fashion)
     ///
     private func liveVideoDependencies(_ viewController: LFLiveViewController, _ optional: Any?) {
         let viewModel = LiveStreamingViewModel()
         viewModel.broadcastsAPI = apiProvider.getApi()
+        viewModel.liveBroadcast = optional as? LiveBroadcastStreamModel
         viewController.viewModel = viewModel
     }
 }

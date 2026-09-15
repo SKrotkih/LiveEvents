@@ -22,6 +22,17 @@ final class VideoDetailsViewModel: ObservableObject {
     private var disposables = Set<AnyCancellable>()
 
     var broadcastModel: BroadcastModel { BroadcastModel(model: model) }
+    var broadcast: LiveBroadcastStreamModel { model }
+
+    /// A broadcast can be taken live from the phone while it is scheduled or already in testing.
+    var canGoLive: Bool {
+        switch model.lifeCycleStatus {
+        case .created, .ready, .testStarting, .testing, .liveStarting, .live:
+            return model.contentDetails?.boundStreamId != nil
+        default:
+            return false
+        }
+    }
 
     init(videoDetails: LiveBroadcastStreamModel) {
         self.model = videoDetails

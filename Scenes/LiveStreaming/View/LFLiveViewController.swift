@@ -101,22 +101,22 @@ class LFLiveViewController: UIViewController {
     }
 
     private func startListeningToModelEvents() {
+        // The view model emits from the monitor's background task; UIKit must be touched on main.
         viewModel
             .rxDidUserFinishWatchVideo
-            .subscribe(onNext: { _ in
-                Task {
-                    await MainActor.run { [weak self] in
-                        self?.dismiss(animated: true, completion: {})
-                    }
-                }
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.dismiss(animated: true, completion: nil)
             }).disposed(by: disposeBag)
         viewModel
             .rxStateDescription
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] state in
                 self?.showCurrentStatus(currStatus: state)
             }).disposed(by: disposeBag)
         viewModel
             .rxError
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] message in
                 self?.showError(message)
             }).disposed(by: disposeBag)
