@@ -46,7 +46,7 @@ The app uses Redux pattern. In current version it's used for Sign In only. Pleas
 
 - [SwiftGoogleSignIn](https://github.com/SKrotkih/SwiftGoogleSignIn.git) package uses
 [Goggle Sign-In for iOS](https://developers.google.com/identity/sign-in/ios/start-integrating).
-- [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) used as a package in current release (can be used as Cocoa Pods Framework too).
+- [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) 1.0 used as a Swift package (SPM only; CocoaPods is no longer supported by the library).
 
 ## Video
 ![LiveEvents Demo Video](https://user-images.githubusercontent.com/2775621/203057067-4312cba6-dd33-40dc-9fa1-d278e6ce55b9.gif)
@@ -64,6 +64,7 @@ Author
 Serhii Krotkykh
 
 Changes history:
+- 15-09-2026 Migrate to YTLiveStreaming 1.0: `YouTubeLiveClient` + `TokenProvider` bridged to the Redux session, `createBroadcastWithStream`, `monitor(broadcastID:)` instead of the delegate; mock data updated
 - 20-12-2022 Update according 0.2.29 YTLeaveStreaming package build requarements, update mock data
 - 19-12-2022 Update according of the 0.2.28 YTLeaveStreaming package build
 - 30-11-2022 update with SwiftGoogleSignIn 1.57 build

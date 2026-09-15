@@ -10,7 +10,7 @@ import YTLiveStreaming
 /// Get test mock data
 ///
 struct VideoListMockData {
-    static func loadMockData(for state: YTLiveVideoState) async -> Result<[String: [LiveBroadcastStreamModel]], LVError> {
+    static func loadMockData(for state: BroadcastListFilter) async -> Result<[String: [LiveBroadcastStreamModel]], LVError> {
         let fileName = {
             switch state {
             case .completed:
@@ -28,12 +28,7 @@ struct VideoListMockData {
         switch data {
         case .success(let model):
             model.items.forEach { item in
-                if let status = item.status?.lifeCycleStatus.lowercased() {
-                    if a[status] == nil {
-                        a[status] = []
-                    }
-                    a[status]?.append(item)
-                }
+                a[item.lifeCycleStatus.rawValue, default: []].append(item)
             }
             debugPrint(a)
             return .success(a)

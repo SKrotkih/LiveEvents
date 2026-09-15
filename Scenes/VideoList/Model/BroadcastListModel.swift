@@ -8,7 +8,7 @@ import Foundation
 import YTLiveStreaming
 
 struct SectionModel {
-    var section: YTLiveVideoState
+    var section: BroadcastListFilter
     var items: [String: [LiveBroadcastStreamModel]]
     var error: String?
 }
@@ -20,7 +20,7 @@ extension SectionModel {
     }
 }
 
-extension YTLiveVideoState {
+extension BroadcastListFilter {
     var index: Int {
         switch self {
         case .upcoming:

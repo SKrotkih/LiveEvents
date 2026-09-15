@@ -15,14 +15,14 @@ protocol BroadcastsDataFetcher: ObservableObject {
     /// - Parameters:
     ///
     /// - Returns:
-    func fetchBroadcastListData(sections: YTLiveVideoState...) async
+    func fetchBroadcastListData(sections: BroadcastListFilter...) async
     /// Get Current Broadcast
     ///
     /// - Parameters:
     ///     - index of the Broadcast source data
     ///
     /// - Returns:
-    var sectionModels: CurrentValueSubject<[SectionModel], YTError> { get }
+    var sectionModels: CurrentValueSubject<[SectionModel], YouTubeLiveError> { get }
     /// Delete Broadcasts
     ///
     /// - Parameters:

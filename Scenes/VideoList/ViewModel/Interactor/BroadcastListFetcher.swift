@@ -9,31 +9,31 @@ import YTLiveStreaming
 import Combine
 
 class BroadcastListFetcher: BroadcastsDataFetcher {
-    var sectionModels = CurrentValueSubject<[SectionModel], YTError>([])
-    private var broadcastsAPI: BroadcastsAPI
+    var sectionModels = CurrentValueSubject<[SectionModel], YouTubeLiveError>([])
+    private let broadcastsAPI: YouTubeLiveClient
 
-    required init(broadcastsAPI: BroadcastsAPI) {
+    required init(broadcastsAPI: YouTubeLiveClient) {
         self.broadcastsAPI = broadcastsAPI
     }
 
-    func fetchBroadcastListData(sections: YTLiveVideoState...) async {
+    func fetchBroadcastListData(sections: BroadcastListFilter...) async {
         do {
-            let broadcastList = try await broadcastsAPI.getBroadcastListAsync(.all)
+            let broadcastList = try await broadcastsAPI.allBroadcasts(.all)
             await parseResponse(.success(broadcastList), sections: sections)
         } catch {
-            await parseResponse(.failure(error as! YTError), sections: sections)
+            await parseResponse(.failure(error.asYouTubeLiveError), sections: sections)
         }
     }
 
     func deleteBroadcasts(_ broadcastIDs: [String]) async throws {
-        try await self.broadcastsAPI.deleteBroadcastsAsync(broadcastIDs)
+        try await broadcastsAPI.deleteBroadcasts(ids: broadcastIDs)
     }
 }
 
 // MARK: - Load Data: Private Methods
 
 extension BroadcastListFetcher {
-    private func parseResponse(_ result: Result<[LiveBroadcastStreamModel], YTError>, sections: [YTLiveVideoState]) async {
+    private func parseResponse(_ result: Result<[LiveBroadcastStreamModel], YouTubeLiveError>, sections: [BroadcastListFilter]) async {
         switch result {
         case .success(let broadcastList):
             var _sectionModels = [SectionModel]()
@@ -58,60 +58,58 @@ extension BroadcastListFetcher {
     }
 
     private func getSection(broadcastList: [LiveBroadcastStreamModel],
-                            section: YTLiveVideoState) async -> SectionModel {
-        let items = broadcastList.compactMap { listItem in
-            let lifeCycleStatus = listItem.status?.lifeCycleStatus ?? "complete"
-            switch lifeCycleStatus {
-            case "ready" where (section == .upcoming):
-                return listItem
-            case "live" where (section == .active):
-                return listItem
-            case "complete" where (section == .completed):
-                return listItem
+                            section: BroadcastListFilter) async -> SectionModel {
+        let items = broadcastList.filter { item in
+            switch (item.lifeCycleStatus, section) {
+            case (_, .all):
+                return true
+            case (.ready, .upcoming), (.created, .upcoming),
+                 (.live, .active), (.liveStarting, .active), (.testing, .active), (.testStarting, .active),
+                 (.complete, .completed):
+                return true
             default:
-                return nil
+                return false
             }
         }
-        var a: [String: [LiveBroadcastStreamModel]] = [:]
+        var groups: [String: [LiveBroadcastStreamModel]] = [:]
         items.forEach { item in
-            if let status = item.status?.lifeCycleStatus.lowercased() {
-                if a[status] == nil {
-                    a[status] = []
-                }
-                a[status]?.append(item)
-            }
+            groups[item.lifeCycleStatus.rawValue, default: []].append(item)
         }
-        let res = await self.parseResult(for: section, .success(a))
+        let res = await self.parseResult(for: section, .success(groups))
         return SectionModel(section: section, items: res.1, error: res.0)
     }
 
-    private func parseResult(for section: YTLiveVideoState, _ result: Result<[String: [LiveBroadcastStreamModel]], YTError>) async -> (String?, [String: [LiveBroadcastStreamModel]]) {
-        let result: (String?, [String: [LiveBroadcastStreamModel]]) = await {
-            switch result {
-            case .success(let items):
-                if section == .all && items.count == 0 && DSSettings.USE_MOCK_DATA {
-                    return await getMockData(for: section)
-                } else {
-                    return (nil, items)
-                }
-            case .failure(let error):
-                if DSSettings.USE_MOCK_DATA {
-                    return await getMockData(for: section)
-                } else {
-                    let errMessage = "\(section):\n" + error.message()
-                    return (errMessage, [:])
-                }
+    private func parseResult(for section: BroadcastListFilter, _ result: Result<[String: [LiveBroadcastStreamModel]], YouTubeLiveError>) async -> (String?, [String: [LiveBroadcastStreamModel]]) {
+        switch result {
+        case .success(let items):
+            if section == .all && items.isEmpty && DSSettings.USE_MOCK_DATA {
+                return await getMockData(for: section)
+            } else {
+                return (nil, items)
             }
-        }()
-        return result
+        case .failure(let error):
+            if DSSettings.USE_MOCK_DATA {
+                return await getMockData(for: section)
+            } else {
+                let errMessage = "\(section):\n" + error.localizedDescription
+                return (errMessage, [:])
+            }
+        }
     }
 
-    private func getMockData(for section: YTLiveVideoState) async -> (String?, [String: [LiveBroadcastStreamModel]]) {
+    private func getMockData(for section: BroadcastListFilter) async -> (String?, [String: [LiveBroadcastStreamModel]]) {
         switch await VideoListMockData.loadMockData(for: section) {
         case .success(let items):
             return (nil, items)
         case .failure(let error):
             return (error.message(), [:])
         }
+    }
+}
+
+extension Error {
+    /// Anything the client throws is already a `YouTubeLiveError`; wrap the rest (e.g. `CancellationError`).
+    var asYouTubeLiveError: YouTubeLiveError {
+        (self as? YouTubeLiveError) ?? .transport(self)
     }
 }

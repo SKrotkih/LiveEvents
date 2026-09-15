@@ -1,161 +1,161 @@
 {
-  "kind": "youtube#liveBroadcastListResponse",
-  "etag": "KCnQtt9iUoHymnlXpTqinERlt4Y",
-  "pageInfo": {
-    "totalResults": 4,
-    "resultsPerPage": 25
-  },
-  "items": [
-    {
-      "kind": "youtube#liveBroadcast",
-      "etag": "tTsBLAeymxGVEVxv8hcQxE4PwtI",
-      "id": "N2t-03zUbOA",
-      "snippet": {
-        "publishedAt": "2020-09-26T04:19:03Z",
-        "channelId": "UCm4xprzPvVL8Uravaneq7CA",
-        "title": "Serhii Krotkykh Live Stream",
-        "description": "",
-        "thumbnails": {
-          "default": {
-            "url": "https://i.ytimg.com/vi/N2t-03zUbOA/default_live.jpg",
-            "width": 120,
-            "height": 90
-          },
-          "medium": {
-            "url": "https://i.ytimg.com/vi/N2t-03zUbOA/mqdefault_live.jpg",
-            "width": 320,
-            "height": 180
-          },
-          "high": {
-            "url": "https://i.ytimg.com/vi/N2t-03zUbOA/hqdefault_live.jpg",
-            "width": 480,
-            "height": 360
-          }
-        },
-        "isDefaultBroadcast": false,
-        "liveChatId": "KicKGFVDbTR4cHJ6UHZWTDhVcmF2YW5lcTdDQRILTjJ0LTAzelViT0E"
-      },
-      "status": {
-        "lifeCycleStatus": "ready",
-        "privacyStatus": "unlisted",
-        "recordingStatus": "notRecording",
-        "madeForKids": false,
-        "selfDeclaredMadeForKids": false
-      }
+    "kind": "youtube#liveBroadcastListResponse",
+    "etag": "KCnQtt9iUoHymnlXpTqinERlt4Y",
+    "pageInfo": {
+        "totalResults": 4,
+        "resultsPerPage": 25
     },
-    {
-      "kind": "youtube#liveBroadcast",
-      "etag": "XOnOfl9soa6t8b8qykaH0NSL4Fk",
-      "id": "AmfqHJfCM3Y",
-      "snippet": {
-        "publishedAt": "2020-10-05T02:14:11Z",
-        "channelId": "UCm4xprzPvVL8Uravaneq7CA",
-        "title": "New 777",
-        "description": "",
-        "thumbnails": {
-          "default": {
-            "url": "https://i.ytimg.com/vi/AmfqHJfCM3Y/default_live.jpg",
-            "width": 120,
-            "height": 90
-          },
-          "medium": {
-            "url": "https://i.ytimg.com/vi/AmfqHJfCM3Y/mqdefault_live.jpg",
-            "width": 320,
-            "height": 180
-          },
-          "high": {
-            "url": "https://i.ytimg.com/vi/AmfqHJfCM3Y/hqdefault_live.jpg",
-            "width": 480,
-            "height": 360
-          }
+    "items": [
+        {
+            "kind": "youtube#liveBroadcast",
+            "etag": "tTsBLAeymxGVEVxv8hcQxE4PwtI",
+            "id": "N2t-03zUbOA",
+            "snippet": {
+                "publishedAt": "2020-09-26T04:19:03Z",
+                "channelId": "UCm4xprzPvVL8Uravaneq7CA",
+                "title": "Serhii Krotkykh Live Stream",
+                "description": "",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/N2t-03zUbOA/default_live.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/N2t-03zUbOA/mqdefault_live.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/N2t-03zUbOA/hqdefault_live.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "isDefaultBroadcast": false,
+                "liveChatId": "KicKGFVDbTR4cHJ6UHZWTDhVcmF2YW5lcTdDQRILTjJ0LTAzelViT0E"
+            },
+            "status": {
+                "lifeCycleStatus": "ready",
+                "privacyStatus": "unlisted",
+                "recordingStatus": "notRecording",
+                "madeForKids": false,
+                "selfDeclaredMadeForKids": false
+            }
         },
-        "scheduledStartTime": "2020-10-05T02:14:13Z",
-        "isDefaultBroadcast": false,
-        "liveChatId": "KicKGFVDbTR4cHJ6UHZWTDhVcmF2YW5lcTdDQRILQW1mcUhKZkNNM1k"
-      },
-      "status": {
-        "lifeCycleStatus": "ready",
-        "privacyStatus": "unlisted",
-        "recordingStatus": "notRecording",
-        "madeForKids": false,
-        "selfDeclaredMadeForKids": false
-      }
-    },
-    {
-      "kind": "youtube#liveBroadcast",
-      "etag": "VrObbhQKitU_m28WaTJ6c9tH4hQ",
-      "id": "PwtlgUIrDGI",
-      "snippet": {
-        "publishedAt": "2020-10-05T06:47:35Z",
-        "channelId": "UCm4xprzPvVL8Uravaneq7CA",
-        "title": "Ghbnm 8888",
-        "description": "",
-        "thumbnails": {
-          "default": {
-            "url": "https://i.ytimg.com/vi/PwtlgUIrDGI/default_live.jpg",
-            "width": 120,
-            "height": 90
-          },
-          "medium": {
-            "url": "https://i.ytimg.com/vi/PwtlgUIrDGI/mqdefault_live.jpg",
-            "width": 320,
-            "height": 180
-          },
-          "high": {
-            "url": "https://i.ytimg.com/vi/PwtlgUIrDGI/hqdefault_live.jpg",
-            "width": 480,
-            "height": 360
-          }
+        {
+            "kind": "youtube#liveBroadcast",
+            "etag": "XOnOfl9soa6t8b8qykaH0NSL4Fk",
+            "id": "AmfqHJfCM3Y",
+            "snippet": {
+                "publishedAt": "2020-10-05T02:14:11Z",
+                "channelId": "UCm4xprzPvVL8Uravaneq7CA",
+                "title": "New 777",
+                "description": "",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/AmfqHJfCM3Y/default_live.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/AmfqHJfCM3Y/mqdefault_live.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/AmfqHJfCM3Y/hqdefault_live.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "scheduledStartTime": "2020-10-05T02:14:13Z",
+                "isDefaultBroadcast": false,
+                "liveChatId": "KicKGFVDbTR4cHJ6UHZWTDhVcmF2YW5lcTdDQRILQW1mcUhKZkNNM1k"
+            },
+            "status": {
+                "lifeCycleStatus": "ready",
+                "privacyStatus": "unlisted",
+                "recordingStatus": "notRecording",
+                "madeForKids": false,
+                "selfDeclaredMadeForKids": false
+            }
         },
-        "scheduledStartTime": "2020-10-05T06:47:37Z",
-        "isDefaultBroadcast": false,
-        "liveChatId": "KicKGFVDbTR4cHJ6UHZWTDhVcmF2YW5lcTdDQRILUHd0bGdVSXJER0k"
-      },
-      "status": {
-        "lifeCycleStatus": "ready",
-        "privacyStatus": "unlisted",
-        "recordingStatus": "notRecording",
-        "madeForKids": false,
-        "selfDeclaredMadeForKids": false
-      }
-    },
-    {
-      "kind": "youtube#liveBroadcast",
-      "etag": "NaKuVLByZqIGYR3Ay374u-5tmMs",
-      "id": "ToK0BDpN7wE",
-      "snippet": {
-        "publishedAt": "2020-10-06T06:29:28Z",
-        "channelId": "UCm4xprzPvVL8Uravaneq7CA",
-        "title": "New Stream",
-        "description": "",
-        "thumbnails": {
-          "default": {
-            "url": "https://i.ytimg.com/vi/ToK0BDpN7wE/default_live.jpg",
-            "width": 120,
-            "height": 90
-          },
-          "medium": {
-            "url": "https://i.ytimg.com/vi/ToK0BDpN7wE/mqdefault_live.jpg",
-            "width": 320,
-            "height": 180
-          },
-          "high": {
-            "url": "https://i.ytimg.com/vi/ToK0BDpN7wE/hqdefault_live.jpg",
-            "width": 480,
-            "height": 360
-          }
+        {
+            "kind": "youtube#liveBroadcast",
+            "etag": "VrObbhQKitU_m28WaTJ6c9tH4hQ",
+            "id": "PwtlgUIrDGI",
+            "snippet": {
+                "publishedAt": "2020-10-05T06:47:35Z",
+                "channelId": "UCm4xprzPvVL8Uravaneq7CA",
+                "title": "Ghbnm 8888",
+                "description": "",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/PwtlgUIrDGI/default_live.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/PwtlgUIrDGI/mqdefault_live.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/PwtlgUIrDGI/hqdefault_live.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "scheduledStartTime": "2020-10-05T06:47:37Z",
+                "isDefaultBroadcast": false,
+                "liveChatId": "KicKGFVDbTR4cHJ6UHZWTDhVcmF2YW5lcTdDQRILUHd0bGdVSXJER0k"
+            },
+            "status": {
+                "lifeCycleStatus": "ready",
+                "privacyStatus": "unlisted",
+                "recordingStatus": "notRecording",
+                "madeForKids": false,
+                "selfDeclaredMadeForKids": false
+            }
         },
-        "scheduledStartTime": "2020-10-06T06:29:30Z",
-        "isDefaultBroadcast": false,
-        "liveChatId": "KicKGFVDbTR4cHJ6UHZWTDhVcmF2YW5lcTdDQRILVG9LMEJEcE43d0U"
-      },
-      "status": {
-        "lifeCycleStatus": "created",
-        "privacyStatus": "unlisted",
-        "recordingStatus": "notRecording",
-        "madeForKids": false,
-        "selfDeclaredMadeForKids": false
-      }
-    }
-  ]
+        {
+            "kind": "youtube#liveBroadcast",
+            "etag": "NaKuVLByZqIGYR3Ay374u-5tmMs",
+            "id": "ToK0BDpN7wE",
+            "snippet": {
+                "publishedAt": "2020-10-06T06:29:28Z",
+                "channelId": "UCm4xprzPvVL8Uravaneq7CA",
+                "title": "New Stream",
+                "description": "",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/ToK0BDpN7wE/default_live.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/ToK0BDpN7wE/mqdefault_live.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/ToK0BDpN7wE/hqdefault_live.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "scheduledStartTime": "2020-10-06T06:29:30Z",
+                "isDefaultBroadcast": false,
+                "liveChatId": "KicKGFVDbTR4cHJ6UHZWTDhVcmF2YW5lcTdDQRILVG9LMEJEcE43d0U"
+            },
+            "status": {
+                "lifeCycleStatus": "created",
+                "privacyStatus": "unlisted",
+                "recordingStatus": "notRecording",
+                "madeForKids": false,
+                "selfDeclaredMadeForKids": false
+            }
+        }
+    ]
 }

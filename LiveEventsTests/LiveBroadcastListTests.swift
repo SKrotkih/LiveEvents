@@ -7,7 +7,6 @@
 //
 
 @testable import LiveEvents
-import SwiftyJSON
 import XCTest
 import YTLiveStreaming
 

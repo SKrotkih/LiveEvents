@@ -60,7 +60,7 @@ struct NewBroadcastView: View {
                                 try await viewModel.createNewStream()
                                 presentationMode.wrappedValue.dismiss()
                             } catch let error {
-                                errorMessage = (error as! LVError).message()
+                                errorMessage = error.localizedDescription
                             }
                         }
                     }

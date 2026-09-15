@@ -5,6 +5,7 @@
 //  Created by Serhii Krotkykh on 26.05.2021.
 //
 import Foundation
+import YTLiveStreaming
 
 struct DecodeData {
 
@@ -14,7 +15,15 @@ struct DecodeData {
         }
         let task: Task<T, Error> = Task {
             let data = try Data(contentsOf: file)
-            let decodedData = try JSONDecoder().decode(T.self, from: data)
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .custom { decoder in
+                let raw = try decoder.singleValueContainer().decode(String.self)
+                guard let date = RFC3339.date(from: raw) else {
+                    throw DecodingError.dataCorrupted(.init(codingPath: decoder.codingPath, debugDescription: "Bad date \(raw)"))
+                }
+                return date
+            }
+            let decodedData = try decoder.decode(T.self, from: data)
             return decodedData
         }
         do {
