@@ -27,5 +27,5 @@ extension UIColor {
 }
 
 enum DSSettings {
-    static let USE_MOCK_DATA = true
+    static let USE_MOCK_DATA = false
 }

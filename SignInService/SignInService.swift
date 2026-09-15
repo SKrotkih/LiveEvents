@@ -40,7 +40,7 @@ class SignInService: NetworkProtocol, ObservableObject {
     var signInAPI: SwiftGoogleSignInInterface = SwiftGoogleSignIn.API
 
     // My own google API scopes are not approved so far btw!
-    private let isScopesApproved = false
+    private let isScopesApproved = true
     private var disposables = Set<AnyCancellable>()
 
     func configure() {
