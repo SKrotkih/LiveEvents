@@ -90,6 +90,10 @@ class LFLiveViewController: UIViewController {
 
     private func stopPublishing() {
         lfView.stopPublishing()
+        // YouTube treats `complete` as final: the same broadcast cannot go live again,
+        // so the button stays disabled until the view model dismisses the screen.
+        startLiveButton.isEnabled = false
+        startLiveButton.setTitle("Finishing…", for: .disabled)
         viewModel.finishPublishing()
     }
 

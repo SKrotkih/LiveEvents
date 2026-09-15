@@ -25,7 +25,7 @@ jobs:
         run: cp Config.plist.example.plist Config.plist
 
       - name: Cache CocoaPods
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: Pods
           key: pods-${{ runner.os }}-${{ hashFiles('Podfile.lock') }}
