@@ -50,12 +50,23 @@ struct VideoListView: View {
             .alert(self.deleteErrorMessage, isPresented: $showFailedDeleteAlert) {
                 Button("OK", role: .cancel) { }
             }
-            .alert(viewModel.errorMessage, isPresented: $errorMessageAlert) {
-                Button("OK", role: .cancel) { }
+            .alert("Could not load broadcasts", isPresented: $errorMessageAlert) {
+                Button("Retry") {
+                    viewModel.errorMessage = ""
+                    viewModel.loadData(sortType: viewModel.selectedListType.value)
+                }
+                Button("OK", role: .cancel) {
+                    viewModel.errorMessage = ""
+                }
+            } message: {
+                Text(viewModel.errorMessage)
             }
-            .onReceive(viewModel.errorMessage.publisher, perform: { _ in
-                errorMessageAlert = viewModel.errorMessage.isEmpty == false
-            })
+            // `String.publisher` emits one value per *character*, so the previous
+            // `.onReceive(viewModel.errorMessage.publisher)` re-presented the alert
+            // once per character of the message. Observe the value instead.
+            .onChange(of: viewModel.errorMessage) { message in
+                errorMessageAlert = !message.isEmpty
+            }
     }
 
     private var contentView: some View {
