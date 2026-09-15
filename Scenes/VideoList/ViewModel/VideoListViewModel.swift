@@ -112,7 +112,7 @@ final class VideoListViewModel: VideoListViewModelInterface {
             .sink(receiveCompletion: { result in
                 if case let .failure(error) = result {
                     Task {
-                        await MainActor.run { self.errorMessage = error.message() }
+                        await MainActor.run { self.errorMessage = error.localizedDescription }
                     }
                 }},
                   receiveValue: { data in
@@ -178,7 +178,7 @@ final class VideoListViewModel: VideoListViewModelInterface {
     // Presenter: prepare reseived data for presenting
     // [SectionModel] - model
     // [VideoListSection] - presentable data
-    private func prepareSectioned(data: [SectionModel], sections: YTLiveVideoState...) async -> [VideoListSection] {
+    private func prepareSectioned(data: [SectionModel], sections: BroadcastListFilter...) async -> [VideoListSection] {
         var result = [VideoListSection]()
         data.forEach { sectionModel in
             if sections.first(where: { sectionModel.section == $0 }) != nil {

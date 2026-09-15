@@ -19,7 +19,7 @@ struct VideoListView: View {
     @State private var errorMessageAlert = false
     @State private var showDeleteAlert = false
     @State private var showFailedDeleteAlert = false
-    @State private var error: YTError = .message("No Errors")
+    @State private var deleteErrorMessage = "No Errors"
 
     var body: some View {
         contentView
@@ -32,7 +32,7 @@ struct VideoListView: View {
                         do {
                             try await viewModel.deleteBroadcasts(selectedIDs)
                         } catch {
-                            self.error = error as! YTError
+                            self.deleteErrorMessage = error.localizedDescription
                             showFailedDeleteAlert = true
                         }
                         selectedIDs.removeAll()
@@ -47,15 +47,26 @@ struct VideoListView: View {
             .navigationBar(title: "My live video")
             .navigationBarItems(leading: SideMenuButton(isSideMenuShown: $isSideMenuShowing),
                                 trailing: NewStreamButton())
-            .alert(self.error.message(), isPresented: $showFailedDeleteAlert) {
+            .alert(self.deleteErrorMessage, isPresented: $showFailedDeleteAlert) {
                 Button("OK", role: .cancel) { }
             }
-            .alert(viewModel.errorMessage, isPresented: $errorMessageAlert) {
-                Button("OK", role: .cancel) { }
+            .alert("Could not load broadcasts", isPresented: $errorMessageAlert) {
+                Button("Retry") {
+                    viewModel.errorMessage = ""
+                    viewModel.loadData(sortType: viewModel.selectedListType.value)
+                }
+                Button("OK", role: .cancel) {
+                    viewModel.errorMessage = ""
+                }
+            } message: {
+                Text(viewModel.errorMessage)
             }
-            .onReceive(viewModel.errorMessage.publisher, perform: { _ in
-                errorMessageAlert = viewModel.errorMessage.isEmpty == false
-            })
+            // `String.publisher` emits one value per *character*, so the previous
+            // `.onReceive(viewModel.errorMessage.publisher)` re-presented the alert
+            // once per character of the message. Observe the value instead.
+            .onChange(of: viewModel.errorMessage) { message in
+                errorMessageAlert = !message.isEmpty
+            }
     }
 
     private var contentView: some View {
@@ -89,7 +100,7 @@ struct VideoListView: View {
             do {
                 try await viewModel.deleteBroadcasts(selectedIDs)
             } catch {
-                self.error = error as! YTError
+                self.deleteErrorMessage = error.localizedDescription
                 showFailedDeleteAlert = true
             }
             selectedIDs.removeAll()
@@ -160,7 +171,7 @@ struct VideoList<ViewModel>: View, Themeable where ViewModel: VideoListViewModel
                 } else {
                     EmptyView()
                 }
-                ThumbnailImage(url: item.model.snippet.thumbnails.def.url,
+                ThumbnailImage(url: item.model.snippet.thumbnails?.defaultThumbnail?.url,
                                width: 40,
                                height: 40)
                 Spacer(minLength: 5.0)

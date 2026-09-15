@@ -7,7 +7,6 @@
 
 import UIKit
 import RxSwift
-import YTLiveStreaming
 
 class LFLiveViewController: UIViewController {
     var viewModel: YouTubeLiveVideoPublisher!

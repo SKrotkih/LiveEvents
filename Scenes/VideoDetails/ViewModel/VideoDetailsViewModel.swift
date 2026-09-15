@@ -41,7 +41,7 @@ final class VideoDetailsViewModel: ObservableObject {
     // The ID that YouTube assigns to uniquely identify the broadcast.
     var broadcastId: String { model.id }
 
-    var lifeCycleStatus: String? { model.status?.lifeCycleStatus }
+    var lifeCycleStatus: String? { model.status?.lifeCycleStatus.rawValue }
     var channelId: String { model.snippet.channelId }       // The ID that YouTube uses to uniquely identify the channel that is publishing the broadcast.
     var description: String { model.snippet.description }     // The broadcast's description. As with the title, you can set this field by modifying the broadcast resource or by setting the description field of the corresponding video resource.
 
@@ -51,15 +51,11 @@ final class VideoDetailsViewModel: ObservableObject {
     var actualStartTime: String? { model.snippet.actualStartTime?.fullDateFormat }    // The date and time that the broadcast actually started. This information is only available once the broadcast's state is live. The value is specified in ISO 8601 (YYYY-MM-DDThh:mm:ss.sZ) format.
     var actualEndTime: String? { model.snippet.actualEndTime?.fullDateFormat }      // The date and time that the broadcast actually ended. This information is only available once the broadcast's state is complete. The value is specified in ISO 8601 (YYYY-MM-DDThh:mm:ss.sZ) format.
     var thumbnailsDef: (String?, width: CGFloat, height: CGFloat) {
-        let url = model.snippet.thumbnails.def.url
-        let w = model.snippet.thumbnails.def.width
-        let h = model.snippet.thumbnails.def.height
-        return (url, CGFloat(w), CGFloat(h))
+        let thumbnail = model.snippet.thumbnails?.defaultThumbnail
+        return (thumbnail?.url, CGFloat(thumbnail?.width ?? 120), CGFloat(thumbnail?.height ?? 90))
     }
     var thumbnailsHigh: (String?, width: CGFloat, height: CGFloat) {
-        let url = model.snippet.thumbnails.height.url
-        let w = model.snippet.thumbnails.height.width
-        let h = model.snippet.thumbnails.height.height
-        return (url, CGFloat(w), CGFloat(h))
+        let thumbnail = model.snippet.thumbnails?.high
+        return (thumbnail?.url, CGFloat(thumbnail?.width ?? 480), CGFloat(thumbnail?.height ?? 360))
     }
 }

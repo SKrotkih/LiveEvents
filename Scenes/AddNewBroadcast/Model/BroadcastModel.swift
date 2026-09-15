@@ -39,6 +39,30 @@ struct BroadcastModel {
     init() {
     }
 
+    /// Request bodies for YTLiveStreaming 1.0.
+    var createBroadcastRequest: CreateBroadcastRequest {
+        CreateBroadcastRequest(
+            title: title,
+            description: description,
+            scheduledStartTime: scheduledStartTime,
+            scheduledEndTime: scheduledEndTime,
+            privacyStatus: PrivacyStatus(rawValue: privacyStatus) ?? .unlisted,
+            selfDeclaredMadeForKids: selfDeclaredMadeForKids,
+            enableAutoStart: enableAutoStart,
+            enableAutoStop: enableAutoStop,
+            enableClosedCaptions: enableClosedCaptions,
+            enableDvr: enableDvr,
+            enableEmbed: enableEmbed,
+            recordFromStart: recordFromStart,
+            enableMonitorStream: enableMonitorStream,
+            broadcastStreamDelayMs: broadcastStreamDelayMs
+        )
+    }
+
+    var createStreamRequest: CreateStreamRequest {
+        CreateStreamRequest(title: title, description: description, isReusable: isReusable)
+    }
+
     init(model: LiveBroadcastStreamModel) {
         title = model.snippet.title
         scheduledStartTime = model.snippet.scheduledStartTime ?? Date()
@@ -51,9 +75,9 @@ struct BroadcastModel {
         enableDvr = model.contentDetails?.enableDvr  ?? false
         enableEmbed = model.contentDetails?.enableEmbed  ?? false
         recordFromStart = model.contentDetails?.recordFromStart ?? false
-        enableMonitorStream = model.contentDetails?.monitorStream.enableMonitorStream ?? false
-        broadcastStreamDelayMs = model.contentDetails?.monitorStream.broadcastStreamDelayMs ?? 0
-        privacyStatus = model.status?.privacyStatus ?? "unlisted"
+        enableMonitorStream = model.contentDetails?.monitorStream?.enableMonitorStream ?? false
+        broadcastStreamDelayMs = model.contentDetails?.monitorStream?.broadcastStreamDelayMs ?? 0
+        privacyStatus = model.status?.privacyStatus.rawValue ?? "unlisted"
         isReusable = false
     }
 }
