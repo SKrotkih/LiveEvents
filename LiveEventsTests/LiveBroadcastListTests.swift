@@ -20,16 +20,14 @@ class LiveBroadcastListTestCase: XCTestCase {
 
     // MARK: - Live Broadcasts Section
 
-    func testLiveBroadcastList() {
-        Task {
-            let data = await DecodeData.loadMockData("LiveBroadcastAll.json", as: LiveBroadcastListModel.self)
-            switch data {
-            case .success(let model):
-                print(model)
-                XCTAssertEqual(model.items.count, 3)
-            case .failure(let error):
-                XCTFail(error.message())
-            }
+    func testLiveBroadcastList() async {
+        let data = await DecodeData.loadMockData("LiveBroadcastAll.json", as: LiveBroadcastListModel.self)
+        switch data {
+        case .success(let model):
+            XCTAssertEqual(model.items.count, 4)
+            XCTAssertTrue(model.items.allSatisfy { $0.lifeCycleStatus != .unknown })
+        case .failure(let error):
+            XCTFail(error.message())
         }
     }
 }
