@@ -15,15 +15,8 @@ struct DecodeData {
         }
         let task: Task<T, Error> = Task {
             let data = try Data(contentsOf: file)
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .custom { decoder in
-                let raw = try decoder.singleValueContainer().decode(String.self)
-                guard let date = RFC3339.date(from: raw) else {
-                    throw DecodingError.dataCorrupted(.init(codingPath: decoder.codingPath, debugDescription: "Bad date \(raw)"))
-                }
-                return date
-            }
-            let decodedData = try decoder.decode(T.self, from: data)
+            // The library's decoder knows the API's RFC 3339 date forms.
+            let decodedData = try JSONDecoder.youtubeLive().decode(T.self, from: data)
             return decodedData
         }
         do {

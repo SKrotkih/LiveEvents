@@ -79,7 +79,7 @@ the broadcast with `monitor(broadcastID:)` until it is live.
 
 ## Libraries
 
-- [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) 1.0 (SPM)
+- [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) 1.1 (SPM)
 - [SwiftGoogleSignIn](https://github.com/SKrotkih/SwiftGoogleSignIn) 1.60+ (SPM), a thin wrapper over
   [Google Sign-In for iOS](https://developers.google.com/identity/sign-in/ios/start-integrating)
 - [ReSwift](https://github.com/ReSwift/ReSwift) (SPM)
