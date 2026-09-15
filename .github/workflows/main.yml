@@ -37,12 +37,18 @@ jobs:
       - name: Pick an iPhone simulator
         id: sim
         run: |
+          # Newest iOS runtime first: the app's deployment target (18.6) rules out older simulators.
           UDID=$(xcrun simctl list devices available --json | python3 -c '
-          import json, sys
+          import json, re, sys
           devices = json.load(sys.stdin)["devices"]
-          ids = [d["udid"] for runtime, ds in devices.items() if "iOS" in runtime
-                 for d in ds if d["name"].startswith("iPhone")]
-          print(ids[0])')
+          def version(runtime):
+              m = re.search(r"iOS-(\d+)-(\d+)", runtime)
+              return tuple(int(x) for x in m.groups()) if m else (0, 0)
+          found = [(version(rt), d["udid"], d["name"], rt) for rt, ds in devices.items() if "iOS" in rt
+                   for d in ds if d["name"].startswith("iPhone")]
+          found.sort(reverse=True)
+          print(found[0][2], found[0][3], file=sys.stderr)
+          print(found[0][1])')
           echo "udid=$UDID" >> "$GITHUB_OUTPUT"
 
       - name: Build & test
