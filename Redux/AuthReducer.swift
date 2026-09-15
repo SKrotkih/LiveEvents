@@ -36,11 +36,11 @@ func authReducer(state: AuthState,
     let newState = await Task {
         switch action {
         case .configure:
-            environment.configurator.configure()
+            await environment.configurator.configure()
         case .viewController(let viewController):
-            environment.presenter.setUpViewController(viewController)
+            await environment.presenter.setUpViewController(viewController)
         case .openUrl(let url):
-            environment.actions.openURL(url)
+            await environment.actions.openURL(url)
         case let .signedIn(userSession):
             await state.setUpNewSession(userSession)
         case let .signInError(message):
@@ -49,7 +49,7 @@ func authReducer(state: AuthState,
             await state.setUpNewSession(nil)
         case .logOut:
             // async operation; finished by .loggedOut state:
-            environment.actions.logOut()
+            await environment.actions.logOut()
         case let .openUrlWithError(message):
             print(message)
         }

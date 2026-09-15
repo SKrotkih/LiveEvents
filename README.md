@@ -74,16 +74,16 @@ the broadcast with `monitor(broadcastID:)` until it is live.
 | YouTube Live API | [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) 1.0 — `YouTubeLiveClient` (SPM, no third-party dependencies) |
 | Broadcast list | `Scenes/VideoList` — `allBroadcasts(.all)` grouped by `LifeCycleStatus` |
 | Create / update | `Scenes/AddNewBroadcast`, `Scenes/UpdateBroadcast` — `createBroadcastWithStream` |
-| Live screen | `Scenes/LiveStreaming` — LFLiveKit encoder + `monitor(broadcastID:)` events |
+| Live screen | `Scenes/LiveStreaming` — HaishinKit RTMP encoder + `monitor(broadcastID:)` events + live chat overlay |
 | Playback | XCDYouTubeKit / youtube-ios-player-helper |
 
 ## Libraries
 
 - [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) 1.1 (SPM)
-- [SwiftGoogleSignIn](https://github.com/SKrotkih/SwiftGoogleSignIn) 1.60+ (SPM), a thin wrapper over
-  [Google Sign-In for iOS](https://developers.google.com/identity/sign-in/ios/start-integrating)
+- [SwiftGoogleSignIn](https://github.com/SKrotkih/SwiftGoogleSignIn) 2.0 (SPM), a thin Combine wrapper over
+  [Google Sign-In for iOS](https://github.com/google/GoogleSignIn-iOS) SDK 8: session publisher + error publisher, token refresh on 401
 - [ReSwift](https://github.com/ReSwift/ReSwift) (SPM)
-- CocoaPods: LFLiveKit, XCDYouTubeKit, youtube-ios-player-helper, RxSwift / RxCocoa / RxDataSources, PromiseKit
+- CocoaPods: HaishinKit (RTMP encoder), XCDYouTubeKit, youtube-ios-player-helper, PromiseKit
 
 ## Video
 
@@ -116,6 +116,7 @@ Serhii Krotkykh
 
 ## History
 
+- 15-09-2026 — SwiftGoogleSignIn 2.0 (Google Sign-In SDK 8): errors on a separate publisher, access-token refresh wired into `TokenProvider`; live screen on HaishinKit + Combine (LFLiveKit and RxSwift removed); live chat overlay via YTLiveStreaming 1.1
 - 15-09-2026 — YTLiveStreaming 1.0: `YouTubeLiveClient` + `TokenProvider` bridged to the Redux session, `createBroadcastWithStream`, `monitor(broadcastID:)` instead of the delegate; YouTube scopes requested at sign-in (SwiftGoogleSignIn 1.60); real API by default; Podfile fixes for Xcode 15+; README rewritten
 - 20-12-2022 — update for YTLiveStreaming 0.2.29, mock data
 - 19-12-2022 — update for YTLiveStreaming 0.2.28

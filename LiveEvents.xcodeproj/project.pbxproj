@@ -1398,7 +1398,7 @@
 			repositoryURL = "https://github.com/SKrotkih/SwiftGoogleSignIn.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = 2.0.0;
 			};
 		};
 		7F91D0F4287A80C3007E7A29 /* XCRemoteSwiftPackageReference "YTLiveStreaming" */ = {

@@ -15,15 +15,18 @@ protocol SignInPublisher {
     var userSession: UserSession? { get }
 }
 
+@MainActor
 protocol SignInActions {
     func openURL(_ url: URL)
     func logOut()
 }
 
+@MainActor
 protocol SignInPresentable {
     func setUpViewController(_ viewController: UIViewController)
 }
 
+@MainActor
 protocol SignInConfigurable {
     func configure()
 }
@@ -31,33 +34,34 @@ protocol SignInConfigurable {
 typealias NetworkProtocol = SignInPublisher & SignInActions & SignInPresentable & SignInConfigurable
 
 ///
-/// This is an example of using SwiftGoogleSignIn package
-/// listening to the package events and update the app state with Redux
+/// Example of using the SwiftGoogleSignIn 2.0 package: the session publisher feeds the Redux
+/// store, the error publisher shows the failure (or offers to request the missing scopes).
 ///
-class SignInService: NetworkProtocol, ObservableObject {
+@MainActor
+final class SignInService: NetworkProtocol, ObservableObject {
     @Published var userSession: UserSession?
 
     var signInAPI: SwiftGoogleSignInInterface = SwiftGoogleSignIn.API
 
-    // My own google API scopes are not approved so far btw!
-    private let isScopesApproved = true
+    /// Scopes the YouTube Data API needs. The OAuth consent screen must list them
+    /// (in Testing mode your account must be a test user).
+    static let youtubeScopes = [
+        "https://www.googleapis.com/auth/youtube",
+        "https://www.googleapis.com/auth/youtube.readonly",
+        "https://www.googleapis.com/auth/youtube.force-ssl"
+    ]
+
     private var disposables = Set<AnyCancellable>()
 
+    init() {}
+
     func configure() {
-        // There are needed sensitive scopes to have ability to work properly
-        // Make sure they are presented in your app. Then send request on an verification
-        let googleAPIscopes = [
-            "https://www.googleapis.com/auth/youtube",
-            "https://www.googleapis.com/auth/youtube.readonly",
-            "https://www.googleapis.com/auth/youtube.force-ssl"
-        ]
-        signInAPI.initialize(isScopesApproved ? googleAPIscopes : nil)
-        subscribeOnSignedIn()
+        signInAPI.initialize(Self.youtubeScopes)
+        subscribeOnSignIn()
     }
 
     func openURL(_ url: URL) {
-        let result = signInAPI.openUrl(url)
-        if result == false {
+        if !signInAPI.openUrl(url) {
             Router.store.stateDispatch(action: .openUrlWithError(message: "Failed open \(url.absoluteString)"))
         }
     }
@@ -67,52 +71,44 @@ class SignInService: NetworkProtocol, ObservableObject {
     }
 
     func setUpViewController(_ viewController: UIViewController) {
-        presentingViewController = viewController
+        signInAPI.presentingViewController = viewController
     }
 
-    var presentingViewController: UIViewController? {
-        didSet {
-            signInAPI.presentingViewController = presentingViewController
-        }
-    }
+    // MARK: - Private
 
-    private func subscribeOnSignedIn() {
-        signInAPI
-            .publisher
+    private func subscribeOnSignIn() {
+        signInAPI.publisher
             .receive(on: RunLoop.main)
-            .sink(
-                receiveCompletion: { result in
-                    if case let .failure(error) = result {
-                        self.parse(error)
-                    }},
-                receiveValue: { session in
-                    if session.isConnected {
-                        Router.store.stateDispatch(action: .signedIn(userSession: session))
-                    } else {
-                        Router.store.stateDispatch(action: .loggedOut)
-                    }
+            .sink { [weak self] session in
+                self?.userSession = session.isConnected ? session : nil
+                if session.isConnected {
+                    Router.store.stateDispatch(action: .signedIn(userSession: session))
+                } else {
+                    Router.store.stateDispatch(action: .loggedOut)
                 }
-            )
-            .store(in: &self.disposables)
+            }
+            .store(in: &disposables)
+
+        signInAPI.errorPublisher
+            .receive(on: RunLoop.main)
+            .sink { [weak self] error in
+                self?.handle(error)
+            }
+            .store(in: &disposables)
     }
 
-    // MARK: - Private methods
-
-    private func parse(_ error: SwiftError) {
+    private func handle(_ error: SignInError) {
         switch error {
-        case .systemMessage(let code, let message):
-            switch code {
-            case 401:
-                Router.store.stateDispatch(action: .signInError(message: message))
-            case 501:
-                Alert.showOkCancel(message, message: "Would you like to send request?", onComplete: {
-                    self.signInAPI.requestPermissions()
-                })
-            default:
-                Router.store.stateDispatch(action: .signInError(message: message))
-            }
-        case .message(let text):
-            Router.store.stateDispatch(action: .signInError(message: text))
+        case .cancelled:
+            break   // the user closed the Google sheet; nothing to report
+        case .missingScopes:
+            Alert.showOkCancel(error.localizedDescription,
+                               message: "Would you like to grant them now?",
+                               onComplete: { [weak self] in self?.signInAPI.requestPermissions() })
+        case .signOutFailed:
+            print("Sign-out: \(error.localizedDescription)")   // already signed out locally
+        default:
+            Router.store.stateDispatch(action: .signInError(message: error.localizedDescription))
         }
     }
 }
