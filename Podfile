@@ -12,15 +12,11 @@ target 'LiveEvents' do
     
     pod "youtube-ios-player-helper", "~> 1.0.3"
     
-    pod 'RxSwift'
-    pod 'RxCocoa'
-    pod 'RxDataSources'
-    pod 'LFLiveKit'
+    pod 'HaishinKit', '~> 1.9'
     pod "PromiseKit/CorePromise", "~> 6.8"
 
     target 'LiveEventsTests' do
-      pod 'RxTest'
-      pod 'RxBlocking'
+      inherit! :search_paths
     end
 end
 

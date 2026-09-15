@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28BD9B57FD0A6342D29633A6 /* Pods_LiveEventsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF60F261C4A23DFAD3326BE /* Pods_LiveEventsTests.framework */; };
 		3107E0732951F3D90023E663 /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3107E0722951F3D90023E663 /* OSLog.swift */; };
 		3107EC96295C439B00020611 /* BroadcastListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3107EC95295C439B00020611 /* BroadcastListModel.swift */; };
 		310D7F3129275F2B00FD7C1C /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D7F3029275F2B00FD7C1C /* AuthError.swift */; };
@@ -80,7 +81,6 @@
 		7FAEE354288CC1E000770924 /* UserDefaultsValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEE353288CC1DF00770924 /* UserDefaultsValue.swift */; };
 		7FAF9E92246187B900C8B81B /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF9E91246187B900C8B81B /* Config.plist */; };
 		7FB0104129017C3E00AE0F87 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB0104029017C3E00AE0F87 /* VideoPlayerView.swift */; };
-		7FB8A42B1DD23C3100955C2D /* LFLivePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB8A42A1DD23C3100955C2D /* LFLivePreview.m */; };
 		7FB8A42D1DD23F8400955C2D /* LFLiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB8A42C1DD23F8400955C2D /* LFLiveViewController.swift */; };
 		7FBC71792653DB9B001DDAE7 /* VideoControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBC71782653DB9B001DDAE7 /* VideoControllerView.swift */; };
 		7FC6B7F228EE981900C20F74 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC6B7F128EE981900C20F74 /* LoadingIndicator.swift */; };
@@ -100,7 +100,7 @@
 		7FF255152856DA63008A7390 /* WindowCustomizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF255142856DA63008A7390 /* WindowCustomizer.swift */; };
 		7FFA59882861DDDF00D2F4FE /* MainBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFA59862861DDDE00D2F4FE /* MainBodyView.swift */; };
 		7FFA598A2864AE6600D2F4FE /* RemoteStorageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFA59892864AE6600D2F4FE /* RemoteStorageData.swift */; };
-		B9CC7E4719CFCD847E4A62A7 /* Pods_LiveEvents_LiveEventsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30E5B8AAAEDC735322F3362 /* Pods_LiveEvents_LiveEventsTests.framework */; };
+		A1B2C3D4E5F60718293A4B5C /* LivePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B5D /* LivePreviewView.swift */; };
 		C730E8A1F1E53DDE85561021 /* Pods_LiveEvents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC305E81DB8C9398569AE585 /* Pods_LiveEvents.framework */; };
 /* End PBXBuildFile section */
 
@@ -148,7 +148,9 @@
 		3196525C2954702C00B2C891 /* LogOutButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutButton.swift; sourceTree = "<group>"; };
 		31A2179229299DAD003741DA /* UserSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionState.swift; sourceTree = "<group>"; };
 		31CAA6E12943AE5C0038069D /* VideoPlayerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerFactory.swift; sourceTree = "<group>"; };
+		36944F68911CEBC8ED276210 /* Pods-LiveEventsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveEventsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LiveEventsTests/Pods-LiveEventsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		65A4996DDBF267DFE82ED9D5 /* Pods-LiveEvents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveEvents.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiveEvents/Pods-LiveEvents.release.xcconfig"; sourceTree = "<group>"; };
+		7DF60F261C4A23DFAD3326BE /* Pods_LiveEventsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveEventsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F0933CE24574FCB00FB5579 /* SignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInService.swift; sourceTree = "<group>"; };
 		7F11514228F2DE7A0013D2F7 /* VideoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListView.swift; sourceTree = "<group>"; };
 		7F161889286C473C0004D0B6 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
@@ -209,8 +211,6 @@
 		7FAEE353288CC1DF00770924 /* UserDefaultsValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsValue.swift; sourceTree = "<group>"; };
 		7FAF9E91246187B900C8B81B /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Config.plist; sourceTree = SOURCE_ROOT; };
 		7FB0104029017C3E00AE0F87 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
-		7FB8A4291DD23C3100955C2D /* LFLivePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFLivePreview.h; sourceTree = "<group>"; };
-		7FB8A42A1DD23C3100955C2D /* LFLivePreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFLivePreview.m; sourceTree = "<group>"; };
 		7FB8A42C1DD23F8400955C2D /* LFLiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFLiveViewController.swift; sourceTree = "<group>"; };
 		7FBC71782653DB9B001DDAE7 /* VideoControllerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoControllerView.swift; sourceTree = "<group>"; };
 		7FC6B7F128EE981900C20F74 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
@@ -228,8 +228,9 @@
 		7FFA59862861DDDE00D2F4FE /* MainBodyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainBodyView.swift; sourceTree = "<group>"; };
 		7FFA59892864AE6600D2F4FE /* RemoteStorageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStorageData.swift; sourceTree = "<group>"; };
 		A144B4F6FBDD3317B5035D73 /* Pods-LiveEvents.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveEvents.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LiveEvents/Pods-LiveEvents.debug.xcconfig"; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B5D /* LivePreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LivePreviewView.swift; sourceTree = "<group>"; };
 		A44F9CE8429BD266A7AF37D0 /* Pods-LiveEvents-LiveEventsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveEvents-LiveEventsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiveEvents-LiveEventsTests/Pods-LiveEvents-LiveEventsTests.release.xcconfig"; sourceTree = "<group>"; };
-		B30E5B8AAAEDC735322F3362 /* Pods_LiveEvents_LiveEventsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveEvents_LiveEventsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB4C2016CD2135C3B38C8BBB /* Pods-LiveEventsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveEventsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiveEventsTests/Pods-LiveEventsTests.release.xcconfig"; sourceTree = "<group>"; };
 		F39C606421D10E92A92EBF67 /* Pods-LiveEvents-LiveEventsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveEvents-LiveEventsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LiveEvents-LiveEventsTests/Pods-LiveEvents-LiveEventsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FC305E81DB8C9398569AE585 /* Pods_LiveEvents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveEvents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -239,7 +240,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9CC7E4719CFCD847E4A62A7 /* Pods_LiveEvents_LiveEventsTests.framework in Frameworks */,
+				28BD9B57FD0A6342D29633A6 /* Pods_LiveEventsTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,8 +341,7 @@
 			isa = PBXGroup;
 			children = (
 				7FB8A42C1DD23F8400955C2D /* LFLiveViewController.swift */,
-				7FB8A4291DD23C3100955C2D /* LFLivePreview.h */,
-				7FB8A42A1DD23C3100955C2D /* LFLivePreview.m */,
+				A1B2C3D4E5F60718293A4B5D /* LivePreviewView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -748,6 +748,8 @@
 				65A4996DDBF267DFE82ED9D5 /* Pods-LiveEvents.release.xcconfig */,
 				F39C606421D10E92A92EBF67 /* Pods-LiveEvents-LiveEventsTests.debug.xcconfig */,
 				A44F9CE8429BD266A7AF37D0 /* Pods-LiveEvents-LiveEventsTests.release.xcconfig */,
+				36944F68911CEBC8ED276210 /* Pods-LiveEventsTests.debug.xcconfig */,
+				DB4C2016CD2135C3B38C8BBB /* Pods-LiveEventsTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -756,7 +758,7 @@
 			isa = PBXGroup;
 			children = (
 				FC305E81DB8C9398569AE585 /* Pods_LiveEvents.framework */,
-				B30E5B8AAAEDC735322F3362 /* Pods_LiveEvents_LiveEventsTests.framework */,
+				7DF60F261C4A23DFAD3326BE /* Pods_LiveEventsTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -772,7 +774,6 @@
 				7F7D43642573A3AE00CC7642 /* Sources */,
 				7F7D43652573A3AE00CC7642 /* Frameworks */,
 				7F7D43662573A3AE00CC7642 /* Resources */,
-				08A85AB03E4466A86B699C1E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -903,49 +904,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-LiveEvents-LiveEventsTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-LiveEventsTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		08A85AB03E4466A86B699C1E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LiveEvents-LiveEventsTests/Pods-LiveEvents-LiveEventsTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
-				"${BUILT_PRODUCTS_DIR}/LFLiveKit/LFLiveKit.framework",
-				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
-				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/XCDYouTubeKit/XCDYouTubeKit.framework",
-				"${BUILT_PRODUCTS_DIR}/youtube-ios-player-helper/youtube_ios_player_helper.framework",
-				"${BUILT_PRODUCTS_DIR}/RxBlocking/RxBlocking.framework",
-				"${BUILT_PRODUCTS_DIR}/RxTest/RxTest.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LFLiveKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XCDYouTubeKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/youtube_ios_player_helper.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxBlocking.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxTest.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LiveEvents-LiveEventsTests/Pods-LiveEvents-LiveEventsTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		212D28A20033C99140419B3A /* [CP] Check Pods Manifest.lock */ = {
@@ -973,25 +936,17 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-LiveEvents/Pods-LiveEvents-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
-				"${BUILT_PRODUCTS_DIR}/LFLiveKit/LFLiveKit.framework",
+				"${BUILT_PRODUCTS_DIR}/HaishinKit/HaishinKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Logboard/Logboard.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
-				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/XCDYouTubeKit/XCDYouTubeKit.framework",
 				"${BUILT_PRODUCTS_DIR}/youtube-ios-player-helper/youtube_ios_player_helper.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LFLiveKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HaishinKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Logboard.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XCDYouTubeKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/youtube_ios_player_helper.framework",
 			);
@@ -1036,7 +991,6 @@
 				310D7F3129275F2B00FD7C1C /* AuthError.swift in Sources */,
 				7FC6B7F228EE981900C20F74 /* LoadingIndicator.swift in Sources */,
 				7FAEE35128883EA300770924 /* AuthAction.swift in Sources */,
-				7FB8A42B1DD23C3100955C2D /* LFLivePreview.m in Sources */,
 				316EE54C292D3B7F009F6168 /* BackButton.swift in Sources */,
 				7F79FE42265E6BB1002FA510 /* loadMockData.swift in Sources */,
 				7F1E96BC2546B8BF00638965 /* Date+Ext.swift in Sources */,
@@ -1095,6 +1049,7 @@
 				7F7E9FBC26563A0000D82B60 /* PlayerViewRepresentable.swift in Sources */,
 				31965256295435A400B2C891 /* SideMenu.swift in Sources */,
 				7FB8A42D1DD23F8400955C2D /* LFLiveViewController.swift in Sources */,
+				A1B2C3D4E5F60718293A4B5C /* LivePreviewView.swift in Sources */,
 				7F8221C7265646AD005A6015 /* VideoPlayer.mm in Sources */,
 				3107E0732951F3D90023E663 /* OSLog.swift in Sources */,
 				7F11514328F2DE7A0013D2F7 /* VideoListView.swift in Sources */,
@@ -1143,7 +1098,7 @@
 /* Begin XCBuildConfiguration section */
 		7F7D43702573A3AE00CC7642 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F39C606421D10E92A92EBF67 /* Pods-LiveEvents-LiveEventsTests.debug.xcconfig */;
+			baseConfigurationReference = 36944F68911CEBC8ED276210 /* Pods-LiveEventsTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1183,7 +1138,7 @@
 		};
 		7F7D43712573A3AE00CC7642 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A44F9CE8429BD266A7AF37D0 /* Pods-LiveEvents-LiveEventsTests.release.xcconfig */;
+			baseConfigurationReference = DB4C2016CD2135C3B38C8BBB /* Pods-LiveEventsTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;

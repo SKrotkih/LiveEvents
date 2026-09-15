@@ -6,14 +6,17 @@
 //
 
 import UIKit
-import RxSwift
+import Combine
+import YTLiveStreaming
 
+/// Camera screen: publishes to YouTube over RTMP (HaishinKit), shows the broadcast status
+/// from `monitor(broadcastID:)` and the live chat once the broadcast is on air.
 class LFLiveViewController: UIViewController {
     var viewModel: YouTubeLiveVideoPublisher!
 
-    var scheduledStartTime: NSDate?
+    var scheduledStartTime: Date?
 
-    @IBOutlet weak var lfView: LFLivePreview!
+    @IBOutlet weak var lfView: LivePreviewView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var beautyButton: UIButton!
     @IBOutlet weak var cameraButton: UIButton!
@@ -21,19 +24,21 @@ class LFLiveViewController: UIViewController {
     @IBOutlet weak var startLiveButton: UIButton!
     @IBOutlet weak var currentStatusLabel: UILabel!
 
-    private let disposeBag = DisposeBag()
+    private let chatLabel = UILabel()
+    private var recentChat: [String] = []
+    private let maxChatLines = 6
+    private var cancellables = Set<AnyCancellable>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureView()
+        configureChatOverlay()
+        startListeningToModelEvents()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
         lfView.prepareForUsing()
-        startListeningToModelEvents()
     }
 
     @IBAction func changeCameraPositionButtonPressed(_ sender: Any) {
@@ -52,15 +57,15 @@ class LFLiveViewController: UIViewController {
         viewModel.didUserCancelPublishingVideo()
     }
 
-    @MainActor
     func showCurrentStatus(currStatus: String) {
-        self.currentStatusLabel.text = currStatus
+        currentStatusLabel.text = currStatus
     }
 
-    @MainActor
     func showError(_ message: String) {
         Alert.showOk("Warning", message: message)
     }
+
+    // MARK: - Publishing
 
     private func handleClickOnPublishingButton() {
         isVideoInProcess.toggle()
@@ -79,12 +84,10 @@ class LFLiveViewController: UIViewController {
     }
 
     private func startPublishing() {
-        Task {
+        Task { @MainActor in
             let (streamUrl, scheduledStartTime) = await viewModel.willStartPublishing()
-            await MainActor.run {
-                self.scheduledStartTime = scheduledStartTime
-                self.lfView.startPublishing(withStreamURL: streamUrl)
-            }
+            self.scheduledStartTime = scheduledStartTime
+            self.lfView.startPublishing(withStreamURL: streamUrl)
         }
     }
 
@@ -97,32 +100,68 @@ class LFLiveViewController: UIViewController {
         viewModel.finishPublishing()
     }
 
+    // MARK: - Setup
+
     private func configureView() {
         beautyButton.isExclusiveTouch = true
         cameraButton.isExclusiveTouch = true
         closeButton.isExclusiveTouch = true
+        beautyButton.isHidden = true   // no beauty filter with HaishinKit
         isVideoInProcess = false
+
+        lfView.onStateChange = { [weak self] state in
+            switch state {
+            case .connecting:  self?.showCurrentStatus(currStatus: "connecting to YouTube…")
+            case .publishing:  self?.showCurrentStatus(currStatus: "sending video, waiting for YouTube…")
+            case .failed(let code): self?.showError("Encoder error: \(code)")
+            case .idle, .stopped: break
+            }
+        }
+    }
+
+    private func configureChatOverlay() {
+        chatLabel.numberOfLines = maxChatLines
+        chatLabel.font = .systemFont(ofSize: 14)
+        chatLabel.textColor = .white
+        chatLabel.backgroundColor = UIColor.black.withAlphaComponent(0.35)
+        chatLabel.layer.cornerRadius = 8
+        chatLabel.clipsToBounds = true
+        chatLabel.isHidden = true
+        chatLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(chatLabel)
+        NSLayoutConstraint.activate([
+            chatLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12),
+            chatLabel.trailingAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
+            chatLabel.bottomAnchor.constraint(equalTo: currentStatusLabel.topAnchor, constant: -12)
+        ])
     }
 
     private func startListeningToModelEvents() {
-        // The view model emits from the monitor's background task; UIKit must be touched on main.
-        viewModel
-            .rxDidUserFinishWatchVideo
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] _ in
-                self?.dismiss(animated: true, completion: nil)
-            }).disposed(by: disposeBag)
-        viewModel
-            .rxStateDescription
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] state in
-                self?.showCurrentStatus(currStatus: state)
-            }).disposed(by: disposeBag)
-        viewModel
-            .rxError
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] message in
-                self?.showError(message)
-            }).disposed(by: disposeBag)
+        // The view model emits from background tasks; UIKit must be touched on main.
+        viewModel.didFinish
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in self?.dismiss(animated: true) }
+            .store(in: &cancellables)
+        viewModel.stateDescription
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] state in self?.showCurrentStatus(currStatus: state) }
+            .store(in: &cancellables)
+        viewModel.errorMessage
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] message in self?.showError(message) }
+            .store(in: &cancellables)
+        viewModel.chatMessages
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] batch in self?.appendChat(batch) }
+            .store(in: &cancellables)
+    }
+
+    private func appendChat(_ batch: [LiveChatMessage]) {
+        for message in batch where !message.text.isEmpty {
+            recentChat.append("\(message.authorName): \(message.text)")
+        }
+        recentChat = Array(recentChat.suffix(maxChatLines))
+        chatLabel.text = "  " + recentChat.joined(separator: "\n  ") + "  "
+        chatLabel.isHidden = recentChat.isEmpty
     }
 }

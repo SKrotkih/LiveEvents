@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import RxSwift
+import Combine
 
 protocol VideoPlayerControlled {
     var playerView: PlayerViewRepresentable { get }
@@ -65,9 +65,9 @@ final class VideoControllerViewModel: ObservableObject, VideoPlayerControlled {
 
 final class NavicationObservable: ObservableObject {
 
-    var rxViewClosed: PublishSubject<Bool> = PublishSubject()
+    let viewClosed = PassthroughSubject<Bool, Never>()
 
     func closeView() {
-        rxViewClosed.onNext(true)
+        viewClosed.send(true)
     }
 }
