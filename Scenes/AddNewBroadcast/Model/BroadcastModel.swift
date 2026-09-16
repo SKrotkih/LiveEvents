@@ -24,7 +24,7 @@ struct BroadcastModel {
     // This setting determines whether viewers can access DVR controls while watching the video. DVR controls enable the viewer to control the video playback experience by pausing, rewinding, or fast forwarding content. The default value for this property is true.
     var enableDvr: Bool = true             // contentDetails.enableDvr
     //  This setting indicates whether the broadcast video can be played in an embedded player. If you choose to archive the video (using the enableArchive property), this setting will also apply to the archived video.
-    var enableEmbed: Bool = false           // contentDetails.enableEmbed
+    var enableEmbed: Bool = true            // contentDetails.enableEmbed
     //  This setting indicates whether YouTube will automatically start recording the broadcast after the event's status changes to live.
     var recordFromStart: Bool = true       // contentDetails.recordFromStart
     //  This value determines whether the monitor stream is enabled for the broadcast. If the monitor stream is enabled, then YouTube will broadcast the event content on a special stream intended only for the broadcaster's consumption. The broadcaster can use the stream to review the event content and also to identify the optimal times to insert cuepoints.
