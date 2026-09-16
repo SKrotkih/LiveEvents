@@ -59,8 +59,9 @@ struct VideoListView: View {
         VStack {
             HStack {
                 if selectMode {
-                    Button("Delete \(selectedIDs.count) items") {
-                        showDeleteAlert = !selectedIDs.isEmpty
+                    // Nothing selected: the button acts as "Cancel" and leaves select mode.
+                    Button(selectedIDs.isEmpty ? "Cancel" : "Delete \(selectedIDs.count) items") {
+                        if selectedIDs.isEmpty { exitSelectMode() } else { showDeleteAlert = true }
                     }
                     .padding(.leading, 15.0)
                 } else {
