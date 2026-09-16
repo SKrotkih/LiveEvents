@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FACEDCD98A018DADD8CEFE22 /* UIApplication+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE74C8A168DC7C5C196DC5 /* UIApplication+Ext.swift */; };
 		3107E0732951F3D90023E663 /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3107E0722951F3D90023E663 /* OSLog.swift */; };
 		3107EC96295C439B00020611 /* BroadcastListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3107EC95295C439B00020611 /* BroadcastListModel.swift */; };
 		310D7F3129275F2B00FD7C1C /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D7F3029275F2B00FD7C1C /* AuthError.swift */; };
@@ -85,6 +84,7 @@
 		FACE7C354191A26F27DC4D14 /* Scenes/LiveStreaming/LiveRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACECDFF1F2C3504D6190E6D /* Scenes/LiveStreaming/LiveRoute.swift */; };
 		FACE833F54BEE24983440CDB /* LiveEventsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACEDF00FC21681369665767 /* LiveEventsApp.swift */; };
 		FACEA5E0B0490E94EC387ACE /* Scenes/YouTubeVideoPlayer/View/PlayerViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE23D7EA73C33FEC7E80D5 /* Scenes/YouTubeVideoPlayer/View/PlayerViewRepresentable.swift */; };
+		FACEDCD98A018DADD8CEFE22 /* Extensions/UIApplication+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE74C8A168DC7C5C196DC5 /* Extensions/UIApplication+Ext.swift */; };
 		FACEF484AB3C8F1103B40EDE /* Scenes/LiveStreaming/View/LivePreviewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE905F23DCEA2DD58D25D3 /* Scenes/LiveStreaming/View/LivePreviewRepresentable.swift */; };
 /* End PBXBuildFile section */
 
@@ -112,7 +112,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		FACE74C8A168DC7C5C196DC5 /* UIApplication+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions/UIApplication+Ext.swift"; sourceTree = SOURCE_ROOT; };
 		3107E0722951F3D90023E663 /* OSLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLog.swift; sourceTree = "<group>"; };
 		3107EC95295C439B00020611 /* BroadcastListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastListModel.swift; sourceTree = "<group>"; };
 		310D7F3029275F2B00FD7C1C /* AuthError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
@@ -187,6 +186,7 @@
 		FACE03B0D2AA494BC404526F /* Scenes/AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scenes/AppEnvironment.swift; sourceTree = SOURCE_ROOT; };
 		FACE23D7EA73C33FEC7E80D5 /* Scenes/YouTubeVideoPlayer/View/PlayerViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scenes/YouTubeVideoPlayer/View/PlayerViewRepresentable.swift; sourceTree = SOURCE_ROOT; };
 		FACE3CF0AC9FE942F0CD49DA /* Scenes/LiveStreaming/View/LiveStreamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scenes/LiveStreaming/View/LiveStreamView.swift; sourceTree = SOURCE_ROOT; };
+		FACE74C8A168DC7C5C196DC5 /* Extensions/UIApplication+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions/UIApplication+Ext.swift"; sourceTree = SOURCE_ROOT; };
 		FACE905F23DCEA2DD58D25D3 /* Scenes/LiveStreaming/View/LivePreviewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scenes/LiveStreaming/View/LivePreviewRepresentable.swift; sourceTree = SOURCE_ROOT; };
 		FACECD08396D6F1A011E4267 /* Scenes/YouTubeVideoPlayer/Interactor/YouTubePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scenes/YouTubeVideoPlayer/Interactor/YouTubePlayer.swift; sourceTree = SOURCE_ROOT; };
 		FACECDFF1F2C3504D6190E6D /* Scenes/LiveStreaming/LiveRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scenes/LiveStreaming/LiveRoute.swift; sourceTree = SOURCE_ROOT; };
@@ -514,7 +514,7 @@
 			isa = PBXGroup;
 			children = (
 				FACEDF00FC21681369665767 /* LiveEventsApp.swift */,
-				FACE74C8A168DC7C5C196DC5 /* UIApplication+Ext.swift */,
+				FACE74C8A168DC7C5C196DC5 /* Extensions/UIApplication+Ext.swift */,
 				FACE03B0D2AA494BC404526F /* Scenes/AppEnvironment.swift */,
 				FACECDFF1F2C3504D6190E6D /* Scenes/LiveStreaming/LiveRoute.swift */,
 				FACE905F23DCEA2DD58D25D3 /* Scenes/LiveStreaming/View/LivePreviewRepresentable.swift */,
@@ -831,7 +831,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FACE833F54BEE24983440CDB /* LiveEventsApp.swift in Sources */,
-				FACEDCD98A018DADD8CEFE22 /* UIApplication+Ext.swift in Sources */,
+				FACEDCD98A018DADD8CEFE22 /* Extensions/UIApplication+Ext.swift in Sources */,
 				FACE308C690F08572BE0AF60 /* Scenes/AppEnvironment.swift in Sources */,
 				FACE7C354191A26F27DC4D14 /* Scenes/LiveStreaming/LiveRoute.swift in Sources */,
 				FACEF484AB3C8F1103B40EDE /* Scenes/LiveStreaming/View/LivePreviewRepresentable.swift in Sources */,
