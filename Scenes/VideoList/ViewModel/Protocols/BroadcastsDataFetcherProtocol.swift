@@ -7,27 +7,11 @@
 
 import Foundation
 import YTLiveStreaming
-import Combine
 
-protocol BroadcastsDataFetcher: ObservableObject {
-    /// Dowload source data for Broadcast List
-    ///
-    /// - Parameters:
-    ///
-    /// - Returns:
-    func fetchBroadcastListData(sections: BroadcastListFilter...) async
-    /// Get Current Broadcast
-    ///
-    /// - Parameters:
-    ///     - index of the Broadcast source data
-    ///
-    /// - Returns:
-    var sectionModels: CurrentValueSubject<[SectionModel], YouTubeLiveError> { get }
-    /// Delete Broadcasts
-    ///
-    /// - Parameters:
-    ///     - array of broadcasts id
-    ///
-    /// - Returns:
+protocol BroadcastsDataFetcher {
+    /// Downloads the channel's broadcasts and groups them into `sections`.
+    /// A failed download is reported through `SectionModel.error` (mock data when `USE_MOCK_DATA`).
+    func fetchBroadcastListData(sections: BroadcastListFilter...) async throws -> [SectionModel]
+    /// Deletes broadcasts by id.
     func deleteBroadcasts(_ broadcastIDs: [String]) async throws
 }

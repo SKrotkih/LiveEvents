@@ -4,9 +4,9 @@
 //
 //  Created by Serhii Krotkykh on 9/18/22.
 //
-import Foundation
-import Combine
+import UIKit
 
+@MainActor
 final class LogInViewModel: ObservableObject {
     private let store: AuthReduxStore
 
@@ -14,7 +14,18 @@ final class LogInViewModel: ObservableObject {
         self.store = store
     }
 
-    func configure(with viewController: UIViewController) {
-        store.stateDispatch(action: .viewController(viewController))
+    /// Google Sign-In needs a view controller to present its sheet from.
+    func configurePresenter() {
+        if let top = UIApplication.shared.topViewController {
+            store.dispatch(.viewController(top))
+        }
+    }
+
+    func requestPermissions() {
+        store.dispatch(.requestPermissions)
+    }
+
+    func dismissError() {
+        store.dispatch(.loggedOut)
     }
 }

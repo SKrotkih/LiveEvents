@@ -5,16 +5,14 @@
 //  Created by Serhii Krotkykh
 //
 import SwiftUI
-import Combine
 
-/// Video list (Home screen) or the log in screen dispatcher
-/// Depends on the current connection state
+/// Video list (home screen) or the log-in screen, depending on the sign-in state.
 struct MainBodyView: View {
-    @EnvironmentObject var currentState: UserSessionState
+    @EnvironmentObject var store: AuthReduxStore
 
     var body: some View {
-        NavigationView {
-            if currentState.isConnected {
+        NavigationStack {
+            if store.state.isConnected {
                 VideoListView()
             } else {
                 LogInView()

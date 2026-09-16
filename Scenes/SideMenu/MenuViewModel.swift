@@ -6,20 +6,7 @@
 //
 
 import Foundation
-import SwiftUI
 import Combine
-
-protocol MenuViewModelObservable {
-    var avatarImage: UIImage? { get set }
-    var isAvatarDownloading: Bool { get set }
-}
-
-protocol MenuViewModelLaunched {
-    func downloadAvatarImage(url: String)
-    func logOut()
-}
-
-typealias MenuViewModelInterface = ObservableObject & MenuViewModelObservable & MenuViewModelLaunched
 
 enum HomeViewActions {
     case videoList
@@ -27,57 +14,31 @@ enum HomeViewActions {
     case nothing
 }
 
-final class MenuViewModel: MenuViewModelInterface {
-    @Published var isAvatarDownloading = false
-    @Published var avatarImage: UIImage?
-    @Published var userName: String = ""
-
+@MainActor
+final class MenuViewModel: ObservableObject {
     @Published var actions: HomeViewActions = .nothing
 
-    private var disposables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     private let store: AuthReduxStore
 
     init(store: AuthReduxStore) {
         self.store = store
-
         $actions
-            .sink { userActivities in
-                switch userActivities {
-                case .logOut:
-                    self.logOut()
-                case .videoList:
-                    // View is hundling by itself
-                    break
-                case .nothing:
-                    break
-                }
-            }.store(in: &disposables)
-    }
-
-    @MainActor
-    func downloadUserName() async {
-        if let userSession = await self.store.state.userSession,
-           let profile = userSession.profile {
-            self.userName = profile.fullName
-        } else {
-            self.userName = "Undefined name"
-        }
-    }
-
-    func downloadAvatarImage(url: String) {
-        self.isAvatarDownloading = true
-        RemoteStorageData.fetch(urlData: url)
-            .subscribe(on: DispatchQueue.global())
-            .receive(on: DispatchQueue.main)
-            .sink { _ in
-                self.isAvatarDownloading = false
-            } receiveValue: { data in
-                self.avatarImage = UIImage(data: data)
+            .sink { [weak self] action in
+                if case .logOut = action { self?.logOut() }
             }
-            .store(in: &disposables)
+            .store(in: &cancellables)
+    }
+
+    var userName: String {
+        store.state.userSession?.profile?.fullName ?? "Undefined name"
+    }
+
+    var profilePicUrl: URL? {
+        store.state.userSession?.profile?.profilePicUrl
     }
 
     func logOut() {
-        store.stateDispatch(action: .logOut)
+        store.dispatch(.logOut)
     }
 }

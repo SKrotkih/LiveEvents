@@ -4,30 +4,19 @@
 //
 //  Created by Serhii Krotkykh on 9/17/22.
 //
-import Foundation
 import SwiftUI
 
-struct AvatarImageView: View, Themeable {
-    @EnvironmentObject var store: AuthReduxStore
-    @Environment(\.colorScheme) var colorScheme
-    @State var profilePicUrl: URL?
-
-    @ViewBuilder
-    private var contentView: some View {
-        if let url = profilePicUrl {
-            ProfileImageView(withURL: url.absoluteString)
-        } else {
-            PlaceholderView()
-        }
-    }
+struct AvatarImageView: View {
+    @EnvironmentObject var viewModel: MenuViewModel
 
     var body: some View {
-        contentView
-            .task {
-                if let userSession = await store.state.userSession {
-                    profilePicUrl = userSession.profile?.profilePicUrl
-                }
+        AsyncImage(url: viewModel.profilePicUrl) { phase in
+            if let image = phase.image {
+                image.avatarStyle()
+            } else {
+                PlaceholderView()
             }
+        }
     }
 }
 
@@ -35,27 +24,6 @@ struct PlaceholderView: View {
     var body: some View {
         Image(systemName: "person")
             .avatarStyle()
-    }
-}
-
-struct ProfileImageView: View {
-    @EnvironmentObject var viewModel: MenuViewModel
-    private let imageUrl: String
-
-    init(withURL url: String) {
-        self.imageUrl = url
-    }
-
-    var body: some View {
-        if let avatarImage = viewModel.avatarImage {
-            Image(uiImage: avatarImage)
-                .avatarStyle()
-        } else {
-            PlaceholderView()
-                .onAppear {
-                    viewModel.downloadAvatarImage(url: imageUrl)
-                }
-        }
     }
 }
 
@@ -67,5 +35,5 @@ extension Image {
             .frame(width: 30.0, height: 30.0)
             .clipShape(Circle())
             .overlay(Circle().stroke(.white, lineWidth: 1))
-   }
+    }
 }

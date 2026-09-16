@@ -8,31 +8,10 @@
 import Foundation
 import SwiftGoogleSignIn
 
-///
-/// State: Based on your state you render your UI or respond in any form.
-/// So basically state refers to the source of truth.
-///
-actor AuthState: Equatable {
+/// The single source of truth for the sign-in screen: who is signed in and the last error.
+struct AuthState: Equatable, Sendable {
     var userSession: UserSession?
     var error: AuthError?
-    var isConnected: Bool {
-        userSession == nil ? false : true
-    }
 
-    init(userSession: UserSession?) {
-        self.userSession = userSession
-    }
-
-    func setUpNewSession(_ session: UserSession?) {
-        userSession = session
-    }
-
-    func setUpError(_ error: AuthError?) {
-        self.error = error
-    }
-
-    static func == (lhs: AuthState, rhs: AuthState) -> Bool {
-        // TODO: Need to research how to implement async equatable protocol
-        true
-    }
+    var isConnected: Bool { userSession?.isConnected ?? false }
 }

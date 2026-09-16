@@ -9,7 +9,6 @@ import SwiftUI
 /// Side Menu button for the view navigation
 ///
 struct SideMenuButton: View, Themeable {
-    @Environment(\.presentationMode) var presentationMode
     @Environment(\.colorScheme) var colorScheme
     @Binding var isSideMenuShown: Bool
 

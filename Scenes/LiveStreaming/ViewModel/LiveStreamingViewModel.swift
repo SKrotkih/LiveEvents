@@ -6,143 +6,139 @@
 //
 
 import Foundation
-import Combine
 import YTLiveStreaming
 
-final class LiveStreamingViewModel: YouTubeLiveVideoPublisher {
-    // Dependencies
-    @Lateinit var broadcastsAPI: YouTubeLiveClient
-    /// The broadcast to stream to; injected by AppRouter before the screen is shown.
-    var liveBroadcast: LiveBroadcastStreamModel?
+/// Drives one live broadcast: fetches the RTMP URL, watches the broadcast with
+/// `monitor(broadcastID:)` and streams the live chat. UI-facing state is published for SwiftUI.
+@MainActor
+final class LiveStreamingViewModel: ObservableObject {
+    @Published private(set) var statusText = "Ready"
+    @Published private(set) var chatLines: [String] = []
+    @Published var errorMessage: String?
+    @Published private(set) var isFinished = false
 
-    private let didFinishSubject = PassthroughSubject<Void, Never>()
-    private let stateSubject = PassthroughSubject<String, Never>()
-    private let errorSubject = PassthroughSubject<String, Never>()
-    private let chatSubject = PassthroughSubject<[LiveChatMessage], Never>()
+    private let broadcast: LiveBroadcastStreamModel
+    private let broadcastsAPI: YouTubeLiveClient
+    private let maxChatLines = 6
 
-    var didFinish: AnyPublisher<Void, Never> { didFinishSubject.eraseToAnyPublisher() }
-    var stateDescription: AnyPublisher<String, Never> { stateSubject.eraseToAnyPublisher() }
-    var errorMessage: AnyPublisher<String, Never> { errorSubject.eraseToAnyPublisher() }
-    var chatMessages: AnyPublisher<[LiveChatMessage], Never> { chatSubject.eraseToAnyPublisher() }
-
-    /// Polls YouTube and takes the broadcast live once the encoder is sending.
     private var monitorTask: Task<Void, Never>?
-    /// Streams live-chat messages while the broadcast is on air.
     private var chatTask: Task<Void, Never>?
+
+    init(broadcast: LiveBroadcastStreamModel, broadcastsAPI: YouTubeLiveClient) {
+        self.broadcast = broadcast
+        self.broadcastsAPI = broadcastsAPI
+    }
 
     deinit {
         monitorTask?.cancel()
         chatTask?.cancel()
     }
 
-    // MARK: - YouTubeLiveVideoPublisher
-
-    func willStartPublishing() async -> (String?, Date?) {
-        guard let broadcast = liveBroadcast else {
-            errorSubject.send("Need a broadcast object to start live video!")
-            return (nil, nil)
-        }
+    /// Returns the RTMP ingestion URL and starts monitoring; `nil` on error (reported via `errorMessage`).
+    func startPublishing() async -> String? {
         guard let streamID = broadcast.contentDetails?.boundStreamId, !streamID.isEmpty else {
-            errorSubject.send("The broadcast has no bound stream. Create it with a stream first.")
-            return (nil, nil)
+            errorMessage = "The broadcast has no bound stream. Create it with a stream first."
+            return nil
         }
         do {
             let stream = try await broadcastsAPI.stream(id: streamID)
             guard let ingestion = stream.cdn?.ingestionInfo else {
-                errorSubject.send("YouTube returned a stream without ingestion info")
-                return (nil, nil)
+                errorMessage = "YouTube returned a stream without ingestion info"
+                return nil
             }
-            startMonitoring(broadcastID: broadcast.id)
-            return (ingestion.fullIngestionURL, broadcast.snippet.scheduledStartTime ?? Date())
+            startMonitoring()
+            return ingestion.fullIngestionURL
         } catch {
-            errorSubject.send(error.localizedDescription)
-            return (nil, nil)
+            errorMessage = error.localizedDescription
+            return nil
         }
     }
 
+    /// Ends the broadcast (`complete` is final on YouTube).
     func finishPublishing() {
         stopTasks()
-        guard let broadcast = liveBroadcast else {
-            didFinishSubject.send()
-            return
-        }
         Task {
             do {
                 try await broadcastsAPI.transition(broadcastID: broadcast.id, to: .complete)
-                print("Broadcast \"\(broadcast.id)\" was completed")
             } catch {
-                errorSubject.send("System detected error while finishing the video.\n\(error.localizedDescription)")
+                errorMessage = "System detected error while finishing the video.\n\(error.localizedDescription)"
             }
-            didFinishSubject.send()
+            isFinished = true
         }
     }
 
-    func didUserCancelPublishingVideo() {
+    /// User cancelled before going live: delete the scheduled broadcast.
+    func cancelPublishing() {
         stopTasks()
-        guard let broadcast = liveBroadcast else {
-            didFinishSubject.send()
-            return
-        }
         Task {
             do {
                 try await broadcastsAPI.deleteBroadcast(id: broadcast.id)
-                print("Broadcast \"\(broadcast.id)\" was deleted!")
             } catch {
-                errorSubject.send("System detected error while deleting the video.\n\(error.localizedDescription)\nTry to delete it in your YouTube account")
+                errorMessage = "System detected error while deleting the video.\n\(error.localizedDescription)\nTry to delete it in your YouTube account"
             }
-            didFinishSubject.send()
+            isFinished = true
         }
     }
 
-    // MARK: - Monitoring and chat (YTLiveStreaming 1.1)
+    func report(encoderState state: PublishingState) {
+        switch state {
+        case .connecting: statusText = "connecting to YouTube…"
+        case .publishing: statusText = "sending video, waiting for YouTube…"
+        case .failed(let code): errorMessage = "Encoder error: \(code)"
+        case .idle, .stopped: break
+        }
+    }
+
+    // MARK: - Private
 
     private func stopTasks() {
         monitorTask?.cancel()
         chatTask?.cancel()
     }
 
-    private func startMonitoring(broadcastID: String) {
+    private func startMonitoring() {
         monitorTask?.cancel()
-        monitorTask = Task { [weak self] in
-            guard let api = self?.broadcastsAPI else { return }
+        monitorTask = Task { [weak self, broadcastsAPI, broadcast] in
             do {
-                for try await event in api.monitor(broadcastID: broadcastID) {
+                for try await event in broadcastsAPI.monitor(broadcastID: broadcast.id) {
                     guard let self else { return }
                     switch event {
-                    case .snapshot(let snapshot):
-                        stateSubject.send("status: \(snapshot.lifeCycleStatus.rawValue) [\(snapshot.streamStatus.rawValue);\(snapshot.streamHealth.rawValue)]")
+                    case .snapshot(let s):
+                        self.statusText = "status: \(s.lifeCycleStatus.rawValue) [\(s.streamStatus.rawValue);\(s.streamHealth.rawValue)]"
                     case .encoderConnected:
-                        stateSubject.send("encoder connected, going live…")
+                        self.statusText = "encoder connected, going live…"
                     case .live:
-                        stateSubject.send("● LIVE")
-                        startChat()
+                        self.statusText = "● LIVE"
+                        self.startChat()
                     case .transitionFailed(_, let error):
-                        stateSubject.send(error.apiError?.reason ?? error.localizedDescription)
+                        self.statusText = error.apiError?.reason ?? error.localizedDescription
                     case .ended(let status):
-                        stateSubject.send("ended (\(status.rawValue))")
+                        self.statusText = "ended (\(status.rawValue))"
                     case .transitionRequested, .testing, .pollFailed:
                         break
                     }
                 }
             } catch is CancellationError {
-                // finishPublishing / cancel
             } catch {
-                self?.errorSubject.send(error.localizedDescription)
+                self?.errorMessage = error.localizedDescription
             }
         }
     }
 
     private func startChat() {
-        guard chatTask == nil, let chatID = liveBroadcast?.snippet.liveChatId else { return }
-        chatTask = Task { [weak self] in
-            guard let api = self?.broadcastsAPI else { return }
+        guard chatTask == nil, let chatID = broadcast.snippet.liveChatId else { return }
+        chatTask = Task { [weak self, broadcastsAPI] in
             do {
-                for try await batch in api.chatMessageStream(liveChatId: chatID) {
-                    self?.chatSubject.send(batch)
+                for try await batch in broadcastsAPI.chatMessageStream(liveChatId: chatID) {
+                    guard let self else { return }
+                    for message in batch where !message.text.isEmpty {
+                        self.chatLines.append("\(message.authorName): \(message.text)")
+                    }
+                    self.chatLines = Array(self.chatLines.suffix(self.maxChatLines))
                 }
             } catch is CancellationError {
             } catch {
-                self?.stateSubject.send("chat: \(error.localizedDescription)")
+                self?.statusText = "chat: \(error.localizedDescription)"
             }
         }
     }

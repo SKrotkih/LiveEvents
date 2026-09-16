@@ -8,64 +8,42 @@ import SwiftUI
 
 struct NewBroadcastView: View {
     @EnvironmentObject var viewModel: NewBroadcastViewModel
-    @State var localError = ""
+    @Environment(\.dismiss) private var dismiss
+    @State private var localError = ""
+    @State private var showingConfirm = false
 
     var body: some View {
-        if !viewModel.error.isEmpty {
-            textError(viewModel.error)
-        }
-        if !localError.isEmpty {
-            textError(localError)
-        }
-        Spacer()
-            .frame(height: 55.0)
-        BroadcastContentView(update: false, model: viewModel.model)
-            .navigationBar(title: "Schedule a new live video")
-            .navigationBarItems(leading: BackButton(),
-                                trailing: InsertBroadcastDoneButton(errorMessage: $localError))
-            .loadingIndicator(viewModel.isOperationInProgress)
-    }
-
-    private func textError(_ message: String) -> some View {
         VStack {
-            Spacer()
-                .frame(height: 40.0)
-            Text(message)
-                .foregroundColor(.red)
+            if !viewModel.error.isEmpty { textError(viewModel.error) }
+            if !localError.isEmpty { textError(localError) }
+            BroadcastContentView(update: false, model: $viewModel.model)
         }
-    }
-
-    struct InsertBroadcastDoneButton: View, Themeable {
-        @EnvironmentObject var viewModel: NewBroadcastViewModel
-        @Environment(\.presentationMode) var presentationMode
-        @Environment(\.colorScheme) var colorScheme
-        @Binding var errorMessage: String
-        @State var showingAlert = false
-
-        var body: some View {
-            HStack {
-                Button(action: {
-                    showingAlert = viewModel.verification()
-                }, label: {
-                    HStack {
-                        Text("Done")
-                            .foregroundColor(doneButtonColor)
-                    }
-                })
-                .alert("Do you realy want to create a new Live broadcast video?", isPresented: $showingAlert) {
-                    Button("Cancel", role: .cancel) { }
-                    Button("OK") {
-                        Task {
-                            do {
-                                try await viewModel.createNewStream()
-                                presentationMode.wrappedValue.dismiss()
-                            } catch let error {
-                                errorMessage = error.localizedDescription
-                            }
-                        }
+        .navigationBar(title: "Schedule a new live video")
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) { BackButton() }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Done") { showingConfirm = viewModel.verification() }
+            }
+        }
+        .loadingIndicator(viewModel.isOperationInProgress)
+        .alert("Do you really want to create a new live broadcast video?", isPresented: $showingConfirm) {
+            Button("Cancel", role: .cancel) { }
+            Button("OK") {
+                Task {
+                    do {
+                        try await viewModel.createNewStream()
+                        dismiss()
+                    } catch {
+                        localError = error.localizedDescription
                     }
                 }
             }
         }
+    }
+
+    private func textError(_ message: String) -> some View {
+        Text(message)
+            .foregroundColor(.red)
+            .padding(.top, 40.0)
     }
 }

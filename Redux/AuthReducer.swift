@@ -6,57 +6,49 @@
 //
 
 import Foundation
-import Combine
 import os.log
-///
-/// For more information check "How To Control The World" - Stephen Celis
-/// https://vimeo.com/291588126
-///
+
+/// "How To Control The World" — Stephen Celis, https://vimeo.com/291588126
 struct NetworkService {
     var configurator: SignInConfigurable
     var actions: SignInActions
-    var publisher: SignInPublisher
     var presenter: SignInPresentable
 
     init(with service: NetworkProtocol) {
         configurator = service
         actions = service
-        publisher = service
         presenter = service
     }
 }
 
-///
-/// Reducer: A Reducer is a function that takes the current state from the store, and the action.
-/// It combines the action and current state together and returns the new state
-///
-func authReducer(state: AuthState,
-                 action: AuthAction,
-                 environment: NetworkService) async throws -> AuthState {
-    let newState = await Task {
-        switch action {
-        case .configure:
-            await environment.configurator.configure()
-        case .viewController(let viewController):
-            await environment.presenter.setUpViewController(viewController)
-        case .openUrl(let url):
-            await environment.actions.openURL(url)
-        case let .signedIn(userSession):
-            await state.setUpNewSession(userSession)
-        case let .signInError(message):
-            await state.setUpError(AuthError.message(message))
-        case .loggedOut:
-            await state.setUpNewSession(nil)
-        case .logOut:
-            // async operation; finished by .loggedOut state:
-            await environment.actions.logOut()
-        case let .openUrlWithError(message):
-            print(message)
-        }
-        return state
-    }.value
-
-    await os_log("appstate: The user is %{private}@", log: OSLog.appState, type: .info, newState.isConnected ? "connected" : "disconnected")
-
-    return newState
+/// Combines the current state with an action and produces the new state.
+/// Side effects (sign-in SDK calls) go through the environment; their results come back as actions.
+@MainActor
+func authReducer(state: inout AuthState, action: AuthAction, environment: NetworkService) {
+    switch action {
+    case .configure:
+        environment.configurator.configure()
+    case .viewController(let viewController):
+        environment.presenter.setUpViewController(viewController)
+    case .openUrl(let url):
+        environment.actions.openURL(url)
+    case .signedIn(let userSession):
+        state.userSession = userSession
+        state.error = nil
+    case .signInError(let error):
+        state.userSession = nil
+        state.error = error
+    case .requestPermissions:
+        state.error = nil
+        environment.actions.requestPermissions()
+    case .loggedOut:
+        state.userSession = nil
+        state.error = nil
+    case .logOut:
+        // Asynchronous; finished by `.loggedOut`.
+        environment.actions.logOut()
+    case .openUrlWithError(let message):
+        os_log("openURL failed: %{public}@", log: .appState, type: .error, message)
+    }
+    os_log("appstate: The user is %{public}@", log: .appState, type: .info, state.isConnected ? "connected" : "disconnected")
 }

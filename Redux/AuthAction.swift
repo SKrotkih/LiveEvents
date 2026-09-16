@@ -8,16 +8,12 @@
 import UIKit
 import SwiftGoogleSignIn
 
-///
-/// Action: Actions are payloads or simply objects of information,
-/// that captures from the application via any kind of events such as
-/// touch events, network API responses etc,.
-///
 enum AuthAction {
     case configure
     case viewController(UIViewController)
-    case signedIn(userSession: UserSession?)
-    case signInError(message: String)
+    case signedIn(userSession: UserSession)
+    case signInError(AuthError)
+    case requestPermissions
     case logOut
     case loggedOut
     case openUrl(URL)

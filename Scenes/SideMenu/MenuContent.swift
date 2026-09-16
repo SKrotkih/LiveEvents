@@ -80,11 +80,6 @@ struct UserNameView: View, Themeable {
     var body: some View {
         Text(viewModel.userName)
             .foregroundColor(userNameColor)
-            .onAppear {
-                Task {
-                    await viewModel.downloadUserName()
-                }
-            }
     }
 }
 
@@ -122,18 +117,18 @@ struct SortOfListRadioButton: View {
             })
         }
         .padding(20)
-        .onChange(of: selection) { selected in
+        .onChange(of: selection) { _, selected in
             switch selected {
             case .first:
-                listViewModel.selectedListType.send(.byLifeCycleStatus)
+                listViewModel.select(listType: .byLifeCycleStatus)
             case .second:
-                listViewModel.selectedListType.send(.byVideoState)
+                listViewModel.select(listType: .byVideoState)
             case .none:
                 break
             }
         }
         .onAppear {
-            selection = listViewModel.selectedListType.value == .byLifeCycleStatus ? .first : .second
+            selection = listViewModel.listType == .byLifeCycleStatus ? .first : .second
         }
     }
 

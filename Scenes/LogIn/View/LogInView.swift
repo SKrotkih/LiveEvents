@@ -7,20 +7,19 @@
 import SwiftUI
 import SwiftGoogleSignIn
 
-/// Google connect to the User account via sign in buton
+/// Google sign-in screen.
 struct LogInView: View {
     @EnvironmentObject var viewModel: LogInViewModel
-    @EnvironmentObject var currentState: UserSessionState
+    @EnvironmentObject var store: AuthReduxStore
 
-    var body: some View {
-        contentView
-        .onAppear {
-            // Set up the window root view controller as the `GIDSignIn` presenting view controller.
-            viewModel.configure(with: AppDelegate.shared.window?.rootViewController ?? UIHostingController(rootView: self))
-        }
+    private var isAskingForScopes: Binding<Bool> {
+        Binding(
+            get: { if case .missingScopes = store.state.error { return true } else { return false } },
+            set: { if !$0 { viewModel.dismissError() } }
+        )
     }
 
-    private var contentView: some View {
+    var body: some View {
         VStack {
             Spacer()
             Image("icon-logo")
@@ -28,34 +27,35 @@ struct LogInView: View {
                 .scaledToFit()
                 .frame(height: 100.0)
             Spacer()
-            if let errorMessage = currentState.errorMessage, !errorMessage.isEmpty {
-                Text(errorMessage)
-                    .lineLimit(nil)
+            if case .message(let text) = store.state.error, !text.isEmpty {
+                Text(text)
                     .multilineTextAlignment(.center)
                     .foregroundColor(.red)
+                    .padding(.horizontal)
                 Spacer()
                     .frame(height: 30.0)
-            } else {
-                EmptyView()
             }
-            SignInButton()   // native Google Sign in button will be shown here
+            SignInButton()   // Google's native button; calls API.logIn()
                 .padding()
                 .frame(width: 130.0, height: 20.0)
             Spacer()
                 .frame(height: 60.0)
         }
+        .onAppear {
+            viewModel.configurePresenter()
+        }
+        .alert("YouTube permissions", isPresented: isAskingForScopes) {
+            Button("Grant") { viewModel.requestPermissions() }
+            Button("Cancel", role: .cancel) { viewModel.dismissError() }
+        } message: {
+            Text(store.state.error?.message ?? "")
+        }
     }
 }
 
-struct LogInView_Previews: PreviewProvider {
-    static var previews: some View {
-        let store = Store(initialState: .init(userSession: nil),
-                          reducer: authReducer,
-                          environment: NetworkService(with: SignInService()))
-        let viewModel = LogInViewModel(store: store)
-        LogInView()
-            .previewDevice(PreviewDevice(rawValue: "iPhone 12 Pro"))
-            .previewDisplayName("iPhone 12 Pro")
-            .environmentObject(viewModel)
-    }
+#Preview {
+    let environment = AppEnvironment()
+    LogInView()
+        .environmentObject(environment.store)
+        .environmentObject(LogInViewModel(store: environment.store))
 }

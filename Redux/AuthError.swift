@@ -7,13 +7,16 @@
 
 import Foundation
 
-enum AuthError: Error, Equatable {
+enum AuthError: Error, Equatable, Sendable {
+    /// Something to show under the sign-in button.
     case message(String)
-}
+    /// The account signed in but declined the YouTube scopes; the user can grant them again.
+    case missingScopes(String)
 
-func == (a: AuthError, b: AuthError) -> Bool {
-    switch (a, b) {
-    case (.message(let a), .message(let b)) where a == b: return true
-    default: return false
+    var message: String {
+        switch self {
+        case .message(let text), .missingScopes(let text):
+            return text
+        }
     }
 }

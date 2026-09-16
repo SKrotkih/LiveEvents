@@ -11,7 +11,7 @@ import SwiftUI
 
 struct BroadcastContentView: View, Themeable {
     var update: Bool
-    @State var model: BroadcastModel
+    @Binding var model: BroadcastModel
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {

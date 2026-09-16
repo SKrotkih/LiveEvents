@@ -11,37 +11,32 @@ import SwiftGoogleSignIn
 
 // MARK: - NetworkProtocol
 
-protocol SignInPublisher {
-    var userSession: UserSession? { get }
-}
-
-@MainActor
-protocol SignInActions {
+@MainActor protocol SignInActions {
     func openURL(_ url: URL)
     func logOut()
+    func requestPermissions()
 }
 
-@MainActor
-protocol SignInPresentable {
+@MainActor protocol SignInPresentable {
     func setUpViewController(_ viewController: UIViewController)
 }
 
-@MainActor
-protocol SignInConfigurable {
+@MainActor protocol SignInConfigurable {
     func configure()
 }
 
-typealias NetworkProtocol = SignInPublisher & SignInActions & SignInPresentable & SignInConfigurable
+typealias NetworkProtocol = SignInActions & SignInPresentable & SignInConfigurable
 
 ///
-/// Example of using the SwiftGoogleSignIn 2.0 package: the session publisher feeds the Redux
-/// store, the error publisher shows the failure (or offers to request the missing scopes).
+/// Example of using the SwiftGoogleSignIn 2.0 package: the session publisher and the error
+/// publisher are turned into Redux actions.
 ///
 @MainActor
-final class SignInService: NetworkProtocol, ObservableObject {
-    @Published var userSession: UserSession?
+final class SignInService: NetworkProtocol {
+    /// Set by the composition root; every package event becomes an action.
+    var dispatch: (@MainActor (AuthAction) -> Void)?
 
-    var signInAPI: SwiftGoogleSignInInterface = SwiftGoogleSignIn.API
+    private let signInAPI: SwiftGoogleSignInInterface = SwiftGoogleSignIn.API
 
     /// Scopes the YouTube Data API needs. The OAuth consent screen must list them
     /// (in Testing mode your account must be a test user).
@@ -51,10 +46,9 @@ final class SignInService: NetworkProtocol, ObservableObject {
         "https://www.googleapis.com/auth/youtube.force-ssl"
     ]
 
-    private var disposables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
 
-    // Nothing actor-isolated is touched here, so the singleton AppRouter can create it off the main actor.
-    nonisolated init() {}
+    init() {}
 
     func configure() {
         signInAPI.initialize(Self.youtubeScopes)
@@ -63,12 +57,16 @@ final class SignInService: NetworkProtocol, ObservableObject {
 
     func openURL(_ url: URL) {
         if !signInAPI.openUrl(url) {
-            Router.store.stateDispatch(action: .openUrlWithError(message: "Failed open \(url.absoluteString)"))
+            dispatch?(.openUrlWithError(message: "Failed open \(url.absoluteString)"))
         }
     }
 
     func logOut() {
         signInAPI.logOut()
+    }
+
+    func requestPermissions() {
+        signInAPI.requestPermissions()
     }
 
     func setUpViewController(_ viewController: UIViewController) {
@@ -81,21 +79,20 @@ final class SignInService: NetworkProtocol, ObservableObject {
         signInAPI.publisher
             .receive(on: RunLoop.main)
             .sink { [weak self] session in
-                self?.userSession = session.isConnected ? session : nil
                 if session.isConnected {
-                    Router.store.stateDispatch(action: .signedIn(userSession: session))
+                    self?.dispatch?(.signedIn(userSession: session))
                 } else {
-                    Router.store.stateDispatch(action: .loggedOut)
+                    self?.dispatch?(.loggedOut)
                 }
             }
-            .store(in: &disposables)
+            .store(in: &cancellables)
 
         signInAPI.errorPublisher
             .receive(on: RunLoop.main)
             .sink { [weak self] error in
                 self?.handle(error)
             }
-            .store(in: &disposables)
+            .store(in: &cancellables)
     }
 
     private func handle(_ error: SignInError) {
@@ -103,13 +100,11 @@ final class SignInService: NetworkProtocol, ObservableObject {
         case .cancelled:
             break   // the user closed the Google sheet; nothing to report
         case .missingScopes:
-            Alert.showOkCancel(error.localizedDescription,
-                               message: "Would you like to grant them now?",
-                               onComplete: { [weak self] in self?.signInAPI.requestPermissions() })
+            dispatch?(.signInError(.missingScopes(error.localizedDescription)))
         case .signOutFailed:
             print("Sign-out: \(error.localizedDescription)")   // already signed out locally
         default:
-            Router.store.stateDispatch(action: .signInError(message: error.localizedDescription))
+            dispatch?(.signInError(.message(error.localizedDescription)))
         }
     }
 }

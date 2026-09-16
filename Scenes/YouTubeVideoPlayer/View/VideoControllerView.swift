@@ -1,5 +1,5 @@
 //
-//  VideoPlayerBodyView.swift
+//  VideoControllerView.swift
 //  LiveEvents
 //
 //  Created by Serhii Krotkykh
@@ -8,78 +8,49 @@
 import SwiftUI
 
 struct VideoControllerView: View {
-    @State private var seekToSeconds: Float = 0.0
-    @State private var isSliderChanged = false {
-        didSet {
-            viewModel.seekToSeconds(seekToSeconds)
-        }
-    }
-    private var viewModel: VideoPlayerControlled
+    @StateObject private var viewModel: VideoControllerViewModel
+    @State private var seekFraction: Float = 0.0
     private let title: String
-    private var navigateController: NavicationObservable
-    private var playerView: PlayerViewRepresentable {
-        viewModel.playerView
-    }
 
     init(videoId: String, title: String) {
+        _viewModel = StateObject(wrappedValue: VideoControllerViewModel(videoId: videoId))
         self.title = title
-        viewModel = VideoControllerViewModel(videoId: videoId)
-        navigateController = NavicationObservable()
     }
 
     var body: some View {
         VStack {
-            Spacer()
-                .frame(height: 30.0)
-            playerView
+            Spacer().frame(height: 30.0)
+            PlayerViewRepresentable(playerView: viewModel.playerView)
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
             Spacer()
-            HStack {
+            Slider(value: $seekFraction, in: 0...1, onEditingChanged: { editing in
+                if !editing { viewModel.seek(toFraction: seekFraction) }
+            })
+            .padding(.horizontal)
+            controlRow(["Play": viewModel.play, "Pause": viewModel.pause, "Stop": viewModel.stop])
+            controlRow(["Start": viewModel.start, "Reverse": viewModel.reverse, "Forward": viewModel.forward])
+            Spacer()
+        }
+        .navigationTitle(title)
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .toolbar { ToolbarItem(placement: .topBarLeading) { BackButton() } }
+        .ignoresSafeArea(edges: .bottom)
+    }
+
+    private func controlRow(_ buttons: KeyValuePairs<String, () -> Void>) -> some View {
+        HStack {
+            ForEach(Array(buttons), id: \.key) { title, action in
                 Spacer()
-                Slider(
-                    value: $seekToSeconds,
-                    in: 0...100,
-                    onEditingChanged: { editing in
-                        isSliderChanged = editing
-                    }
-                )
-                Spacer()
-            }
-            HStack {
-                Spacer()
-                Button("Play") { viewModel.play() }
-                    .foregroundColor(.gray)
-                Spacer()
-                Button("Pause") { viewModel.pause() }
-                    .foregroundColor(.gray)
-                Spacer()
-                Button("Stop") { viewModel.stop() }
-                    .foregroundColor(.gray)
-                Spacer()
-            }
-            HStack {
-                Spacer()
-                Button("Start") { viewModel.start() }
-                    .foregroundColor(.gray)
-                Spacer()
-                Button("Reverse") { viewModel.reverse() }
-                    .foregroundColor(.gray)
-                Spacer()
-                Button("Forward") { viewModel.forward() }
-                    .foregroundColor(.gray)
-                Spacer()
+                Button(title, action: action).foregroundColor(.gray)
             }
             Spacer()
         }
-        .navigationBarTitle(Text(self.title), displayMode: .inline)
-        .edgesIgnoringSafeArea(.bottom)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: BackButton())
     }
 }
 
-struct VideoPlayerContentView_Previews: PreviewProvider {
-    static var previews: some View {
+#Preview {
+    NavigationStack {
         VideoControllerView(videoId: "M7lc1UVf-VE", title: "My test video")
     }
 }

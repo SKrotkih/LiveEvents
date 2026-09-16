@@ -4,42 +4,37 @@
 //
 //  Created by Serhii Krotkykh on 11/5/22.
 //
-import Combine
+import Foundation
 import YTLiveStreaming
 
-class NewBroadcastViewModel: ObservableObject {
+@MainActor
+final class NewBroadcastViewModel: ObservableObject {
     @Published var model = BroadcastModel()
     @Published var error = ""
-    @Published var isOperationInProgress = false
+    @Published private(set) var isOperationInProgress = false
 
-    var broadcastsAPI: YouTubeLiveClient!
+    private let broadcastsAPI: YouTubeLiveClient
+
+    init(broadcastsAPI: YouTubeLiveClient) {
+        self.broadcastsAPI = broadcastsAPI
+    }
 
     func verification() -> Bool {
         if model.title.isEmpty {
             error = "The Live Event Title is empty"
             return false
-        } else {
-            return true
         }
+        return true
     }
-}
 
-// MARK: - Interactor
-
-extension NewBroadcastViewModel {
-    /// Creates the broadcast, creates a stream and binds them — one call in 1.0.
+    /// Creates the broadcast, creates a stream and binds them — one call.
     func createNewStream() async throws {
-        await MainActor.run { isOperationInProgress = true }
-        do {
-            let (broadcast, stream) = try await broadcastsAPI.createBroadcastWithStream(
-                model.createBroadcastRequest,
-                stream: model.createStreamRequest
-            )
-            print("Scheduled '\(broadcast.snippet.title)'; ingest: \(stream.cdn?.ingestionInfo?.fullIngestionURL ?? "-")")
-            await MainActor.run { isOperationInProgress = false }
-        } catch {
-            await MainActor.run { isOperationInProgress = false }
-            throw error
-        }
+        isOperationInProgress = true
+        defer { isOperationInProgress = false }
+        let (broadcast, stream) = try await broadcastsAPI.createBroadcastWithStream(
+            model.createBroadcastRequest,
+            stream: model.createStreamRequest
+        )
+        print("Scheduled '\(broadcast.snippet.title)'; ingest: \(stream.cdn?.ingestionInfo?.fullIngestionURL ?? "-")")
     }
 }

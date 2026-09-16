@@ -5,69 +5,24 @@
 //  Created by Serhii Krotkykh
 //
 
-import Foundation
-import Combine
+import SwiftUI
+import YouTubeiOSPlayerHelper
 
-protocol VideoPlayerControlled {
-    var playerView: PlayerViewRepresentable { get }
-    func play()
-    func pause()
-    func stop()
-    func reverse()
-    func forward()
-    func start()
-    func seekToSeconds(_ seconds: Float)
-}
-
-final class VideoControllerViewModel: ObservableObject, VideoPlayerControlled {
-    private var videoId: String
-
-    lazy var videoPlayer: VideoPlayer = {
-        VideoPlayer(videoId: videoId)
-    }()
+@MainActor
+final class VideoControllerViewModel: ObservableObject {
+    private let player: YouTubePlayer
 
     init(videoId: String) {
-        self.videoId = videoId
+        self.player = YouTubePlayer(videoId: videoId)
     }
 
-    var playerView: PlayerViewRepresentable {
-        PlayerViewRepresentable(playerView: videoPlayer.playerView)
-    }
+    var playerView: YTPlayerView { player.playerView }
 
-    func play() {
-        videoPlayer.playVideo()
-    }
-
-    func pause() {
-        videoPlayer.pause()
-    }
-
-    func stop() {
-        videoPlayer.stop()
-    }
-
-    func reverse() {
-        videoPlayer.reverse()
-    }
-
-    func forward() {
-        videoPlayer.forward()
-    }
-
-    func start() {
-        videoPlayer.start()
-    }
-
-    func seekToSeconds(_ seconds: Float) {
-        videoPlayer.seek(toTime: seconds)
-    }
-}
-
-final class NavicationObservable: ObservableObject {
-
-    let viewClosed = PassthroughSubject<Bool, Never>()
-
-    func closeView() {
-        viewClosed.send(true)
-    }
+    func play() { player.play() }
+    func pause() { player.pause() }
+    func stop() { player.stop() }
+    func start() { player.start() }
+    func reverse() { player.reverse() }
+    func forward() { player.forward() }
+    func seek(toFraction fraction: Float) { player.seek(toFraction: fraction) }
 }

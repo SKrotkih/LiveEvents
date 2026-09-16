@@ -14,7 +14,7 @@ All dependencies are Swift packages — no CocoaPods.
 
 ## Requirements
 
-- Xcode 16 or newer
+- Xcode 26 or newer (Swift 6 language mode)
 - iOS 18.6+ (the app's deployment target; the libraries themselves support iOS 15+)
 - A Google account with a YouTube channel that has **live streaming enabled**
   (YouTube Studio → Go live; first-time activation can take up to 24 hours)
@@ -128,6 +128,7 @@ Serhii Krotkykh
 
 ## History
 
+- 16-09-2026 — Swift 6 language mode; UIKit app shell replaced by the SwiftUI `App` lifecycle (`@main`, `WindowGroup`), Redux store made `@MainActor`, the live screen and the YouTube player rebuilt in SwiftUI (Main.storyboard, AppDelegate and the bridging header removed)
 - 16-09-2026 — CocoaPods removed: HaishinKit and youtube-ios-player-helper via SPM; XCDYouTubeKit (archived, no longer works with YouTube) and unused PromiseKit dropped; open `LiveEvents.xcodeproj` directly
 - 15-09-2026 — SwiftGoogleSignIn 2.0 (Google Sign-In SDK 8): errors on a separate publisher, access-token refresh wired into `TokenProvider`; live screen on HaishinKit + Combine (LFLiveKit and RxSwift removed); live chat overlay via YTLiveStreaming 1.1
 - 15-09-2026 — YTLiveStreaming 1.0: `YouTubeLiveClient` + `TokenProvider` bridged to the Redux session, `createBroadcastWithStream`, `monitor(broadcastID:)` instead of the delegate; YouTube scopes requested at sign-in (SwiftGoogleSignIn 1.60); real API by default; README rewritten
