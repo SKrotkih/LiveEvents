@@ -8,6 +8,7 @@ import Foundation
 import YTLiveStreaming
 
 final class BroadcastListFetcher: BroadcastsDataFetcher {
+    // Only immutable, Sendable state (the client is Sendable), so the fetcher is safely Sendable.
     private let broadcastsAPI: YouTubeLiveClient
 
     init(broadcastsAPI: YouTubeLiveClient) {

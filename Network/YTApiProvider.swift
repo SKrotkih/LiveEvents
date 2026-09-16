@@ -24,6 +24,10 @@ struct ReduxTokenProvider: TokenProvider {
 
     func refreshAccessToken() async throws -> String? {
         // The refreshed session is also published by the package, so the store picks it up.
-        try await SwiftGoogleSignIn.API.refreshTokensIfNeeded().accessToken
+        // `API` is main-actor-isolated and non-Sendable, so touch it only on the main actor;
+        // only the resulting token (Sendable) crosses back.
+        try await Task { @MainActor in
+            try await SwiftGoogleSignIn.API.refreshTokensIfNeeded().accessToken
+        }.value
     }
 }

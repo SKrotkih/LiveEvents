@@ -38,4 +38,8 @@ struct LivePreviewRepresentable: UIViewRepresentable {
         }
         DispatchQueue.main.async { self.command = nil }
     }
+
+    static func dismantleUIView(_ uiView: LivePreviewView, coordinator: Coordinator) {
+        uiView.teardown()
+    }
 }

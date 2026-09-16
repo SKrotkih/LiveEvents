@@ -5,7 +5,7 @@
 //  Created by Serhii Krotkykh
 //
 
-import Foundation
+import UIKit
 
 struct YouTubeHelpers {
     static func thumbnail(_ youtubeId: String) -> UIImage? {

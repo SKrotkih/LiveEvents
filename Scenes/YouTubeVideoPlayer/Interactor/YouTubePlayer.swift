@@ -9,6 +9,7 @@
 import UIKit
 import YouTubeiOSPlayerHelper
 
+@MainActor
 final class YouTubePlayer: NSObject {
     let playerView = YTPlayerView()
 
@@ -52,7 +53,7 @@ final class YouTubePlayer: NSObject {
 }
 
 extension YouTubePlayer: YTPlayerViewDelegate {
-    func playerView(_ playerView: YTPlayerView, didChangeTo state: YTPlayerState) {
+    nonisolated func playerView(_ playerView: YTPlayerView, didChangeTo state: YTPlayerState) {
         print("Player state changed: \(state.rawValue)")
     }
 }

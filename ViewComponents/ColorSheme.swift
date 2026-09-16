@@ -10,6 +10,7 @@ import SwiftUI
 ///
 /// Themeable protocol for customize Views by color
 ///
+@MainActor
 protocol Themeable {
     var colorScheme: ColorScheme { get }
 }

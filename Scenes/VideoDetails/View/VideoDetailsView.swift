@@ -8,8 +8,8 @@ import SwiftUI
 import YTLiveStreaming
 
 struct VideoDetailsView: View, Themeable {
-    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var environment: AppEnvironment
+    @Environment(\.colorScheme) var colorScheme
     @ObservedObject var viewModel: VideoDetailsViewModel
     @State private var showMore = false
 
@@ -19,7 +19,7 @@ struct VideoDetailsView: View, Themeable {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) { BackButton() }
                 ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink(value: DetailsRoute.update) {
+                    NavigationLink(destination: UpdateBroadcastView(viewModel: viewModel)) {
                         HStack {
                             Image(systemName: "pencil")
                             Text("Update")
@@ -28,22 +28,11 @@ struct VideoDetailsView: View, Themeable {
                     }
                 }
             }
-            .navigationDestination(for: DetailsRoute.self) { route in
-                switch route {
-                case .player:
-                    VideoControllerView(videoId: viewModel.broadcastId, title: viewModel.title)
-                case .update:
-                    UpdateBroadcastView(viewModel: viewModel)
-                }
-            }
-            .navigationDestination(for: LiveRoute.self) { route in
-                LiveStreamView(broadcast: route.broadcast, broadcastsAPI: environment.youtube)
-            }
     }
 
     private var contentView: some View {
         VStack {
-            NavigationLink(value: DetailsRoute.player) {
+            NavigationLink(destination: VideoControllerView(videoId: viewModel.broadcastId, title: viewModel.title)) {
                 ZStack {
                     ThumbnailImage(url: viewModel.thumbnailsHigh.0,
                                    width: viewModel.thumbnailsHigh.1,
@@ -57,8 +46,19 @@ struct VideoDetailsView: View, Themeable {
             }
             DetailsRow(title: "", value: viewModel.title)
             if viewModel.canGoLive {
-                GoLiveButton(broadcast: viewModel.broadcast)
-                    .padding(.vertical, 8.0)
+                NavigationLink(destination: LiveStreamView(broadcast: viewModel.broadcast,
+                                                           broadcastsAPI: environment.youtube)) {
+                    HStack {
+                        Image(systemName: "dot.radiowaves.left.and.right")
+                        Text("Go live").fontWeight(.semibold)
+                    }
+                    .padding(.horizontal, 24.0)
+                    .padding(.vertical, 10.0)
+                    .foregroundColor(.white)
+                    .background(Color.red)
+                    .cornerRadius(10.0)
+                }
+                .padding(.vertical, 8.0)
             }
             HStack {
                 Button(action: { showMore.toggle() }, label: {
@@ -88,11 +88,6 @@ struct VideoDetailsView: View, Themeable {
         }
     }
 
-    private enum DetailsRoute: Hashable {
-        case player
-        case update
-    }
-
     struct DetailsRow: View {
         let title: String
         let value: String?
@@ -115,25 +110,6 @@ struct VideoDetailsView: View, Themeable {
             }
             .padding(.leading, 20.0)
             .padding(.bottom, 5.0)
-        }
-    }
-}
-
-/// Opens the camera screen and streams this broadcast to YouTube (physical device only).
-struct GoLiveButton: View {
-    let broadcast: LiveBroadcastStreamModel
-
-    var body: some View {
-        NavigationLink(value: LiveRoute(broadcast: broadcast)) {
-            HStack {
-                Image(systemName: "dot.radiowaves.left.and.right")
-                Text("Go live").fontWeight(.semibold)
-            }
-            .padding(.horizontal, 24.0)
-            .padding(.vertical, 10.0)
-            .foregroundColor(.white)
-            .background(Color.red)
-            .cornerRadius(10.0)
         }
     }
 }

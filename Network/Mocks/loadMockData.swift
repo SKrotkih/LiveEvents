@@ -13,15 +13,11 @@ struct DecodeData {
         guard let file = Bundle.main.url(forResource: filename, withExtension: nil) else {
             return .failure(.message("Failed find \(filename) in main bundle."))
         }
-        let task: Task<T, Error> = Task {
+        do {
             let data = try Data(contentsOf: file)
             // The library's decoder knows the API's RFC 3339 date forms.
-            let decodedData = try JSONDecoder.youtubeLive().decode(T.self, from: data)
-            return decodedData
-        }
-        do {
-            let data = try await task.value
-            return .success(data)
+            let decoded = try JSONDecoder.youtubeLive().decode(T.self, from: data)
+            return .success(decoded)
         } catch {
             return .failure(.message("Failed parse \(filename) as \(T.self):\n\(error)"))
         }

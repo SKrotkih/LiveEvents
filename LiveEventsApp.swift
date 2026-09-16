@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct LiveEventsApp: App {
-    private let environment = AppEnvironment()
+    @StateObject private var environment = AppEnvironment()
 
     var body: some Scene {
         WindowGroup {

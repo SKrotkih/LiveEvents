@@ -73,7 +73,9 @@ final class LivePreviewView: UIView {
         onStateChange?(.stopped)
     }
 
-    deinit {
+    /// Called from the SwiftUI representable's `dismantleUIView`; `deinit` cannot touch the
+    /// non-Sendable RTMP objects in Swift 6, so cleanup happens here on the main actor.
+    func teardown() {
         connection.removeEventListener(.rtmpStatus, selector: #selector(rtmpStatusHandler), observer: self)
         stream.close()
         connection.close()
