@@ -112,14 +112,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		FACEDF00FC21681369665767 /* LiveEventsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LiveEventsApp.swift; path = "LiveEventsApp.swift"; sourceTree = SOURCE_ROOT; };
-		FACE74C8A168DC7C5C196DC5 /* UIApplication+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIApplication+Ext.swift; path = "Extensions/UIApplication+Ext.swift"; sourceTree = SOURCE_ROOT; };
-		FACE03B0D2AA494BC404526F /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppEnvironment.swift; path = "Scenes/AppEnvironment.swift"; sourceTree = SOURCE_ROOT; };
-		FACECDFF1F2C3504D6190E6D /* LiveRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LiveRoute.swift; path = "Scenes/LiveStreaming/LiveRoute.swift"; sourceTree = SOURCE_ROOT; };
-		FACE905F23DCEA2DD58D25D3 /* LivePreviewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LivePreviewRepresentable.swift; path = "Scenes/LiveStreaming/View/LivePreviewRepresentable.swift"; sourceTree = SOURCE_ROOT; };
-		FACE3CF0AC9FE942F0CD49DA /* LiveStreamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LiveStreamView.swift; path = "Scenes/LiveStreaming/View/LiveStreamView.swift"; sourceTree = SOURCE_ROOT; };
-		FACECD08396D6F1A011E4267 /* YouTubePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YouTubePlayer.swift; path = "Scenes/YouTubeVideoPlayer/Interactor/YouTubePlayer.swift"; sourceTree = SOURCE_ROOT; };
-		FACE23D7EA73C33FEC7E80D5 /* PlayerViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerViewRepresentable.swift; path = "Scenes/YouTubeVideoPlayer/View/PlayerViewRepresentable.swift"; sourceTree = SOURCE_ROOT; };
+		FACEDF00FC21681369665767 /* LiveEventsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveEventsApp.swift"; sourceTree = SOURCE_ROOT; };
+		FACE74C8A168DC7C5C196DC5 /* UIApplication+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions/UIApplication+Ext.swift"; sourceTree = SOURCE_ROOT; };
+		FACE03B0D2AA494BC404526F /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scenes/AppEnvironment.swift"; sourceTree = SOURCE_ROOT; };
+		FACECDFF1F2C3504D6190E6D /* LiveRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scenes/LiveStreaming/LiveRoute.swift"; sourceTree = SOURCE_ROOT; };
+		FACE905F23DCEA2DD58D25D3 /* LivePreviewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scenes/LiveStreaming/View/LivePreviewRepresentable.swift"; sourceTree = SOURCE_ROOT; };
+		FACE3CF0AC9FE942F0CD49DA /* LiveStreamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scenes/LiveStreaming/View/LiveStreamView.swift"; sourceTree = SOURCE_ROOT; };
+		FACECD08396D6F1A011E4267 /* YouTubePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scenes/YouTubeVideoPlayer/Interactor/YouTubePlayer.swift"; sourceTree = SOURCE_ROOT; };
+		FACE23D7EA73C33FEC7E80D5 /* PlayerViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scenes/YouTubeVideoPlayer/View/PlayerViewRepresentable.swift"; sourceTree = SOURCE_ROOT; };
 		3107E0722951F3D90023E663 /* OSLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLog.swift; sourceTree = "<group>"; };
 		3107EC95295C439B00020611 /* BroadcastListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastListModel.swift; sourceTree = "<group>"; };
 		310D7F3029275F2B00FD7C1C /* AuthError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
