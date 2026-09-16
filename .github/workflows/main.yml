@@ -24,16 +24,6 @@ jobs:
       - name: Config.plist placeholder (real client id is not needed to build or unit-test)
         run: cp Config.plist.example.plist Config.plist
 
-      - name: Cache CocoaPods
-        uses: actions/cache@v5
-        with:
-          path: Pods
-          key: pods-${{ runner.os }}-${{ hashFiles('Podfile.lock') }}
-          restore-keys: pods-${{ runner.os }}-
-
-      - name: pod install
-        run: pod install --repo-update
-
       - name: Pick an iPhone simulator
         id: sim
         run: |
@@ -54,7 +44,7 @@ jobs:
       - name: Build & test
         run: |
           xcodebuild test \
-            -workspace LiveEvents.xcworkspace \
+            -project LiveEvents.xcodeproj \
             -scheme LiveEvents \
             -destination "platform=iOS Simulator,id=${{ steps.sim.outputs.udid }}" \
             -skipPackagePluginValidation \

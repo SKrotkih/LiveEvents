@@ -6,26 +6,11 @@
 //
 import Foundation
 
+/// Single place to choose the YouTube player implementation.
+/// Only the iframe player (youtube-ios-player-helper) is left: XCDYouTubeKit, which extracted
+/// direct stream URLs for AVPlayer, is archived and no longer works with YouTube.
 struct VideoPlayerFactory {
-    enum VideoPlayerType {
-        case defaultVideoPlayer
-        case oldVersionForIos8
-        case AVPlayerViewController
-    }
-
-    // Default value of the used video player
-    private static let playerType: VideoPlayerType = .defaultVideoPlayer
-
-    lazy private var videoPlayer = YouTubePlayer()
-
     var playerFactory: YouTubeVideoPlayed {
-        switch VideoPlayerFactory.playerType {
-        case .oldVersionForIos8:
-            return XCDYouTubeVideoPlayer8()
-        case .AVPlayerViewController:
-            return XCDYouTubeVideoPlayer()
-        case .defaultVideoPlayer:
-            return YTVideoPlayer()
-        }
+        YTVideoPlayer()
     }
 }

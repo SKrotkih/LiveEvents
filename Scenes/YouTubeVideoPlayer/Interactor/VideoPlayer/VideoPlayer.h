@@ -1,5 +1,5 @@
 #import <UIKit/UIKit.h>
-#import <youtube_ios_player_helper/YTPlayerView.h>
+@import YouTubeiOSPlayerHelper;
 
 @interface VideoPlayer: NSObject <YTPlayerViewDelegate>
 

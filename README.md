@@ -15,7 +15,6 @@ Built with [SwiftUI](https://developer.apple.com/documentation/SwiftUI),
 
 - Xcode 16 or newer
 - iOS 15+
-- [CocoaPods](https://cocoapods.org) (for the video/player pods; the two Swift packages resolve automatically)
 - A Google account with a YouTube channel that has **live streaming enabled**
   (YouTube Studio → Go live; first-time activation can take up to 24 hours)
 
@@ -43,8 +42,7 @@ Built with [SwiftUI](https://developer.apple.com/documentation/SwiftUI),
 ```bash
 git clone https://github.com/SKrotkih/LiveEvents.git
 cd LiveEvents
-pod install
-open LiveEvents.xcworkspace
+open LiveEvents.xcodeproj   # all dependencies are Swift packages and resolve automatically
 ```
 
 - Copy `Config.plist.example.plist` to `Config.plist` (it is git-ignored) and put your Client ID
@@ -83,7 +81,10 @@ the broadcast with `monitor(broadcastID:)` until it is live.
 - [SwiftGoogleSignIn](https://github.com/SKrotkih/swift-googlesignin) 2.0 (SPM), a thin Combine wrapper over
   [Google Sign-In for iOS](https://github.com/google/GoogleSignIn-iOS) SDK 8: session publisher + error publisher, token refresh on 401
 - [ReSwift](https://github.com/ReSwift/ReSwift) (SPM)
-- CocoaPods: HaishinKit (RTMP encoder), XCDYouTubeKit, youtube-ios-player-helper, PromiseKit
+- [HaishinKit](https://github.com/shogo4405/HaishinKit.swift) 1.9 (SPM) — RTMP encoder for the live screen
+- [youtube-ios-player-helper](https://github.com/youtube/youtube-ios-player-helper) (SPM) — iframe player for recorded videos
+
+No CocoaPods: everything comes through Swift Package Manager.
 
 ## Video
 
@@ -106,8 +107,6 @@ The app writes to `OSLog`. In Console.app pick your device or simulator, then fi
 | Sign-in succeeds but the app returns to the login screen | Old SwiftGoogleSignIn (< 1.60) did not request the YouTube scopes. Update the package (File → Packages → Update to Latest Package Versions) and delete the app from the device to clear the stale session. |
 | `Forbidden (403). Request had insufficient authentication scopes.` | The signed-in session was created without YouTube scopes — sign out (or delete the app) and sign in again. |
 | `Forbidden (403)` with reason `liveStreamingNotEnabled` | Enable live streaming on the channel in YouTube Studio. |
-| `pod install` hangs on "Cloning spec repo" | Remove any `source 'https://github.com/CocoaPods/Specs.git'` line from the Podfile; the CDN is the default. |
-| `SDK does not contain 'libarclite'` | Xcode 15+ dropped it; the `post_install` hook in the Podfile raises the pods' deployment target to 13.0 — run `pod install` again. |
 | `Build input file cannot be found: …/Config.plist` | Create `Config.plist` from the example (see Setup). |
 
 ## Author
@@ -116,6 +115,7 @@ Serhii Krotkykh
 
 ## History
 
+- 16-09-2026 — CocoaPods removed: HaishinKit and youtube-ios-player-helper via SPM; XCDYouTubeKit (archived, no longer works with YouTube) and unused PromiseKit dropped; open `LiveEvents.xcodeproj` directly
 - 15-09-2026 — SwiftGoogleSignIn 2.0 (Google Sign-In SDK 8): errors on a separate publisher, access-token refresh wired into `TokenProvider`; live screen on HaishinKit + Combine (LFLiveKit and RxSwift removed); live chat overlay via YTLiveStreaming 1.1
 - 15-09-2026 — YTLiveStreaming 1.0: `YouTubeLiveClient` + `TokenProvider` bridged to the Redux session, `createBroadcastWithStream`, `monitor(broadcastID:)` instead of the delegate; YouTube scopes requested at sign-in (SwiftGoogleSignIn 1.60); real API by default; Podfile fixes for Xcode 15+; README rewritten
 - 20-12-2022 — update for YTLiveStreaming 0.2.29, mock data

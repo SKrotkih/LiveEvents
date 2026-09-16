@@ -19,7 +19,4 @@ profile
 *.moved-aside
 DerivedData
 .idea/
-# CocoaPods
-Pods/
-Podfile.lock
 Config.plist
