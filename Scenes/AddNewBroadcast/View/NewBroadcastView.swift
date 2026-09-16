@@ -8,6 +8,7 @@ import SwiftUI
 
 struct NewBroadcastView: View {
     @EnvironmentObject var viewModel: NewBroadcastViewModel
+    @EnvironmentObject var listViewModel: VideoListViewModel
     @Environment(\.dismiss) private var dismiss
     @State private var localError = ""
     @State private var showingConfirm = false
@@ -33,6 +34,7 @@ struct NewBroadcastView: View {
                     do {
                         try await viewModel.createNewStream()
                         dismiss()
+                        await listViewModel.loadData()
                     } catch {
                         localError = error.localizedDescription
                     }

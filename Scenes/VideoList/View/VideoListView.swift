@@ -27,6 +27,7 @@ struct VideoListView: View {
             .task {
                 if viewModel.sections.isEmpty { await viewModel.loadData() }
             }
+            .refreshable { await viewModel.loadData() }
             .sideMenu(isShowing: $isSideMenuShowing) {
                 MenuContent(isShowing: $isSideMenuShowing)
             }
