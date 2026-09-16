@@ -69,7 +69,7 @@ the broadcast with `monitor(broadcastID:)` until it is live.
 
 | Concern | Where |
 |---|---|
-| Google Sign-In, scopes, session | [SwiftGoogleSignIn](https://github.com/SKrotkih/SwiftGoogleSignIn) package → Redux `AuthReduxStore` |
+| Google Sign-In, scopes, session | [SwiftGoogleSignIn](https://github.com/SKrotkih/swift-googlesignin) package → Redux `AuthReduxStore` |
 | Token → YouTube client | `Network/YTApiProvider.swift`: `ReduxTokenProvider` implements `TokenProvider` from YTLiveStreaming |
 | YouTube Live API | [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) 1.0 — `YouTubeLiveClient` (SPM, no third-party dependencies) |
 | Broadcast list | `Scenes/VideoList` — `allBroadcasts(.all)` grouped by `LifeCycleStatus` |
@@ -80,7 +80,7 @@ the broadcast with `monitor(broadcastID:)` until it is live.
 ## Libraries
 
 - [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) 1.1 (SPM)
-- [SwiftGoogleSignIn](https://github.com/SKrotkih/SwiftGoogleSignIn) 2.0 (SPM), a thin Combine wrapper over
+- [SwiftGoogleSignIn](https://github.com/SKrotkih/swift-googlesignin) 2.0 (SPM), a thin Combine wrapper over
   [Google Sign-In for iOS](https://github.com/google/GoogleSignIn-iOS) SDK 8: session publisher + error publisher, token refresh on 401
 - [ReSwift](https://github.com/ReSwift/ReSwift) (SPM)
 - CocoaPods: HaishinKit (RTMP encoder), XCDYouTubeKit, youtube-ios-player-helper, PromiseKit

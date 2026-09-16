@@ -1395,7 +1395,7 @@
 /* Begin XCRemoteSwiftPackageReference section */
 		7F4C22B12869CEE500F29118 /* XCRemoteSwiftPackageReference "SwiftGoogleSignIn" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SKrotkih/SwiftGoogleSignIn.git";
+			repositoryURL = "https://github.com/SKrotkih/swift-googlesignin.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.0.0;
