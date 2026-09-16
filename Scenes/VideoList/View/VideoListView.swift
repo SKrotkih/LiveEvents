@@ -70,7 +70,7 @@ struct VideoListView: View {
                 Spacer()
             }
             .padding(10.0)
-            .foregroundColor(.black)
+            .foregroundColor(.primary)   // was .black: invisible in dark mode
             VideoList(viewModel: viewModel, selectMode: $selectMode, selectedIDs: $selectedIDs)
         }
         .loadingIndicator(viewModel.isDataDownloading)
