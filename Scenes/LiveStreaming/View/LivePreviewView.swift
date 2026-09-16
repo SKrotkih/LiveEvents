@@ -46,7 +46,7 @@ final class LivePreviewView: UIView {
 
     func changeCameraPosition() {
         cameraPosition = cameraPosition == .back ? .front : .back
-        stream.attachCamera(camera(cameraPosition)) { _, error in
+        stream.attachCamera(camera(cameraPosition)) { @Sendable _, error in
             if let error { print("attachCamera:", error) }
         }
     }
@@ -106,10 +106,10 @@ final class LivePreviewView: UIView {
         stream.videoSettings.maxKeyFrameIntervalDuration = 2
         stream.audioSettings.bitRate = 128_000
 
-        stream.attachAudio(AVCaptureDevice.default(for: .audio)) { _, error in
+        stream.attachAudio(AVCaptureDevice.default(for: .audio)) { @Sendable _, error in
             if let error { print("attachAudio:", error) }
         }
-        stream.attachCamera(camera(cameraPosition)) { _, error in
+        stream.attachCamera(camera(cameraPosition)) { @Sendable _, error in
             if let error { print("attachCamera:", error) }
         }
     }
@@ -131,19 +131,25 @@ final class LivePreviewView: UIView {
 
     // MARK: - RTMP status
 
-    @objc private func rtmpStatusHandler(_ notification: Notification) {
+    /// HaishinKit posts `.rtmpStatus` from its own queue, so the observer must not be
+    /// MainActor-isolated (Swift 6 traps otherwise). Extract the code here, then hop to main.
+    @objc nonisolated private func rtmpStatusHandler(_ notification: Notification) {
         let event = Event.from(notification)
         guard let data = event.data as? ASObject, let code = data["code"] as? String else { return }
         print("RTMP status:", code)
+        Task { @MainActor [weak self] in self?.handleRTMPStatus(code) }
+    }
+
+    private func handleRTMPStatus(_ code: String) {
         switch code {
         case RTMPConnection.Code.connectSuccess.rawValue:
             stream.publish(streamKey)
         case RTMPStream.Code.publishStart.rawValue:
-            DispatchQueue.main.async { self.onStateChange?(.publishing) }
+            onStateChange?(.publishing)
         case RTMPConnection.Code.connectFailed.rawValue,
              RTMPConnection.Code.connectClosed.rawValue,
              RTMPStream.Code.publishBadName.rawValue:
-            DispatchQueue.main.async { self.onStateChange?(.failed(code)) }
+            onStateChange?(.failed(code))
         default:
             break
         }
