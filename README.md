@@ -4,19 +4,21 @@
 
 A YouTube live-video manager for iOS and the sample app for the
 [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) package: list, schedule, edit and delete
-your channel's live broadcasts, then go live from the phone camera.
+your channel's live broadcasts, go live from the phone camera and watch the live chat while streaming.
 
 Built with [SwiftUI](https://developer.apple.com/documentation/SwiftUI),
 [Combine](https://developer.apple.com/documentation/Combine),
 [Swift Concurrency](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html) and a small
 [Redux-style](https://en.wikipedia.org/wiki/Redux_%28JavaScript_library%29) store for the sign-in state.
+All dependencies are Swift packages — no CocoaPods.
 
 ## Requirements
 
 - Xcode 16 or newer
-- iOS 15+
+- iOS 18.6+ (the app's deployment target; the libraries themselves support iOS 15+)
 - A Google account with a YouTube channel that has **live streaming enabled**
   (YouTube Studio → Go live; first-time activation can take up to 24 hours)
+- A physical iPhone for streaming (the simulator can manage broadcasts but has no camera)
 
 ## Setup
 
@@ -26,7 +28,9 @@ Built with [SwiftUI](https://developer.apple.com/documentation/SwiftUI),
 2. **APIs & Services → Library** → enable **YouTube Data API v3**.
 3. **APIs & Services → OAuth consent screen**: External, fill in the app name and e-mail; under
    **Scopes** add
-   `https://www.googleapis.com/auth/youtube` and `https://www.googleapis.com/auth/youtube.force-ssl`;
+   `https://www.googleapis.com/auth/youtube`,
+   `https://www.googleapis.com/auth/youtube.readonly` and
+   `https://www.googleapis.com/auth/youtube.force-ssl`;
    under **Test users** add the Google account you will sign in with.
    (While the app is in *Testing* status Google shows a "Google hasn't verified this app" page on
    sign-in — tap **Advanced → Go to LiveEvents** — and only test users can sign in. That is enough
@@ -42,11 +46,13 @@ Built with [SwiftUI](https://developer.apple.com/documentation/SwiftUI),
 ```bash
 git clone https://github.com/SKrotkih/LiveEvents.git
 cd LiveEvents
-open LiveEvents.xcodeproj   # all dependencies are Swift packages and resolve automatically
+open LiveEvents.xcodeproj
 ```
 
+Xcode resolves the Swift packages on first open (see [Libraries](#libraries)).
+
 - Copy `Config.plist.example.plist` to `Config.plist` (it is git-ignored) and put your Client ID
-  into `CLIENT_ID`. `API_KEY` can stay as is; it is no longer used.
+  into `CLIENT_ID`. `API_KEY` can stay as is; it is not used.
 - In `Info.plist` → `CFBundleURLSchemes` replace the value starting with
   `com.googleusercontent.apps.` with the **reversed** Client ID:
   `NNNNNNNN-xxxxxxxx.apps.googleusercontent.com` → `com.googleusercontent.apps.NNNNNNNN-xxxxxxxx`.
@@ -58,33 +64,37 @@ the list is then served from the JSON fixtures in `LiveEventsTests/JSON`.
 
 ### Going live
 
-The live screen needs a camera, so it runs on a physical iPhone only (the simulator can list,
-create and delete broadcasts but cannot stream). Create a broadcast with **Add**, open it, start
-the stream: the app fetches the RTMP ingest URL from YouTube, feeds it to the encoder and watches
-the broadcast with `monitor(broadcastID:)` until it is live.
+1. **Add** a broadcast (title, start time) — the app creates the broadcast and its stream in one
+   call (`createBroadcastWithStream`).
+2. Open the broadcast and tap **Go live**. The app fetches the RTMP ingest URL from YouTube,
+   starts the HaishinKit encoder and watches the broadcast with `monitor(broadcastID:)`:
+   the status label walks `ready → testing → ● LIVE` as soon as YouTube receives video.
+3. Once live, chat messages appear over the preview (`chatMessageStream`).
+4. **Finish** ends the broadcast (`transition(.complete)`); the recording stays on the channel and
+   can be played back from the list.
 
 ## How the pieces fit
 
 | Concern | Where |
 |---|---|
-| Google Sign-In, scopes, session | [SwiftGoogleSignIn](https://github.com/SKrotkih/swift-googlesignin) package → Redux `AuthReduxStore` |
-| Token → YouTube client | `Network/YTApiProvider.swift`: `ReduxTokenProvider` implements `TokenProvider` from YTLiveStreaming |
-| YouTube Live API | [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) 1.0 — `YouTubeLiveClient` (SPM, no third-party dependencies) |
+| Google Sign-In, scopes, session | [SwiftGoogleSignIn](https://github.com/SKrotkih/swift-googlesignin) 2.0 → `SignInService` → Redux `AuthReduxStore` (session publisher + error publisher) |
+| Token → YouTube client | `Network/YTApiProvider.swift`: `ReduxTokenProvider` implements `TokenProvider`; a 401 is retried after `API.refreshTokensIfNeeded()` |
+| YouTube Live API | [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) — `YouTubeLiveClient` (async/await, no third-party dependencies) |
 | Broadcast list | `Scenes/VideoList` — `allBroadcasts(.all)` grouped by `LifeCycleStatus` |
-| Create / update | `Scenes/AddNewBroadcast`, `Scenes/UpdateBroadcast` — `createBroadcastWithStream` |
-| Live screen | `Scenes/LiveStreaming` — HaishinKit RTMP encoder + `monitor(broadcastID:)` events + live chat overlay |
-| Playback | XCDYouTubeKit / youtube-ios-player-helper |
+| Create / update / delete | `Scenes/AddNewBroadcast`, `Scenes/UpdateBroadcast`, `Scenes/VideoDetails` |
+| Live screen | `Scenes/LiveStreaming` — `LivePreviewView` (HaishinKit RTMP encoder), `LiveStreamingViewModel` (Combine), `monitor(broadcastID:)` events, chat overlay |
+| Playback of recordings | `Scenes/YouTubeVideoPlayer` — youtube-ios-player-helper (`YTPlayerView`) |
 
 ## Libraries
 
-- [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) 1.1 (SPM)
-- [SwiftGoogleSignIn](https://github.com/SKrotkih/swift-googlesignin) 2.0 (SPM), a thin Combine wrapper over
-  [Google Sign-In for iOS](https://github.com/google/GoogleSignIn-iOS) SDK 8: session publisher + error publisher, token refresh on 401
-- [ReSwift](https://github.com/ReSwift/ReSwift) (SPM)
-- [HaishinKit](https://github.com/shogo4405/HaishinKit.swift) 1.9 (SPM) — RTMP encoder for the live screen
-- [youtube-ios-player-helper](https://github.com/youtube/youtube-ios-player-helper) (SPM) — iframe player for recorded videos
+All via Swift Package Manager:
 
-No CocoaPods: everything comes through Swift Package Manager.
+- [YTLiveStreaming](https://github.com/SKrotkih/YTLiveStreaming) ≥ 1.1 — YouTube Live Streaming API
+- [SwiftGoogleSignIn](https://github.com/SKrotkih/swift-googlesignin) ≥ 2.0 — thin Combine wrapper over
+  [Google Sign-In for iOS](https://github.com/google/GoogleSignIn-iOS) SDK 8
+- [ReSwift](https://github.com/ReSwift/ReSwift) — Redux store
+- [HaishinKit](https://github.com/shogo4405/HaishinKit.swift) 1.9 — RTMP encoder for the live screen
+- [youtube-ios-player-helper](https://github.com/youtube/youtube-ios-player-helper) — iframe player for recorded videos
 
 ## Video
 
@@ -104,10 +114,13 @@ The app writes to `OSLog`. In Console.app pick your device or simulator, then fi
 | Symptom | Cause / fix |
 |---|---|
 | `Your app is missing support for the following URL schemes: com.googleusercontent.apps.…` | The reversed Client ID in `Info.plist` does not match `CLIENT_ID` in `Config.plist`. |
-| Sign-in succeeds but the app returns to the login screen | Old SwiftGoogleSignIn (< 1.60) did not request the YouTube scopes. Update the package (File → Packages → Update to Latest Package Versions) and delete the app from the device to clear the stale session. |
-| `Forbidden (403). Request had insufficient authentication scopes.` | The signed-in session was created without YouTube scopes — sign out (or delete the app) and sign in again. |
-| `Forbidden (403)` with reason `liveStreamingNotEnabled` | Enable live streaming on the channel in YouTube Studio. |
 | `Build input file cannot be found: …/Config.plist` | Create `Config.plist` from the example (see Setup). |
+| "Google hasn't verified this app" | Expected while the OAuth consent screen is in Testing mode — tap **Advanced → Go to LiveEvents**; your account must be listed as a test user. |
+| Alert "did not grant the required permissions" | The Google account declined the YouTube scopes — tap **Ok** to request them again. |
+| `Forbidden (403). Request had insufficient authentication scopes.` | The signed-in session was created without YouTube scopes — sign out and sign in again. |
+| `Forbidden (403)` with reason `liveStreamingNotEnabled` | Enable live streaming on the channel in YouTube Studio. |
+| Package resolution picks an old version | File → Packages → Update to Latest Package Versions, or Reset Package Caches. |
+| Status never leaves `ready` on the live screen | The encoder is not reaching YouTube: check the network and that the RTMP URL was fetched (see the status label / Console logs). |
 
 ## Author
 
@@ -117,7 +130,7 @@ Serhii Krotkykh
 
 - 16-09-2026 — CocoaPods removed: HaishinKit and youtube-ios-player-helper via SPM; XCDYouTubeKit (archived, no longer works with YouTube) and unused PromiseKit dropped; open `LiveEvents.xcodeproj` directly
 - 15-09-2026 — SwiftGoogleSignIn 2.0 (Google Sign-In SDK 8): errors on a separate publisher, access-token refresh wired into `TokenProvider`; live screen on HaishinKit + Combine (LFLiveKit and RxSwift removed); live chat overlay via YTLiveStreaming 1.1
-- 15-09-2026 — YTLiveStreaming 1.0: `YouTubeLiveClient` + `TokenProvider` bridged to the Redux session, `createBroadcastWithStream`, `monitor(broadcastID:)` instead of the delegate; YouTube scopes requested at sign-in (SwiftGoogleSignIn 1.60); real API by default; Podfile fixes for Xcode 15+; README rewritten
+- 15-09-2026 — YTLiveStreaming 1.0: `YouTubeLiveClient` + `TokenProvider` bridged to the Redux session, `createBroadcastWithStream`, `monitor(broadcastID:)` instead of the delegate; YouTube scopes requested at sign-in (SwiftGoogleSignIn 1.60); real API by default; README rewritten
 - 20-12-2022 — update for YTLiveStreaming 0.2.29, mock data
 - 19-12-2022 — update for YTLiveStreaming 0.2.28
 - 30-11-2022 — SwiftGoogleSignIn 1.57
