@@ -35,7 +35,8 @@ final class BroadcastListFetcher: BroadcastsDataFetcher {
     }
 
     func deleteBroadcasts(_ broadcastIDs: [String]) async throws {
-        try await broadcastsAPI.deleteBroadcasts(ids: broadcastIDs)
+        // Purge: ends a running broadcast, removes the recording and the bound stream too.
+        try await broadcastsAPI.purgeBroadcasts(ids: broadcastIDs)
     }
 
     // MARK: - Private

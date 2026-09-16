@@ -40,7 +40,7 @@ struct VideoListView: View {
                     NewStreamButton()
                 }
             }
-            .alert("Do you really want to delete \(selectedIDs.count) items?", isPresented: $showDeleteAlert) {
+            .alert("Delete \(selectedIDs.count) items from YouTube? This also removes recordings and cannot be undone.", isPresented: $showDeleteAlert) {
                 Button("OK") { deleteSelectedItems() }
                 Button("Cancel", role: .cancel) { exitSelectMode() }
             }

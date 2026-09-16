@@ -1217,7 +1217,7 @@
 			repositoryURL = "https://github.com/SKrotkih/YTLiveStreaming.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.0;
+				minimumVersion = 1.1.1;
 			};
 		};
 		7FA644FE287EF493009E76F5 /* XCRemoteSwiftPackageReference "ReSwift" */ = {
