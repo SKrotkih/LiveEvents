@@ -1,10 +1,3 @@
-//
-//  LivePreviewView.swift
-//  LiveEvents
-//
-//  Camera preview + RTMP publisher on HaishinKit. Replaces the LFLiveKit-based LFLivePreview.
-//
-
 import UIKit
 import AVFoundation
 import HaishinKit

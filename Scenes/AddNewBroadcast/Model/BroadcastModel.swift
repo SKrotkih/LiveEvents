@@ -1,9 +1,3 @@
-//
-//  BroadcastModel.swift
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh on 24.03.2021.
-//
 import Foundation
 import YTLiveStreaming
 

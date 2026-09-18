@@ -1,10 +1,3 @@
-//
-//  YTApiProvider.swift
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh on 6/26/22.
-//
-
 import Foundation
 import YTLiveStreaming
 import SwiftGoogleSignIn

@@ -1,9 +1,3 @@
-//
-//  VideoListView.swift
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh
-//
 import SwiftUI
 import YTLiveStreaming
 

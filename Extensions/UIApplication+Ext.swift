@@ -1,8 +1,3 @@
-//
-//  UIApplication+Ext.swift
-//  LiveEvents
-//
-
 import UIKit
 
 extension UIApplication {

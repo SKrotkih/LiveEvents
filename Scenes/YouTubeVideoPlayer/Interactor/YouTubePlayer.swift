@@ -1,11 +1,3 @@
-//
-//  YouTubePlayer.swift
-//  LiveEvents
-//
-//  Swift wrapper over YTPlayerView (youtube-ios-player-helper), replacing the old
-//  Objective-C VideoPlayer.m and its bridging header.
-//
-
 import UIKit
 import YouTubeiOSPlayerHelper
 

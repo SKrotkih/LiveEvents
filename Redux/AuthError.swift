@@ -1,10 +1,3 @@
-//
-//  AuthError.swift
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh
-//
-
 import Foundation
 
 enum AuthError: Error, Equatable, Sendable {

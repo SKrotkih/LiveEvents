@@ -1,9 +1,3 @@
-//
-//  AuthReduxStore.swift
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh
-//
 import Combine
 
 typealias AuthReduxStore = Store<AuthState, AuthAction, NetworkService>

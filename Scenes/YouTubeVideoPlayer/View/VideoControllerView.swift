@@ -1,10 +1,3 @@
-//
-//  VideoControllerView.swift
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh
-//
-
 import SwiftUI
 
 struct VideoControllerView: View {

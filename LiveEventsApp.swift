@@ -1,10 +1,3 @@
-//
-//  LiveEventsApp.swift
-//  LiveEvents
-//
-//  SwiftUI app lifecycle. Google Sign-In's callback URL arrives through `onOpenURL`.
-//
-
 import SwiftUI
 
 @main

@@ -1,9 +1,3 @@
-//
-//  LogInView.swift
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh
-//
 import SwiftUI
 import SwiftGoogleSignIn
 

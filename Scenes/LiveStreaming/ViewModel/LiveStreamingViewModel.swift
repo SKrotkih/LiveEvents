@@ -1,10 +1,3 @@
-//
-//  LiveStreamingViewModel.swift
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh
-//
-
 import Foundation
 import YTLiveStreaming
 

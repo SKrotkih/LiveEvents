@@ -1,9 +1,3 @@
-//
-//  DecimalTextField.swift
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh on 11/6/22.
-//
 import SwiftUI
 import Combine
 ///

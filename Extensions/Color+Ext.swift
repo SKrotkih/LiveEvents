@@ -1,8 +1,3 @@
-//
-//  Color+Ext.swift
-//  LiveEvents
-//
-
 import UIKit
 
 extension UIColor {

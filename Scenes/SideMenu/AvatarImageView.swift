@@ -1,9 +1,3 @@
-//
-//  AvatarImageView.swift
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh on 9/17/22.
-//
 import SwiftUI
 
 struct AvatarImageView: View {

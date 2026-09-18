@@ -1,7 +1,3 @@
-//  EnumIteration.swift
-//  LiveEvents
-//
-
 protocol Iteratable {}
 typealias Testable = Iteratable
 

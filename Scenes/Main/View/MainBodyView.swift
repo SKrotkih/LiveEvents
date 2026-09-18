@@ -1,9 +1,3 @@
-//
-//  MainBodyView.swift
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh
-//
 import SwiftUI
 
 /// Video list (home screen) or the log-in screen, depending on the sign-in state.

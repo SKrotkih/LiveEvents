@@ -1,11 +1,3 @@
-//
-//  LivePreviewRepresentable.swift
-//  LiveEvents
-//
-//  Bridges the HaishinKit-based `LivePreviewView` (UIKit) into SwiftUI and exposes
-//  imperative controls through a coordinator.
-//
-
 import SwiftUI
 
 struct LivePreviewRepresentable: UIViewRepresentable {

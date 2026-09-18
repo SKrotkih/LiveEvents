@@ -1,8 +1,3 @@
-//
-//  RadioButtonGroup.swift
-//  LiveEvents
-//
-
 import Foundation
 import SwiftUI
 

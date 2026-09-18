@@ -1,10 +1,3 @@
-//
-//  BroadcastsDataFetcherProtocol.swift
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh on 27.10.2020.
-//
-
 import Foundation
 import YTLiveStreaming
 

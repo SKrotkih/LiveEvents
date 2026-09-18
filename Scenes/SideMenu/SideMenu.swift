@@ -1,9 +1,3 @@
-//
-//  SideMenu.swift
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh on 22.11.2022.
-//
 import SwiftUI
 
 /// Side Menu Modifier

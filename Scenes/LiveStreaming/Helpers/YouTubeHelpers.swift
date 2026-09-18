@@ -1,10 +1,3 @@
-//
-//  Thumbnails.swift
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh
-//
-
 import UIKit
 
 struct YouTubeHelpers {

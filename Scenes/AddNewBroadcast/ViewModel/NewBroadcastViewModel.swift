@@ -1,9 +1,3 @@
-//
-//  NewBroadcastViewModel.swift
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh on 11/5/22.
-//
 import Foundation
 import YTLiveStreaming
 

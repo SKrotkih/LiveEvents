@@ -1,9 +1,3 @@
-//  LVError.swift
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh
-//
-
 import Foundation
 
 enum LVError: Error {

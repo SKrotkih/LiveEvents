@@ -1,8 +1,3 @@
-//
-//  LoadingIndicator.swift
-//  LiveEvents
-//
-
 import SwiftUI
 
 struct LoadingIndicator: ViewModifier, Themeable {

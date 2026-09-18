@@ -1,9 +1,3 @@
-//
-//  VideoDetailsView.swift
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh on 23.12.2022.
-//
 import SwiftUI
 import YTLiveStreaming
 

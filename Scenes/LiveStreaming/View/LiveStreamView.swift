@@ -1,13 +1,3 @@
-//
-//  LiveStreamView.swift
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh
-//
-//  Camera screen: publishes to YouTube over RTMP (HaishinKit), shows the broadcast status
-//  from `monitor(broadcastID:)` and the live chat once the broadcast is on air.
-//
-
 import SwiftUI
 import YTLiveStreaming
 

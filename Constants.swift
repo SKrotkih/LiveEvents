@@ -1,8 +1,3 @@
-//
-//  Constants.swift
-//  LiveEvents
-//
-
 import UIKit
 
 struct Constants {

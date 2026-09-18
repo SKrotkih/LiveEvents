@@ -1,11 +1,3 @@
-//
-//  LiveBroadcastListTests.swift
-//  LiveEventsTests
-//
-//  Created by Serhii Krotkykh on 05.05.2021.
-//  Copyright © 2021 Serhii Krotkykh. All rights reserved.
-//
-
 @testable import LiveEvents
 import XCTest
 import YTLiveStreaming

@@ -1,9 +1,3 @@
-//
-//  NavigationBar.swift
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh on 22.11.2022.
-//
 import SwiftUI
 
 /// Customized navigation bar. Used as a modifier for views

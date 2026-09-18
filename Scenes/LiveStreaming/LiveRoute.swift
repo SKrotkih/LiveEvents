@@ -1,10 +1,3 @@
-//
-//  LiveRoute.swift
-//  LiveEvents
-//
-//  Navigation value for the live-streaming screen.
-//
-
 import Foundation
 import YTLiveStreaming
 

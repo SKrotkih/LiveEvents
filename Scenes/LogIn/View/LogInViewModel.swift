@@ -1,9 +1,3 @@
-//
-//  LogInViewModel.swift
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh on 9/18/22.
-//
 import UIKit
 
 @MainActor

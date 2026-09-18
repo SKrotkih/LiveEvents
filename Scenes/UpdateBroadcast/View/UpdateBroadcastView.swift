@@ -1,9 +1,3 @@
-//
-//  UpdateBroadcastView.swift
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh on 25.12.2022.
-//
 import SwiftUI
 
 struct UpdateBroadcastView: View {

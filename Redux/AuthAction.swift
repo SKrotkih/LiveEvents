@@ -1,10 +1,3 @@
-//
-//  AuthAction.swift
-//  LiveEvents
-//
-//  Created by Serhii Krotkykh
-//
-
 import UIKit
 import SwiftGoogleSignIn
 
